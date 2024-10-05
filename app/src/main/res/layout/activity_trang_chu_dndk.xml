@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".TrangChuDNDK">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="80dp"
+        android:layout_marginLeft="45dp">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="45dp"
+            android:src="@drawable/coins"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="NGÂN SÁCH &#10;NHANH CHÓNG"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:textColor="@color/deep_purple"
+            android:textSize="16dp"
+            android:fontFamily="@font/poppins_light"/>
+    </LinearLayout>
+    
+    <ImageView
+        android:layout_width="370dp"
+        android:layout_height="269dp"
+        android:src="@drawable/bg_tv"
+        android:layout_gravity="center"
+        android:layout_marginTop="120dp"/>
+
+    <Button
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:background="@drawable/btn_bg"
+        android:text="ĐĂNG NHẬP"
+        android:textColor="@color/white"
+        android:textSize="16dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="80dp"
+        android:fontFamily="@font/poppins_regular"
+        android:textStyle="bold"/>
+
+    <Button
+        android:layout_width="304dp"
+        android:layout_height="55dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/btn_bg_tc_dk"
+        android:fontFamily="@font/poppins_regular"
+        android:text="ĐĂNG KÝ"
+        android:textColor="@color/deep_bluepurple"
+        android:textSize="16dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Phiên bản 5.0"
+        android:layout_gravity="center"
+        android:textSize="14dp"
+        android:layout_marginTop="100dp"
+        android:textColor="@color/lightgray"
+        android:fontFamily="@font/poppins_regular"/>
+</LinearLayout>
