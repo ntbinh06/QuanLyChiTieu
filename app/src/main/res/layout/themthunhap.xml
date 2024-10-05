@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/themthunhap"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -95,16 +97,177 @@
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:layout_height="70dp"
-        android:layout_marginTop="290dp">
+        android:layout_marginTop="270dp"
+        tools:ignore="ExtraText">
         <ImageButton
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginTop="10dp"
             android:layout_marginStart="30dp"
             android:background="?attr/selectableItemBackground"
-            android:src="@drawable/ic_circle" />
-
-
+            android:src="@drawable/ic_bank"
+            android:contentDescription="@string/img1"/>
+        <Spinner
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginStart="15dp"/>
+            //android:background="@drawable/combobox"
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="70dp"
+        android:layout_marginTop="320dp"
+        tools:ignore="ExtraText">
+        <ImageButton
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="30dp"
+            android:background="?attr/selectableItemBackground"
+            android:src="@drawable/ic_calendar"
+            android:contentDescription="@string/img1"/>
+        <EditText
+            android:id="@+id/edit_day"
+            android:layout_width="230dp"
+            android:layout_height="45dp"
+            android:layout_below="@id/toolbar"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="20dp"
+            android:textSize="18dp"
+            android:hint="Ngày "
+            android:inputType="numberDecimal"
+            android:padding="10dp"/>
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="70dp"
+        android:layout_marginTop="370dp"
+        tools:ignore="ExtraText">
+        <ImageButton
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="30dp"
+            android:background="?attr/selectableItemBackground"
+            android:src="@drawable/ic_person"
+            android:contentDescription="@string/img1"/>
+        <EditText
+            android:id="@+id/edit_tu"
+            android:layout_width="230dp"
+            android:layout_height="45dp"
+            android:layout_below="@id/toolbar"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="20dp"
+            android:textSize="18dp"
+            android:hint="Từ "
+            android:inputType="numberDecimal"
+            android:padding="10dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="70dp"
+        android:layout_marginTop="420dp"
+        tools:ignore="ExtraText">
+        <ImageButton
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="30dp"
+            android:background="?attr/selectableItemBackground"
+            android:src="@drawable/ic_note"
+            android:contentDescription="@string/img1"/>
+        <EditText
+            android:id="@+id/edit_note"
+            android:layout_width="230dp"
+            android:layout_height="45dp"
+            android:layout_below="@id/toolbar"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="20dp"
+            android:textSize="18dp"
+            android:hint="Ghi chú"
+            android:inputType="numberDecimal"
+            android:padding="10dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="70dp"
+        android:layout_marginTop="490dp"
+        tools:ignore="ExtraText">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="45dp"
+            android:text="Đã kiểm tra"
+            android:textSize="18dp"
+            android:layout_marginTop="25dp"/>
+        <androidx.appcompat.widget.SwitchCompat
+            android:layout_width="54dp"
+            android:layout_height="27dp"
+            android:layout_marginStart="165dp"
+            android:layout_marginTop="25dp"
+            android:thumb="@drawable/thumb"
+            app:track="@drawable/track"
+            app:showText="true"
+            android:textOn="on"
+            android:textOff="off"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="70dp"
+        android:layout_marginTop="540dp"
+        tools:ignore="ExtraText">
+        <ImageButton
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="80dp"
+            android:background="?attr/selectableItemBackground"
+            android:src="@drawable/ic_camera"
+            android:contentDescription="@string/img1"/>
+        <ImageButton
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="130dp"
+            android:background="?attr/selectableItemBackground"
+            android:src="@drawable/ic_folder"
+            android:contentDescription="@string/img1"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="70dp"
+        android:layout_marginTop="600dp"
+        tools:ignore="ExtraText">
+        <Button
+            android:layout_width="155dp"
+            android:layout_height="65dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="30dp"
+            android:backgroundTint="@color/green"
+            android:text="Hủy"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            />
+        <Button
+            android:layout_width="155dp"
+            android:layout_height="65dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="50dp"
+            android:backgroundTint="@color/green"
+            android:text="Lưu lại"
+            android:textSize="20dp"
+            android:textStyle="bold"/>
+    </LinearLayout>
 </RelativeLayout>
