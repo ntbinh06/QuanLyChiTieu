@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_login"
+    tools:context=".LoginActicity">
+
+    <LinearLayout
+        android:layout_width="285dp"
+        android:layout_height="350dp"
+        android:layout_marginTop="235dp"
+        android:background="@drawable/bg_dn"
+        android:orientation="vertical"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="25dp"
+            android:fontFamily="@font/poppins_bold"
+            android:text="ĐĂNG NHẬP"
+            android:textColor="@color/deep_bluepurple"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/inputEmail"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:drawableLeft="@drawable/baseline_email_24"
+            android:drawablePadding="8dp"
+            android:fontFamily="@font/poppins_regular"
+            android:hint="Email"
+            android:inputType="text"
+            android:textColorHint="@color/lightgray"
+            android:textSize="10sp"
+            android:padding="16dp"/>
+
+        <EditText
+            android:id="@+id/inputPassword"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:drawableLeft="@drawable/baseline_lock_24"
+            android:drawablePadding="8dp"
+            android:fontFamily="@font/poppins_regular"
+            android:hint="Mật khẩu"
+            android:inputType="textPassword"
+            android:textColorHint="@color/lightgray"
+            android:textSize="10sp"
+            android:padding="16dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginTop="13dp"
+            android:paddingRight="25dp"
+            android:text="Quên mật khẩu? "
+            android:textColor="@color/deep_bluepurple"
+            android:textSize="10sp" />
+
+        <Button
+            android:layout_width="240dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/btn_bg"
+            android:fontFamily="@font/poppins_bold"
+            android:text="Đăng nhập"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="Bạn chưa có tài khoản?"
+                android:textColor="@color/deep_bluepurple"
+                android:textSize="8sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="Đăng ký"
+                android:textColor="@color/deep_violet_lue"
+                android:textSize="8sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

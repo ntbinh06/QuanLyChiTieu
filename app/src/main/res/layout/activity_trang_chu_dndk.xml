@@ -13,63 +13,69 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="80dp"
-        android:layout_marginLeft="45dp">
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="30dp">
 
         <ImageView
             android:layout_width="40dp"
             android:layout_height="45dp"
-            android:src="@drawable/coins"/>
+            android:src="@drawable/coins"
+            android:contentDescription="Biểu tượng ngân sách" />  <!-- Mô tả hình ảnh -->
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="NGÂN SÁCH &#10;NHANH CHÓNG"
             android:layout_gravity="center"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="10dp"
             android:textColor="@color/deep_purple"
-            android:textSize="16dp"
-            android:fontFamily="@font/poppins_light"/>
+            android:textSize="8sp"
+            android:fontFamily="@font/poppins_light"
+            android:contentDescription="Nội dung ngân sách nhanh chóng" />
     </LinearLayout>
-    
+
     <ImageView
-        android:layout_width="370dp"
-        android:layout_height="269dp"
+        android:layout_width="300dp"
+        android:layout_height="250dp"
         android:src="@drawable/bg_tv"
         android:layout_gravity="center"
-        android:layout_marginTop="120dp"/>
+        android:layout_marginTop="50dp"
+        android:contentDescription="Hình nền TV" />
 
     <Button
-        android:layout_width="300dp"
-        android:layout_height="50dp"
+        android:layout_width="240dp"
+        android:layout_height="40dp"
         android:background="@drawable/btn_bg"
         android:text="ĐĂNG NHẬP"
         android:textColor="@color/white"
-        android:textSize="16dp"
+        android:textSize="10sp"
         android:layout_gravity="center"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="20dp"
         android:fontFamily="@font/poppins_regular"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:contentDescription="Nút đăng nhập" />
 
     <Button
-        android:layout_width="304dp"
-        android:layout_height="55dp"
+        android:layout_width="240dp"
+        android:layout_height="40dp"
         android:layout_gravity="center"
         android:layout_marginTop="15dp"
         android:background="@drawable/btn_bg_tc_dk"
         android:fontFamily="@font/poppins_regular"
         android:text="ĐĂNG KÝ"
         android:textColor="@color/deep_bluepurple"
-        android:textSize="16dp"
-        android:textStyle="bold" />
+        android:textSize="10sp"
+        android:textStyle="bold"
+        android:contentDescription="Nút đăng ký" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Phiên bản 5.0"
         android:layout_gravity="center"
-        android:textSize="14dp"
-        android:layout_marginTop="100dp"
+        android:textSize="10sp"
+        android:layout_marginTop="70dp"
         android:textColor="@color/lightgray"
-        android:fontFamily="@font/poppins_regular"/>
+        android:fontFamily="@font/poppins_regular"
+        android:contentDescription="Nội dung phiên bản" />
 </LinearLayout>
