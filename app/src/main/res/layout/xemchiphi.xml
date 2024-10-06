@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/xemchhiphi"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="125dp"
+        android:background="@drawable/toolbar"
+        android:backgroundTint="@color/red"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:background="?attr/selectableItemBackground"
+                android:src="@drawable/ic_back" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="25dp"
+                android:text="CÁC CHI PHÍ"
+                android:textColor="@android:color/white"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+    <TableLayout
+            android:layout_width="370dp"
+            android:layout_height="400dp"
+            android:layout_marginTop="140dp"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/frame"
+            android:backgroundTint="@color/lightred">
+
+        <TableRow>
+            <ImageButton
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="40dp"
+                android:background="?attr/selectableItemBackground"
+                android:src="@drawable/ic_circle" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="Đồ ăn/đồ uống"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:layout_marginTop="40dp"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="45dp"
+                android:text="Giá trị : "
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:layout_marginTop="30dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:text="100.000 đ"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:layout_marginTop="30dp"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="45dp"
+                android:text="Tài khoản : "
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:layout_marginTop="30dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:text="Ví"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:layout_marginTop="30dp"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="45dp"
+                android:text="Ngày :"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:layout_marginTop="30dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:text="29/03/2024"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:layout_marginTop="30dp"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="45dp"
+                android:text="Từ :"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:layout_marginTop="30dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:text="_"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:layout_marginTop="30dp"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="45dp"
+                android:text="Ghi chú :"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:layout_marginTop="30dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:text="_"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:layout_marginTop="30dp"/>
+        </TableRow>
+    </TableLayout>
+
+    <Button
+        android:layout_width="370dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="560dp"
+        android:layout_marginStart="20dp"
+        android:backgroundTint="@color/pink"
+        android:background="@drawable/button"
+        android:textColor="@color/white"
+        android:text="Sửa chi phí"
+        android:textSize="20dp"
+        android:textStyle="bold"/>
+
+    <Button
+        android:layout_width="370dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="630dp"
+        android:layout_marginStart="20dp"
+        android:backgroundTint="@color/pink"
+        android:background="@drawable/button"
+        android:textColor="@color/red"
+        android:text="Xóa chi phí"
+        android:textSize="20dp"
+        android:textStyle="bold"/>
+</RelativeLayout>

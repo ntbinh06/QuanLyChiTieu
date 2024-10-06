@@ -2,16 +2,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/themthunhap"
+    android:id="@+id/themchiphi"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ThemThuNhapActivity">
+    android:layout_height="match_parent">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="125dp"
-        android:background="@drawable/toolbar_chiphi"
+        android:background="@drawable/toolbar"
+        android:backgroundTint="@color/red"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
@@ -30,12 +30,12 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="THU NHẬP MỚI"
+                android:layout_height="match_parent"
+                android:layout_marginStart="25dp"
+                android:text="CHI PHÍ MỚI"
                 android:textColor="@android:color/white"
                 android:textSize="24sp"
-                android:layout_marginStart="25dp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
         </LinearLayout>
 
     </androidx.appcompat.widget.Toolbar>
@@ -100,10 +100,10 @@
         android:layout_height="70dp"
         android:layout_marginTop="270dp"
         tools:ignore="ExtraText">
-        <ImageButton
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="10dp"
+        <ImageView
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_marginTop="20dp"
             android:layout_marginStart="30dp"
             android:background="?attr/selectableItemBackground"
             android:src="@drawable/ic_bank"
@@ -121,10 +121,10 @@
         android:layout_height="70dp"
         android:layout_marginTop="320dp"
         tools:ignore="ExtraText">
-        <ImageButton
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="10dp"
+        <ImageView
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_marginTop="20dp"
             android:layout_marginStart="30dp"
             android:background="?attr/selectableItemBackground"
             android:src="@drawable/ic_calendar"
@@ -148,10 +148,10 @@
         android:layout_height="70dp"
         android:layout_marginTop="370dp"
         tools:ignore="ExtraText">
-        <ImageButton
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="10dp"
+        <ImageView
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_marginTop="20dp"
             android:layout_marginStart="30dp"
             android:background="?attr/selectableItemBackground"
             android:src="@drawable/ic_person"
@@ -175,10 +175,10 @@
         android:layout_height="70dp"
         android:layout_marginTop="420dp"
         tools:ignore="ExtraText">
-        <ImageButton
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="10dp"
+        <ImageView
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_marginTop="20dp"
             android:layout_marginStart="30dp"
             android:background="?attr/selectableItemBackground"
             android:src="@drawable/ic_note"
@@ -211,14 +211,11 @@
             android:layout_marginTop="25dp"/>
         <androidx.appcompat.widget.SwitchCompat
             android:layout_width="54dp"
-            android:layout_height="27dp"
+            android:layout_height="10dp"
             android:layout_marginStart="165dp"
             android:layout_marginTop="25dp"
             android:thumb="@drawable/thumb"
-            app:track="@drawable/track"
-            app:showText="true"
-            android:textOn="on"
-            android:textOff="off"/>
+            app:track="@drawable/track"/>
     </LinearLayout>
 
     <LinearLayout
@@ -230,7 +227,7 @@
         <ImageButton
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:layout_marginStart="80dp"
             android:background="?attr/selectableItemBackground"
             android:src="@drawable/ic_camera"
@@ -238,7 +235,7 @@
         <ImageButton
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:layout_marginStart="130dp"
             android:background="?attr/selectableItemBackground"
             android:src="@drawable/ic_folder"
@@ -248,15 +245,17 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="horizontal"
-        android:layout_height="70dp"
+        android:layout_height="140dp"
         android:layout_marginTop="600dp"
         tools:ignore="ExtraText">
         <Button
             android:layout_width="155dp"
             android:layout_height="65dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="40dp"
             android:layout_marginStart="30dp"
-            android:backgroundTint="@color/green"
+            android:backgroundTint="@color/red"
+            android:background="@drawable/button"
+            android:textColor="@color/white"
             android:text="Hủy"
             android:textSize="20dp"
             android:textStyle="bold"
@@ -264,9 +263,11 @@
         <Button
             android:layout_width="155dp"
             android:layout_height="65dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="50dp"
-            android:backgroundTint="@color/green"
+            android:layout_marginTop="40dp"
+            android:layout_marginStart="30dp"
+            android:backgroundTint="@color/red"
+            android:background="@drawable/button"
+            android:textColor="@color/white"
             android:text="Lưu lại"
             android:textSize="20dp"
             android:textStyle="bold"/>
