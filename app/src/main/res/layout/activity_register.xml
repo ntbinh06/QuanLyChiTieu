@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_login"
-    tools:context=".LoginActicity">
+    tools:context=".RegisterActivity">
 
     <LinearLayout
         android:layout_width="320dp"
-        android:layout_height="390dp"
+        android:layout_height="400dp"
         android:layout_marginTop="270dp"
         android:layout_centerHorizontal="true"
         android:background="@drawable/bg_dn"
@@ -21,17 +21,31 @@
             android:layout_marginLeft="25dp"
             android:layout_marginTop="25dp"
             android:fontFamily="@font/poppins_bold"
-            android:text="ĐĂNG NHẬP"
+            android:text="ĐĂNG KÝ"
             android:textColor="@color/deep_bluepurple"
             android:textSize="20sp"
             android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/inputName"
+            android:layout_width="290dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:drawableLeft="@drawable/baseline_account_circle_24"
+            android:drawablePadding="5dp"
+            android:fontFamily="@font/poppins_regular"
+            android:hint="Họ và tên"
+            android:inputType="text"
+            android:textColorHint="@color/lightgray"
+            android:textSize="12sp"
+            android:padding="16dp"/>
 
         <EditText
             android:id="@+id/inputEmail"
             android:layout_width="290dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
             android:drawableLeft="@drawable/baseline_email_24"
             android:drawablePadding="5dp"
             android:fontFamily="@font/poppins_regular"
@@ -46,7 +60,6 @@
             android:layout_width="290dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="7dp"
             android:drawableLeft="@drawable/baseline_lock_24"
             android:drawablePadding="5dp"
             android:fontFamily="@font/poppins_regular"
@@ -56,24 +69,15 @@
             android:textSize="12sp"
             android:padding="16dp"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginTop="13dp"
-            android:paddingRight="25dp"
-            android:text="Quên mật khẩu? "
-            android:textColor="@color/deep_bluepurple"
-            android:textSize="12sp" />
 
         <Button
             android:layout_width="260dp"
             android:layout_height="48dp"
             android:layout_gravity="center"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="35dp"
             android:background="@drawable/btn_bg"
             android:fontFamily="@font/poppins_bold"
-            android:text="Đăng nhập"
+            android:text="Đăng ký"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="12sp" />
@@ -89,7 +93,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
                 android:fontFamily="@font/poppins_bold"
-                android:text="Bạn chưa có tài khoản?"
+                android:text="Bạn đã có tài khoản?"
                 android:textColor="@color/deep_bluepurple"
                 android:textSize="12sp" />
 
@@ -99,7 +103,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="40dp"
                 android:fontFamily="@font/poppins_bold"
-                android:text="Đăng ký"
+                android:text="Đăng nhập"
                 android:textColor="@color/deep_violet_lue"
                 android:textSize="12sp" />
         </LinearLayout>
