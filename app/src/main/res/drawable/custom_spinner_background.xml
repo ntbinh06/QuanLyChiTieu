@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Màu nền cho Spinner -->
+    <solid android:color="#5A7992" /> <!-- Màu xanh giống như hình của bạn -->
+
+    <!-- Định nghĩa góc bo tròn -->
+    <corners android:radius="20dp" />
+
+    <!-- Padding bên trong Spinner -->
+    <padding
+        android:left="16dp"
+        android:top="10dp"
+        android:right="16dp"
+        android:bottom="10dp" />
+</shape>
