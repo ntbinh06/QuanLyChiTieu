@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ChuyenTien"
+    >
+
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="28dp"
+        android:background="?attr/selectableItemBackground"
+        android:contentDescription="@string/img1"
+        android:src="@drawable/icon_camera"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/check_GDDT" />
+
+    <ImageButton
+        android:id="@+id/imageButton3"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="88dp"
+        android:background="?attr/selectableItemBackground"
+        android:contentDescription="@string/img1"
+        android:src="@drawable/baseline_folder_24"
+        app:layout_constraintBottom_toBottomOf="@+id/imageButton2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageButton2"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switchCompat"
+        android:layout_width="54dp"
+        android:layout_height="10dp"
+        android:layout_marginStart="212dp"
+        android:thumb="@drawable/thumb"
+        app:layout_constraintBottom_toBottomOf="@+id/textView6"
+        app:layout_constraintStart_toEndOf="@+id/textView6"
+        app:layout_constraintTop_toTopOf="@+id/textView6"
+        app:track="@drawable/track" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="125dp"
+        android:background="@drawable/toolbar"
+        android:backgroundTint="#1C4B82"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+    <TextView
+        android:id="@+id/toolbar_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="25dp"
+        android:fontFamily="@font/jaldi_bold"
+        android:gravity="center"
+        android:text="CHUYỂN TIỀN"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
+        app:layout_constraintStart_toEndOf="@+id/imageButton"
+        app:layout_constraintTop_toTopOf="@+id/toolbar" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:background="?attr/selectableItemBackground"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/toolbar"
+        app:srcCompat="@drawable/ic_back" />
+
+    <EditText
+        android:id="@+id/inPut_monney"
+        android:layout_width="227dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="#000000"
+        android:ems="10"
+        android:fontFamily="@font/jaldi"
+        android:foregroundTint="#000000"
+        android:hint="Chuyển (giá trị)"
+        android:inputType="numberDecimal"
+        android:textColorHint="#5A5252"
+        android:textSize="18dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="50dp"
+        android:fontFamily="@font/jaldi"
+        android:text="Đến:"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/TextView1" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="50dp"
+        android:fontFamily="@font/jaldi"
+        android:text="Ngày:"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <EditText
+        android:id="@+id/inPut_note"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="50dp"
+        android:ems="10"
+        android:fontFamily="@font/jaldi"
+        android:hint="Ghi chú (không bắt buộc)"
+        android:inputType="text"
+        android:textColorHint="#5A5252"
+        android:textSize="18dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/jaldi"
+        android:text="Đã kiểm tra"
+        android:textColor="#000000"
+        android:textSize="18dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inPut_note" />
+
+    <CheckBox
+        android:id="@+id/check_GDDT"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/jaldi"
+        android:text="Giao dịch dự tính"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageButton2"
+        app:layout_constraintVertical_bias="0.538">
+
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="140dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="50dp"
+            android:background="@drawable/button"
+            android:backgroundTint="#1C4B82"
+            android:fontFamily="@font/jaldi_bold"
+            android:text="Hủy"
+            android:textColor="@color/white"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/btn_save"
+            android:layout_width="140dp"
+            android:layout_height="50dp"
+            android:background="@drawable/button"
+            android:backgroundTint="#1C4B82"
+            android:fontFamily="@font/jaldi_bold"
+            android:text="Lưu"
+            android:textColor="@color/white"
+            android:textSize="20dp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/TextView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="25dp"
+        android:background="#FFFFFF"
+        android:fontFamily="@font/jaldi"
+        android:text="Từ:"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inPut_monney" />
+
+    <LinearLayout
+        android:id="@+id/spinner_bankfr"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/custom_spinner_background"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.577"
+        app:layout_constraintStart_toEndOf="@+id/TextView1"
+        app:layout_constraintTop_toBottomOf="@+id/inPut_monney"
+        app:layout_constraintVertical_bias="0.01999998">
+
+        <Spinner
+            android:id="@+id/spin_bank_from"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:padding="10dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/spinner_bankto"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/custom_spinner_background"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.55"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/spinner_bankfr"
+        app:layout_constraintVertical_bias="0.01999998">
+
+        <Spinner
+            android:id="@+id/spin_bank_to"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:padding="10dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/Day"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/custom_spinner_background"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.516"
+        app:layout_constraintStart_toEndOf="@+id/textView5"
+        app:layout_constraintTop_toBottomOf="@+id/spinner_bankto"
+        app:layout_constraintVertical_bias="0.026" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="22/02/2024"
+            android:textColor="#FFFFFF"
+            android:textSize="18dp"
+            android:layout_marginLeft="18dp"/>
+        <ImageView
+            android:id="@+id/button_calendar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_calendar"
+            android:layout_marginLeft="98dp" />
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
