@@ -44,11 +44,11 @@
         app:layout_constraintTop_toTopOf="@+id/textView6"
         app:track="@drawable/track" />
 
-    <androidx.appcompat.widget.Toolbar
+    <FrameLayout
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="125dp"
-        android:background="@drawable/toolbar"
+        android:background="@drawable/header"
         android:backgroundTint="#1C4B82"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:layout_constraintEnd_toEndOf="parent"

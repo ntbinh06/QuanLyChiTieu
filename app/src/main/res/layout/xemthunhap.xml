@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+    <LinearLayout
+        android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="125dp"
-        android:background="@drawable/toolbar"
+        android:background="@drawable/header"
         android:backgroundTint="@color/deep_bluepurple"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
@@ -18,6 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:layout_marginTop="40dp"
             android:gravity="center_vertical">
 
             <ImageButton
@@ -37,7 +38,7 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
-    </androidx.appcompat.widget.Toolbar>
+    </LinearLayout>
     <TableLayout
         android:layout_width="370dp"
         android:layout_height="400dp"
