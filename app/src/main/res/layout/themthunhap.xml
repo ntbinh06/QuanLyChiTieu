@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="125dp"
         android:background="@drawable/toolbar"
-        android:backgroundTint="@color/green"
+        android:backgroundTint="@color/deep_bluepurple"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 

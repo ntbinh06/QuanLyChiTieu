@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="125dp"
         android:background="@drawable/toolbar"
-        android:backgroundTint="@color/green"
+        android:backgroundTint="@color/deep_bluepurple"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
@@ -29,7 +29,7 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
                 android:text="CÁC THU NHẬP"
                 android:textColor="@android:color/white"
@@ -157,10 +157,10 @@
     </TableLayout>
 
     <Button
-        android:layout_width="370dp"
+        android:layout_width="297dp"
         android:layout_height="56dp"
         android:layout_marginTop="560dp"
-        android:layout_marginStart="20dp"
+        android:layout_centerHorizontal="true"
         android:backgroundTint="@color/lgreen"
         android:background="@drawable/button"
         android:textColor="@color/white"
@@ -169,13 +169,13 @@
         android:textStyle="bold"/>
 
     <Button
-        android:layout_width="370dp"
+        android:layout_width="297dp"
         android:layout_height="56dp"
         android:layout_marginTop="630dp"
-        android:layout_marginStart="20dp"
+        android:layout_centerHorizontal="true"
         android:backgroundTint="@color/lgreen"
         android:background="@drawable/button"
-        android:textColor="@color/red"
+        android:textColor="@color/white"
         android:text="Xóa thu nhập"
         android:textSize="20dp"
         android:textStyle="bold"/>
