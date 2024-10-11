@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout   xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/main">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:orientation="horizontal"
+        android:background="@drawable/header"
+        android:backgroundTint="@color/deep_bluepurple">
+
+        <ImageView
+            android:id="@+id/arrow_ttnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/arrow_back"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="43dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thông tin cá nhân"
+            android:textSize="24sp"
+            android:fontFamily="@font/inter_18pt_edium"
+            android:textColor="@color/white"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="36dp"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center">
+        <ImageView
+            android:id="@+id/profile_image"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/user_woman_female_person_icon"
+            android:layout_centerInParent="true"
+            android:scaleType="centerCrop"
+            android:background="@drawable/circle_shape"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Camera Icon -->
+        <ImageView
+            android:id="@+id/camera_icon"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignBottom="@id/profile_image"
+            android:layout_alignEnd="@id/profile_image"
+            android:src="@drawable/baseline_camera_alt_24"
+            android:background="@drawable/cirlce_bg"
+            android:padding="4dp"/>
+    </RelativeLayout>
+    
+    <EditText
+        android:id="@+id/ttcn_name"
+        android:layout_width="350dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:drawableLeft="@drawable/baseline_account_circle_24"
+        android:text="Nguyễn Như Ngọc"
+        android:textSize="18sp"
+        android:drawablePadding="15dp"/>
+
+    <EditText
+        android:id="@+id/ttcn_date"
+        android:layout_width="350dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:drawableLeft="@drawable/ic_calendar"
+        android:drawableTint="@color/deep_bluepurple"
+        android:text="16/09/2000"
+        android:textSize="18sp"
+        android:drawablePadding="15dp"/>
+
+    <EditText
+        android:id="@+id/ttcn_phone"
+        android:layout_width="350dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:drawableLeft="@drawable/baseline_phone_24"
+        android:text="0766539130"
+        android:textSize="18sp"
+        android:drawablePadding="15dp"/>
+
+    <EditText
+        android:id="@+id/ttcn_email"
+        android:layout_width="350dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:drawableLeft="@drawable/baseline_email_24"
+        android:text="ntb@gmail.com"
+        android:textSize="18sp"
+        android:drawablePadding="15dp"/>
+
+    <Button
+        android:id="@+id/btn_save"
+        android:layout_width="300dp"
+        android:layout_height="48dp"
+        android:text="Lưu"
+        android:textSize="18sp"
+        android:textAllCaps="false"
+        android:fontFamily="@font/inter_18pt_edium"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/deep_bluepurple"
+        android:background="@drawable/round_corner_20"
+        android:layout_gravity="center"
+        android:layout_marginTop="84dp"/>
+</LinearLayout>

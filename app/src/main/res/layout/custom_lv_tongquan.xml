@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="350dp"
+    android:layout_height="90dp"
+    android:orientation="horizontal"
+    android:id="@+id/lv_giaodich_tq"
+    android:paddingTop="16dp"
+    android:layout_marginTop="25dp"
+    android:layout_marginLeft="30dp">
+
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/shopping_cart"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="15dp"
+        android:layout_gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mua sắm"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/inter_18pt_regular"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ví"
+            android:textSize="15sp"
+            android:textColor="@color/black_50"
+            android:fontFamily="@font/inter_18pt_regular"
+            android:layout_marginTop="10dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="end"
+        android:layout_marginTop="3dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2.000.000 đ"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/inter_18pt_bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10/10/2024"
+            android:textSize="15sp"
+            android:textColor="@color/black_50"
+            android:fontFamily="@font/inter_18pt_regular"
+            android:layout_marginTop="10dp"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="5dp"
+        android:layout_height="50dp"
+        android:background="@drawable/bogoc_20_red"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="6dp"/>
+</LinearLayout>

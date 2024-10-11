@@ -16,4 +16,15 @@
     <color name="lightred">#f0dfdd</color>
     <color name="pink">#EC8282</color>
     <color name="lgreen">#51CB5F</color>
+    <color name="lightgray_2">#B9AFAF</color>
+    <color name="dark_purple">#270F8D </color>
+    <color name="light_bluepurple">#1A5034C4</color>
+    <color name="deep_blue">#3C11EB</color>
+    <color name="bluepurple_80">#CC5034C4</color>
+    <color name="dark_blue_80">#CC2E0CB9</color>
+    <color name="bright_red">#FF2323</color>
+    <color name="silver">#C0C0C0 </color>
+    <color name="black_50">#80000000</color>
+    <color name="dark_purple_3">#2E2068</color>
+    <color name="gray_nd">#1A888787</color>
 </resources>
