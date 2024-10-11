@@ -13,6 +13,12 @@
         android:theme="@style/Theme.QuanLyChiTieu"
         tools:targetApi="31">
         <activity
+            android:name=".CacTaiKhoan"
+            android:exported="false" />
+        <activity
+            android:name=".CacGiaoDich"
+            android:exported="false" />
+        <activity
             android:name=".ChuyenTien"
             android:exported="false" />
         <activity
@@ -29,13 +35,13 @@
             android:exported="false" />
         <activity
             android:name=".LoginActicity"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".TrangChuDNDK"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
 
         <meta-data
             android:name="preloaded_fonts"
