@@ -13,6 +13,9 @@
         android:theme="@style/Theme.QuanLyChiTieu"
         tools:targetApi="31">
         <activity
+            android:name=".Controller.TrangChuAdmin"
+            android:exported="false" />
+        <activity
             android:name=".Controller.ChiTietNganSach"
             android:exported="false" />
         <activity
@@ -26,7 +29,7 @@
         </activity>
         <activity
             android:name=".Controller.CacGiaoDich"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".Controller.ChuyenTien"
             android:exported="false" />
