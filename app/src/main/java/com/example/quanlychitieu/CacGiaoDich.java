@@ -21,7 +21,6 @@ public class CacGiaoDich extends AppCompatActivity {
     ArrayList<DanhMucGiaoDich> mylist;
     MyArrayAdapter myadapter;
     ListView lv;
-    //hihi
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

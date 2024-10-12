@@ -1,7 +1,6 @@
 package com.example.quanlychitieu;
 
 import android.app.Activity;
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +25,6 @@ public class MyArrayAdapter extends ArrayAdapter<DanhMucGiaoDich> {
         this.idLayout = idLayout;
         this.myList = myList;
     }
-    //hihi
 
     //gọi hàm getView-> tiến hành sắp xếp dữ liệu
     @NonNull
