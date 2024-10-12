@@ -29,7 +29,7 @@
             android:gravity="center"
             android:text="Thông tin người dùng"
             android:textColor="@android:color/white"
-            android:textSize="24sp" />
+            android:textSize="30sp" />
 
         <ImageButton
             android:id="@+id/btnBack"
@@ -89,7 +89,7 @@
                 android:layout_weight="1"
                 android:text="Nguyễn Như Ngọc"
                 android:textColor="@android:color/black"
-                android:textSize="16sp" />
+                android:textSize="19sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -106,7 +106,7 @@
                 android:layout_height="24dp"
                 android:layout_marginEnd="12dp"
                 android:contentDescription="Icon Ngày sinh"
-                android:src="@drawable/ic_calendar" />
+                android:src="@drawable/calendar_admin" />
 
             <TextView
                 android:id="@+id/tvBirthdate"
@@ -115,7 +115,7 @@
                 android:layout_weight="1"
                 android:text="16/09/2000"
                 android:textColor="@android:color/black"
-                android:textSize="16sp" />
+                android:textSize="19sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -132,7 +132,7 @@
                 android:layout_height="24dp"
                 android:layout_marginEnd="12dp"
                 android:contentDescription="Icon Điện thoại"
-                android:src="@drawable/ic_phone" />
+                android:src="@drawable/phone_admin" />
 
             <TextView
                 android:id="@+id/tvPhone"
@@ -141,7 +141,7 @@
                 android:layout_weight="1"
                 android:text="0766539130"
                 android:textColor="@android:color/black"
-                android:textSize="16sp" />
+                android:textSize="19sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -158,7 +158,7 @@
                 android:layout_height="24dp"
                 android:layout_marginEnd="12dp"
                 android:contentDescription="Icon Email"
-                android:src="@drawable/ic_email" />
+                android:src="@drawable/email_admin" />
 
             <TextView
                 android:id="@+id/tvEmail"
@@ -167,7 +167,7 @@
                 android:layout_weight="1"
                 android:text="ntb@gmail.com"
                 android:textColor="@android:color/black"
-                android:textSize="16sp" />
+                android:textSize="19sp" />
         </LinearLayout>
     </LinearLayout>
 
