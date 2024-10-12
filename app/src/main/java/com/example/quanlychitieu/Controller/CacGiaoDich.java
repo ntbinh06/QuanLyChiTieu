@@ -1,4 +1,4 @@
-package com.example.quanlychitieu;
+package com.example.quanlychitieu.Controller;
 
 import android.os.Bundle;
 import android.widget.ListView;
@@ -8,6 +8,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.example.quanlychitieu.Model.DanhMucGiaoDich;
+import com.example.quanlychitieu.R;
+import com.example.quanlychitieu.View.View_ItemGiaoDich;
 
 import java.util.ArrayList;
 
@@ -19,7 +23,7 @@ public class CacGiaoDich extends AppCompatActivity {
     String ngay[]={"22/02/2024","16/02/2024","01/01/2024"};
 
     ArrayList<DanhMucGiaoDich> mylist;
-    MyArrayAdapter myadapter;
+    View_ItemGiaoDich myadapter;
     ListView lv;
 
     @Override
@@ -33,7 +37,7 @@ public class CacGiaoDich extends AppCompatActivity {
             int index = i % tenTK.length;
             mylist.add(new DanhMucGiaoDich(image[i], tenGD[i], tenTK[index], tien[index], ngay[index]));
         }
-        myadapter = new MyArrayAdapter(CacGiaoDich.this,R.layout.list_item_cacdd,mylist);
+        myadapter = new View_ItemGiaoDich(CacGiaoDich.this,R.layout.list_item_cacdd,mylist);
         lv.setAdapter(myadapter);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());

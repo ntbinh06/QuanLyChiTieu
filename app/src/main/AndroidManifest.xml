@@ -13,10 +13,10 @@
         android:theme="@style/Theme.QuanLyChiTieu"
         tools:targetApi="31">
         <activity
-            android:name=".CacTaiKhoan"
+            android:name=".Controller.CacTaiKhoan"
             android:exported="false" />
         <activity
-            android:name=".CacGiaoDich"
+            android:name=".Controller.CacGiaoDich"
             android:exported="true"
             >
             <intent-filter>

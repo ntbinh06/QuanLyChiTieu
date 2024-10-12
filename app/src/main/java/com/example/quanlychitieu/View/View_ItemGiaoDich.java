@@ -1,4 +1,4 @@
-package com.example.quanlychitieu;
+package com.example.quanlychitieu.View;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -11,15 +11,18 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.quanlychitieu.Model.DanhMucGiaoDich;
+import com.example.quanlychitieu.R;
+
 import java.util.ArrayList;
 
-public class MyArrayAdapter extends ArrayAdapter<DanhMucGiaoDich> {
+public class View_ItemGiaoDich extends ArrayAdapter<DanhMucGiaoDich> {
     Activity context;
     int idLayout;
     ArrayList<DanhMucGiaoDich> myList;
 
     //tạo constructor để layout gọi đến
-    public MyArrayAdapter(Activity context, int idLayout, ArrayList<DanhMucGiaoDich> myList) {
+    public View_ItemGiaoDich(Activity context, int idLayout, ArrayList<DanhMucGiaoDich> myList) {
         super(context, idLayout,myList);
         this.context = context;
         this.idLayout = idLayout;

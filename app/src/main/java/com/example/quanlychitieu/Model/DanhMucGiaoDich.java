@@ -1,6 +1,4 @@
-package com.example.quanlychitieu;
-
-import java.util.Calendar;
+package com.example.quanlychitieu.Model;
 
 public class DanhMucGiaoDich {
     private int image;
