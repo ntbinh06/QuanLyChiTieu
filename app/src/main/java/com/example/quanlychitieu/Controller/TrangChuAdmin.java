@@ -24,6 +24,7 @@ public class TrangChuAdmin extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_trang_chu_admin);
 
+        ln=findViewById(R.id.cardOverview);
         //set sự kiện click vào tong quan
         ln.setOnClickListener(new View.OnClickListener() {
             @Override

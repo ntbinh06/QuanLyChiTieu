@@ -65,7 +65,7 @@ public class ThemTaiKhoan extends Fragment {
     private void replaceFragment(Fragment fragment) {
         FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragmentContainer, fragment);
-        transaction.addToBackStack(null);  // Cho phép quay lại màn hình trước đó
+        transaction.addToBackStack(null);
         transaction.commit();
     }
 }
