@@ -13,37 +13,42 @@
         android:theme="@style/Theme.QuanLyChiTieu"
         tools:targetApi="31">
         <activity
-            android:name=".Controller.CacTaiKhoan"
+            android:name=".Controller.NganSachMoi"
             android:exported="false" />
         <activity
-            android:name=".Controller.CacGiaoDich"
-            android:exported="true"
-            >
+            android:name=".Controller.CacTaiKhoan"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".ChuyenTien"
+            android:name=".Controller.CacGiaoDich"
+            android:exported="false"></activity>
+        <activity
+            android:name=".Controller.ChuyenTien"
             android:exported="false" />
         <activity
-            android:name=".RegisterActivity"
+            android:name=".Controller.RegisterActivity"
             android:exported="false">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity
-            android:name=".ThemThuNhapActivity"
+            android:name=".Controller.ThemThuNhapActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActicity"
+            android:name=".Controller.LoginActicity"
             android:exported="false" />
         <activity
-            android:name=".TrangChuDNDK"
+            android:name=".Controller.TrangChuDNDK"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
