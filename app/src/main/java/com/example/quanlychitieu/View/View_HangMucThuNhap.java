@@ -14,34 +14,32 @@ import com.example.quanlychitieu.R;
 
 import java.util.ArrayList;
 
-public class View_HangMucChiPhi extends AppCompatActivity {
+public class View_HangMucThuNhap extends AppCompatActivity {
     private ListView lvContact;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.hangmucchiphi);
+        setContentView(R.layout.hangmucthunhap);
 
         // Khởi tạo ListView
-        lvContact = findViewById(R.id.listView_chiphi);
+        lvContact = findViewById(R.id.listView_thunhap);
 
         // Tạo danh sách chi phí
         ArrayList<Model_HangMucChiPhi> arrContact = new ArrayList<>();
-        arrContact.add(new Model_HangMucChiPhi(R.drawable.baseline_account_circle_24, "Đồ ăn/ Đồ uống"));
-        arrContact.add(new Model_HangMucChiPhi(R.drawable.baseline_account_circle_24, "Mua sắm"));
-        arrContact.add(new Model_HangMucChiPhi(R.drawable.baseline_account_circle_24, "Vận chuyển"));
-        arrContact.add(new Model_HangMucChiPhi(R.drawable.baseline_account_circle_24, "Giải trí"));
-        arrContact.add(new Model_HangMucChiPhi(R.drawable.baseline_account_circle_24, "Nhà cửa"));
-        arrContact.add(new Model_HangMucChiPhi(R.drawable.baseline_account_circle_24, "Gia đình"));
-        arrContact.add(new Model_HangMucChiPhi(R.drawable.baseline_account_circle_24, "Sức khỏe"));
+        arrContact.add(new Model_HangMucChiPhi(R.drawable.baseline_account_circle_24, "Thu nhập tài chính"));
+        arrContact.add(new Model_HangMucChiPhi(R.drawable.baseline_account_circle_24, "Lương"));
+        arrContact.add(new Model_HangMucChiPhi(R.drawable.baseline_account_circle_24, "Tiền từ việc vặt"));
+        arrContact.add(new Model_HangMucChiPhi(R.drawable.baseline_account_circle_24, "Tiền trợ cấp"));
+        arrContact.add(new Model_HangMucChiPhi(R.drawable.baseline_account_circle_24, "Tiền tiết kiệm"));
 
         // Khởi tạo adapter và gán cho ListView
         Ctrl_HangMucChiPhi customAdapter = new Ctrl_HangMucChiPhi(this, R.layout.list_item, arrContact);
         lvContact.setAdapter(customAdapter);
 
         // Thiết lập padding cho view chính
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.hangmuchiphi), (v, insets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.hangmucthunhap), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
