@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string-array name="list_taikhoan" >
-        <item>Tài khoản ngân hàng</item>
-        <item>Ví</item>
-        <item>Trả trước</item>
-    </string-array>
-</resources>
