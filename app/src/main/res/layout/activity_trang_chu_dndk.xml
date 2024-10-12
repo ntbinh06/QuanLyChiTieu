@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".TrangChuDNDK"
+    tools:context=".Controller.TrangChuDNDK"
     android:scaleX="1"
     android:scaleY="1">
 

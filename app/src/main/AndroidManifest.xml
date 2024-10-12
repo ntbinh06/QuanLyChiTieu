@@ -13,10 +13,10 @@
         android:theme="@style/Theme.QuanLyChiTieu"
         tools:targetApi="31">
         <activity
-            android:name=".ChuyenTien"
+            android:name=".Controller.ChuyenTien"
             android:exported="false" />
         <activity
-            android:name=".RegisterActivity"
+            android:name=".View.View_HangMucChiPhi"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,13 +25,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ThemThuNhapActivity"
-            android:exported="false" />
-        <activity
-            android:name=".LoginActicity"
+            android:name=".Controller.LoginActicity"
             android:exported="false"></activity>
         <activity
-            android:name=".TrangChuDNDK"
+            android:name=".Controller.TrangChuDNDK"
             android:exported="false"></activity>
         <activity
             android:name=".MainActivity"
