@@ -9,6 +9,7 @@
     tools:ignore="InvalidId">
 
     <ImageView
+        android:id="@+id/icon"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginStart="30dp"
@@ -16,6 +17,7 @@
         android:src="@drawable/ic_circle" />
 
     <TextView
+        android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="0dp"
