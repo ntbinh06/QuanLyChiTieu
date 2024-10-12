@@ -11,7 +11,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="170dp"
-        android:background="@drawable/toolbar"
+        android:background="@drawable/header"
         android:backgroundTint="#5034C4"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:layout_constraintEnd_toEndOf="parent"
@@ -150,7 +150,6 @@
             android:id="@+id/listview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/list_item_cacdd"
             />
     </LinearLayout>
 

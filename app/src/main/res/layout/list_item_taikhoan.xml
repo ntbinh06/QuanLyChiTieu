@@ -1,0 +1,89 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:layout_margin="10dp"
+    android:backgroundTint="#E3EEF6">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        android:orientation="vertical"
+        android:background="@drawable/backround_listitem_ctk"
+        android:padding="10dp"
+        android:layout_margin="10dp"
+        android:backgroundTint="#E3EEF6">
+        <!-- Header Section: Title and Amount -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingBottom="5dp">
+
+            <!-- Title (e.g. Ví) -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ví"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                android:layout_weight="1"/>
+
+            <!-- Amount -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="455.455 đ"
+                android:textColor="#25396f"
+                android:textSize="16sp"
+                android:layout_marginEnd="8dp"/>
+        </LinearLayout>
+
+        <!-- Lower Section: Switch, Icons -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <!-- Status Text (e.g. Bình thường) -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bình thường"
+                android:textColor="#A8A8A8"
+                android:textSize="16sp"/>
+
+            <!-- Switch -->
+            <Switch
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:layout_marginEnd="145dp" />
+
+            <!-- Eye Icon -->
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="12dp"
+                android:src="@drawable/ic_eye" /> <!-- Icon xem -->
+
+            <!-- Delete Icon -->
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="12dp"
+                android:src="@drawable/ic_delete" /> <!-- Icon xóa -->
+
+            <!-- More Options Icon -->
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_more" /> <!-- Icon thêm tùy chọn -->
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>
