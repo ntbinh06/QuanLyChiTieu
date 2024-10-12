@@ -1,23 +1,18 @@
-package com.example.quanlychitieu;
+package com.example.quanlychitieu.Controller;
 
 import android.os.Bundle;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.ProgressBar;
+
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.quanlychitieu.R;
 import com.google.android.material.navigation.NavigationView;
 
 public class TongQuan extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {

@@ -52,6 +52,11 @@
         android:layout_marginTop="140dp"
         android:layout_marginStart="15dp"
         android:drawableEnd="@drawable/ic_search" />
+    <ListView
+        android:id="@+id/lvuser"
+        android:layout_marginTop="205dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 
 </RelativeLayout>
