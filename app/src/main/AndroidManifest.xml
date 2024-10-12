@@ -13,6 +13,9 @@
         android:theme="@style/Theme.QuanLyChiTieu"
         tools:targetApi="31">
         <activity
+            android:name=".Controller.ThongTinNguoiDung"
+            android:exported="false" />
+        <activity
             android:name=".Controller.TrangChuAdmin"
             android:exported="false" />
         <activity
