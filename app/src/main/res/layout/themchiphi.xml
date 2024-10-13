@@ -23,6 +23,7 @@
             android:gravity="center_vertical">
 
             <ImageButton
+                android:id="@+id/ic_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
@@ -80,6 +81,7 @@
         android:layout_height="70dp"
         android:layout_marginTop="190dp">
         <ImageButton
+            android:id="@+id/hangmuc"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginTop="10dp"
@@ -128,7 +130,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginStart="30dp"
             android:background="?attr/selectableItemBackground"
-            android:src="@drawable/ic_calendar"
+            android:src="@drawable/ic_calender_black"
             android:contentDescription="@string/img1"/>
         <EditText
             android:id="@+id/edit_day"
@@ -250,6 +252,7 @@
         android:layout_marginTop="600dp"
         tools:ignore="ExtraText">
         <Button
+            android:id="@+id/buttonhuy"
             android:layout_width="155dp"
             android:layout_height="65dp"
             android:layout_marginTop="40dp"
@@ -262,6 +265,7 @@
             android:textStyle="bold"
             />
         <Button
+            android:id="@+id/buttonluu"
             android:layout_width="155dp"
             android:layout_height="65dp"
             android:layout_marginTop="40dp"
