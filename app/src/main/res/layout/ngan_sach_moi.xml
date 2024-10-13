@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:id="@+id/main">
+
+    <!-- Header Layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:orientation="horizontal"
+        android:background="@drawable/header"
+        android:backgroundTint="@color/deep_bluepurple">
+
+        <ImageButton
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/arrow_back"
+            android:background="?attr/selectableItemBackground"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="26dp"
+            android:padding="16dp"
+            android:contentDescription="@string/img1"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ngân sách mới"
+            android:textSize="24sp"
+            android:fontFamily="@font/inter_18pt_bold"
+            android:textColor="@color/white"
+            android:layout_marginTop="36dp"/>
+    </LinearLayout>
+
+    <!-- Select category Layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="70dp"
+        android:layout_marginTop="30dp">
+
+        <ImageButton
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="30dp"
+            android:background="?attr/selectableItemBackground"
+            android:src="@drawable/ic_circle"
+            android:padding="16dp"
+            android:contentDescription="@string/img1"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:text="Chọn hạng mục"
+            android:fontFamily="@font/inter_18pt_regular"
+            android:textSize="24dp"
+            android:layout_marginTop="20dp"/>
+    </LinearLayout>
+
+    <!-- Input money Layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/money_vnd"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="35dp"/>
+
+        <LinearLayout
+            android:layout_width="272dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Số tiền"
+                android:textColor="@color/black_50"
+                android:textSize="16sp"/>
+
+            <LinearLayout
+                android:layout_width="272dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:layout_width="272dp"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:textSize="18sp"
+                    android:inputType="numberDecimal" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="đ"
+                    android:textColor="@color/black"
+                    android:textSize="24dp"
+                    android:layout_marginStart="-30dp"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Select account Layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/banking_finance_bank_icon"
+            android:layout_marginStart="43dp"
+            android:layout_marginTop="6dp"
+            android:contentDescription="Bank icon"/>
+
+        <com.example.quanlychitieu.View.View_CustomSpinner
+            android:id="@+id/spnTaiKhoan"
+            android:layout_width="272dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/bg_spinner"
+            android:contentDescription="Chọn tài khoản"/>
+    </LinearLayout>
+
+    <!-- Select date Layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_calendar_today_24"
+            android:layout_marginStart="43dp"
+            android:layout_marginTop="6dp"
+            android:contentDescription="Calendar icon"/>
+
+        <com.example.quanlychitieu.View.View_CustomSpinner
+            android:id="@+id/spnDateStart"
+            android:layout_width="272dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/bg_spinner"
+            android:contentDescription="Chọn thời gian bắt đầu"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_save"
+        android:layout_width="325dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="90dp"
+        android:background="@drawable/round_corner_20"
+        android:backgroundTint="@color/deep_bluepurple"
+        android:fontFamily="@font/inter_18pt_edium"
+        android:text="Lưu"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+</LinearLayout>
