@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/lvuser"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="370dp"
+        android:layout_height="100dp"
+        android:layout_margin="16dp"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal"
+        android:background="@drawable/round_corner_20"
+        android:backgroundTint="@color/gray1"
+        android:layout_gravity="center">
+
+        <ImageView
+            android:id="@+id/tvAvatar"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/user_woman_female_person_icon"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:scaleType="centerCrop"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="15dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nguyễn Thanh Bình"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/tvGmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="binhqb@gmail.com"
+                android:textSize="18sp"
+                android:textColor="@color/gray2"
+                />
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/ic_eye"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_eye"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="30dp"
+            />
+        <ImageButton
+            android:id="@+id/ic_lock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_lock_user"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="30dp"
+            />
+    </LinearLayout>
+
+</LinearLayout>

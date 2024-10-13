@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="@android:color/white"
+    android:layout_gravity="center"
+    android:elevation="8dp"
+    android:layout_margin="16dp"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TẠO TÀI KHOẢN MỚI"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="16dp"
+        android:textColor="@color/black" />
+
+    <EditText
+        android:id="@+id/edtTenTaiKhoan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Tên tài khoản"
+        android:padding="12dp"
+        android:background="@android:drawable/editbox_background"
+        android:layout_marginBottom="12dp"
+        android:inputType="text" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="12dp">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:text="Đơn vị tiền tệ của tài khoản"
+            android:gravity="start|center_vertical"
+            android:textColor="@color/black" />
+
+        <LinearLayout
+            android:id="@+id/spinner_bankfr"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="100dp"
+            android:background="@drawable/custom_spinner_background"
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/spin_bank_from"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:padding="10dp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/edtLuongBatDau"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Lượng bắt đầu"
+        android:padding="12dp"
+        android:background="@android:drawable/editbox_background"
+        android:layout_marginBottom="12dp"
+        android:inputType="numberDecimal" />
+
+    <EditText
+        android:id="@+id/edtGhiChu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ghi chú (Không bắt buộc)"
+        android:padding="12dp"
+        android:background="@android:drawable/editbox_background"
+        android:layout_marginBottom="24dp"
+        android:inputType="text" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="8dp">
+
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="138dp"
+            android:layout_height="wrap_content"
+            android:text="Hủy"
+            android:textColor="@android:color/white"
+            android:background="@drawable/button"
+            android:backgroundTint="#5034C4"
+            android:layout_marginEnd="20dp" />
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="138dp"
+            android:layout_height="wrap_content"
+            android:text="Lưu"
+            android:textColor="@android:color/white"
+            android:background="@drawable/button"
+            android:backgroundTint="#5034C4"
+            android:layout_marginStart="20dp" />
+    </LinearLayout>
+</LinearLayout>

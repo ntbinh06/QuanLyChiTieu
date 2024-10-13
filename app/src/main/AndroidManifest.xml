@@ -12,23 +12,42 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.QuanLyChiTieu"
         tools:targetApi="31">
-
         <activity
-            android:name=".Controller.NganSachMoi"
-            android:exported="true">
-
+            android:name=".Controller.CacTaiKhoan"
+            android:exported="false" />
+        <activity
+            android:name=".Controller.CacGiaoDich"
+            android:exported="true"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
-            android:exported="true">
+            android:name=".ChuyenTien"
+            android:exported="false" />
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="false">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
+        <activity
+            android:name=".ThemThuNhapActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginActicity"
+            android:exported="false" />
+        <activity
+            android:name=".TrangChuDNDK"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true" />
 
         <meta-data
             android:name="preloaded_fonts"
