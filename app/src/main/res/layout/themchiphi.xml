@@ -46,7 +46,7 @@
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:layout_height="70dp"
-        android:layout_marginTop="125dp">
+        android:layout_marginTop="150dp">
 
         <EditText
             android:id="@+id/edit_value"
@@ -79,7 +79,7 @@
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:layout_height="70dp"
-        android:layout_marginTop="190dp">
+        android:layout_marginTop="215dp">
         <ImageButton
             android:id="@+id/hangmuc"
             android:layout_width="60dp"
@@ -101,7 +101,7 @@
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:layout_height="70dp"
-        android:layout_marginTop="270dp"
+        android:layout_marginTop="295dp"
         tools:ignore="ExtraText">
         <ImageView
             android:layout_width="38dp"
@@ -111,13 +111,12 @@
             android:background="?attr/selectableItemBackground"
             android:src="@drawable/ic_bank"
             android:contentDescription="@string/img1"/>
-        <Spinner
+        <com.example.quanlychitieu.View.View_CustomSpinner
             android:id="@+id/spnchiphi"
             android:layout_width="230dp"
             android:layout_height="35dp"
             android:layout_marginTop="20dp"
-            android:background="@drawable/round_corner_20"
-            android:backgroundTint="@color/gray1"
+            android:background="@drawable/bg_spinner"
             android:layout_marginStart="25dp"
              />
     </LinearLayout>
@@ -125,7 +124,7 @@
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:layout_height="70dp"
-        android:layout_marginTop="320dp"
+        android:layout_marginTop="345dp"
         tools:ignore="ExtraText">
         <ImageView
             android:layout_width="38dp"
@@ -152,7 +151,7 @@
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:layout_height="70dp"
-        android:layout_marginTop="370dp"
+        android:layout_marginTop="395dp"
         tools:ignore="ExtraText">
         <ImageView
             android:layout_width="38dp"
@@ -179,7 +178,7 @@
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:layout_height="70dp"
-        android:layout_marginTop="420dp"
+        android:layout_marginTop="445dp"
         tools:ignore="ExtraText">
         <ImageView
             android:layout_width="38dp"
@@ -206,7 +205,7 @@
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:layout_height="70dp"
-        android:layout_marginTop="490dp"
+        android:layout_marginTop="515dp"
         tools:ignore="ExtraText">
         <TextView
             android:layout_width="wrap_content"
@@ -228,7 +227,7 @@
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:layout_height="70dp"
-        android:layout_marginTop="540dp"
+        android:layout_marginTop="565dp"
         tools:ignore="ExtraText">
         <ImageButton
             android:layout_width="60dp"
@@ -252,7 +251,7 @@
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:layout_height="140dp"
-        android:layout_marginTop="600dp"
+        android:layout_marginTop="655dp"
         tools:ignore="ExtraText">
         <Button
             android:id="@+id/buttonhuy"
@@ -260,7 +259,7 @@
             android:layout_height="65dp"
             android:layout_marginTop="40dp"
             android:layout_marginStart="30dp"
-            android:backgroundTint="@color/red"
+            android:backgroundTint="@color/deep_bluepurple"
             android:background="@drawable/button"
             android:textColor="@color/white"
             android:text="Hủy"
@@ -273,7 +272,7 @@
             android:layout_height="65dp"
             android:layout_marginTop="40dp"
             android:layout_marginStart="30dp"
-            android:backgroundTint="@color/red"
+            android:backgroundTint="@color/deep_bluepurple"
             android:background="@drawable/button"
             android:textColor="@color/white"
             android:text="Lưu lại"

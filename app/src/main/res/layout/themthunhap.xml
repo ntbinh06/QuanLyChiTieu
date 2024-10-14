@@ -46,7 +46,7 @@
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:layout_height="70dp"
-        android:layout_marginTop="125dp">
+        android:layout_marginTop="150dp">
 
         <EditText
             android:id="@+id/edit_value"
@@ -79,7 +79,7 @@
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:layout_height="70dp"
-        android:layout_marginTop="190dp">
+        android:layout_marginTop="215dp">
         <ImageButton
             android:id="@+id/hangmuc"
             android:layout_width="60dp"
@@ -101,7 +101,7 @@
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:layout_height="70dp"
-        android:layout_marginTop="270dp"
+        android:layout_marginTop="295dp"
         tools:ignore="ExtraText">
         <ImageView
             android:layout_width="38dp"
@@ -125,7 +125,7 @@
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:layout_height="70dp"
-        android:layout_marginTop="320dp"
+        android:layout_marginTop="345dp"
         tools:ignore="ExtraText">
         <ImageView
             android:layout_width="38dp"
@@ -152,7 +152,7 @@
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:layout_height="70dp"
-        android:layout_marginTop="370dp"
+        android:layout_marginTop="395dp"
         tools:ignore="ExtraText">
         <ImageView
             android:layout_width="38dp"
@@ -179,7 +179,7 @@
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:layout_height="70dp"
-        android:layout_marginTop="420dp"
+        android:layout_marginTop="445dp"
         tools:ignore="ExtraText">
         <ImageView
             android:layout_width="38dp"
@@ -206,7 +206,7 @@
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:layout_height="70dp"
-        android:layout_marginTop="490dp"
+        android:layout_marginTop="515dp"
         tools:ignore="ExtraText">
         <TextView
             android:layout_width="wrap_content"
@@ -228,7 +228,7 @@
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:layout_height="70dp"
-        android:layout_marginTop="540dp"
+        android:layout_marginTop="565dp"
         tools:ignore="ExtraText">
         <ImageButton
             android:layout_width="60dp"
@@ -252,7 +252,7 @@
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:layout_height="140dp"
-        android:layout_marginTop="600dp"
+        android:layout_marginTop="655dp"
         tools:ignore="ExtraText">
         <Button
             android:id="@+id/btnHuy"
@@ -262,7 +262,7 @@
             android:layout_marginStart="30dp"
             android:background="@drawable/button"
             android:textColor="@color/white"
-            android:backgroundTint="@color/green"
+            android:backgroundTint="@color/deep_bluepurple"
             android:text="Hủy"
             android:textSize="20dp"
             android:textStyle="bold"
@@ -275,7 +275,7 @@
             android:layout_marginStart="30dp"
             android:background="@drawable/button"
             android:textColor="@color/white"
-            android:backgroundTint="@color/green"
+            android:backgroundTint="@color/deep_bluepurple"
             android:text="Lưu lại"
             android:textSize="20dp"
             android:textStyle="bold"/>
