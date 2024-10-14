@@ -1,9 +1,19 @@
 package com.example.quanlychitieu.Controller;
 
+import android.app.Dialog;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -13,6 +23,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.quanlychitieu.Model.Model_HangMucChiPhi;
 import com.example.quanlychitieu.R;
 import com.example.quanlychitieu.View.View_CustomSpinner;
 
@@ -93,6 +104,29 @@ public class NganSachMoi extends AppCompatActivity implements View_CustomSpinner
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        ImageButton ic_back = findViewById(R.id.ic_back);
+        Button btn_save = findViewById(R.id.btn_save);
+        ImageButton hangmuc = findViewById(R.id.hangmuc);
+        hangmuc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openFeedbackDialog(Gravity.BOTTOM);
+            }
+        });
+        ic_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(NganSachMoi.this, C_NganSach.class));
+            }
+        });
+
+        btn_save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(NganSachMoi.this, C_NganSach.class));
+            }
+        });
     }
 
     @Override
@@ -112,4 +146,37 @@ public class NganSachMoi extends AppCompatActivity implements View_CustomSpinner
             spnDateStart.setBackground(getResources().getDrawable(R.drawable.bg_spinner, null));
         }
     }
+    private void openFeedbackDialog(int gravity) {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.hangmucchiphi); // Use a new layout for the dialog
+        Window window = dialog.getWindow();
+        if (window == null) {
+            return;
+        }
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        WindowManager.LayoutParams windowAttributes = window.getAttributes();
+        windowAttributes.gravity = gravity;
+        window.setAttributes(windowAttributes);
+
+        // Set up ListView in the dialog
+        ListView listView = dialog.findViewById(R.id.listView_chiphi);
+
+        ArrayList<Model_HangMucChiPhi> arrContact = new ArrayList<>();
+        arrContact.add(new Model_HangMucChiPhi(R.drawable.baseline_account_circle_24, "Đồ ăn/ Đồ uống"));
+        arrContact.add(new Model_HangMucChiPhi(R.drawable.baseline_account_circle_24, "Mua sắm"));
+        arrContact.add(new Model_HangMucChiPhi(R.drawable.baseline_account_circle_24, "Vận chuyển"));
+        arrContact.add(new Model_HangMucChiPhi(R.drawable.baseline_account_circle_24, "Giải trí"));
+        arrContact.add(new Model_HangMucChiPhi(R.drawable.baseline_account_circle_24, "Nhà cửa"));
+        arrContact.add(new Model_HangMucChiPhi(R.drawable.baseline_account_circle_24, "Gia đình"));
+        arrContact.add(new Model_HangMucChiPhi(R.drawable.baseline_account_circle_24, "Sức khỏe"));
+
+        Ctrl_HangMucChiPhi customAdapter = new Ctrl_HangMucChiPhi(this, R.layout.list_item, arrContact);
+        listView.setAdapter(customAdapter);
+
+        dialog.setCancelable(Gravity.BOTTOM == gravity);
+        dialog.show(); // Show the dialog
+    }
+
 }

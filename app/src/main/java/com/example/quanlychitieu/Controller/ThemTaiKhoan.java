@@ -27,10 +27,10 @@ public class ThemTaiKhoan extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        // Inflate layout của fragment
+        // Inflate layout of the fragment
         View view = inflater.inflate(R.layout.fragment_them_tai_khoan, container, false);
 
-        // Tham chiếu đến các View trong layout
+        // Reference to views in the layout
         edtTenTaiKhoan = view.findViewById(R.id.edtTenTaiKhoan);
         edtLuongBatDau = view.findViewById(R.id.edtLuongBatDau);
         edtGhiChu = view.findViewById(R.id.edtGhiChu);
@@ -38,31 +38,31 @@ public class ThemTaiKhoan extends Fragment {
         btnHuy = view.findViewById(R.id.btnCancel);
         btnLuu = view.findViewById(R.id.btnSave);
 
-        // Xử lý sự kiện cho nút Hủy
+        // Handle click event for Cancel button
         btnHuy.setOnClickListener(v -> {
-            // Quay lại màn hình trước đó
+            // Go back to the previous screen
             requireActivity().getSupportFragmentManager().popBackStack();
         });
 
-        // Xử lý sự kiện cho nút Lưu
-        //duc
+        // Handle click event for Save button
         btnLuu.setOnClickListener(v -> {
-//            String tenTaiKhoan = edtTenTaiKhoan.getText().toString();
-//            String luongBatDau = edtLuongBatDau.getText().toString();
-//            String ghiChu = edtGhiChu.getText().toString();
-//            String donViTien = spinDonViTien.getSelectedItem().toString();
-//
-////            if (tenTaiKhoan.isEmpty() || luongBatDau.isEmpty()) {
-////                Toast.makeText(getContext(), "Vui lòng điền đủ thông tin", Toast.LENGTH_SHORT).show();
-////            } else {
-////                // Xử lý logic lưu tài khoản mới (thêm vào database hoặc danh sách tài khoản)
-////                replaceFragment(new ThongBaoThemTK());
-////            }
-            replaceFragment(new ThongBaoThemTK());
+            String tenTaiKhoan = edtTenTaiKhoan.getText().toString();
+            String luongBatDau = edtLuongBatDau.getText().toString();
+            String ghiChu = edtGhiChu.getText().toString();
+            String donViTien = spinDonViTien.getSelectedItem().toString();
+
+            // Validate input
+            if (tenTaiKhoan.isEmpty() || luongBatDau.isEmpty()) {
+                Toast.makeText(getContext(), "Vui lòng điền đủ thông tin", Toast.LENGTH_SHORT).show();
+            } else {
+                // Handle logic to save the new account (e.g., add to database or account list)
+                replaceFragment(new ThongBaoThemTK());
+            }
         });
 
         return view;
     }
+
     private void replaceFragment(Fragment fragment) {
         FragmentTransaction transaction = requireActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragmentContainer, fragment);

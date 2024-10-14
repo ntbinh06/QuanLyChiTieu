@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -46,6 +47,16 @@ public class C_NganSach extends AppCompatActivity {
         // Gán Adapter cho RecyclerView
         View_NganSach customAdapter = new View_NganSach(this, arrContact);
         rvNganSach.setAdapter(customAdapter);
+
+
+        ImageButton back =  findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(C_NganSach.this, TongQuan.class);
+                startActivity(intent);
+            }
+        });
 
         btnTaoNganSach = (Button) findViewById(R.id.btnTaoNgansach);
         btnTaoNganSach.setOnClickListener(new View.OnClickListener() {

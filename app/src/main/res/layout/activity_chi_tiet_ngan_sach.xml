@@ -32,7 +32,7 @@
             android:textSize="30sp" />
 
         <ImageButton
-            android:id="@+id/btnBack"
+            android:id="@+id/ic_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="58dp"
@@ -216,7 +216,7 @@
             android:layout_marginStart="20dp"
             android:layout_weight="1"
             android:background="@drawable/button"
-            android:backgroundTint="@android:color/holo_red_light"
+            android:backgroundTint="#5034C4"
             android:text="Xóa"
             android:textColor="@android:color/white"
             android:textSize="20sp" />

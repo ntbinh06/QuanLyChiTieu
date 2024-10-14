@@ -32,14 +32,14 @@
             android:textSize="30sp" />
 
         <ImageButton
-            android:id="@+id/btnBack"
+            android:id="@+id/ic_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="58dp"
             android:layout_marginStart="25dp"
+            android:layout_marginTop="58dp"
             android:background="?attr/selectableItemBackground"
-            app:srcCompat="@drawable/ic_back"
-            android:contentDescription="Quay lại" />
+            android:contentDescription="Quay lại"
+            app:srcCompat="@drawable/ic_back" />
     </FrameLayout>
 
     <!-- Ảnh đại diện người dùng -->
@@ -173,7 +173,7 @@
 
     <!-- Nút Duyệt tài khoản -->
     <Button
-        android:id="@+id/btnApprove"
+        android:id="@+id/btn_duyet"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"

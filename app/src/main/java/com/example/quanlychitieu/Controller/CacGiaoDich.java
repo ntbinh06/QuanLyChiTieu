@@ -1,6 +1,9 @@
 package com.example.quanlychitieu.Controller;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
@@ -39,10 +42,12 @@ public class CacGiaoDich extends AppCompatActivity {
         }
         myadapter = new View_ItemGiaoDich(CacGiaoDich.this,R.layout.list_item_cacdd,mylist);
         lv.setAdapter(myadapter);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+        ImageButton ic_back = findViewById(R.id.ic_back);
+        ic_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(CacGiaoDich.this, TongQuan.class));
+            }
         });
     }
 }
