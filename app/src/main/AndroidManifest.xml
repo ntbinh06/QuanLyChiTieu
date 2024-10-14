@@ -13,27 +13,19 @@
         android:theme="@style/Theme.QuanLyChiTieu"
         tools:targetApi="31">
         <activity
-            android:name=".Controller.ThongTinNguoiDung"
-            android:exported="false" />
-        <activity
-            android:name=".Controller.TongQuan"
-            android:exported="false" />
-        <activity
             android:name=".Controller.TrangChuAdmin"
-            android:exported="true" >
+            android:exported="false" />
+        <activity
+            android:name=".Controller.ChiTietNganSach"
+            android:exported="false" />
+        <activity
+            android:name=".Controller.Ctrl_ThemChiPhi"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".Controller.ChiTietNganSach"
-            android:exported="false" />
-        <activity
-            android:name=".Controller.CacTaiKhoan"
-            android:exported="false">
-
         </activity>
         <activity
             android:name=".Controller.CacGiaoDich"
@@ -44,17 +36,9 @@
         <activity
             android:name=".Controller.RegisterActivity"
             android:exported="false">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
         </activity>
-        <activity
-            android:name=".Controller.ThemThuNhapActivity"
-            android:exported="false" />
+        <activity android:name=".Controller.TongQuan" android:exported="false" />
+        <activity android:name=".View.View_HangMucChiPhi" android:exported="false" />
         <activity
             android:name=".Controller.LoginActicity"
             android:exported="false" />
