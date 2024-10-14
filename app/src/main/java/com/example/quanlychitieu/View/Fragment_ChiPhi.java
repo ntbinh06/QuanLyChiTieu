@@ -2,65 +2,64 @@ package com.example.quanlychitieu.View;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+import com.example.quanlychitieu.Controller.CacGiaoDich;
+import com.example.quanlychitieu.Model.DanhMucHangMuc;
 import com.example.quanlychitieu.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link Fragment_ChiPhi#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class Fragment_ChiPhi extends Fragment {
+import java.util.ArrayList;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+public class Fragment_ChiPhi extends Fragment  {
+    int image[]= {R.drawable.food, R.drawable.family, R.drawable.shopping,R.drawable.wage,R.drawable.delivery_van,R.drawable.drum_set,R.drawable.house, R.drawable.healthcare,R.drawable.pets,R.drawable.travel_luggage};
+    String tenGD[]={"Đồ ăn","Mua sắm","Gia đình", "Lương","Vận chuyển","Giải trí","Nhà cửa","Sức khỏe","Thú cưng","Du lịch"};
+
+
+    private ListView lv;
+    private ArrayList<DanhMucHangMuc> danhMuc;
+    private View_ItemHangMuc myAdapter;
 
     public Fragment_ChiPhi() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Fragment_ChiPhi.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static Fragment_ChiPhi newInstance(String param1, String param2) {
-        Fragment_ChiPhi fragment = new Fragment_ChiPhi();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment__chi_phi, container, false);
+        // Inflate the layout cho Fragment
+        View view = inflater.inflate(R.layout.fragment__chi_phi, container, false);
+        // Khởi tạo ListView
+        lv = view.findViewById(R.id.listView_chiphi);
+        danhMuc = new ArrayList<>();
+
+        // Tạo dữ liệu mẫu cho ListView
+        for (int i = 0; i < tenGD.length; i++) {
+            int index = i % tenGD.length;
+            danhMuc.add(new DanhMucHangMuc(image[i], tenGD[i]));
+        }
+
+        // Khởi tạo Adapter
+        myAdapter = new View_ItemHangMuc(getActivity(), R.layout.list_item, danhMuc);
+        lv.setAdapter(myAdapter);
+
+        // Xử lý Insets cho toàn màn hình
+        ViewCompat.setOnApplyWindowInsetsListener(view.findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+
+        return view;
     }
 }

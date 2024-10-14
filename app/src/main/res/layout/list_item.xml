@@ -9,7 +9,7 @@
     tools:ignore="InvalidId">
 
     <ImageView
-        android:id="@+id/icon"
+        android:id="@+id/image_hangMuc"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginStart="30dp"
@@ -25,4 +25,20 @@
         android:text="Đồ ăn/ Đồ uống"
         android:textSize="20dp"
         android:layout_marginTop="17dp"/>
+
+    <ImageButton
+        android:id="@+id/ic_eye"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/ic_eye" />
+
+    <ImageButton
+        android:id="@+id/ic_lock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/ic_delete" />
 </LinearLayout>
