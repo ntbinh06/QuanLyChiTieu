@@ -19,7 +19,7 @@
             android:name=".Controller.ChiTietNganSach"
             android:exported="false" />
         <activity
-            android:name=".Controller.Ctrl_ThemChiPhi"
+            android:name=".Controller.Ctrl_XemTKChiTiet"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
