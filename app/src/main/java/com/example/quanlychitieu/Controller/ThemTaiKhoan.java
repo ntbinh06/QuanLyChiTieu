@@ -45,6 +45,7 @@ public class ThemTaiKhoan extends Fragment {
         });
 
         // Xử lý sự kiện cho nút Lưu
+        //duc
         btnLuu.setOnClickListener(v -> {
 //            String tenTaiKhoan = edtTenTaiKhoan.getText().toString();
 //            String luongBatDau = edtLuongBatDau.getText().toString();

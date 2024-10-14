@@ -8,18 +8,15 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-
 import com.example.quanlychitieu.Model.Model_HangMucChiPhi;
 import com.example.quanlychitieu.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Ctrl_HangMucChiPhi extends ArrayAdapter<Model_HangMucChiPhi> {
-    private Context context;
-    private int resource;
-    private List<Model_HangMucChiPhi> arrContact;
+    private final Context context;
+    private final int resource;
+    private final ArrayList<Model_HangMucChiPhi> arrContact;
 
     public Ctrl_HangMucChiPhi(Context context, int resource, ArrayList<Model_HangMucChiPhi> arrContact) {
         super(context, resource, arrContact);
@@ -33,10 +30,11 @@ public class Ctrl_HangMucChiPhi extends ArrayAdapter<Model_HangMucChiPhi> {
         ViewHolder viewHolder;
 
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(resource, parent, false); // Sử dụng resource đã truyền vào
+            LayoutInflater inflater = LayoutInflater.from(context);
+            convertView = inflater.inflate(resource, parent, false);
             viewHolder = new ViewHolder();
-            viewHolder.tvAvatar = convertView.findViewById(R.id.icon);
-            viewHolder.tvName = convertView.findViewById(R.id.name);
+            viewHolder.tvAvatar = convertView.findViewById(R.id.icon); // Đảm bảo ID đúng
+            viewHolder.tvName = convertView.findViewById(R.id.name); // Đảm bảo ID đúng
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -49,8 +47,8 @@ public class Ctrl_HangMucChiPhi extends ArrayAdapter<Model_HangMucChiPhi> {
         return convertView;
     }
 
-    public class ViewHolder {
-        TextView tvName;
+    private static class ViewHolder {
         ImageView tvAvatar;
+        TextView tvName;
     }
 }
