@@ -1,6 +1,9 @@
 package com.example.quanlychitieu.Controller;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -18,6 +21,7 @@ import java.util.ArrayList;
 public class C_NganSach extends AppCompatActivity {
 
     private RecyclerView rvNganSach;
+    private Button btnTaoNganSach;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +46,15 @@ public class C_NganSach extends AppCompatActivity {
         // Gán Adapter cho RecyclerView
         View_NganSach customAdapter = new View_NganSach(this, arrContact);
         rvNganSach.setAdapter(customAdapter);
+
+        btnTaoNganSach = (Button) findViewById(R.id.btnTaoNgansach);
+        btnTaoNganSach.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(C_NganSach.this, NganSachMoi.class);
+                startActivity(intent);
+            }
+        });
 
         // Xử lý insets nếu cần
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
