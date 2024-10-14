@@ -11,6 +11,7 @@
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
+
     <com.google.android.material.navigation.NavigationView
         android:layout_width="340dp"
         android:layout_height="match_parent"
@@ -21,7 +22,6 @@
         app:itemIconTint="@color/bluepurple_80"
         android:layout_marginTop="22dp"
         android:layout_marginLeft="25dp"/>
-
 
     <RelativeLayout
         android:layout_width="match_parent"

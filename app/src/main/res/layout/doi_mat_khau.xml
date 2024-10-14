@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/main">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:orientation="horizontal"
+        android:background="@drawable/header"
+        android:backgroundTint="@color/deep_bluepurple">
+
+        <ImageButton
+            android:id="@+id/arrow_ttnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/arrow_back"
+            android:background="?attr/selectableItemBackground"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="26dp"
+            android:padding="16dp"
+            android:contentDescription="@string/img1"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Đổi mật khẩu"
+            android:textSize="24sp"
+            android:fontFamily="@font/inter_18pt_bold"
+            android:textColor="@color/white"
+            android:layout_marginTop="36dp" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mật khẩu hiện tại"
+        android:textSize="18sp"
+        android:textColor="@color/deep_bluepurple"
+        android:fontFamily="@font/inter_18pt_regular"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="40dp"/>
+    
+    <EditText
+        android:id="@+id/txtPassHienTai"
+        android:layout_width="340dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:drawableLeft="@drawable/security_24"
+        android:hint="Nhập mật khẩu hiện tại"
+        android:textColor="@color/gray_9A"
+        android:drawablePadding="15dp"
+        android:paddingBottom="16dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mật khẩu hiện tại"
+        android:textSize="18sp"
+        android:textColor="@color/deep_bluepurple"
+        android:fontFamily="@font/inter_18pt_regular"
+        android:layout_marginTop="45dp"
+        android:layout_marginLeft="40dp"/>
+
+    <EditText
+        android:id="@+id/inputPassNew"
+        android:layout_width="340dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:drawableLeft="@drawable/security_24"
+        android:hint="Nhập mật khẩu mới"
+        android:textColor="@color/gray_9A"
+        android:drawablePadding="15dp"
+        android:paddingBottom="16dp"/>
+    <EditText
+        android:id="@+id/inputPassAgainNew"
+        android:layout_width="340dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:drawableLeft="@drawable/security_24"
+        android:hint="Nhập lại mật khẩu mới"
+        android:textColor="@color/gray_9A"
+        android:drawablePadding="15dp"
+        android:paddingBottom="16dp"/>
+
+    <Button
+        android:id="@+id/btn_save"
+        android:layout_width="250dp"
+        android:layout_height="48dp"
+        android:text="Lưu"
+        android:textSize="18sp"
+        android:textAllCaps="false"
+        android:fontFamily="@font/inter_18pt_edium"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/deep_bluepurple"
+        android:background="@drawable/round_corner_20"
+        android:layout_gravity="center"
+        android:layout_marginTop="90dp"/>
+</LinearLayout>

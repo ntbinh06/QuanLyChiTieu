@@ -109,7 +109,7 @@
                     android:layout_weight="1"
                     android:max="100"
                     android:progress="15"
-                    android:progressTint="@android:color/holo_green_light" />
+                    android:progressTint="@android:color/holo_green_light"/>
 
                 <TextView
                     android:id="@+id/tvRemaining"
