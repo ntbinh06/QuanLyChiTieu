@@ -125,7 +125,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/banking_finance_bank_icon"
             android:layout_marginStart="43dp"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="10dp"
             android:contentDescription="Bank icon"/>
 
         <com.example.quanlychitieu.View.View_CustomSpinner
@@ -150,7 +150,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/baseline_calendar_today_24"
             android:layout_marginStart="43dp"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="13dp"
             android:contentDescription="Calendar icon"/>
 
         <com.example.quanlychitieu.View.View_CustomSpinner
@@ -165,9 +165,9 @@
     <Button
         android:id="@+id/btn_save"
         android:layout_width="325dp"
-        android:layout_height="50dp"
+        android:layout_height="55dp"
         android:layout_gravity="center"
-        android:layout_marginTop="90dp"
+        android:layout_marginTop="150dp"
         android:background="@drawable/round_corner_20"
         android:backgroundTint="@color/deep_bluepurple"
         android:fontFamily="@font/inter_18pt_edium"
