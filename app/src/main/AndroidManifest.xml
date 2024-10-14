@@ -20,6 +20,17 @@
             android:exported="false" />
         <activity
             android:name=".Controller.Ctrl_ThemChiPhi"
+            android:exported="false">
+
+        </activity>
+
+        <activity
+            android:name=".Controller.NganSachMoi"
+            android:exported="false">
+        </activity>
+
+        <activity
+            android:name=".Controller.C_NganSach"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,6 +38,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".Controller.CacGiaoDich"
             android:exported="false" />
