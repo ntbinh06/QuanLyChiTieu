@@ -116,6 +116,7 @@
                     android:orientation="vertical">
 
                     <LinearLayout
+                        android:id="@+id/tongquan"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -148,7 +149,7 @@
                         android:layout_gravity="center">
 
                         <TextView
-                            android:id="@+id/txtTQ_ThangNam"
+                            android:id="@+id/txt_soluoc"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"

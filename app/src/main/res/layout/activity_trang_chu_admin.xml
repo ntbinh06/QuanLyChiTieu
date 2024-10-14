@@ -130,7 +130,7 @@
             android:textSize="18sp" />
 
         <ImageView
-            android:id="@+id/imgArrow1"
+            android:id="@+id/ic_list"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:contentDescription="Arrow Icon"
@@ -171,7 +171,7 @@
             android:textSize="18sp" />
 
         <ImageView
-            android:id="@+id/imgArrow2"
+            android:id="@+id/ic_tongquan"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:contentDescription="Arrow Icon"

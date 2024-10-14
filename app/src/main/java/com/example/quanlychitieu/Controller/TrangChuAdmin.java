@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.service.voice.VoiceInteractionSession;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import androidx.activity.EdgeToEdge;
@@ -24,14 +25,19 @@ public class TrangChuAdmin extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_trang_chu_admin);
 
-        ln=findViewById(R.id.cardOverview);
-        //set sự kiện click vào tong quan
-        ln.setOnClickListener(new View.OnClickListener() {
+        ImageView ic_list = findViewById(R.id.ic_list);
+        ImageView ic_tongquan = findViewById(R.id.ic_tongquan);
+        ic_list.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                // Mở TongQuanActivity khi nhấn vào LinearLayout cardOverview
-                Intent intent = new Intent(TrangChuAdmin.this, TongQuan.class);
-                startActivity(intent);
+            public void onClick(View v) {
+                startActivity(new Intent(TrangChuAdmin.this, Ctrl_DanhSachUser.class));
+            }
+        });
+
+        ic_tongquan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(TrangChuAdmin.this, TongQuan.class));
             }
         });
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {

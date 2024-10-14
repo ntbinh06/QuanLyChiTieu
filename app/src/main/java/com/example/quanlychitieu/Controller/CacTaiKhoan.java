@@ -1,7 +1,10 @@
 package com.example.quanlychitieu.Controller;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 
@@ -46,14 +49,20 @@ public class CacTaiKhoan extends AppCompatActivity {
         Item = new View_ItemCacTK(CacTaiKhoan.this, R.layout.list_item_taikhoan, taikhoan);
         lv.setAdapter(Item);
 
-        //sukienonclick de hien thi trang them tai khoan
-        imageAdd = findViewById(R.id.imageAdd);
-
-        // Sự kiện khi nhấn vào nút +
-        imageAdd.setOnClickListener(new View.OnClickListener() {
+        //sukienonclick de hien thi
+        ImageView ic_back = findViewById(R.id.ic_back);
+        ImageView ic_add = findViewById(R.id.ic_add);
+        ic_back.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                openFragment(new ThemTaiKhoan());
+            public void onClick(View v) {
+                startActivity(new Intent(CacTaiKhoan.this, TongQuan.class));
+            }
+        });
+
+        ic_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(CacTaiKhoan.this, ThemTaiKhoan.class));
             }
         });
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
