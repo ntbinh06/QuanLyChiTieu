@@ -2,65 +2,60 @@ package com.example.quanlychitieu.View;
 
 import android.os.Bundle;
 
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
+import com.example.quanlychitieu.Model.DanhMucHangMuc;
 import com.example.quanlychitieu.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link Fragment_ThuNhap#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+
+
 public class Fragment_ThuNhap extends Fragment {
+    int image[]= {R.drawable.wage,R.drawable.lending,R.drawable.financial_statement,R.drawable.low_income,R.drawable.streams};
+    String tenTN[]={"Lương","Thu lãi", "Thu nhập khác","Tiền chuyển đến","Khoản thu chưa phân loại"};
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private ListView lv;
+    private ArrayList<DanhMucHangMuc> danhMuc;
+    private View_ItemHangMuc myAdapter;
 
     public Fragment_ThuNhap() {
-        // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Fragment_ThuNhap.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static Fragment_ThuNhap newInstance(String param1, String param2) {
-        Fragment_ThuNhap fragment = new Fragment_ThuNhap();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment__thu_nhap, container, false);
+        // Inflate the layout cho Fragment
+        View view = inflater.inflate(R.layout.fragment__thu_nhap, container, false);
+        // Khởi tạo ListView
+        lv = view.findViewById(R.id.listView_thunhap);
+        danhMuc = new ArrayList<>();
+
+        // Tạo dữ liệu mẫu cho ListView
+        for (int i = 0; i < tenTN.length; i++) {
+            int index = i % tenTN.length;
+            danhMuc.add(new DanhMucHangMuc(image[i], tenTN[i]));
+        }
+
+        // Khởi tạo Adapter
+        myAdapter = new View_ItemHangMuc(getActivity(), R.layout.list_item, danhMuc);
+        lv.setAdapter(myAdapter);
+
+        // Xử lý Insets cho toàn màn hình
+        ViewCompat.setOnApplyWindowInsetsListener(view.findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+        return view;
     }
 }

@@ -33,7 +33,7 @@ public class Ctrl_HangMucChiPhi extends ArrayAdapter<Model_HangMucChiPhi> {
             LayoutInflater inflater = LayoutInflater.from(context);
             convertView = inflater.inflate(resource, parent, false);
             viewHolder = new ViewHolder();
-            viewHolder.tvAvatar = convertView.findViewById(R.id.icon); // Đảm bảo ID đúng
+            viewHolder.tvAvatar = convertView.findViewById(R.id.image_hangMuc); // Đảm bảo ID đúng
             viewHolder.tvName = convertView.findViewById(R.id.name); // Đảm bảo ID đúng
             convertView.setTag(viewHolder);
         } else {

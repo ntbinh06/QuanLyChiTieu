@@ -35,7 +35,7 @@ public class Ctrl_HangMucThuNhap extends ArrayAdapter<Model_HangMucThuNhap> {
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(resource, parent, false); // Sử dụng resource đã truyền vào
             viewHolder = new ViewHolder();
-            viewHolder.tvAvatar = convertView.findViewById(R.id.icon);
+            viewHolder.tvAvatar = convertView.findViewById(R.id.image_hangMuc);
             viewHolder.tvName = convertView.findViewById(R.id.name);
             convertView.setTag(viewHolder);
         } else {

@@ -4,18 +4,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/main"
-    android:layout_marginTop="140dp"
     tools:context=".View.Fragment_ChiPhi">
 
     <!-- TODO: Update blank fragment layout -->
+
     <ListView
         android:id="@+id/listView_chiphi"
-        android:layout_width="wrap_content"
-        android:layout_height="450dp" />
-    <ImageButton
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="70dp"
+        android:layout_marginBottom="50dp"
+        android:divider="@null" />
+
+    <ImageView
+        android:id="@+id/add_chiphi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_add_circle"
-        android:layout_marginTop="500dp"
-        android:layout_marginStart="300dp"/>
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="300dp"
+        android:src="@drawable/ic_add_circle" />
 </FrameLayout>

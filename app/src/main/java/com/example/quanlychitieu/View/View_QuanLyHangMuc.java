@@ -6,6 +6,7 @@ import android.widget.FrameLayout;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.quanlychitieu.R;
@@ -20,12 +21,13 @@ public class View_QuanLyHangMuc extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.quanlyhangmuc);
 
+        // Ánh xạ các view
         framelayout = findViewById(R.id.framelayout);
         tablayout = findViewById(R.id.tablayout);
 
-        // Thiết lập tab đầu tiên mặc định
+
         if (savedInstanceState == null) {
-            tablayout.getTabAt(0).select(); // Chọn tab đầu tiên
+            displayFragment(new Fragment_ThuNhap());
         }
 
         tablayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -34,30 +36,30 @@ public class View_QuanLyHangMuc extends AppCompatActivity {
                 Fragment fragment = null;
                 switch (tab.getPosition()) {
                     case 0:
-                        fragment = new Fragment_ThuNhap();
+                        fragment = new Fragment_ThuNhap(); // Fragment cho tab Thu Nhập
                         break;
                     case 1:
-                        fragment = new Fragment_ChiPhi();
+                        fragment = new Fragment_ChiPhi(); // Fragment cho tab Chi Phí
                         break;
                 }
-
                 if (fragment != null) {
-                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                    transaction.replace(R.id.framelayout, fragment);
-                    transaction.addToBackStack(null);
-                    transaction.commit();
+                    displayFragment(fragment);
                 }
             }
 
             @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-                // Có thể để trống hoặc xử lý nếu cần
-            }
+            public void onTabUnselected(TabLayout.Tab tab) { }
 
             @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-                // Có thể để trống hoặc xử lý nếu cần
-            }
+            public void onTabReselected(TabLayout.Tab tab) { }
         });
+    }
+
+    // Phương thức để thay thế và hiển thị Fragment vào FrameLayout
+    private void displayFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.framelayout, fragment);
+        fragmentTransaction.commit();
     }
 }
