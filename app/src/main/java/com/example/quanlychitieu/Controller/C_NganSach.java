@@ -54,7 +54,7 @@ public class C_NganSach extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(C_NganSach.this, Fragment_TongQuan.class);
+                Intent intent = new Intent(C_NganSach.this, TongQuan.class);
                 startActivity(intent);
             }
         });

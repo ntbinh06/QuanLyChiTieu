@@ -1,5 +1,6 @@
 package com.example.quanlychitieu.Controller;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -33,7 +34,12 @@ public class View_QuanLyHangMuc extends AppCompatActivity {
 
         // Thêm sự kiện click vào ImageView để mở DialogFragment
         addHangMuc.setOnClickListener(v -> openDialogFragment());
+        ImageView ic_back = findViewById(R.id.ic_back);
 
+        ic_back.setOnClickListener(v -> {
+            Intent intent = new Intent(View_QuanLyHangMuc.this, TongQuan.class);
+            startActivity(intent);
+        });
 
         if (savedInstanceState == null) {
             displayFragment(new Fragment_ThuNhap());

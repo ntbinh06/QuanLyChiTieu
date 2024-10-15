@@ -1,4 +1,5 @@
 package com.example.quanlychitieu.Controller;
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -26,6 +27,7 @@ import java.util.List;
 
 public class Ctrl_ThemThuNhap extends AppCompatActivity {
     private Spinner spnthunhap;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,7 +107,7 @@ public class Ctrl_ThemThuNhap extends AppCompatActivity {
         window.setAttributes(windowAttributes);
 
         // Thiết lập ListView trong dialog
-        ListView listView = dialog.findViewById(R.id.listView_thunhap); // Sửa chỗ này
+        ListView listView = dialog.findViewById(R.id.listView_thunhap); // Kiểm tra ID của ListView
 
         // Tạo danh sách chi phí
         ArrayList<Model_HangMucThuNhap> arrContact = new ArrayList<>();
@@ -118,6 +120,16 @@ public class Ctrl_ThemThuNhap extends AppCompatActivity {
         // Khởi tạo adapter và gán cho ListView
         Ctrl_HangMucThuNhap customAdapter = new Ctrl_HangMucThuNhap(this, R.layout.list_item_hangmuc, arrContact);
         listView.setAdapter(customAdapter);
+
+        // Xử lý sự kiện click cho ListView
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Model_HangMucThuNhap selectedItem = arrContact.get(position);
+                Toast.makeText(Ctrl_ThemThuNhap.this, "Bạn đã chọn: " + selectedItem.getName(), Toast.LENGTH_SHORT).show();
+                dialog.dismiss(); // Đóng dialog sau khi chọn
+            }
+        });
 
         dialog.setCancelable(Gravity.BOTTOM == gravity);
         dialog.show(); // Hiển thị dialog

@@ -19,7 +19,7 @@ import com.example.quanlychitieu.Controller.CacTaiKhoan;
 import com.example.quanlychitieu.Controller.ChuyenTien;
 import com.example.quanlychitieu.Controller.Ctrl_DanhSachUser;
 import com.example.quanlychitieu.Controller.Ctrl_NguoiDung;
-import com.example.quanlychitieu.Controller.Ctrl_QuanLyHangMuc;
+import com.example.quanlychitieu.Controller.View_QuanLyHangMuc;
 import com.example.quanlychitieu.Controller.Ctrl_ThemChiPhi;
 import com.example.quanlychitieu.Controller.Ctrl_ThemThuNhap;
 import com.example.quanlychitieu.Controller.View_QuanLyHangMuc;

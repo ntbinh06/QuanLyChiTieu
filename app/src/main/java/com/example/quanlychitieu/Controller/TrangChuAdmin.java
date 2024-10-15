@@ -38,7 +38,8 @@ public class TrangChuAdmin extends AppCompatActivity {
         ic_tongquan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(TrangChuAdmin.this, TongQuan.class));
+                Intent intent = new Intent(TrangChuAdmin.this, TongQuan.class);
+                startActivity(intent);
             }
         });
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
