@@ -16,6 +16,10 @@
             android:name=".Controller.TrangChuAdmin"
             android:exported="false" />
         <activity
+            android:name=".View.V_SideMenu"
+            android:exported="false" />
+
+        <activity
             android:name=".Controller.C_NganSach"
             android:exported="false" />
         <activity
@@ -23,10 +27,8 @@
             android:exported="false" />
 
         <activity
-            android:name=".Controller.View_QuanLyHangMuc"
-            android:exported="false" >
-
-        </activity>
+            android:name=".View.View_QuanLyHangMuc"
+            android:exported="false" />
         <activity
             android:name=".Controller.Ctrl_ThemChiPhi"
             android:exported="false" />
@@ -44,11 +46,7 @@
         </activity>
         <activity android:name=".Controller.CacTaiKhoan"
             android:exported="false">
-<!--                <intent-filter>-->
-<!--                    <action android:name="android.intent.action.MAIN" />-->
 
-<!--                    <category android:name="android.intent.category.LAUNCHER" />-->
-<!--                </intent-filter>-->
         </activity>
         <activity
             android:name=".Controller.CacGiaoDich"
@@ -62,25 +60,6 @@
         <activity
             android:name=".Controller.Ctrl_XemChiPhi"
             android:exported="false" />
-
-        <activity
-            android:name=".Controller.LoginActicity"
-            android:exported="false" />
-
-        <activity
-        android:name=".View.V_SideMenu"
-        android:exported="false" />
-
-        <activity
-            android:name=".Controller.Ctrl_ThongTinCaNhan"
-            android:exported="false" />
-
-        <activity
-            android:name=".Controller.NganSachMoi"
-            android:exported="false" />
-
-
-
         <activity
             android:name=".Controller.Ctrl_XemThuNhap"
             android:exported="false" />
@@ -91,7 +70,13 @@
             android:name=".Controller.RegisterActivity"
             android:exported="false">
         </activity>
-        <activity android:name=".Controller.TongQuan" android:exported="false" />
+        <activity android:name=".Controller.TongQuan" android:exported="false" >
+
+
+        </activity>
+
+        <activity android:name=".Controller.LoginActicity" />
+
         <activity android:name=".View.View_HangMucChiPhi" android:exported="false" />
         <activity
             android:name=".Controller.TrangChuDNDK"
