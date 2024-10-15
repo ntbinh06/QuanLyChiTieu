@@ -21,14 +21,14 @@ public class Ctrl_DoiMatKhau extends AppCompatActivity{
         ic_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Ctrl_DoiMatKhau.this, Fragment_NguoiDung.class));
+                finish();
             }
         });
 
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Ctrl_DoiMatKhau.this, Fragment_NguoiDung.class));
+                finish();
             }
         });
 

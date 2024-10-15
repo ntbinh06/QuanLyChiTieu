@@ -15,6 +15,8 @@
         <activity
             android:name=".Controller.TrangChuAdmin"
             android:exported="false" />
+
+
         <activity
             android:name=".View.V_SideMenu"
             android:exported="false" />
@@ -22,19 +24,42 @@
         <activity
             android:name=".Controller.C_NganSach"
             android:exported="false" />
+
+        <activity
+            android:name=".Controller.Ctrl_ThemThuNhap"
+            android:exported="false" />
+
+
         <activity
             android:name=".Controller.Ctrl_DoiMatKhau"
             android:exported="false" />
 
         <activity
-            android:name=".View.View_QuanLyHangMuc"
+            android:name=".Controller.View_QuanLyHangMuc"
             android:exported="false" />
+
+
         <activity
             android:name=".Controller.Ctrl_ThemChiPhi"
             android:exported="false" />
+
+
         <activity
+
             android:name=".Controller.ChiTietNganSach"
             android:exported="false" />
+
+
+        <activity
+            android:name=".Controller.Ctrl_ThongTinCaNhan"
+            android:exported="false" />
+
+
+        <activity
+            android:name=".Controller.RegisterActivity"
+            android:exported="false" />
+
+
         <activity
             android:name=".Controller.ChuyenTien"
             android:exported="false">
@@ -44,10 +69,14 @@
 <!--                <category android:name="android.intent.category.LAUNCHER" />-->
 <!--            </intent-filter>-->
         </activity>
+
+
         <activity android:name=".Controller.CacTaiKhoan"
             android:exported="false">
 
         </activity>
+
+
         <activity
             android:name=".Controller.CacGiaoDich"
             android:exported="false" >
@@ -57,19 +86,23 @@
 <!--                <category android:name="android.intent.category.LAUNCHER" />-->
 <!--            </intent-filter>-->
         </activity>
+
         <activity
             android:name=".Controller.Ctrl_XemChiPhi"
             android:exported="false" />
+
+        <activity
+            android:name=".Controller.NganSachMoi"
+            android:exported="false" />
+
         <activity
             android:name=".Controller.Ctrl_XemThuNhap"
             android:exported="false" />
         <activity
             android:name=".Controller.Ctrl_XemTKChiTiet"
             android:exported="false" />
-        <activity
-            android:name=".Controller.RegisterActivity"
-            android:exported="false">
-        </activity>
+
+
         <activity android:name=".Controller.TongQuan" android:exported="false" >
 
 
@@ -91,9 +124,13 @@
         <activity
             android:name=".MainActivity"
             android:exported="true" />
+
         <activity android:name=".Controller.ThongTinNguoiDung" />
+
         <activity android:name=".View.View_DanhSachUser"
             android:exported="false"/>
+
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
