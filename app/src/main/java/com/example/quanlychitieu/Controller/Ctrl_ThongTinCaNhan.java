@@ -22,14 +22,14 @@ public class Ctrl_ThongTinCaNhan extends AppCompatActivity {
         ic_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Ctrl_ThongTinCaNhan.this, Fragment_NguoiDung.class));
+                finish();
             }
         });
 
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Ctrl_ThongTinCaNhan.this, Fragment_NguoiDung.class));
+                finish();
             }
         });
 

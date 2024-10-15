@@ -430,6 +430,7 @@
             </LinearLayout>
 
             <Button
+                android:id="@+id/btn_xoataikhoan"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:background="@drawable/round_corner_25dp"

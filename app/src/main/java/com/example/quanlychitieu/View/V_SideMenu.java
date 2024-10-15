@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.quanlychitieu.Controller.C_NganSach;
 import com.example.quanlychitieu.Controller.C_SideMenu;
@@ -82,7 +84,7 @@ public class V_SideMenu extends AppCompatActivity {
                         startActivity(new Intent(V_SideMenu.this, C_NganSach.class));
                         break;
                     case 4: // "Người dùng"
-                        startActivity(new Intent(V_SideMenu.this, Fragment_NguoiDung.class));
+                        replaceFragment(new Fragment_NguoiDung());
                         break;
                     case 5: // "Quản lý hạng mục"
                         startActivity(new Intent(V_SideMenu.this, View_QuanLyHangMuc.class));
@@ -106,5 +108,12 @@ public class V_SideMenu extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+
+    public void replaceFragment(Fragment fragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, fragment); // 'fragment_container' là ID của FrameLayout chứa Fragment
+        transaction.addToBackStack(null); // Thêm vào BackStack nếu muốn quay lại
+        transaction.commit();
     }
 }
