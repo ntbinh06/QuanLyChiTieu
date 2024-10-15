@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    tools:context=".View.View_QuanLyHangMuc">
+    tools:context=".Controller.View_QuanLyHangMuc">
 
     <LinearLayout
         android:id="@+id/header"
