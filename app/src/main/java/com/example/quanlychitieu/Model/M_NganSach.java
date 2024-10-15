@@ -40,30 +40,37 @@ public class M_NganSach {
     }
 
     public void setSoTien(double soTien) {
+
         this.soTien = soTien;
     }
 
     public double getSoTienConLai() {
+
         return soTienConLai;
     }
 
     public void setSoTienConLai(double soTienConLai) {
+
         this.soTienConLai = soTienConLai;
     }
 
     public int getImgHangMuc() {
+
         return imgHangMuc;
     }
 
     public void setImgHangMuc(int imgHangMuc) {
+
         this.imgHangMuc = imgHangMuc;
     }
 
     public int getPgrBar() {
+
         return pgrBar;
     }
 
     public void setPgrBar(int pgrBar) {
+
         this.pgrBar = pgrBar;
     }
 

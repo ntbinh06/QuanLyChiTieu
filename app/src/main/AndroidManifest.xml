@@ -16,19 +16,36 @@
             android:name=".Controller.TrangChuAdmin"
             android:exported="false" />
         <activity
-            android:name=".View.V_SideMenu"
-            android:exported="false" />
-
-        <activity
             android:name=".Controller.C_NganSach"
-            android:exported="false" />
+            android:exported="true" >
+                <intent-filter>
+                    <action android:name="android.intent.action.MAIN" />
+
+                    <category android:name="android.intent.category.LAUNCHER" />
+                </intent-filter>
+        </activity>
         <activity
             android:name=".Controller.Ctrl_DoiMatKhau"
             android:exported="false" />
-
         <activity
-            android:name=".View.View_QuanLyHangMuc"
-            android:exported="false" />
+            android:name=".Controller.View_QuanLyHangMuc"
+            android:exported="false" >
+<!--                <intent-filter>-->
+<!--                    <action android:name="android.intent.action.MAIN" />-->
+
+<!--                    <category android:name="android.intent.category.LAUNCHER" />-->
+<!--                </intent-filter>-->
+        </activity>
+        <activity
+            android:name=".Controller.LoginActicity"
+            android:exported="false" >
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+        </activity>
+
         <activity
             android:name=".Controller.Ctrl_ThemChiPhi"
             android:exported="false" />
@@ -46,16 +63,20 @@
         </activity>
         <activity android:name=".Controller.CacTaiKhoan"
             android:exported="false">
+<!--                <intent-filter>-->
+<!--                    <action android:name="android.intent.action.MAIN" />-->
 
+<!--                    <category android:name="android.intent.category.LAUNCHER" />-->
+<!--                </intent-filter>-->
         </activity>
         <activity
             android:name=".Controller.CacGiaoDich"
-            android:exported="false" >
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".Controller.Ctrl_XemChiPhi"
@@ -70,24 +91,22 @@
             android:name=".Controller.RegisterActivity"
             android:exported="false">
         </activity>
-        <activity android:name=".Controller.TongQuan" android:exported="false" >
-
-
+        <activity
+            android:name=".View.V_SideMenu"
+            android:exported="false">
         </activity>
-
-        <activity android:name=".Controller.LoginActicity" />
-
+        <activity android:name=".Controller.TongQuan" android:exported="false" />
         <activity android:name=".View.View_HangMucChiPhi" android:exported="false" />
         <activity
             android:name=".Controller.TrangChuDNDK"
             android:exported="true" >
+<!--                <intent-filter>-->
+<!--                    <action android:name="android.intent.action.MAIN" />-->
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+<!--                    <category android:name="android.intent.category.LAUNCHER" />-->
+<!--                </intent-filter>-->
         </activity>
+
         <activity
             android:name=".MainActivity"
             android:exported="true" />

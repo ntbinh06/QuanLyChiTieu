@@ -1,6 +1,7 @@
 package com.example.quanlychitieu.View;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.quanlychitieu.Controller.ChiTietNganSach;
 import com.example.quanlychitieu.Model.M_NganSach;
 import com.example.quanlychitieu.R;
 
@@ -44,6 +46,16 @@ public class View_NganSach extends RecyclerView.Adapter<View_NganSach.ViewHolder
         holder.tienConLai.setText(contact.getFormattedSoTienConLai());
         holder.conlai.setText(contact.getTxtConlai());
         holder.pgbTienTrinh.setProgress(contact.getPgrBar());
+
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, ChiTietNganSach.class);
+            // Truyền dữ liệu qua Intent
+            intent.putExtra("imgCategory", contact.getImgHangMuc());
+            intent.putExtra("tenHangMuc", contact.getTenHangMuc());
+            intent.putExtra("soTien", contact.getSoTien());
+            intent.putExtra("soTienConLai", contact.getSoTienConLai());
+            context.startActivity(intent);
+        });
     }
 
     @Override
