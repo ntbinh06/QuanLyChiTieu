@@ -25,9 +25,7 @@
         <activity
             android:name=".Controller.Ctrl_DoiMatKhau"
             android:exported="false" />
-        <activity
-            android:name=".Controller.Ctrl_NguoiDung"
-            android:exported="false" />
+
         <activity
             android:name=".View.View_QuanLyHangMuc"
             android:exported="false" />
@@ -72,18 +70,24 @@
             android:name=".Controller.RegisterActivity"
             android:exported="false">
         </activity>
-        <activity android:name=".Controller.TongQuan" android:exported="true" >
+        <activity android:name=".Controller.TongQuan" android:exported="false" >
+
+
+        </activity>
+
+        <activity android:name=".Controller.LoginActicity" />
+
+        <activity android:name=".View.View_HangMucChiPhi" android:exported="false" />
+        <activity
+            android:name=".Controller.TrangChuDNDK"
+            android:exported="true" >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-        <activity android:name=".View.View_HangMucChiPhi" android:exported="false" />
-        <activity
-            android:name=".Controller.TrangChuDNDK"
-            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true" />

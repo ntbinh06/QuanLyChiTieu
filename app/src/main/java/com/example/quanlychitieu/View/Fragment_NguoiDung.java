@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import androidx.fragment.app.Fragment;
 
 import com.example.quanlychitieu.Controller.Ctrl_DoiMatKhau;
-import com.example.quanlychitieu.Controller.Ctrl_NguoiDung;
 import com.example.quanlychitieu.Controller.Ctrl_ThongTinCaNhan;
 import com.example.quanlychitieu.Controller.TongQuan;
 import com.example.quanlychitieu.R;
@@ -35,7 +34,7 @@ public class Fragment_NguoiDung extends Fragment {
         ic_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), Fragment_TongQuan.class));
+                startActivity(new Intent(getActivity(), TongQuan.class));
             }
         });
         thongtin.setOnClickListener(new View.OnClickListener() {

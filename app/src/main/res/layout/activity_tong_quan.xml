@@ -105,6 +105,7 @@
                         android:fontFamily="@font/poppins_regular" />
 
                     <ImageView
+                        android:id="@+id/ic_eye"
                         android:layout_width="20dp"
                         android:layout_height="12dp"
                         android:src="@drawable/eye"

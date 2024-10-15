@@ -13,8 +13,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.quanlychitieu.R;
+import com.example.quanlychitieu.View.Fragment_TongQuan;
 
 public class LoginActicity extends AppCompatActivity {
 
@@ -39,7 +42,6 @@ public class LoginActicity extends AppCompatActivity {
 
                 // Kiểm tra điều kiện đăng nhập
                 if ("ntb@gmail.com".equals(email) && "1234".equals(password)) {
-                    // Đăng nhập thành công cho user
                     Intent intent = new Intent(LoginActicity.this, TongQuan.class);
                     startActivity(intent);
                 } else if ("admin@gmail.com".equals(email) && "12356".equals(password)) {
@@ -61,7 +63,8 @@ public class LoginActicity extends AppCompatActivity {
             }
         });
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.dangnhap), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;

@@ -15,6 +15,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.quanlychitieu.R;
+import com.example.quanlychitieu.View.Fragment_TongQuan;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -45,7 +46,7 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this, "Vui lòng điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
                 } else {
                     // Nếu tất cả các trường đã được điền, chuyển sang trang TongQuan
-                    Intent intent = new Intent(RegisterActivity.this, TongQuan.class);
+                    Intent intent = new Intent(RegisterActivity.this, Fragment_TongQuan.class);
                     startActivity(intent);
                 }
             }
