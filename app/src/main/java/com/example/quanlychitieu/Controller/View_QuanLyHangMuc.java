@@ -2,6 +2,7 @@ package com.example.quanlychitieu.Controller;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
@@ -13,6 +14,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.quanlychitieu.R;
 import com.example.quanlychitieu.View.Fragment_ChiPhi;
+import com.example.quanlychitieu.View.Fragment_NguoiDung;
 import com.example.quanlychitieu.View.Fragment_Them_Hang_Muc;
 import com.example.quanlychitieu.View.Fragment_ThuNhap;
 import com.google.android.material.tabs.TabLayout;
@@ -20,7 +22,7 @@ import com.google.android.material.tabs.TabLayout;
 public class View_QuanLyHangMuc extends AppCompatActivity {
     FrameLayout framelayout;
     TabLayout tablayout;
-    ImageView addHangMuc;
+    ImageView addHangMuc, iconback;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -30,7 +32,8 @@ public class View_QuanLyHangMuc extends AppCompatActivity {
         // Ánh xạ các view
         framelayout = findViewById(R.id.framelayout);
         tablayout = findViewById(R.id.tablayout);
-        addHangMuc = findViewById(R.id.add_HangMuc);  // Ánh xạ ImageView
+        addHangMuc = findViewById(R.id.add_HangMuc);
+        iconback = findViewById(R.id.ic_back);// Ánh xạ ImageView
 
         // Thêm sự kiện click vào ImageView để mở DialogFragment
         addHangMuc.setOnClickListener(v -> openDialogFragment());
@@ -67,6 +70,13 @@ public class View_QuanLyHangMuc extends AppCompatActivity {
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) { }
+        });
+
+        iconback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(View_QuanLyHangMuc.this, TongQuan.class));
+            }
         });
     }
 
