@@ -3,6 +3,7 @@ package com.example.quanlychitieu.Controller;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
@@ -19,7 +20,14 @@ public class Ctrl_NguoiDung extends AppCompatActivity {
         ImageView ic_back = findViewById(R.id.ic_back);
         ImageView thongtin= findViewById(R.id.thongtin);
         ImageView ic_doimk= findViewById(R.id.ic_doimk);
+        Button btnDangXuat=findViewById(R.id.btnDangXuat);
 
+        btnDangXuat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Ctrl_NguoiDung.this, TrangChuDNDK.class));
+            }
+        });
         ic_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

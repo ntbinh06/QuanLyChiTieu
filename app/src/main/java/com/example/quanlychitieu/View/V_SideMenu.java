@@ -18,6 +18,8 @@ import com.example.quanlychitieu.Controller.CacGiaoDich;
 import com.example.quanlychitieu.Controller.CacTaiKhoan;
 import com.example.quanlychitieu.Controller.ChuyenTien;
 import com.example.quanlychitieu.Controller.Ctrl_DanhSachUser;
+import com.example.quanlychitieu.Controller.Ctrl_NguoiDung;
+import com.example.quanlychitieu.Controller.Ctrl_QuanLyHangMuc;
 import com.example.quanlychitieu.Controller.Ctrl_ThemChiPhi;
 import com.example.quanlychitieu.Controller.Ctrl_ThemThuNhap;
 import com.example.quanlychitieu.Model.M_SideMenu;
@@ -81,7 +83,7 @@ public class V_SideMenu extends AppCompatActivity {
                         startActivity(new Intent(V_SideMenu.this, C_NganSach.class));
                         break;
                     case 4: // "Người dùng"
-                        startActivity(new Intent(V_SideMenu.this, Fragment_NguoiDung.class));
+                        startActivity(new Intent(V_SideMenu.this, Ctrl_NguoiDung.class));
                         break;
                     case 5: // "Quản lý hạng mục"
                         startActivity(new Intent(V_SideMenu.this, View_QuanLyHangMuc.class));

@@ -13,10 +13,10 @@
         android:theme="@style/Theme.QuanLyChiTieu"
         tools:targetApi="31">
         <activity
-            android:name=".Controller.TrangChuAdmin"
+            android:name=".Controller.LoginActicity"
             android:exported="false" />
         <activity
-            android:name=".View.V_SideMenu"
+            android:name=".Controller.RegisterActivity"
             android:exported="false" />
 
         <activity
@@ -26,8 +26,12 @@
             android:name=".Controller.Ctrl_DoiMatKhau"
             android:exported="false" />
         <activity
+            android:name=".Controller.Ctrl_ThongTinCaNhan"
+            android:exported="false" />
+        <activity
             android:name=".Controller.Ctrl_NguoiDung"
             android:exported="false" />
+        <activity android:name=".Controller.Ctrl_QuanLyHangMuc" />
         <activity
             android:name=".View.View_QuanLyHangMuc"
             android:exported="false" />
@@ -65,13 +69,17 @@
         <activity
             android:name=".Controller.Ctrl_XemThuNhap"
             android:exported="false" />
+        <activity android:name=".Controller.Ctrl_ThemThuNhap"></activity>
+        <activity
+            android:name=".Controller.Ctrl_ThemChiPhi"
+            android:exported="false"
+            tools:ignore="DuplicateActivity" />
         <activity
             android:name=".Controller.Ctrl_XemTKChiTiet"
             android:exported="false" />
         <activity
-            android:name=".Controller.RegisterActivity"
-            android:exported="false">
-        </activity>
+            android:name=".View.View_DanhSachUser"
+            android:exported="false" />
         <activity android:name=".Controller.TongQuan" android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -81,14 +89,13 @@
 
         </activity>
         <activity android:name=".View.View_HangMucChiPhi" android:exported="false" />
-        <activity
-            android:name=".Controller.TrangChuDNDK"
-            android:exported="false" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true" />
         <activity android:name=".Controller.ThongTinNguoiDung" />
-        <activity android:name=".View.View_DanhSachUser"
+        <activity android:name=".View.V_SideMenu"></activity>
+        <activity android:name=".Controller.TrangChuAdmin"
             android:exported="false"/>
         <meta-data
             android:name="preloaded_fonts"
