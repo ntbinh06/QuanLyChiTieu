@@ -16,6 +16,10 @@
             android:name=".Controller.TrangChuAdmin"
             android:exported="false" />
         <activity
+            android:name=".View.V_SideMenu"
+            android:exported="false" />
+
+        <activity
             android:name=".Controller.C_NganSach"
             android:exported="false" />
         <activity

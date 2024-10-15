@@ -8,6 +8,8 @@ import android.widget.ImageButton;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.quanlychitieu.R;
+import com.example.quanlychitieu.View.Fragment_NguoiDung;
+
 public class Ctrl_DoiMatKhau extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,14 +21,14 @@ public class Ctrl_DoiMatKhau extends AppCompatActivity{
         ic_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Ctrl_DoiMatKhau.this, Ctrl_NguoiDung.class));
+                startActivity(new Intent(Ctrl_DoiMatKhau.this, Fragment_NguoiDung.class));
             }
         });
 
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Ctrl_DoiMatKhau.this, Ctrl_NguoiDung.class));
+                startActivity(new Intent(Ctrl_DoiMatKhau.this, Fragment_NguoiDung.class));
             }
         });
 
