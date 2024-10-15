@@ -4,12 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:id="@+id/listView"
     android:padding="10dp"
     tools:ignore="InvalidId">
 
     <ImageView
-        android:id="@+id/tvMenu"
+        android:id="@+id/iconMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -18,7 +17,7 @@
         android:src="@drawable/tongquan" />
 
     <TextView
-        android:id="@+id/iconMenu"
+        android:id="@+id/tvMenu"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
