@@ -12,32 +12,50 @@
     tools:openDrawer="start">
 
 
-    <com.google.android.material.navigation.NavigationView
-        android:layout_width="340dp"
-        android:layout_height="match_parent"
-        android:id="@+id/nav_view"
-        app:headerLayout="@layout/sidemenu_header"
-        app:menu="@menu/sidemenu"
-        android:layout_gravity="start"
-        app:itemIconTint="@color/bluepurple_80"
-        android:layout_marginTop="22dp"
-        android:layout_marginLeft="25dp"/>
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:menu="@menu/toolbar_menu"
-            app:title="Tổng quan"
-            app:titleTextColor="@color/white"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            android:layout_marginTop="22dp"
-            android:layout_marginLeft="25dp"/>
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/btnMenu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/baseline_menu_24"
+                android:layout_marginTop="28dp"
+                android:layout_marginLeft="30dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tổng quan"
+                android:textSize="24sp"
+                android:textColor="@color/white"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="20dp"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/replay"
+                android:layout_marginTop="28dp"
+                android:layout_marginLeft="130dp"
+                />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/kebab_menu"
+                android:layout_marginTop="28dp"
+                android:layout_marginLeft="20dp"
+                />
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

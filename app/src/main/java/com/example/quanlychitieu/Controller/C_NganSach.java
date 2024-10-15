@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.quanlychitieu.Model.M_NganSach;
 import com.example.quanlychitieu.R;
+import com.example.quanlychitieu.View.Fragment_TongQuan;
 import com.example.quanlychitieu.View.View_NganSach;
 
 import java.util.ArrayList;
@@ -53,7 +54,7 @@ public class C_NganSach extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(C_NganSach.this, TongQuan.class);
+                Intent intent = new Intent(C_NganSach.this, Fragment_TongQuan.class);
                 startActivity(intent);
             }
         });
