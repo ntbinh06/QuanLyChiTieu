@@ -1,14 +1,24 @@
 package com.example.quanlychitieu.View;
 
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import android.widget.ListView;
 
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import com.example.quanlychitieu.Controller.CacGiaoDich;
 import com.example.quanlychitieu.Controller.Ctrl_HangMucChiPhi;
+import com.example.quanlychitieu.Controller.Ctrl_ThemHangMuc;
+import com.example.quanlychitieu.Controller.Ctrl_ThemThuNhap;
+import com.example.quanlychitieu.Controller.Ctrl_XemChiPhi;
 import com.example.quanlychitieu.Model.Model_HangMucChiPhi;
 import com.example.quanlychitieu.R;
 
@@ -37,8 +47,27 @@ public class View_HangMucChiPhi extends AppCompatActivity {
         arrContact.add(new Model_HangMucChiPhi(R.drawable.baseline_account_circle_24, "Sức khỏe"));
 
         // Khởi tạo adapter và gán cho ListView
-        Ctrl_HangMucChiPhi customAdapter = new Ctrl_HangMucChiPhi(this, R.layout.list_item, arrContact);
+        Ctrl_HangMucChiPhi customAdapter = new Ctrl_HangMucChiPhi(this, R.layout.list_item_hangmuc, arrContact);
         lvContact.setAdapter(customAdapter);
+
+        TextView tao = findViewById(R.id.tao);
+        TextView quanly = findViewById(R.id.quanly);
+
+        tao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(View_HangMucChiPhi.this, Ctrl_ThemHangMuc.class);
+                startActivity(intent);
+            }
+        });
+
+        quanly.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(View_HangMucChiPhi.this, View_QuanLyHangMuc.class);
+                startActivity(intent);
+            }
+        });
 
         // Thiết lập padding cho view chính
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.hangmuchiphi), (v, insets) -> {

@@ -1,5 +1,6 @@
 package com.example.quanlychitieu.View;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.core.graphics.Insets;
@@ -7,11 +8,14 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.example.quanlychitieu.Controller.Ctrl_ThemHangMuc;
 import com.example.quanlychitieu.Model.DanhMucHangMuc;
 import com.example.quanlychitieu.R;
 
@@ -20,7 +24,7 @@ import java.util.ArrayList;
 
 public class Fragment_ThuNhap extends Fragment {
     int image[]= {R.drawable.wage,R.drawable.lending,R.drawable.financial_statement,R.drawable.low_income,R.drawable.streams};
-    String tenTN[]={"Lương","Thu lãi", "Thu nhập khác","Tiền chuyển đến","Khoản thu chưa phân loại"};
+    String tenTN[]={"Lương","Thu lãi", "Tiền trợ cấp","Tiền từ việc vặt","Tiền tiết kiệm"};
 
 
     private ListView lv;

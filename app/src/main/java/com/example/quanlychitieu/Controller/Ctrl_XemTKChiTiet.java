@@ -64,7 +64,7 @@ public class Ctrl_XemTKChiTiet  extends AppCompatActivity{
         ic_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Ctrl_XemTKChiTiet.this, CacGiaoDich.class);
+                Intent intent = new Intent(Ctrl_XemTKChiTiet.this, CacTaiKhoan.class);
                 startActivity(intent);
             }
         });

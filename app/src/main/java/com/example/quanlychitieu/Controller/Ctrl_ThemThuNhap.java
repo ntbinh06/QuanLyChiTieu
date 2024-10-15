@@ -105,18 +105,18 @@ public class Ctrl_ThemThuNhap extends AppCompatActivity {
         window.setAttributes(windowAttributes);
 
         // Thiết lập ListView trong dialog
-        ListView listView = findViewById(R.id.listView_thunhap);
+        ListView listView = dialog.findViewById(R.id.listView_thunhap); // Sửa chỗ này
 
         // Tạo danh sách chi phí
         ArrayList<Model_HangMucThuNhap> arrContact = new ArrayList<>();
-        arrContact.add(new Model_HangMucThuNhap(R.drawable.baseline_account_circle_24, "Thu nhập tài chính"));
-        arrContact.add(new Model_HangMucThuNhap(R.drawable.baseline_account_circle_24, "Lương"));
-        arrContact.add(new Model_HangMucThuNhap(R.drawable.baseline_account_circle_24, "Tiền từ việc vặt"));
-        arrContact.add(new Model_HangMucThuNhap(R.drawable.baseline_account_circle_24, "Tiền trợ cấp"));
-        arrContact.add(new Model_HangMucThuNhap(R.drawable.baseline_account_circle_24, "Tiền tiết kiệm"));
+        arrContact.add(new Model_HangMucThuNhap(R.drawable.wage, "Lương"));
+        arrContact.add(new Model_HangMucThuNhap(R.drawable.lending, "Thu lãi"));
+        arrContact.add(new Model_HangMucThuNhap(R.drawable.financial_statement, "Tiền trợ cấp"));
+        arrContact.add(new Model_HangMucThuNhap(R.drawable.low_income, "Tiền từ việc vặt"));
+        arrContact.add(new Model_HangMucThuNhap(R.drawable.streams, "Tiền tiết kiệm"));
 
         // Khởi tạo adapter và gán cho ListView
-        Ctrl_HangMucThuNhap customAdapter = new Ctrl_HangMucThuNhap(this, R.layout.list_item, arrContact);
+        Ctrl_HangMucThuNhap customAdapter = new Ctrl_HangMucThuNhap(this, R.layout.list_item_hangmuc, arrContact);
         listView.setAdapter(customAdapter);
 
         dialog.setCancelable(Gravity.BOTTOM == gravity);

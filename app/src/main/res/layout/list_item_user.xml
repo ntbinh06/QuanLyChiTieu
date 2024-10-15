@@ -51,21 +51,21 @@
                 />
         </LinearLayout>
 
-        <ImageButton
+        <ImageView
             android:id="@+id/ic_eye"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_eye"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="35dp"
             />
-        <ImageButton
+        <ImageView
             android:id="@+id/ic_lock"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_lock_user"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="35dp"
             />
     </LinearLayout>
 
