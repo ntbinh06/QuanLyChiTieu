@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:id="@+id/listView"
-    android:padding="16dp"
+    android:padding="10dp"
     tools:ignore="InvalidId">
 
     <ImageView
@@ -25,20 +25,4 @@
         android:text="Đồ ăn/ Đồ uống"
         android:textSize="20dp"
         android:layout_marginTop="17dp"/>
-
-    <ImageButton
-        android:id="@+id/ic_eye"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="17dp"
-        android:src="@drawable/ic_eye" />
-
-    <ImageButton
-        android:id="@+id/ic_lock"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="17dp"
-        android:src="@drawable/ic_delete" />
 </LinearLayout>

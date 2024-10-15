@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 
 import com.example.quanlychitieu.Model.Model_DanhSachUser;
 import com.example.quanlychitieu.R;
+import com.example.quanlychitieu.Controller.ThongTinNguoiDung; // Kiểm tra đường dẫn đúng
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,14 +50,18 @@ public class Ctrl_DanhSachUser extends ArrayAdapter<Model_DanhSachUser> {
         viewHolder.tvAvatar.setImageResource(contact.getAvatarResource());
         viewHolder.tvName.setText(contact.getName());
         viewHolder.tvGmail.setText(contact.getGmail());
-        viewHolder.ic_eye.setImageResource(contact.getIcInfo());
-        viewHolder.ic_lock.setImageResource(contact.getIcLock());
+        viewHolder.ic_eye = convertView.findViewById(R.id.ic_eye); // Đã thay đổi kiểu ở đây
+        viewHolder.ic_lock = convertView.findViewById(R.id.ic_lock); // Đã thay đổi kiểu ở đây
+        convertView.setTag(viewHolder);
 
         // Sự kiện cho nút mắt (ic_eye)
         viewHolder.ic_eye.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, CacGiaoDich.class); // Sử dụng context
+                Intent intent = new Intent(context, ThongTinNguoiDung.class);
+                // Truyền dữ liệu vào Intent
+                intent.putExtra("userName", contact.getName());
+                intent.putExtra("userEmail", contact.getGmail());
                 context.startActivity(intent);
             }
         });
@@ -65,8 +70,8 @@ public class Ctrl_DanhSachUser extends ArrayAdapter<Model_DanhSachUser> {
         viewHolder.ic_lock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Xử lý sự kiện khi nhấn vào nút khóa
-                // Ví dụ: hiển thị thông báo hoặc thực hiện một hành động nào đó
+                // Hiển thị thông báo hoặc thực hiện một hành động nào đó
+                // Ví dụ: Toast.makeText(context, "Khóa người dùng", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -76,6 +81,6 @@ public class Ctrl_DanhSachUser extends ArrayAdapter<Model_DanhSachUser> {
     public static class ViewHolder {
         TextView tvName, tvGmail;
         ImageView tvAvatar;
-        ImageButton ic_eye, ic_lock;
+        ImageView ic_eye, ic_lock; // Nếu bạn muốn giữ nguyên là ImageButton
     }
 }

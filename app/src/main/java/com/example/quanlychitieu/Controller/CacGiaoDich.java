@@ -3,6 +3,7 @@ package com.example.quanlychitieu.Controller;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
@@ -42,6 +43,35 @@ public class CacGiaoDich extends AppCompatActivity {
         }
         myadapter = new View_ItemGiaoDich(CacGiaoDich.this,R.layout.list_item_cacdd,mylist);
         lv.setAdapter(myadapter);
+
+
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                //lấy thông tin giao dịch được chọn
+                DanhMucGiaoDich giaoDich = mylist.get(position);
+
+                Intent intent;
+                // Kiểm tra loại giao dịch và điều hướng đến Activity phù hợp
+                if (giaoDich.getTenGD().equals("Lương")) {
+                    intent = new Intent(CacGiaoDich.this, Ctrl_XemThuNhap.class);
+                } else {
+                    intent = new Intent(CacGiaoDich.this, Ctrl_XemChiPhi.class);
+                }
+
+                // Truyền dữ liệu qua Intent
+                intent.putExtra("hinhGD", giaoDich.getImage());
+                intent.putExtra("tenGD", giaoDich.getTenGD());
+                intent.putExtra("tenTK", giaoDich.getTaikhoan());
+                intent.putExtra("tien", giaoDich.getTien());
+                intent.putExtra("ngay", giaoDich.getNgay());
+
+                // Chạy Activity mới
+                startActivity(intent);
+            }
+        });
+
+
         ImageButton ic_back = findViewById(R.id.ic_back);
         ic_back.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -92,10 +93,11 @@ public class Ctrl_ThemChiPhi extends AppCompatActivity {
     private void openFeedbackDialog(int gravity) {
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.hangmucchiphi); // Use a new layout for the dialog
+        dialog.setContentView(R.layout.hangmucchiphi); // Đảm bảo layout này tồn tại
+
         Window window = dialog.getWindow();
         if (window == null) {
-            return;
+            return; // Nếu không lấy được window, trả về
         }
         window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
         window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -103,22 +105,30 @@ public class Ctrl_ThemChiPhi extends AppCompatActivity {
         windowAttributes.gravity = gravity;
         window.setAttributes(windowAttributes);
 
-        // Set up ListView in the dialog
-        ListView listView = dialog.findViewById(R.id.listView_chiphi);
+        // Tìm ListView trong dialog
+        ListView listView = dialog.findViewById(R.id.listView_chiphi); // Kiểm tra ID có đúng không
+
+        if (listView == null) {
+            // Log lỗi nếu ListView không tồn tại
+            Log.e("Ctrl_ThemChiPhi", "ListView is null. Check the layout for ID listView_chiphi.");
+            return; // Trả về nếu không tìm thấy ListView
+        }
 
         ArrayList<Model_HangMucChiPhi> arrContact = new ArrayList<>();
-        arrContact.add(new Model_HangMucChiPhi(R.drawable.baseline_account_circle_24, "Đồ ăn/ Đồ uống"));
-        arrContact.add(new Model_HangMucChiPhi(R.drawable.baseline_account_circle_24, "Mua sắm"));
-        arrContact.add(new Model_HangMucChiPhi(R.drawable.baseline_account_circle_24, "Vận chuyển"));
-        arrContact.add(new Model_HangMucChiPhi(R.drawable.baseline_account_circle_24, "Giải trí"));
-        arrContact.add(new Model_HangMucChiPhi(R.drawable.baseline_account_circle_24, "Nhà cửa"));
-        arrContact.add(new Model_HangMucChiPhi(R.drawable.baseline_account_circle_24, "Gia đình"));
-        arrContact.add(new Model_HangMucChiPhi(R.drawable.baseline_account_circle_24, "Sức khỏe"));
+        arrContact.add(new Model_HangMucChiPhi(R.drawable.food, "Đồ ăn/ Đồ uống"));
+        arrContact.add(new Model_HangMucChiPhi(R.drawable.shopping, "Mua sắm"));
+        arrContact.add(new Model_HangMucChiPhi(R.drawable.family, "Gia đình"));
+        arrContact.add(new Model_HangMucChiPhi(R.drawable.delivery_van, "Vận chuyển"));
+        arrContact.add(new Model_HangMucChiPhi(R.drawable.drum_set, "Giải trí"));
+        arrContact.add(new Model_HangMucChiPhi(R.drawable.house, "Nhà cửa"));
+        arrContact.add(new Model_HangMucChiPhi(R.drawable.healthcare, "Sức khỏe"));
+        arrContact.add(new Model_HangMucChiPhi(R.drawable.pets, "Thú cưng"));
+        arrContact.add(new Model_HangMucChiPhi(R.drawable.travel_luggage, "Du lịch"));
 
-        Ctrl_HangMucChiPhi customAdapter = new Ctrl_HangMucChiPhi(this, R.layout.list_item, arrContact);
-        listView.setAdapter(customAdapter);
+        Ctrl_HangMucChiPhi customAdapter = new Ctrl_HangMucChiPhi(this, R.layout.list_item_hangmuc, arrContact);
+        listView.setAdapter(customAdapter); // Đảm bảo listView không null
 
-        dialog.setCancelable(Gravity.BOTTOM == gravity);
-        dialog.show(); // Show the dialog
+        dialog.setCancelable(true); // Cho phép hủy dialog
+        dialog.show(); // Hiển thị dialog
     }
 }

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/danhsachuser"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".Controller.Ctrl_XemTKChiTiet">
 
     <LinearLayout
         android:id="@+id/header"
@@ -47,11 +48,12 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/tenTK"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="130dp"
                 android:layout_marginTop="30dp"
                 android:text="Ví (VND)"
+                android:layout_gravity="center_horizontal"
                 android:textColor="@android:color/white"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -67,12 +69,24 @@
                 android:layout_marginTop="20dp"
                 android:layout_gravity="center">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Số dư: 455.455 đ"
-                    android:textSize="18sp"
-                    android:textColor="@android:color/black"/>
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Số dư: "
+                        android:textSize="18sp"
+                        android:textColor="@android:color/black"/>
+                    <TextView
+                        android:id="@+id/sodu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="455.455 đ"
+                        android:textSize="18sp"
+                        android:textColor="@android:color/black"/>
+                </LinearLayout>
 
                 <TextView
                     android:layout_width="wrap_content"

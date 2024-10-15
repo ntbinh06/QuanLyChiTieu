@@ -23,8 +23,8 @@ import java.util.ArrayList;
 
 
 public class Fragment_ChiPhi extends Fragment  {
-    int image[]= {R.drawable.food, R.drawable.family, R.drawable.shopping,R.drawable.wage,R.drawable.delivery_van,R.drawable.drum_set,R.drawable.house, R.drawable.healthcare,R.drawable.pets,R.drawable.travel_luggage};
-    String tenGD[]={"Đồ ăn","Mua sắm","Gia đình", "Lương","Vận chuyển","Giải trí","Nhà cửa","Sức khỏe","Thú cưng","Du lịch"};
+    int image[]= {R.drawable.food, R.drawable.shopping, R.drawable.family,R.drawable.delivery_van,R.drawable.drum_set,R.drawable.house, R.drawable.healthcare,R.drawable.pets,R.drawable.travel_luggage};
+    String tenGD[]={"Đồ ăn","Mua sắm","Gia đình","Vận chuyển","Giải trí","Nhà cửa","Sức khỏe","Thú cưng","Du lịch"};
 
 
     private ListView lv;

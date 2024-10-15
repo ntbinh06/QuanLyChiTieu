@@ -14,6 +14,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.quanlychitieu.R;
+import com.example.quanlychitieu.View.View_DanhSachUser;
 
 
 public class TrangChuAdmin extends AppCompatActivity {
@@ -30,7 +31,7 @@ public class TrangChuAdmin extends AppCompatActivity {
         ic_list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(TrangChuAdmin.this, Ctrl_DanhSachUser.class));
+                startActivity(new Intent(TrangChuAdmin.this, View_DanhSachUser.class));
             }
         });
 

@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -26,6 +27,7 @@ public class Ctrl_XemTKChiTiet  extends AppCompatActivity{
     ArrayList<DanhMucGiaoDich> mylist;
     View_ItemGiaoDich myadapter;
     ListView lv;
+    TextView txtTenTaiKhoan,txtSoTien;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +35,10 @@ public class Ctrl_XemTKChiTiet  extends AppCompatActivity{
 
         lv= findViewById(R.id.listview);
         mylist = new ArrayList<>();
+        txtTenTaiKhoan = findViewById(R.id.tenTK);
+        txtSoTien = findViewById(R.id.sodu);
+
+        //thêm item
         for(int i=0;i<tenGD.length;i++){
             int index = i % tenTK.length;
             mylist.add(new DanhMucGiaoDich(image[i], tenGD[i], tenTK[index], tien[index], ngay[index]));
@@ -45,12 +51,20 @@ public class Ctrl_XemTKChiTiet  extends AppCompatActivity{
             return insets;
         });
 
+        // Nhận dữ liệu từ Intent
+        String tenTaiKhoan = getIntent().getStringExtra("tenTK");
+        String soTien = getIntent().getStringExtra("sodu");
+
+        // Gán dữ liệu cho các TextView
+        txtTenTaiKhoan.setText(" " + tenTaiKhoan);
+        txtSoTien.setText(" " + soTien + " đ");
+
         ImageButton ic_back = findViewById(R.id.ic_back);
 
         ic_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Ctrl_XemTKChiTiet.this, CacGiaoDich.class);
+                Intent intent = new Intent(Ctrl_XemTKChiTiet.this, CacTaiKhoan.class);
                 startActivity(intent);
             }
         });

@@ -25,6 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="450dp" />
     <TextView
+        android:id="@+id/tao"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="550dp"
@@ -33,6 +34,7 @@
         android:textColor="@color/green"
         android:textSize="20dp" />
     <TextView
+        android:id="@+id/quanly"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="580dp"

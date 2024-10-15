@@ -80,6 +80,7 @@
 
             <!-- Eye Icon -->
             <ImageView
+                android:id="@+id/IconxemChiTiet"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginEnd="12dp"
@@ -87,6 +88,7 @@
 
             <!-- Delete Icon -->
             <ImageView
+                android:id="@+id/ic_delete"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginEnd="12dp"
@@ -94,6 +96,7 @@
 
             <!-- More Options Icon -->
             <ImageView
+                android:id="@+id/ic_eye"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_more" /> <!-- Icon thêm tùy chọn -->

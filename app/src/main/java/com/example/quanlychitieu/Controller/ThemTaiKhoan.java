@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,7 +20,7 @@ import com.example.quanlychitieu.R;
 public class ThemTaiKhoan extends Fragment {
 
     private EditText edtTenTaiKhoan, edtLuongBatDau, edtGhiChu;
-    private Spinner spinDonViTien;
+    private TextView DonViTien;
     private Button btnHuy, btnLuu;
 
     @Nullable
@@ -34,7 +35,7 @@ public class ThemTaiKhoan extends Fragment {
         edtTenTaiKhoan = view.findViewById(R.id.edtTenTaiKhoan);
         edtLuongBatDau = view.findViewById(R.id.edtLuongBatDau);
         edtGhiChu = view.findViewById(R.id.edtGhiChu);
-        spinDonViTien = view.findViewById(R.id.spin_bank_from);
+        DonViTien = view.findViewById(R.id.spin_bank_from);
         btnHuy = view.findViewById(R.id.btnCancel);
         btnLuu = view.findViewById(R.id.btnSave);
 
@@ -49,7 +50,7 @@ public class ThemTaiKhoan extends Fragment {
             String tenTaiKhoan = edtTenTaiKhoan.getText().toString();
             String luongBatDau = edtLuongBatDau.getText().toString();
             String ghiChu = edtGhiChu.getText().toString();
-            String donViTien = spinDonViTien.getSelectedItem().toString();
+            String donViTien = DonViTien.getText().toString();
 
             // Validate input
             if (tenTaiKhoan.isEmpty() || luongBatDau.isEmpty()) {

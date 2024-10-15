@@ -1,14 +1,10 @@
 package com.example.quanlychitieu.Controller;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -23,48 +19,43 @@ import com.example.quanlychitieu.View.View_ItemCacTK;
 import java.util.ArrayList;
 
 public class CacTaiKhoan extends AppCompatActivity {
-    String tenTK[]={"Ví", "Tài khoản ngân hàng", "Tài khoản trả trước"};
-    String tien[]={"400.000","750.000","2.000.000"};
+
+    String[] tenTK = {"Ví", "Tài khoản ngân hàng", "Tài khoản trả trước"};
+    String[] tien = {"400.000", "750.000", "2.000.000"};
 
     ArrayList<DanhMucTaiKhoan> taikhoan;
-    View_ItemCacTK Item;
+    View_ItemCacTK item;
     ListView lv;
-
-    //khaibao de thuc hien onclick cho imageview
-    private ImageView imageAdd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_cac_tai_khoan);
 
-        //themItem
-        lv= findViewById(R.id.listView1);
-        taikhoan= new ArrayList<>();
-        for (int i=0;i<tenTK.length;i++){
-            int index= i % tenTK.length;
-            taikhoan.add(new DanhMucTaiKhoan(tenTK[i], tien[index]));
+        // Khởi tạo ListView và adapter
+        lv = findViewById(R.id.listView1);
+        taikhoan = new ArrayList<>();
+        for (int i = 0; i < tenTK.length; i++) {
+            taikhoan.add(new DanhMucTaiKhoan(tenTK[i], tien[i]));
         }
-        Item = new View_ItemCacTK(CacTaiKhoan.this, R.layout.list_item_taikhoan, taikhoan);
-        lv.setAdapter(Item);
+        item = new View_ItemCacTK(this, R.layout.list_item_taikhoan, taikhoan);
+        lv.setAdapter(item);
 
-        //sukienonclick de hien thi
+        // Xử lý sự kiện cho các nút
         ImageView ic_back = findViewById(R.id.ic_back);
         ImageView ic_add = findViewById(R.id.ic_add);
-        ic_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(CacTaiKhoan.this, TongQuan.class));
-            }
+
+        ic_back.setOnClickListener(v -> {
+            // Quay lại trang tổng quan
+            finish(); // Hoặc có thể sử dụng Intent nếu cần thiết
         });
 
-        ic_add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(CacTaiKhoan.this, ThemTaiKhoan.class));
-            }
+        ic_add.setOnClickListener(v -> {
+            // Mở Fragment để thêm tài khoản
+            openFragment(new ThemTaiKhoan());
         });
+
+        // Áp dụng insets cho layout
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -72,11 +63,11 @@ public class CacTaiKhoan extends AppCompatActivity {
         });
     }
 
-    //hàm cho phép mở trang thêm tài khoản
+    // Hàm mở Fragment
     private void openFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragmentContainer, fragment);
-        transaction.addToBackStack(null);  // Cho phép quay lại màn hình trước
+        transaction.replace(R.id.fragmentContainer, fragment); // Đảm bảo ID này khớp với ID trong layout
+        transaction.addToBackStack(null); // Cho phép quay lại màn hình trước
         transaction.commit();
     }
 }
