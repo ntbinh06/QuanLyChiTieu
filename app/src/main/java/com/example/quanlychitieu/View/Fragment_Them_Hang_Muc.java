@@ -1,14 +1,19 @@
 package com.example.quanlychitieu.View;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,7 +25,7 @@ import com.example.quanlychitieu.Controller.TrangChuAdmin;
 import com.example.quanlychitieu.Model.IconManager;
 import com.example.quanlychitieu.R;
 
-public class Fragment_Them_Hang_Muc extends Fragment {
+public class Fragment_Them_Hang_Muc extends DialogFragment {
 
     private ImageView selectedImageView;
     private RecyclerView recyclerView;
@@ -52,17 +57,25 @@ public class Fragment_Them_Hang_Muc extends Fragment {
         recyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 4));
         recyclerView.setAdapter(adapter);
 
-        btnCancel.setOnClickListener(v -> {
-            // Sử dụng requireContext() thay vì view làm Context cho Intent
-            Intent intent = new Intent(requireContext(), View_QuanLyHangMuc.class);
-            startActivity(intent);  // Mở màn hình khác
-        });
+        // Xử lý nút Hủy (Đóng DialogFragment)
+        btnCancel.setOnClickListener(v -> dismiss());
 
-        // Xử lý sự kiện nút Lưu
+        // Xử lý nút Lưu (Có thể truyền dữ liệu hoặc đóng Dialog)
         btnSave.setOnClickListener(v -> {
-            Intent intent = new Intent(requireContext(), View_QuanLyHangMuc.class);
-            startActivity(intent);  // Mở màn hình khác
+            // Bạn có thể thực hiện logic lưu ở đây
+            dismiss();  // Đóng DialogFragment sau khi lưu
         });
         return view;
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // Đặt kích thước cho DialogFragment
+        if (getDialog() != null && getDialog().getWindow() != null) {
+            Window window = getDialog().getWindow();
+            window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+            window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
     }
 }
