@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.example.quanlychitieu.Controller.Ctrl_HangMucChiPhi;
 import com.example.quanlychitieu.Controller.Ctrl_ThemHangMuc;
+import com.example.quanlychitieu.Controller.View_QuanLyHangMuc;
 import com.example.quanlychitieu.Model.Model_HangMucChiPhi;
 import com.example.quanlychitieu.R;
 

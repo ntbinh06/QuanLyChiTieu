@@ -1,7 +1,8 @@
-package com.example.quanlychitieu.View;
+package com.example.quanlychitieu.Controller;
 
 import android.os.Bundle;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,11 +11,15 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.quanlychitieu.R;
+import com.example.quanlychitieu.View.Fragment_ChiPhi;
+import com.example.quanlychitieu.View.Fragment_Them_Hang_Muc;
+import com.example.quanlychitieu.View.Fragment_ThuNhap;
 import com.google.android.material.tabs.TabLayout;
 
 public class View_QuanLyHangMuc extends AppCompatActivity {
     FrameLayout framelayout;
     TabLayout tablayout;
+    ImageView addHangMuc;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -24,6 +29,10 @@ public class View_QuanLyHangMuc extends AppCompatActivity {
         // Ánh xạ các view
         framelayout = findViewById(R.id.framelayout);
         tablayout = findViewById(R.id.tablayout);
+        addHangMuc = findViewById(R.id.add_HangMuc);  // Ánh xạ ImageView
+
+        // Thêm sự kiện click vào ImageView để mở DialogFragment
+        addHangMuc.setOnClickListener(v -> openDialogFragment());
 
 
         if (savedInstanceState == null) {
@@ -61,5 +70,10 @@ public class View_QuanLyHangMuc extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.framelayout, fragment);
         fragmentTransaction.commit();
+    }
+    // Phương thức để mở DialogFragment
+    private void openDialogFragment() {
+        Fragment_Them_Hang_Muc dialogFragment = new Fragment_Them_Hang_Muc();
+        dialogFragment.show(getSupportFragmentManager(), "ThemHangMuc");
     }
 }

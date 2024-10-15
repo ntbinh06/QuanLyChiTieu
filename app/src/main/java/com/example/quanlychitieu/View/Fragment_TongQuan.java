@@ -6,17 +6,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+import android.widget.TextView;
 
-import com.example.quanlychitieu.Controller.Ctrl_NguoiDung;
-import com.example.quanlychitieu.Controller.Ctrl_ThongTinCaNhan;
+import androidx.fragment.app.Fragment;
+
 import com.example.quanlychitieu.R;
 
 public class Fragment_TongQuan extends Fragment {
 
     private ImageView btnMenu;
+    private TextView amountTextView;
+    private ImageView eyeIcon;
+    private boolean isAmountVisible = true;
 
     public Fragment_TongQuan() {
     }
@@ -38,7 +39,10 @@ public class Fragment_TongQuan extends Fragment {
             }
         });
 
+        amountTextView = view.findViewById(R.id.txtTongTienSH);
+        eyeIcon = view.findViewById(R.id.ic_eye);
 
         return view;
     }
+
 }

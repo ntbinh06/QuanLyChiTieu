@@ -5,6 +5,11 @@
     android:id="@+id/main"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="200dp"
@@ -390,12 +395,6 @@
                         android:layout_marginTop="15dp"
                         android:layout_marginLeft="30dp"/>
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/baseline_keyboard_arrow_right_24"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginLeft="60dp"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -455,7 +454,7 @@
                 android:textSize="18sp"
                 android:textColor="@color/bright_red"
                 android:fontFamily="@font/inter_18pt_regular"
-                android:layout_marginBottom="50dp"/>
+                android:layout_marginBottom="140dp"/>
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

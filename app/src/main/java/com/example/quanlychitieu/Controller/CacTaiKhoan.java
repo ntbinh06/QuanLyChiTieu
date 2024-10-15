@@ -1,6 +1,5 @@
 package com.example.quanlychitieu.Controller;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -46,11 +45,9 @@ public class CacTaiKhoan extends AppCompatActivity {
         ImageView ic_back = findViewById(R.id.ic_back);
         ImageView ic_add = findViewById(R.id.ic_add);
 
-        ic_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(CacTaiKhoan.this, TongQuan.class));
-            }
+        ic_back.setOnClickListener(v -> {
+            // Quay lại trang tổng quan
+            finish(); // Hoặc có thể sử dụng Intent nếu cần thiết
         });
 
         ic_add.setOnClickListener(v -> {
