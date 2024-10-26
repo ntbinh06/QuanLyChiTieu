@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import androidx.core.graphics.Insets;
@@ -52,6 +53,7 @@ public class Fragment_ChiPhi extends Fragment  {
         // Khởi tạo Adapter
         myAdapter = new View_ItemHangMuc(getActivity(), R.layout.list_item, danhMuc);
         lv.setAdapter(myAdapter);
+
 
         // Xử lý Insets cho toàn màn hình
         ViewCompat.setOnApplyWindowInsetsListener(view.findViewById(R.id.main), (v, insets) -> {

@@ -10,4 +10,30 @@
     </style>
     <style name="Theme.QuanLyChiTieu" parent="Base.Theme.QuanLyChiTieu" />
     
+    
+    <style name="DialogAnimation">
+        
+        <item name="android:windowEnterAnimation">@anim/slide_in_bottom</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_bottom</item>
+    </style>
+
+    <style name="DialogAnimation_Left">
+
+        <item name="android:windowEnterAnimation">@anim/slide_in_left</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_right</item>
+    </style>
+
+    <style name="CustomDatePickerDialog" parent="Theme.AppCompat.Light.Dialog">
+        <!-- Đặt màu accent cho nút OK và Cancel -->
+        <item name="colorAccent">#5034C4</item>
+        <!--Mauf cho text -->
+        <item name="android:textColor">#5034C4</item>
+    </style>
+
+    <style name="CustomDatePickerDialog_ChuyenTien" parent="Theme.AppCompat.Light.Dialog">
+        <!-- Đặt màu accent cho nút OK và Cancel -->
+        <item name="colorAccent">#1C4B82</item>
+        <!--Mauf cho text -->
+        <item name="android:textColor">#1C4B82</item>
+    </style>
 </resources>

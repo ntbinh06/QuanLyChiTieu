@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="350dp"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/tongquan_menu">
+    android:id="@+id/tongquan_menu"
+    android:background="@drawable/bg_navigationview">
 
     <!-- Header section -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="230dp"
         android:orientation="vertical"
         android:background="@drawable/header"
         android:backgroundTint="@color/deep_bluepurple">
@@ -16,7 +17,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="150dp"
+            android:layout_marginTop="110dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:orientation="vertical"
@@ -42,7 +43,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins_bold"
+                        android:fontFamily="@font/inter_18pt_regular"
                         android:text="Nguyen Nhu Ngoc"
                         android:textSize="20sp"
                         android:textColor="@color/white"/>
@@ -51,7 +52,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:fontFamily="@font/poppins_regular"
+                        android:fontFamily="@font/inter_18pt_regular"
                         android:text="ntb@gmail.com"
                         android:textColor="@color/lightgray_2"
                         android:textSize="14sp" />
@@ -60,13 +61,211 @@
         </LinearLayout>
     </LinearLayout>
 
-    <!-- ListView section -->
-    <ListView
-        android:id="@+id/lvMenu"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="270dp"
-        android:divider="@null"
-        android:layout_marginLeft="10dp"/>
+        android:orientation="vertical"
+        android:layout_marginTop="280dp">
+
+        <LinearLayout
+            android:id="@+id/layoutTongQuan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/tongquan"
+                android:layout_marginLeft="25dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tổng quan"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/inter_18pt_regular"
+                android:layout_marginLeft="20dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutCacGiaoDich"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/wallet"
+                android:layout_marginLeft="23dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Các giao dịch"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/inter_18pt_regular"
+                android:layout_marginLeft="20dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutCacTaiKhoan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_bank"
+                android:layout_marginLeft="25dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Các tài khoản"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/inter_18pt_regular"
+                android:layout_marginLeft="20dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutNganSach"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/moneybag_icon"
+                android:layout_marginLeft="23dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ngân sách"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/inter_18pt_regular"
+                android:layout_marginLeft="20dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutNguoiDung"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/user_icon"
+                android:layout_marginLeft="25dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Người dùng"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/inter_18pt_regular"
+                android:layout_marginLeft="20dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutQuanlyHangMuc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/baseline_category_24"
+                android:layout_marginLeft="23dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Quản lý hạng mục"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/inter_18pt_regular"
+                android:layout_marginLeft="20dp"/>
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/lightgray"
+            android:layout_marginTop="30dp"
+            />
+
+        <LinearLayout
+            android:id="@+id/layoutGioiThieu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/about_icon"
+                android:layout_marginLeft="25dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Giới thiệu"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/inter_18pt_regular"
+                android:layout_marginLeft="20dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutCaiDat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/setting_icon"
+                android:layout_marginLeft="23dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cài đặt"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/inter_18pt_regular"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="3dp"/>
+
+        </LinearLayout>
+    </LinearLayout>
 
 </FrameLayout>

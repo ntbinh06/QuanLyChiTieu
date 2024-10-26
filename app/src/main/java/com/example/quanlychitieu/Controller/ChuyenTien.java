@@ -1,5 +1,6 @@
 package com.example.quanlychitieu.Controller;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -7,7 +8,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -19,11 +22,16 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.quanlychitieu.R;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 public class ChuyenTien extends AppCompatActivity {
     private Spinner spnfrom;
     private Spinner spnto;
+    private ImageView btnCalender;
+    private TextView txtDateMonthYear;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,5 +96,31 @@ public class ChuyenTien extends AppCompatActivity {
             }
         });
 
+        //Hop thoai chon ngay thang nam
+        txtDateMonthYear = findViewById(R.id.txtDateMonthYear); // Khởi tạo TextView để hiển thị ngày tháng
+
+        // Thiết lập sự kiện nhấn vào icon lịch
+        btnCalender = findViewById(R.id.button_calendar);
+        btnCalender.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Lấy ngày hiện tại
+                Locale.setDefault(new Locale("vi", "VN"));
+                final Calendar calendar = Calendar.getInstance();
+                int year = calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH);
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+                // Tạo hộp thoại chọn ngày
+                DatePickerDialog datePickerDialog = new DatePickerDialog(ChuyenTien.this,
+                        R.style.CustomDatePickerDialog_ChuyenTien,
+                        (view1, selectedYear, selectedMonth, selectedDay) -> {
+                            // Cập nhật TextView với ngày đã chọn
+                            String selectedDate = selectedDay + "/" + (selectedMonth + 1) + "/" + selectedYear;
+                            txtDateMonthYear.setText(selectedDate);
+                        }, year, month, day);
+                datePickerDialog.show();
+            }
+        });
     }
 }

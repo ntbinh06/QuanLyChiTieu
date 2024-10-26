@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/tvMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Bạn có chắc chắn muốn đăng xuất?"
+        android:textSize="18sp"
+        android:textColor="@android:color/black"
+        android:paddingBottom="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:fontFamily="@font/inter_18pt_regular"
+        android:gravity="center"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp">
+
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:text="Hủy"
+            android:layout_marginStart="10dp"
+            android:textColor="@color/deep_bluepurple"
+            android:fontFamily="@font/inter_18pt_bold"
+            android:background="@drawable/bg_btn_huy"/>
+
+        <Button
+            android:id="@+id/btnLogout"
+            android:layout_width="130dp"
+            android:layout_height="40dp"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:text="Đăng xuất"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/bg_btn_xoa_dangxuat"
+            android:textColor="@color/white"
+            android:fontFamily="@font/inter_18pt_bold"/>
+
+    </LinearLayout>
+</LinearLayout>

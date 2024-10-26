@@ -1,10 +1,17 @@
 package com.example.quanlychitieu.Controller;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -78,6 +85,8 @@ public class View_QuanLyHangMuc extends AppCompatActivity {
                 startActivity(new Intent(View_QuanLyHangMuc.this, TongQuan.class));
             }
         });
+
+
     }
 
     // Phương thức để thay thế và hiển thị Fragment vào FrameLayout
@@ -92,4 +101,5 @@ public class View_QuanLyHangMuc extends AppCompatActivity {
         Fragment_Them_Hang_Muc dialogFragment = new Fragment_Them_Hang_Muc();
         dialogFragment.show(getSupportFragmentManager(), "ThemHangMuc");
     }
+
 }
