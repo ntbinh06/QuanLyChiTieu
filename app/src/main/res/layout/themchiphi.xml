@@ -53,7 +53,7 @@
             android:layout_width="160dp"
             android:layout_height="45dp"
             android:layout_below="@id/toolbar"
-            android:layout_marginStart="25dp"
+            android:layout_marginStart="35dp"
             android:layout_marginTop="20dp"
             android:textSize="18dp"
             android:hint="Giá trị"
@@ -65,21 +65,22 @@
             android:layout_marginStart="15dp"
             android:text="đ"
             android:textSize="18dp"
-            android:layout_marginTop="20dp"/>
-        <ImageButton
+            android:layout_marginTop="20dp"
+            android:textColor="@color/black"/>
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="15dp"
             android:layout_marginStart="125dp"
             android:background="?attr/selectableItemBackground"
-            android:src="@drawable/ic_camera" />
+            android:src="@drawable/ic_calculator" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:layout_height="70dp"
-        android:layout_marginTop="215dp">
+        android:layout_marginTop="225dp">
         <ImageButton
             android:id="@+id/hangmuc"
             android:layout_width="60dp"
@@ -213,7 +214,8 @@
             android:layout_marginStart="45dp"
             android:text="Đã kiểm tra"
             android:textSize="18dp"
-            android:layout_marginTop="25dp"/>
+            android:layout_marginTop="25dp"
+            android:textColor="@color/black"/>
         <androidx.appcompat.widget.SwitchCompat
             android:layout_width="54dp"
             android:layout_height="10dp"
@@ -227,22 +229,22 @@
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:layout_height="70dp"
-        android:layout_marginTop="565dp"
+        android:layout_marginTop="585dp"
         tools:ignore="ExtraText">
-        <ImageButton
+        <ImageView
+            android:id="@+id/btnCamera"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginTop="20dp"
             android:layout_marginStart="80dp"
-            android:background="?attr/selectableItemBackground"
             android:src="@drawable/ic_camera"
             android:contentDescription="@string/img1"/>
-        <ImageButton
+        <ImageView
+            android:id="@+id/btnFolder"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginTop="20dp"
             android:layout_marginStart="130dp"
-            android:background="?attr/selectableItemBackground"
             android:src="@drawable/ic_folder"
             android:contentDescription="@string/img1"/>
     </LinearLayout>
@@ -251,12 +253,12 @@
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:layout_height="140dp"
-        android:layout_marginTop="655dp"
+        android:layout_marginTop="670dp"
         tools:ignore="ExtraText">
         <Button
             android:id="@+id/buttonhuy"
             android:layout_width="155dp"
-            android:layout_height="65dp"
+            android:layout_height="50dp"
             android:layout_marginTop="40dp"
             android:layout_marginStart="30dp"
             android:backgroundTint="@color/deep_bluepurple"
@@ -265,11 +267,12 @@
             android:text="Hủy"
             android:textSize="20dp"
             android:textStyle="bold"
+            android:textAllCaps="false"
             />
         <Button
             android:id="@+id/buttonluu"
             android:layout_width="155dp"
-            android:layout_height="65dp"
+            android:layout_height="50dp"
             android:layout_marginTop="40dp"
             android:layout_marginStart="30dp"
             android:backgroundTint="@color/deep_bluepurple"
@@ -277,6 +280,7 @@
             android:textColor="@color/white"
             android:text="Lưu lại"
             android:textSize="20dp"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:textAllCaps="false"/>
     </LinearLayout>
 </RelativeLayout>

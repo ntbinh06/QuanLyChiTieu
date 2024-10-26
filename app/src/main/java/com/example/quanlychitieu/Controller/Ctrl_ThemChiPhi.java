@@ -3,6 +3,7 @@ package com.example.quanlychitieu.Controller;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -14,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.app.Dialog;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -27,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Ctrl_ThemChiPhi extends AppCompatActivity {
+    private static final int PICK_IMAGE_REQUEST = 1; // Thêm dòng này
     private Spinner spnchiphi;
 
     @Override
@@ -60,6 +63,7 @@ public class Ctrl_ThemChiPhi extends AppCompatActivity {
         ImageButton ic_back = findViewById(R.id.ic_back);
         Button buttonhuy = findViewById(R.id.buttonhuy);
         Button buttonluu = findViewById(R.id.buttonluu);
+        ImageView btnCamera = findViewById(R.id.btnCamera);
 
         hangmuc.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,6 +90,13 @@ public class Ctrl_ThemChiPhi extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(Ctrl_ThemChiPhi.this, TongQuan.class));
+            }
+        });
+
+        btnCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openGallery();
             }
         });
     }
@@ -131,4 +142,21 @@ public class Ctrl_ThemChiPhi extends AppCompatActivity {
         dialog.setCancelable(true); // Cho phép hủy dialog
         dialog.show(); // Hiển thị dialog
     }
+
+    private void openGallery() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Chọn ảnh"), PICK_IMAGE_REQUEST);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            Uri imageUri = data.getData();
+            // Thực hiện các hành động cần thiết với hình ảnh, ví dụ: hiển thị trong ImageView
+        }
+    }
 }
+

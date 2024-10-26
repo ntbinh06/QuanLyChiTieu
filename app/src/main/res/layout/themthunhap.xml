@@ -53,7 +53,7 @@
             android:layout_width="160dp"
             android:layout_height="45dp"
             android:layout_below="@id/toolbar"
-            android:layout_marginStart="25dp"
+            android:layout_marginStart="35dp"
             android:layout_marginTop="20dp"
             android:textSize="18dp"
             android:hint="Giá trị"
@@ -66,20 +66,20 @@
             android:text="đ"
             android:textSize="18dp"
             android:layout_marginTop="20dp"/>
-        <ImageButton
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="15dp"
             android:layout_marginStart="125dp"
             android:background="?attr/selectableItemBackground"
-            android:src="@drawable/ic_camera" />
+            android:src="@drawable/ic_calculator" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:layout_height="70dp"
-        android:layout_marginTop="215dp">
+        android:layout_marginTop="225dp">
         <ImageButton
             android:id="@+id/hangmuc"
             android:layout_width="60dp"
@@ -228,7 +228,7 @@
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:layout_height="70dp"
-        android:layout_marginTop="565dp"
+        android:layout_marginTop="585dp"
         tools:ignore="ExtraText">
         <ImageButton
             android:layout_width="60dp"
@@ -252,12 +252,12 @@
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:layout_height="140dp"
-        android:layout_marginTop="655dp"
+        android:layout_marginTop="675dp"
         tools:ignore="ExtraText">
         <Button
             android:id="@+id/btnHuy"
             android:layout_width="155dp"
-            android:layout_height="65dp"
+            android:layout_height="50dp"
             android:layout_marginTop="40dp"
             android:layout_marginStart="30dp"
             android:background="@drawable/button"
@@ -266,11 +266,12 @@
             android:text="Hủy"
             android:textSize="20dp"
             android:textStyle="bold"
+            android:textAllCaps="false"
             />
         <Button
             android:id="@+id/btnLuu"
             android:layout_width="155dp"
-            android:layout_height="65dp"
+            android:layout_height="50dp"
             android:layout_marginTop="40dp"
             android:layout_marginStart="30dp"
             android:background="@drawable/button"
@@ -278,6 +279,7 @@
             android:backgroundTint="@color/deep_bluepurple"
             android:text="Lưu lại"
             android:textSize="20dp"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:textAllCaps="false"/>
     </LinearLayout>
 </RelativeLayout>

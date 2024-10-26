@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/bg_bottomsheet"
+    android:id="@+id/bottom_sheet"
+    android:padding="20dp">
+    
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/remove_24"
+        android:layout_gravity="center"
+        android:layout_marginTop="-15dp"/>
+
+    <LinearLayout
+        android:id="@+id/layoutThemThuNhap"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="30dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_add_circle_24"
+            android:layout_marginLeft="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thêm thu nhập"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:fontFamily="@font/inter_18pt_regular"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="3dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutThemChiPhi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_remove_circle_24"
+            android:layout_marginLeft="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thêm chi phí"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:fontFamily="@font/inter_18pt_regular"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="3dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutChuyenTien"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="30dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_change_circle_24"
+            android:layout_marginLeft="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chuyển tiền"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:fontFamily="@font/inter_18pt_regular"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="3dp"/>
+    </LinearLayout>
+
+</LinearLayout>

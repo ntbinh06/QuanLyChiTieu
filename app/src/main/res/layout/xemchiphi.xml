@@ -19,14 +19,14 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:orientation="horizontal"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="55dp"
             android:gravity="center_vertical">
 
             <ImageButton
                 android:id="@+id/ic_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
+                android:layout_marginStart="25dp"
                 android:background="?attr/selectableItemBackground"
                 android:src="@drawable/ic_back" />
 
@@ -37,14 +37,15 @@
                 android:text="CÁC CHI PHÍ"
                 android:textColor="@android:color/white"
                 android:textSize="24sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:gravity="center"/>
         </LinearLayout>
 
     </LinearLayout>
     <TableLayout
             android:layout_width="370dp"
             android:layout_height="400dp"
-            android:layout_marginTop="140dp"
+            android:layout_marginTop="160dp"
             android:layout_marginStart="20dp"
             android:background="@drawable/frame"
             android:backgroundTint="@color/lightred">
@@ -165,27 +166,30 @@
     </TableLayout>
 
     <Button
-        android:id="@+id/btnSua"
+        android:id="@+id/btnSuaChiPhi"
         android:layout_width="297dp"
         android:layout_height="56dp"
-        android:layout_marginTop="560dp"
+        android:layout_marginTop="600dp"
         android:layout_centerHorizontal="true"
         android:backgroundTint="@color/pink"
         android:background="@drawable/button"
         android:textColor="@color/white"
         android:text="Sửa chi phí"
-        android:textSize="20dp"
-        android:textStyle="bold"/>
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textAllCaps="false"/>
 
     <Button
+        android:id="@+id/btnXoaChiPhi"
         android:layout_width="297dp"
         android:layout_height="56dp"
-        android:layout_marginTop="630dp"
+        android:layout_marginTop="680dp"
         android:layout_centerHorizontal="true"
         android:backgroundTint="@color/pink"
         android:background="@drawable/button"
         android:textColor="@color/white"
         android:text="Xóa chi phí"
-        android:textSize="20dp"
-        android:textStyle="bold"/>
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textAllCaps="false"/>
 </RelativeLayout>

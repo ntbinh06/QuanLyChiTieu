@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -39,6 +40,7 @@ import com.google.android.material.navigation.NavigationView;
 public class TongQuan extends AppCompatActivity {
 
     BottomNavigationView bottom_navigation;
+    FloatingActionButton bottomsheet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +73,13 @@ public class TongQuan extends AppCompatActivity {
             }
         });
 
+        bottomsheet = findViewById(R.id.fab);
+        bottomsheet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDialog();
+            }
+        });
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -88,6 +97,47 @@ public class TongQuan extends AppCompatActivity {
         transaction.replace(R.id.fragment, fragment); // Thay R.id.fragment_container bằng id của container của bạn
         transaction.addToBackStack(null);  // Nếu muốn lưu lại stack (tùy chọn)
         transaction.commit();
+    }
+
+    private void showDialog() {
+
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.bottomsheet_layout);
+
+        LinearLayout themthunhap = dialog.findViewById(R.id.layoutThemThuNhap);
+        LinearLayout themchiphi = dialog.findViewById(R.id.layoutThemChiPhi);
+        LinearLayout chuyentien = dialog.findViewById(R.id.layoutChuyenTien);
+
+        themthunhap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(TongQuan.this, Ctrl_ThemThuNhap.class);
+                startActivity(intent);
+            }
+        });
+
+        themchiphi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(TongQuan.this, Ctrl_ThemChiPhi.class);
+                startActivity(intent);
+            }
+        });
+
+        chuyentien.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(TongQuan.this, ChuyenTien.class);
+                startActivity(intent);
+            }
+        });
+
+        dialog.show();
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
     }
 
 }
