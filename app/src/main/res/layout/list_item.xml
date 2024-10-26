@@ -26,7 +26,7 @@
         android:textSize="20dp"
         android:layout_marginTop="17dp"/>
 
-    <ImageButton
+    <ImageView
         android:id="@+id/ic_eye"
         android:layout_width="24dp"
         android:layout_height="24dp"
@@ -34,7 +34,7 @@
         android:layout_marginTop="17dp"
         android:src="@drawable/ic_eye" />
 
-    <ImageButton
+    <ImageView
         android:id="@+id/ic_lock"
         android:layout_width="24dp"
         android:layout_height="24dp"

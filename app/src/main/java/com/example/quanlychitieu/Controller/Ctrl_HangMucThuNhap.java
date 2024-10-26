@@ -95,7 +95,7 @@ public class Ctrl_HangMucThuNhap extends ArrayAdapter<Model_HangMucThuNhap> {
     }
 
     public class ViewHolder {
-        TextView tvName, icLock;
-        ImageView tvAvatar;
+        TextView tvName;
+        ImageView tvAvatar, icLock;
     }
 }
