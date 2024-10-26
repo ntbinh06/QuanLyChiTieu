@@ -47,4 +47,5 @@ dependencies {
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
     implementation ("androidx.recyclerview:recyclerview:1.2.1")
+    implementation ("me.tankery.lib:circularSeekBar:1.4.2")
 }
