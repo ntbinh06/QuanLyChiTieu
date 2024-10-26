@@ -47,7 +47,7 @@ public class Ctrl_XemChiPhi  extends AppCompatActivity{
         buttonsua.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Ctrl_XemChiPhi.this, Ctrl_ThemThuNhap.class);
+                Intent intent = new Intent(Ctrl_XemChiPhi.this, Ctrl_ThemChiPhi.class);
                 startActivity(intent);
             }
         });

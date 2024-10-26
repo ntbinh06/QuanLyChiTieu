@@ -1,5 +1,6 @@
 package com.example.quanlychitieu.Controller;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -14,6 +15,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.quanlychitieu.Model.DanhMucTaiKhoan;
 import com.example.quanlychitieu.R;
+import com.example.quanlychitieu.View.Fragment_TongQuan;
 import com.example.quanlychitieu.View.View_ItemCacTK;
 
 import java.util.ArrayList;
@@ -46,8 +48,8 @@ public class CacTaiKhoan extends AppCompatActivity {
         ImageView ic_add = findViewById(R.id.ic_add);
 
         ic_back.setOnClickListener(v -> {
-            // Quay lại trang tổng quan
-            finish(); // Hoặc có thể sử dụng Intent nếu cần thiết
+            Intent intent = new Intent(CacTaiKhoan.this, TongQuan.class);
+            startActivity(intent);
         });
 
         ic_add.setOnClickListener(v -> {

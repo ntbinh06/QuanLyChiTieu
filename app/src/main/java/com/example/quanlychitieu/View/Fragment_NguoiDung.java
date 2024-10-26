@@ -83,7 +83,7 @@ public class Fragment_NguoiDung extends Fragment {
     }
 
     private void navigateToLoginScreen() {
-         startActivity(new Intent(getActivity(), TrangChuDNDK.class));
+        startActivity(new Intent(getActivity(), TrangChuDNDK.class));
 
     }
 }
