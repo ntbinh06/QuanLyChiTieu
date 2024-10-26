@@ -1,14 +1,23 @@
 const express = require('express');
+const path = require('path');
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Phục vụ các file tĩnh từ thư mục public
+app.use(express.static(path.join(__dirname, 'public')));
+
+
+// Thiết lập view engine
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'src', 'views'));
+
+// Route chính
 app.get('/', (req, res) => {
-    res.send('Hello World!');
+    res.render('DangNhap', { title: 'Đăng nhập' });
 });
 
-app.listen(PORT, (err) => {
-    if (err) {
-        return console.error('Error starting the server:', err);
-    }
+// Bắt đầu server
+app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
