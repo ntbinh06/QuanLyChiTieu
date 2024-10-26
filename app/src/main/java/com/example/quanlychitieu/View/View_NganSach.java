@@ -46,7 +46,7 @@ public class View_NganSach extends RecyclerView.Adapter<View_NganSach.ViewHolder
         holder.tienConLai.setText(contact.getFormattedSoTienConLai());
         holder.conlai.setText(contact.getTxtConlai());
         holder.pgbTienTrinh.setProgress(contact.getPgrBar());
-
+        //
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, ChiTietNganSach.class);
             // Truyền dữ liệu qua Intent
