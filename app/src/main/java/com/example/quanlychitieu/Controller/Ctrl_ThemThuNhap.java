@@ -3,6 +3,7 @@ package com.example.quanlychitieu.Controller;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -27,6 +28,7 @@ import java.util.List;
 
 public class Ctrl_ThemThuNhap extends AppCompatActivity {
     private Spinner spnthunhap;
+    private static final int PICK_IMAGE_REQUEST = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +61,7 @@ public class Ctrl_ThemThuNhap extends AppCompatActivity {
         ImageButton ic_back = findViewById(R.id.ic_back);
         Button buttonhuy = findViewById(R.id.btnHuy);
         Button buttonluu = findViewById(R.id.btnLuu);
+        ImageButton ic_camera = findViewById(R.id.ic_camera);
 
         hangmuc.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,6 +91,13 @@ public class Ctrl_ThemThuNhap extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Ctrl_ThemThuNhap.this, TongQuan.class);
                 startActivity(intent);
+            }
+        });
+
+        ic_camera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openGallery();
             }
         });
     }
@@ -133,5 +143,21 @@ public class Ctrl_ThemThuNhap extends AppCompatActivity {
 
         dialog.setCancelable(Gravity.BOTTOM == gravity);
         dialog.show(); // Hiển thị dialog
+    }
+
+    private void openGallery() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Chọn ảnh"), PICK_IMAGE_REQUEST);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            Uri imageUri = data.getData();
+            // Thực hiện các hành động cần thiết với hình ảnh, ví dụ: hiển thị trong ImageView
+        }
     }
 }

@@ -2,7 +2,10 @@ package com.example.quanlychitieu.Controller;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -27,6 +30,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
+import me.tankery.lib.circularseekbar.CircularSeekBar;
+
 public class C_NganSach extends AppCompatActivity {
 
     private RecyclerView rvNganSach;
@@ -35,6 +40,7 @@ public class C_NganSach extends AppCompatActivity {
     private ImageView prevMonthButton, nextMonthButton;
 
     private int currentMonthOffset = 0;
+    private int pos = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,6 +138,32 @@ public class C_NganSach extends AppCompatActivity {
                 updateMonthText();
             }
         });
+
+        //Arc Progress Bar
+
+
+        CircularSeekBar circularSeekBar = findViewById(R.id.arcProgressBar);
+        circularSeekBar.setMax(200);
+
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (pos <= 200){
+
+                    circularSeekBar.setProgress(pos);
+
+                    if (pos == 200) {
+                        int redColor = getResources().getColor(R.color.red_2, null);
+                        circularSeekBar.setCircleProgressColor(redColor); // Đổi màu thành đỏ
+                    }
+                    pos++;
+                    handler.postDelayed(this, 200);
+
+                }
+            }
+        }, 200);
+
     }
 
     private void updateMonthText() {
