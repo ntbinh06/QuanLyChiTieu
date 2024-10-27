@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Mua sắm"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textColor="@color/black"
             android:fontFamily="@font/inter_18pt_regular"
             android:layout_marginBottom="15dp"
@@ -48,7 +48,7 @@
                 android:fontFamily="@font/inter_18pt_bold"
                 android:text="2.000.000 đ"
                 android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:layout_marginRight="10dp"/>
 
             <LinearLayout
@@ -65,7 +65,7 @@
                     android:fontFamily="@font/inter_18pt_regular"
                     android:text="Còn lại"
                     android:textColor="@color/black_50"
-                    android:textSize="15sp" />
+                    android:textSize="12sp" />
                 <TextView
                     android:id="@+id/tienConLai"
                     android:layout_width="wrap_content"
@@ -74,7 +74,7 @@
                     android:fontFamily="@font/inter_18pt_regular"
                     android:text="1.700.000 đ"
                     android:textColor="@color/black_50"
-                    android:textSize="15sp"
+                    android:textSize="12sp"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="10dp"/>
             </LinearLayout>

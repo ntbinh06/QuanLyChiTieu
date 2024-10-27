@@ -1,6 +1,9 @@
 package com.example.quanlychitieu.Controller;
 
+import static android.app.PendingIntent.getActivity;
+
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,6 +28,8 @@ import com.example.quanlychitieu.View.Fragment_NguoiDung;
 import com.example.quanlychitieu.View.Fragment_Them_Hang_Muc;
 import com.example.quanlychitieu.View.Fragment_ThuNhap;
 import com.google.android.material.tabs.TabLayout;
+
+import java.util.zip.Inflater;
 
 public class View_QuanLyHangMuc extends AppCompatActivity {
     FrameLayout framelayout;

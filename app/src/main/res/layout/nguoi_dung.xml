@@ -183,6 +183,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/thongtinCN"
                 android:layout_width="match_parent"
                 android:layout_height="230dp"
                 android:orientation="vertical"
@@ -441,6 +442,7 @@
                 android:textSize="18sp"
                 android:textColor="@color/bright_red"
                 android:fontFamily="@font/inter_18pt_regular"
+                android:drawableLeft="@drawable/delete_24"
                 android:drawablePadding="-80dp"
                 android:paddingLeft="110dp"
                 android:gravity="center"/>
@@ -458,6 +460,7 @@
                 android:textColor="@color/bright_red"
                 android:fontFamily="@font/inter_18pt_regular"
                 android:layout_marginBottom="140dp"
+                android:drawableLeft="@drawable/baseline_logout_24"
                 android:drawablePadding="-100dp"
                 android:paddingLeft="115dp"
                 android:gravity="center"/>

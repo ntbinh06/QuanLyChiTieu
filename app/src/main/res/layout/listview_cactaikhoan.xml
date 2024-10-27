@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:id="@+id/lv_cactaikhoan_tq"
+    android:orientation="horizontal"
+    android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/loaiTaiKhoan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ví"
+            android:textSize="16sp"
+            android:textColor="@color/bluepurple_80"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="25dp"
+            android:fontFamily="@font/inter_18pt_bold"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="25dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lần sử dụng cuối:"
+                android:textSize="12sp"
+                android:textColor="@color/black_50"
+                android:fontFamily="@font/inter_18pt_regular"/>
+
+            <TextView
+                android:id="@+id/lancuoiSuDung"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="22/09/2024"
+                android:layout_marginLeft="5dp"
+                android:textSize="12sp"
+                android:textColor="@color/black_50"
+                android:fontFamily="@font/inter_18pt_regular"/>
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tongTien"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="8.000.000 đ"
+        android:textSize="16sp"
+        android:textColor="@color/green"
+        android:layout_marginTop="-16dp"
+        android:layout_marginLeft="-130dp"
+        android:fontFamily="@font/inter_18pt_regular"
+        android:gravity="end"/>
+
+</LinearLayout>

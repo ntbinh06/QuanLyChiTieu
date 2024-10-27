@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -37,6 +38,7 @@ public class Fragment_NguoiDung extends Fragment {
         ImageView ic_back = view.findViewById(R.id.ic_back);
         ImageView thongtin= view.findViewById(R.id.thongtin);
         ImageView ic_doimk= view.findViewById(R.id.ic_doimk);
+        LinearLayout layoutThongTinCaNhan = view.findViewById(R.id.thongtinCN);
 
         ic_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,6 +56,13 @@ public class Fragment_NguoiDung extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(), Ctrl_DoiMatKhau.class));
+            }
+        });
+
+        layoutThongTinCaNhan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), Ctrl_ThongTinCaNhan.class));
             }
         });
 
