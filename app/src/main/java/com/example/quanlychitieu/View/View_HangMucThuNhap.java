@@ -14,9 +14,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.quanlychitieu.Controller.Ctrl_HangMucChiPhi;
+import com.example.quanlychitieu.Controller.Ctrl_HangMucThuNhap;
 import com.example.quanlychitieu.Controller.Ctrl_ThemHangMuc;
 import com.example.quanlychitieu.Controller.View_QuanLyHangMuc;
 import com.example.quanlychitieu.Model.Model_HangMucChiPhi;
+import com.example.quanlychitieu.Model.Model_HangMucThuNhap;
 import com.example.quanlychitieu.R;
 
 import java.util.ArrayList;
@@ -34,15 +36,15 @@ public class View_HangMucThuNhap extends AppCompatActivity {
         lvContact = findViewById(R.id.listView_thunhap);
 
         // Tạo danh sách chi phí
-        ArrayList<Model_HangMucChiPhi> arrContact = new ArrayList<>();
-        arrContact.add(new Model_HangMucChiPhi(R.drawable.baseline_account_circle_24, "Thu nhập tài chính"));
-        arrContact.add(new Model_HangMucChiPhi(R.drawable.baseline_account_circle_24, "Lương"));
-        arrContact.add(new Model_HangMucChiPhi(R.drawable.baseline_account_circle_24, "Tiền từ việc vặt"));
-        arrContact.add(new Model_HangMucChiPhi(R.drawable.baseline_account_circle_24, "Tiền trợ cấp"));
-        arrContact.add(new Model_HangMucChiPhi(R.drawable.baseline_account_circle_24, "Tiền tiết kiệm"));
+        ArrayList<Model_HangMucThuNhap> arrContact = new ArrayList<>();
+        arrContact.add(new Model_HangMucThuNhap(R.drawable.baseline_account_circle_24, "Thu nhập tài chính"));
+        arrContact.add(new Model_HangMucThuNhap(R.drawable.baseline_account_circle_24, "Lương"));
+        arrContact.add(new Model_HangMucThuNhap(R.drawable.baseline_account_circle_24, "Tiền từ việc vặt"));
+        arrContact.add(new Model_HangMucThuNhap(R.drawable.baseline_account_circle_24, "Tiền trợ cấp"));
+        arrContact.add(new Model_HangMucThuNhap(R.drawable.baseline_account_circle_24, "Tiền tiết kiệm"));
 
         // Khởi tạo adapter và gán cho ListView
-        Ctrl_HangMucChiPhi customAdapter = new Ctrl_HangMucChiPhi(this, R.layout.list_item_hangmuc, arrContact);
+        Ctrl_HangMucThuNhap customAdapter = new Ctrl_HangMucThuNhap(this, R.layout.list_item_hangmuc, arrContact);
         lvContact.setAdapter(customAdapter);
 
         TextView tao = findViewById(R.id.tao);
