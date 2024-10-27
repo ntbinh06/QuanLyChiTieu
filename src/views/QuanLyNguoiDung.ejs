@@ -78,166 +78,96 @@
             </button>
         </div>
 
-        <ul class="user-list">
-            <li>      
+        <ul class="user-list" id="userList"></ul>
+
+        <script>
+            const users = [
+            {
+                avatar: '../images/user_women.png',
+                name: 'Lê Thị Kim Ngân',
+                email: 'ltkngan@gmail.com',
+            },
+            {
+                avatar: '../images/user_women.png',
+                name: 'Nguyễn Thanh Bình',
+                email: 'ntbinh@gmail.com',
+            },
+            {
+                avatar: '../images/user_women.png',
+                name: 'Cái Thị Nhân Đức',
+                email: 'nguyenvana@gmail.com',
+            },
+            {
+                avatar: '../images/user_women.png',
+                name: 'Nguyễn Như Ngọc',
+                email: 'nnngoc@gmail.com',
+            },
+            {
+                avatar: '../images/user_women.png',
+                name: 'Nguyễn Văn A',
+                email: 'nguyenvana@gmail.com',
+            },
+            {
+                avatar: '../images/user_women.png',
+                name: 'Nguyễn Văn A',
+                email: 'nguyenvana@gmail.com',
+            },
+            {
+                avatar: '../images/user_women.png',
+                name: 'Nguyễn Văn A',
+                email: 'nguyenvana@gmail.com',
+            },
+            {
+                avatar: '../images/user_women.png',
+                name: 'Nguyễn Văn A',
+                email: 'nguyenvana@gmail.com',
+            },
+            {
+                avatar: '../images/user_women.png',
+                name: 'Nguyễn Văn A',
+                email: 'nguyenvana@gmail.com',
+            },
+            {
+                avatar: '../images/user_women.png',
+                name: 'Nguyễn Văn A',
+                email: 'nguyenvana@gmail.com',
+            },
+            // Thêm các đối tượng người dùng khác tại đây
+            ];
+
+            function renderUserList(userList) {
+            const userListContainer = document.getElementById('userList');
+            userListContainer.innerHTML = ''; // Xóa các phần tử cũ
+
+            userList.forEach(user => {
+                // Tạo một phần tử người dùng từ HTML mẫu
+                const userItem = document.createElement('li');
+                userItem.innerHTML = `
                 <div class="user-avatar">
-                    <img src="../images/user_women.png" alt="User 1">
+                    <img src="${user.avatar}" alt="User Avatar">
                 </div>
                 <div class="user-info">
-                  <div class="user-name">Lê Thị Kim Ngân</div>
-                  <div class="user-email">ntn@gmail.com</div>
+                    <div class="user-name">${user.name}</div>
+                    <div class="user-email">${user.email}</div>
                 </div>
                 <div class="user-icon">
                     <a href="#" class="user-icon-eye">
-                        <i class="fa-solid fa-eye"></i>
+                    <i class="fa-solid fa-eye"></i>
                     </a>
                     <a href="#" class="user-icon-lock">
-                        <i class="fa-solid fa-lock"></i>
+                    <i class="fa-solid fa-lock"></i>
                     </a>
-                    
                 </div>
-            </li>
+                `;
+                userListContainer.appendChild(userItem);
+            });
+            }
 
-            <li>      
-                <div class="user-avatar">
-                    <img src="../images/user_women.png" alt="User 1">
-                </div>
-                <div class="user-info">
-                  <div class="user-name">Nguyễn Thanh Bình</div>
-                  <div class="user-email">ntn@gmail.com</div>
-                </div>
-                <div class="user-icon">
-                    <a href="#" class="user-icon-eye">
-                        <i class="fa-solid fa-eye"></i>
-                    </a>
-                    <a href="#" class="user-icon-lock">
-                        <i class="fa-solid fa-lock"></i>
-                    </a>
-                    
-                </div>
-            </li>
+            // Gọi hàm để hiển thị danh sách người dùng
+            renderUserList(users);
 
-            <li>      
-                <div class="user-avatar">
-                    <img src="../images/user_women.png" alt="User 1">
-                </div>
-                <div class="user-info">
-                  <div class="user-name">Cái Thị Nhân Đức</div>
-                  <div class="user-email">ntn@gmail.com</div>
-                </div>
-                <div class="user-icon">
-                    <a href="#" class="user-icon-eye">
-                        <i class="fa-solid fa-eye"></i>
-                    </a>
-                    <a href="#" class="user-icon-lock">
-                        <i class="fa-solid fa-lock"></i>
-                    </a>
-                    
-                </div>
-            </li>
-
-            <li>      
-                <div class="user-avatar">
-                    <img src="../images/user_women.png" alt="User 1">
-                </div>
-                <div class="user-info">
-                  <div class="user-name">Nguyễn Như Ngọc</div>
-                  <div class="user-email">ntn@gmail.com</div>
-                </div>
-                <div class="user-icon">
-                    <a href="#" class="user-icon-eye">
-                        <i class="fa-solid fa-eye"></i>
-                    </a>
-                    <a href="#" class="user-icon-lock">
-                        <i class="fa-solid fa-lock"></i>
-                    </a>
-                    
-                </div>
-            </li>
-
-            <li>      
-                <div class="user-avatar">
-                    <img src="../images/user_women.png" alt="User 1">
-                </div>
-                <div class="user-info">
-                  <div class="user-name">Nguyễn Như Ngọc</div>
-                  <div class="user-email">ntn@gmail.com</div>
-                </div>
-                <div class="user-icon">
-                    <a href="#" class="user-icon-eye">
-                        <i class="fa-solid fa-eye"></i>
-                    </a>
-                    <a href="#" class="user-icon-lock">
-                        <i class="fa-solid fa-lock"></i>
-                    </a>
-                    
-                </div>
-            </li>
-
-            <li>      
-                <div class="user-avatar">
-                    <img src="../images/user_women.png" alt="User 1">
-                </div>
-                <div class="user-info">
-                  <div class="user-name">Nguyễn Như Ngọc</div>
-                  <div class="user-email">ntn@gmail.com</div>
-                </div>
-                <div class="user-icon">
-                    <a href="#" class="user-icon-eye">
-                        <i class="fa-solid fa-eye"></i>
-                    </a>
-                    <a href="#" class="user-icon-lock">
-                        <i class="fa-solid fa-lock"></i>
-                    </a>
-                    
-                </div>
-            </li>
-
-            <li>      
-                <div class="user-avatar">
-                    <img src="../images/user_women.png" alt="User 1">
-                </div>
-                <div class="user-info">
-                  <div class="user-name">Nguyễn Như Ngọc</div>
-                  <div class="user-email">ntn@gmail.com</div>
-                </div>
-                <div class="user-icon">
-                    <a href="#" class="user-icon-eye">
-                        <i class="fa-solid fa-eye"></i>
-                    </a>
-                    <a href="#" class="user-icon-lock">
-                        <i class="fa-solid fa-lock"></i>
-                    </a>
-                    
-                </div>
-            </li>
-
-            <li>      
-                <div class="user-avatar">
-                    <img src="../images/user_women.png" alt="User 1">
-                </div>
-                <div class="user-info">
-                  <div class="user-name">Nguyễn Như Ngọc</div>
-                  <div class="user-email">ntn@gmail.com</div>
-                </div>
-                <div class="user-icon">
-                    <a href="#" class="user-icon-eye">
-                        <i class="fa-solid fa-eye"></i>
-                    </a>
-                    <a href="#" class="user-icon-lock">
-                        <i class="fa-solid fa-lock"></i>
-                    </a>
-                    
-                </div>
-            </li>
-
-           
-          
-          <!-- Add more user list items here -->
-        </ul>
+        </script>
       </div>
-      <script>
-        // JavaScript code goes here
-      </script>
+      
 </body>
 </html>
