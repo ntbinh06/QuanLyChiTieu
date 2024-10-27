@@ -20,7 +20,12 @@ app.get('/', (req, res) => {
 app.get('/QuanLyNguoiDung', (req, res) => {
     res.render('QuanLyNguoiDung.ejs');
   });
-
+  app.get('/XemChiTietUser', (req, res) => {
+    res.render('XemChiTietUser.ejs');
+  });
+  app.get('/ThongTinAdmin', (req, res) => {
+    res.render('ThongTinAdmin.ejs');
+  });
 
 
 
