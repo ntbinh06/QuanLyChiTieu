@@ -57,7 +57,7 @@ public class Ctrl_HangMucThuNhap extends ArrayAdapter<Model_HangMucThuNhap> {
     // Phương thức xử lý hành động khi click vào ic_lock
 
     public class ViewHolder {
-        TextView tvName, icLock;
-        ImageView tvAvatar;
+        TextView tvName;
+        ImageView tvAvatar, icLock;
     }
 }
