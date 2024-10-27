@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="../css/QuanLyNguoiDung.css" />
+    <title>Đăng nhập</title>
+    
+    
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar_title">
+            <div margin-right: 10px;>
+                <img src="../images/coins_1.jpg" alt="User Avatar">
+              </div>
+
+            <div>
+              <h2>NGÂN SÁCH<br>NHANH CHÓNG</h2>
+            </div>
+    
+        </div>
+
+        <div class="menu_home">
+            <div>
+                <img src="../images/ic_home.png" alt="Home">
+            </div>
+            <div>
+                <a href="#">Trang chủ</a>
+            </div>
+        </div>
+
+        <div class="menu_manageUser">
+            <div>
+                <img src="../images/ic_users.png" alt="Home">
+            </div>
+            <div>
+                <a href="#">Quản lý người dùng</a>
+            </div>
+        </div>
+
+        <div class="menu_infoUser">
+            <div>
+                <img src="../images/user (1).png" alt="Home">
+            </div>
+            <div>
+                <a href="#">Thông tin cá nhân</a>
+            </div>
+        </div>
+      </div>
+
+      <header>
+            <div  class="user-icon">
+                <img src="../images/user_women.png" alt="User">
+            </div>
+
+            <div class="name-admin">
+                <span>Adminstrator</span>
+            </div>
+            
+            <div class="header-icon">
+                <img src="../images/arrow_down.png" alt="icon">
+            </div>
+      </header>
+
+      <div class="content">
+        <div class="search-section">
+            <input type="text" placeholder="Tìm kiếm" class="search-input">
+            <button class="search-button">
+                <img src="../images/search_ic.png" alt="Search">
+            </button>
+        </div>
+
+        <ul class="user-list" id="userList"></ul>
+
+        <script>
+            const users = [
+            {
+                avatar: '../images/user_women.png',
+                name: 'Lê Thị Kim Ngân',
+                email: 'ltkngan@gmail.com',
+            },
+            {
+                avatar: '../images/user_women.png',
+                name: 'Nguyễn Thanh Bình',
+                email: 'ntbinh@gmail.com',
+            },
+            {
+                avatar: '../images/user_women.png',
+                name: 'Cái Thị Nhân Đức',
+                email: 'nguyenvana@gmail.com',
+            },
+            {
+                avatar: '../images/user_women.png',
+                name: 'Nguyễn Như Ngọc',
+                email: 'nnngoc@gmail.com',
+            },
+            {
+                avatar: '../images/user_women.png',
+                name: 'Nguyễn Văn A',
+                email: 'nguyenvana@gmail.com',
+            },
+            {
+                avatar: '../images/user_women.png',
+                name: 'Nguyễn Văn A',
+                email: 'nguyenvana@gmail.com',
+            },
+            {
+                avatar: '../images/user_women.png',
+                name: 'Nguyễn Văn A',
+                email: 'nguyenvana@gmail.com',
+            },
+            {
+                avatar: '../images/user_women.png',
+                name: 'Nguyễn Văn A',
+                email: 'nguyenvana@gmail.com',
+            },
+            {
+                avatar: '../images/user_women.png',
+                name: 'Nguyễn Văn A',
+                email: 'nguyenvana@gmail.com',
+            },
+            {
+                avatar: '../images/user_women.png',
+                name: 'Nguyễn Văn A',
+                email: 'nguyenvana@gmail.com',
+            },
+            // Thêm các đối tượng người dùng khác tại đây
+            ];
+
+            function renderUserList(userList) {
+            const userListContainer = document.getElementById('userList');
+            userListContainer.innerHTML = ''; // Xóa các phần tử cũ
+
+            userList.forEach(user => {
+                // Tạo một phần tử người dùng từ HTML mẫu
+                const userItem = document.createElement('li');
+                userItem.innerHTML = `
+                <div class="user-avatar">
+                    <img src="${user.avatar}" alt="User Avatar">
+                </div>
+                <div class="user-info">
+                    <div class="user-name">${user.name}</div>
+                    <div class="user-email">${user.email}</div>
+                </div>
+                <div class="user-icon">
+                    <a href="#" class="user-icon-eye">
+                    <i class="fa-solid fa-eye"></i>
+                    </a>
+                    <a href="#" class="user-icon-lock">
+                    <i class="fa-solid fa-lock"></i>
+                    </a>
+                </div>
+                `;
+                userListContainer.appendChild(userItem);
+            });
+            }
+
+            // Gọi hàm để hiển thị danh sách người dùng
+            renderUserList(users);
+
+        </script>
+      </div>
+      
+</body>
+</html>
