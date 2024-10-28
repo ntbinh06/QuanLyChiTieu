@@ -1,14 +1,22 @@
 
         body {
             font-family: Arial, sans-serif;
-            background-color: #7866C5;
+            background-image: url('./../images/bg_3.jpg'); /* Đường dẫn tới ảnh */
+            background-size: cover; /* Đặt ảnh phủ toàn màn hình */
+            background-position: center; /* Căn giữa ảnh */
+            background-repeat: no-repeat; /* Ngăn ảnh lặp lại */
             margin: 0;
+            
             padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
         }
+
         .container {
-            margin-top: 450px;
             max-width: 1200px;
-            margin: 0 auto;
+            margin: 90 auto;
             padding: 20px;
             display: flex;
             flex-direction: row;
@@ -17,7 +25,9 @@
             border: 1px solid #ccc;
             background-color: #ffffff;
             align-items: center;
+            border-radius: 20px;
         }
+
         .logo {
             flex: 1;
             text-align: center;
@@ -57,7 +67,7 @@
         }
         .btn_Sign_in button {
             padding: 10px 20px;
-            background-color: #007bff;
+            background-color: #7866C5;
             color: white;
             border: none;
             border-radius: 20px;
@@ -65,5 +75,5 @@
             width: 300px;
         }
         .btn_Sign_in button:hover {
-            background-color: #0056b3;
+            background-color: #826aed;
         }
