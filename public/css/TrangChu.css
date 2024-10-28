@@ -17,25 +17,17 @@ body {
 }
 
 .sidebar {
-    width: 300px;
-    background-color: #6C63FF;
-    color: white;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.sidebar h2 {
-    display: flex;
-    align-items: center; /* Căn giữa hình ảnh và chữ theo chiều dọc */
-    gap: 10px; /* Khoảng cách giữa hình ảnh và chữ */
-}
-
-.ngansach-icon {
-    width: 50px; /* Điều chỉnh kích thước hình ảnh cho phù hợp */
-    height: auto;
-}
+    background-color: #CECEFF;
+    color: #3D378B;
+    width: 350px;
+    height: 100vh;
+    float: left;
+    padding-top: 20px;
+    box-sizing: border-box;
+    position: fixed;
+    overflow: hidden;
+    z-index: 2;
+  }
 
 .sidebar ul {
     list-style-type: none;
