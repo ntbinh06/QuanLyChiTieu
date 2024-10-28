@@ -14,7 +14,7 @@ body {
 
 header {
   background-color: white;
-  height: 60px;
+  height: 80px;
   padding: 10px 20px;
   color: #3D378B;
   display: flex;
@@ -44,10 +44,13 @@ header {
 .sidebar {
   background-color: #CECEFF;
   color: #3D378B;
-  width: 270px;
+  width: 335px;
   height: 100vh;
   float: left;
   padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   box-sizing: border-box;
   position: fixed;
   overflow: hidden;
@@ -57,9 +60,10 @@ header {
 .sidebar a {
   color: #3D378B;
   text-decoration: none;
-  padding: 10px 30px;
+  padding: 15px 10px;
   display: block;
   border-radius: 5px;
+  font-size: 20px;
 }
 
 .sidebar a:hover {
@@ -72,81 +76,61 @@ header {
   align-items: center;
   border-bottom: 1px solid #F5F5F5;
   padding-bottom: 10px;
-  margin-bottom: 20px;
-  height: 50px;
+  height: 70px;
+  width: 100%;
 }
 
 .sidebar_title img {
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   margin-left: 15px;
   margin-right: 10px;
 }
 
 .sidebar_title h2 {
-  font-size: 15px;
+  font-size: 20px;
   margin: 0;
   font-style: normal;
 }
 
-.menu_home, .menu_manageUser, .menu_infoUser {
-  display: flex;
-  align-items: center;
-  padding-left: 5px;
-  margin: 5px 0;
-  width: 265px;
-  height: 50px;
+.sidebar ul li {
+  margin: 10px 15px;
+  list-style-type: none;
+ 
 }
 
-.menu_home img, .menu_manageUser img, .menu_infoUser img {
-  width: 20px;
-  height: 20px;
-  margin-right: 20px;
-  margin-left: 30px;
-  transition: content 0.3s ease;
+.sidebar ul {
+  width: 300px;
+  margin-right: 45px;
 }
 
-.menu_home a, .menu_manageUser a, .menu_infoUser a {
-  color: #3D378B;
-  text-decoration: none;
-  padding: 5px 0;
+.sidebar ul li a {
   display: block;
+  border-radius: 8px;
+  
 }
 
-.menu_home:hover, .menu_manageUser:hover, .menu_infoUser:hover {
-  background-color: #7866C5;
+.sidebar i{
+  margin-right: 10px;
 }
 
-.menu_home:hover img {
-  content: url('../images/home_white.png');
-}
-
-.menu_manageUser:hover img {
-  content: url('../images/users_white.png');
-}
-
-.menu_infoUser:hover img {
-  content: url('../images/ic_user_white.png');
-}
-
-.menu_home:hover a, .menu_manageUser:hover a, .menu_infoUser:hover a {
-  background-color: #7866C5;
-  color: white;
-}
 
 
 .content {
   padding: 20px;
-  margin-left: 270px;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 200px;
+  
 }
 
 .search-section {
   display: flex;
   align-items: center;
   margin-top: 20px;
-  margin-left: 240px;
 }
 
 .search-input {
@@ -181,8 +165,11 @@ header {
 .user-list {
   list-style-type: none;
   padding: 0;
-  margin-left: 240px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin-top: 30px;
+  width: 100%; 
 }
 
 .user-list li {
@@ -238,4 +225,3 @@ header {
 .user-icon-eye:hover , .user-icon-lock:hover {
   color: darkgray;
 }
-
