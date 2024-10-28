@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 
 const app = express();
-const PORT = process.env.PORT || 3004;
+const PORT = process.env.PORT || 3005;
 
 // Phục vụ các file tĩnh từ thư mục public
 app.use(express.static(path.join(__dirname, 'public')));

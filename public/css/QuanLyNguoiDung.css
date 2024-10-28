@@ -44,7 +44,7 @@ header {
 .sidebar {
   background-color: #CECEFF;
   color: #3D378B;
-  width: 270px;
+  width: 290px;
   height: 100vh;
   float: left;
   padding-top: 20px;
@@ -112,6 +112,7 @@ header {
   text-decoration: none;
   padding: 5px 0;
   display: block;
+  font-size: 20px;
 }
 
 .menu_home:hover, .menu_manageUser:hover, .menu_infoUser:hover {
