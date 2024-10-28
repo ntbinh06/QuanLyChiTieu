@@ -18,8 +18,8 @@ body {
 
 .sidebar {
     width: 300px;
-    background-color: #6C63FF;
-    color: white;
+    background-color: #CECEFF;
+    color: #3D378B;
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -47,7 +47,7 @@ body {
 }
 
 .sidebar ul li a {
-    color: white;
+    color: #3D378B;
     text-decoration: none;
     display: block;
     padding: 10px;
@@ -55,7 +55,11 @@ body {
 }
 
 .sidebar ul li a.active, .sidebar ul li a:hover {
-    background-color: #5a52d4;
+    background-color: #5a52d4; /* Màu nền khi hover */
+    color: white;
+}
+.sidebar ul li a:hover i {
+    color: white; /* Màu icon khi hover */
 }
 
 .content {
@@ -113,7 +117,7 @@ body {
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     padding: 15px 50px;
-    max-width: 335px;
+    max-width: 340px;
     display: flex;
     margin-left: 30px;
     align-items: center; /* Đảm bảo icon và văn bản được căn giữa theo chiều dọc */
@@ -163,6 +167,7 @@ body {
 .user-activity {
     flex: 1;
     background-color: white;
+    width: 340px;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -176,6 +181,7 @@ body {
 }
 
 .user-activity ul {
+    margin-left: 20px;
     list-style-type: none;
 }
 
