@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ngân Sách Nhanh Chóng</title>
+    <link rel="stylesheet" href="/css/TrangChu.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <h2><img src="/images/ngansach.jpg" alt="ngansach" class="ngansach-icon">Ngân Sách Nhanh Chóng</h2>
+            <ul>
+                <li><a href="#" class="active"><i class="fas fa-home"></i> Trang chủ</a></li>
+                <li><a href="#"><i class="fas fa-users"></i> Quản lý người dùng</a></li>
+                <li><a href="#"><i class="fas fa-user-cog"></i> Thông tin cá nhân</a></li>
+            </ul>
+        </aside>
+        <main class="content">
+            <header class="header">
+                <h1><img src="/images/admin.png" alt="Administrator" class="icon"> Administrator<i class="fas fa-caret-down"></i></h1>
+            </header>
+            <section class="welcome">
+                <div class="welcome-card">
+                    <p><img src="/images/hello.png" alt="Hello" class="hello-icon"> Xin chào, <span class="admin-name">Administrator</span></p>
+                </div>
+                <div class="user-count-card">
+                    <img src="/images/soluong.png" alt="soluong" class="soluong-icon"> 
+                    <div>
+                        <p>Số lượng người dùng</p>
+                        <h3>220</h3>
+                    </div>
+                </div>
+            </section>
+            <section class="statistics-chart">
+                <div class="chart">
+                    <canvas id="userChart"></canvas>
+                </div>
+                <div class="user-activity">
+                    <h2>Những người dùng tích cực trong tuần qua</h2>
+                    <ul>
+                        <li><img src="/images/user1.png" alt="User" class="user-icon"> Lê Thị Kim Ngân</li>
+                        <li><img src="/images/user2.png" alt="User" class="user-icon"> Nguyễn Thanh Bình</li>
+                        <li><img src="/images/user3.png" alt="User" class="user-icon"> Cái Thị Nhàn Đức</li>
+                        <li><img src="/images/user4.png" alt="User" class="user-icon"> Nguyễn Thành Đạt</li>
+                        <li><img src="/images/user5.png" alt="User" class="user-icon"> Phan Đức Anh</li>
+                    </ul>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/js/chartConfig.js"></script>
+</body>
+</html>
