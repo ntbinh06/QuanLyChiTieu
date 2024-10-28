@@ -6,6 +6,7 @@
             background-position: center; /* Căn giữa ảnh */
             background-repeat: no-repeat; /* Ngăn ảnh lặp lại */
             margin: 0;
+            
             padding: 0;
             display: flex;
             align-items: center;
@@ -15,6 +16,7 @@
 
         .container {
             max-width: 1200px;
+            margin: 90 auto;
             padding: 20px;
             display: flex;
             flex-direction: row;
@@ -65,7 +67,7 @@
         }
         .btn_Sign_in button {
             padding: 10px 20px;
-            background-color: #5034C4;
+            background-color: #7866C5;
             color: white;
             border: none;
             border-radius: 20px;
@@ -73,5 +75,5 @@
             width: 300px;
         }
         .btn_Sign_in button:hover {
-            background-color: #0056b3;
+            background-color: #826aed;
         }

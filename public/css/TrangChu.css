@@ -1,0 +1,193 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    height: 100vh;
+    background-color: #f3f4f6;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+}
+
+.sidebar {
+    width: 300px;
+    background-color: #6C63FF;
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sidebar h2 {
+    display: flex;
+    align-items: center; /* Căn giữa hình ảnh và chữ theo chiều dọc */
+    gap: 10px; /* Khoảng cách giữa hình ảnh và chữ */
+}
+
+.ngansach-icon {
+    width: 50px; /* Điều chỉnh kích thước hình ảnh cho phù hợp */
+    height: auto;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    width: 100%;
+}
+
+.sidebar ul li {
+    margin: 15px 0;
+}
+
+.sidebar ul li a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.sidebar ul li a.active, .sidebar ul li a:hover {
+    background-color: #5a52d4;
+}
+
+.content {
+    flex-grow: 1;
+    padding: 20px;
+}
+
+.header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-right: 10px;
+}
+
+.header h1 {
+    display: flex;
+    align-items: center;
+    font-size: 22px; /* Điều chỉnh kích thước chữ nếu cần */
+    color: #5034C4; /* Đặt màu cho cả chữ và icon */
+}
+
+.header .icon {
+    margin-right: 8px; /* Khoảng cách giữa icon avatar và chữ */
+}
+
+.header .fa-caret-down {
+    color: inherit; /* Sử dụng cùng màu với chữ "Administrator" */
+    margin-left: 5px; /* Khoảng cách giữa chữ và mũi tên */
+    font-size: 14px; /* Kích thước icon */
+}
+
+.welcome {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.welcome-card p{
+    color: #282A8A;
+    font-style: italic;
+    margin-left: 50px;
+}
+
+.welcome-card, .user-count-card {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    flex: 1;
+}
+
+.user-count-card {
+    background-color: #f7f7ff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px 50px;
+    max-width: 335px;
+    display: flex;
+    margin-left: 30px;
+    align-items: center; /* Đảm bảo icon và văn bản được căn giữa theo chiều dọc */
+}
+
+.soluong-icon {
+    width: 90px; /* Kích thước của icon, điều chỉnh nếu cần */
+    height: 90px;
+    margin-right: 10px; /* Khoảng cách giữa icon và văn bản */
+}
+
+.user-count-card p {
+    color: #3B288A; /* Màu chữ cho tiêu đề */
+    font-size: 14px; /* Kích thước chữ cho tiêu đề */
+    margin: 0; /* Loại bỏ khoảng cách thừa */
+}
+
+.user-count-card h3 {
+    font-size: 24px; /* Kích thước chữ cho số liệu */
+    margin: 5px 0 0 0; /* Khoảng cách bên trên của số liệu */
+}
+
+.hello-icon {
+    width: 90px;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+.admin-name {
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.statistics-chart {
+    display: flex;
+    gap: 20px;
+}
+
+.chart {
+    flex: 2;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.user-activity {
+    flex: 1;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-left: 10px;
+}
+
+.user-activity h2 {
+    margin-bottom: 15px;
+    font-size: 18px;
+    color: #3B288A;
+}
+
+.user-activity ul {
+    list-style-type: none;
+}
+
+.user-activity li {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.user-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+}

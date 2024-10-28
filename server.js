@@ -12,15 +12,20 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'src', 'views'));
 
-// Route chính
 app.get('/', (req, res) => {
-    res.render('DangNhap', { title: 'Đăng nhập' });
+    console.log("Rendering TrangChu.ejs");
+    res.render('TrangChu', { title: 'Trang chủ' });
 });
 
 app.get('/QuanLyNguoiDung', (req, res) => {
     res.render('QuanLyNguoiDung.ejs');
   });
-
+  app.get('/XemChiTietUser', (req, res) => {
+    res.render('XemChiTietUser.ejs');
+  });
+  app.get('/ThongTinAdmin', (req, res) => {
+    res.render('ThongTinAdmin.ejs');
+  });
 
 
 

@@ -1,0 +1,80 @@
+body {
+    height: 100vh;
+    background-color: #f2f2ff;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    position: relative; /* To use absolute positioning for child elements */
+}
+
+.main-container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    width: 900px;
+    position: absolute; /* Position relative to the body */
+    top: 150px; /* Distance from the bottom of the screen */
+    left: 400px; /* Distance from the right of the screen */
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-container label {
+    display: flex;
+    align-items: center;
+    margin-left: 40px;
+    gap: 10px;
+    color: #5c3aff;
+    font-weight: bold;
+}
+
+.form-container input[type="text"] {
+    width: 500px;
+    padding: 10px;
+    margin-left: 40px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+.avatar-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-left: 70px;
+}
+
+.avatar-container img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #f5f5f5;
+}
+
+.avatar-container label {
+    color: #5c3aff;
+    font-weight: bold;
+}
+
+.submit-button,.luu-button {
+    padding: 10px 20px;
+    background-color: #7866C5;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    width: 300px;
+    margin-left: 300px;
+}
+
+.submit-button:hover,.luu-button:hover {
+    background-color: #4a31cc;
+}
