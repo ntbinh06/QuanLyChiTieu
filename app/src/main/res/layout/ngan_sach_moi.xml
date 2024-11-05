@@ -141,26 +141,57 @@
     <!-- Select date Layout -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_height="70dp"
         android:layout_marginTop="30dp"
-        android:layout_gravity="center">
-
+        android:layout_marginStart="30px"
+        tools:ignore="ExtraText">
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/baseline_calendar_today_24"
-            android:layout_marginStart="43dp"
-            android:layout_marginTop="13dp"
-            android:contentDescription="Calendar icon"/>
-
-        <com.example.quanlychitieu.View.View_CustomSpinner
-            android:id="@+id/spnDateStart"
-            android:layout_width="272dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="20dp"
-            android:background="@drawable/bg_spinner"
-            android:contentDescription="Chọn thời gian bắt đầu"/>
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="30dp"
+            android:background="?attr/selectableItemBackground"
+            android:src="@drawable/ic_calender_black"
+            android:contentDescription="@string/img1"/>
+        <EditText
+            android:id="@+id/edit_day"
+            android:layout_width="230dp"
+            android:layout_height="45dp"
+            android:layout_below="@id/toolbar"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="20dp"
+            android:textSize="18dp"
+            android:hint="Ngày bắt đầu "
+            android:inputType="numberDecimal"
+            android:padding="10dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="70dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="30px"
+        tools:ignore="ExtraText">
+        <ImageView
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="30dp"
+            android:background="?attr/selectableItemBackground"
+            android:src="@drawable/ic_calender_black"
+            android:contentDescription="@string/img1"/>
+        <EditText
+            android:id="@+id/edit_day2"
+            android:layout_width="230dp"
+            android:layout_height="45dp"
+            android:layout_below="@id/toolbar"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="20dp"
+            android:textSize="18dp"
+            android:hint="Ngày kết thúc "
+            android:inputType="numberDecimal"
+            android:padding="10dp"/>
     </LinearLayout>
 
     <Button

@@ -164,13 +164,15 @@ public class NganSachMoi extends AppCompatActivity implements View_CustomSpinner
         ListView listView = dialog.findViewById(R.id.listView_chiphi);
 
         ArrayList<Model_HangMucChiPhi> arrContact = new ArrayList<>();
-        arrContact.add(new Model_HangMucChiPhi(R.drawable.baseline_account_circle_24, "Đồ ăn/ Đồ uống"));
-        arrContact.add(new Model_HangMucChiPhi(R.drawable.baseline_account_circle_24, "Mua sắm"));
-        arrContact.add(new Model_HangMucChiPhi(R.drawable.baseline_account_circle_24, "Vận chuyển"));
-        arrContact.add(new Model_HangMucChiPhi(R.drawable.baseline_account_circle_24, "Giải trí"));
-        arrContact.add(new Model_HangMucChiPhi(R.drawable.baseline_account_circle_24, "Nhà cửa"));
-        arrContact.add(new Model_HangMucChiPhi(R.drawable.baseline_account_circle_24, "Gia đình"));
-        arrContact.add(new Model_HangMucChiPhi(R.drawable.baseline_account_circle_24, "Sức khỏe"));
+        arrContact.add(new Model_HangMucChiPhi(R.drawable.food, "Đồ ăn/ Đồ uống"));
+        arrContact.add(new Model_HangMucChiPhi(R.drawable.shopping, "Mua sắm"));
+        arrContact.add(new Model_HangMucChiPhi(R.drawable.family, "Vận chuyển"));
+        arrContact.add(new Model_HangMucChiPhi(R.drawable.delivery_van, "Giải trí"));
+        arrContact.add(new Model_HangMucChiPhi(R.drawable.drum_set, "Nhà cửa"));
+        arrContact.add(new Model_HangMucChiPhi(R.drawable.house, "Gia đình"));
+        arrContact.add(new Model_HangMucChiPhi(R.drawable.healthcare, "Sức khỏe"));
+        arrContact.add(new Model_HangMucChiPhi(R.drawable.pets, "Thú cưng"));
+        arrContact.add(new Model_HangMucChiPhi(R.drawable.travel_luggage, "Du lịch"));
 
         Ctrl_HangMucChiPhi customAdapter = new Ctrl_HangMucChiPhi(this, R.layout.list_item, arrContact);
         listView.setAdapter(customAdapter);

@@ -202,35 +202,50 @@
             android:contentDescription="Thời gian"
             android:src="@drawable/ic_calender_black" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="vertical">
-
             <TextView
                 android:id="@+id/tvTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1 Tháng"
+                android:layout_marginTop="20px"
+                android:text="Ngày bắt đầu: _"
                 android:textColor="@android:color/black"
                 android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/remaining_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Còn lại 26 ngày"
-                android:textColor="#7C7272"
-                android:textSize="16sp" />
-        </LinearLayout>
-    </LinearLayout>
 
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/dentk"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="170dp"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/budgetInfoLayout">
+
+        <ImageView
+            android:id="@+id/imgAccount2"
+            android:layout_width="24dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:layout_marginEnd="16dp"
+            android:contentDescription="Tài khoản"
+            android:src="@drawable/ic_calender_black" />
+
+        <TextView
+            android:id="@+id/tvAccount2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ngày kết thúc: _"
+            android:textColor="@android:color/black"
+            android:textSize="20sp" />
+    </LinearLayout>
     <!-- Nút Xóa và Sửa -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="230dp"
+        android:layout_marginTop="130dp"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"

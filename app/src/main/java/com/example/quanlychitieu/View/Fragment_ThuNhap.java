@@ -51,8 +51,12 @@ public class Fragment_ThuNhap extends Fragment {
         }
 
         // Khởi tạo Adapter
-        myAdapter = new View_ItemHangMuc(getActivity(), R.layout.list_item, danhMuc);
+        // Inside Fragment_ChiPhi
+
+// Khởi tạo Adapter
+        myAdapter = new View_ItemHangMuc(getActivity(), R.layout.list_item, danhMuc, getChildFragmentManager());
         lv.setAdapter(myAdapter);
+
 
         // Xử lý Insets cho toàn màn hình
         ViewCompat.setOnApplyWindowInsetsListener(view.findViewById(R.id.main), (v, insets) -> {

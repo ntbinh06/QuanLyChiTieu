@@ -52,8 +52,12 @@ public class Fragment_ChiPhi extends Fragment  {
         }
 
         // Khởi tạo Adapter
-        myAdapter = new View_ItemHangMuc(getActivity(), R.layout.list_item, danhMuc);
+        // Inside Fragment_ChiPhi
+
+// Khởi tạo Adapter
+        myAdapter = new View_ItemHangMuc(getActivity(), R.layout.list_item, danhMuc, getChildFragmentManager());
         lv.setAdapter(myAdapter);
+
 
 
         // Xử lý Insets cho toàn màn hình

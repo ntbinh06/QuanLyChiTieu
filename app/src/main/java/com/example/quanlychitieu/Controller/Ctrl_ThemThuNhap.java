@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Ctrl_ThemThuNhap extends AppCompatActivity {
+
     private Spinner spnthunhap;
     private static final int PICK_IMAGE_REQUEST = 1;
 
