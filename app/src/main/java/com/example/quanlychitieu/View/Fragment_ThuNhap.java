@@ -1,24 +1,16 @@
 package com.example.quanlychitieu.View;
-
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ListView;
-
-import com.example.quanlychitieu.Controller.Ctrl_ThemHangMuc;
 import com.example.quanlychitieu.Model.DanhMucHangMuc;
 import com.example.quanlychitieu.R;
-
 import java.util.ArrayList;
 
 

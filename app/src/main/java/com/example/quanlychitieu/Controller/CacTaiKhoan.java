@@ -2,7 +2,6 @@ package com.example.quanlychitieu.Controller;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 
@@ -15,7 +14,6 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.quanlychitieu.Model.DanhMucTaiKhoan;
 import com.example.quanlychitieu.R;
-import com.example.quanlychitieu.View.Fragment_TongQuan;
 import com.example.quanlychitieu.View.View_ItemCacTK;
 
 import java.util.ArrayList;
