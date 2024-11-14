@@ -1,5 +1,5 @@
 package com.example.quanlychitieu.Controller;
-import android.content.Intent;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -8,7 +8,6 @@ import android.widget.ImageButton;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.quanlychitieu.R;
-import com.example.quanlychitieu.View.Fragment_NguoiDung;
 
 public class Ctrl_DoiMatKhau extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {

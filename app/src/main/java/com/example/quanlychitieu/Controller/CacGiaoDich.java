@@ -6,13 +6,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
 import com.example.quanlychitieu.Model.DanhMucGiaoDich;
 import com.example.quanlychitieu.R;
 import com.example.quanlychitieu.View.View_ItemGiaoDich;
