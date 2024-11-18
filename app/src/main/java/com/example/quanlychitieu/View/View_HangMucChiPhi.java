@@ -46,24 +46,7 @@ public class View_HangMucChiPhi extends AppCompatActivity {
         Ctrl_HangMucChiPhi customAdapter = new Ctrl_HangMucChiPhi(this, R.layout.list_item_hangmuc, arrContact);
         lvContact.setAdapter(customAdapter);
 
-        TextView tao = findViewById(R.id.tao);
-        TextView quanly = findViewById(R.id.quanly);
 
-        tao.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(View_HangMucChiPhi.this, Ctrl_ThemHangMuc.class);
-                startActivity(intent);
-            }
-        });
-
-        quanly.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(View_HangMucChiPhi.this, View_QuanLyHangMuc.class);
-                startActivity(intent);
-            }
-        });
 
         // Thiết lập padding cho view chính
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.hangmuchiphi), (v, insets) -> {

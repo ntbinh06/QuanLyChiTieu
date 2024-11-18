@@ -64,6 +64,7 @@ public class Ctrl_ThemThuNhap extends AppCompatActivity {
         Button buttonluu = findViewById(R.id.btnLuu);
         ImageButton ic_camera = findViewById(R.id.ic_camera);
 
+
         hangmuc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,6 +103,7 @@ public class Ctrl_ThemThuNhap extends AppCompatActivity {
             }
         });
     }
+
 
     private void openFeedbackDialog(int gravity) {
         final Dialog dialog = new Dialog(this);

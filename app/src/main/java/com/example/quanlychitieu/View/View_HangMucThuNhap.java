@@ -47,26 +47,9 @@ public class View_HangMucThuNhap extends AppCompatActivity {
         Ctrl_HangMucThuNhap customAdapter = new Ctrl_HangMucThuNhap(this, R.layout.list_item_hangmuc, arrContact);
         lvContact.setAdapter(customAdapter);
 
-        TextView tao = findViewById(R.id.tao);
-        TextView quanly = findViewById(R.id.quanly);
 
-        tao.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("View_HangMuc", "Tao clicked");
-                Intent intent = new Intent(View_HangMucThuNhap.this, Ctrl_ThemHangMuc.class);
-                startActivity(intent);
-            }
-        });
 
-        quanly.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("View_HangMuc", "Quan ly clicked");
-                Intent intent = new Intent(View_HangMucThuNhap.this, View_QuanLyHangMuc.class);
-                startActivity(intent);
-            }
-        });
+
         // Thiết lập padding cho view chính
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.hangmucthunhap), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
