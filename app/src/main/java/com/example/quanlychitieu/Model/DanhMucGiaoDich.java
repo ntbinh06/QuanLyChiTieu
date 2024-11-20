@@ -1,5 +1,5 @@
 package com.example.quanlychitieu.Model;
-
+import com.google.firebase.firestore.DocumentId;
 public class DanhMucGiaoDich {
     private int image;
     private String tenGD;
