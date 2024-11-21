@@ -24,5 +24,7 @@ public class DanhMucTaiKhoan {
     public DanhMucTaiKhoan(String tenTaiKhoan, String tien) {
         this.tenTaiKhoan = tenTaiKhoan;
         this.tien = tien;
+
     }
+
 }

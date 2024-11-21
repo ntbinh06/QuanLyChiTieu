@@ -10,6 +10,7 @@ public class Model_GiaoDich {
     private String note;           // Ghi chú
     private String image;          // Đường dẫn hình ảnh (nếu có)
 
+
     // Constructor
     public Model_GiaoDich(int id, double value, int categoryId, int accountId, String date, String from, String note, String image) {
         this.id = id;

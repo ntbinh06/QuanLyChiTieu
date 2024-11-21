@@ -28,6 +28,7 @@ public class Ctrl_XemTKChiTiet  extends AppCompatActivity{
     View_ItemGiaoDich myadapter;
     ListView lv;
     TextView txtTenTaiKhoan,txtSoTien;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

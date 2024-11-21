@@ -24,4 +24,5 @@ public class M_SideMenu {
     public void setTvMenu(String tvMenu) {
         this.tvMenu = tvMenu;
     }
+
 }

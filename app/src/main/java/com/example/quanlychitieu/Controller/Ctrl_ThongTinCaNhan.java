@@ -62,5 +62,6 @@ public class Ctrl_ThongTinCaNhan extends AppCompatActivity {
             Uri imageUri = data.getData();
             // Thực hiện các hành động cần thiết với hình ảnh, ví dụ: hiển thị trong ImageView
         }
+
     }
 }
