@@ -1,5 +1,6 @@
 package com.example.quanlychitieu.Controller;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -12,9 +13,11 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -27,8 +30,12 @@ import com.example.quanlychitieu.Model.Model_HangMucChiPhi;
 import com.example.quanlychitieu.R;
 import com.example.quanlychitieu.View.View_CustomSpinner;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 public class NganSachMoi extends AppCompatActivity implements View_CustomSpinner.OnSpinnerEventsListener{
 
@@ -70,33 +77,7 @@ public class NganSachMoi extends AppCompatActivity implements View_CustomSpinner
         spnTaiKhoan.setDropDownVerticalOffset(150);
 
         // Initialize Spinner for Date Start
-        spnDateStart = findViewById(R.id.spnDateStart);
-        spnDateStart.setSpinnerEventsListener(this);
 
-        // List for Date Start Spinner
-        ArrayList<String> listDateStart = new ArrayList<>();
-        listDateStart.add("1 Tuần");
-        listDateStart.add("1 Tháng");
-        listDateStart.add("1 Năm");
-
-        // Adapter for Date Start Spinner
-        ArrayAdapter<String> adapterDateStart = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, listDateStart);
-        adapterDateStart.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spnDateStart.setAdapter(adapterDateStart);
-
-        spnDateStart.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                Toast.makeText(NganSachMoi.this, spnDateStart.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                // Do nothing
-            }
-        });
-
-        spnDateStart.setDropDownVerticalOffset(150);
 
         // Window insets handling
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -127,24 +108,65 @@ public class NganSachMoi extends AppCompatActivity implements View_CustomSpinner
                 startActivity(new Intent(NganSachMoi.this, C_NganSach.class));
             }
         });
+
+        //Ngay bat dau
+        TextView ngaybatdau = findViewById(R.id.ngaybatdau);
+        TextView ngayketthuc = findViewById(R.id.ngayketthuc);
+
+        ngaybatdau.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Lấy ngày hiện tại
+                Locale.setDefault(new Locale("vi", "VN"));
+                final Calendar calendar = Calendar.getInstance();
+                int year = calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH);
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+                // Tạo hộp thoại chọn ngày
+                DatePickerDialog datePickerDialog = new DatePickerDialog(NganSachMoi.this,
+                        R.style.CustomDatePickerDialog,
+                        (view1, selectedYear, selectedMonth, selectedDay) -> {
+                            // Cập nhật TextView với ngày đã chọn
+                            String selectedDate = selectedDay + "/" + (selectedMonth + 1) + "/" + selectedYear;
+                            ngaybatdau.setText(selectedDate);
+                        }, year, month, day);
+                datePickerDialog.show();
+            }
+        });
+
+        ngayketthuc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Lấy ngày hiện tại
+                Locale.setDefault(new Locale("vi", "VN"));
+                final Calendar calendar = Calendar.getInstance();
+                int year = calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH);
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+                // Tạo hộp thoại chọn ngày
+                DatePickerDialog datePickerDialog = new DatePickerDialog(NganSachMoi.this,
+                        R.style.CustomDatePickerDialog_ChuyenTien,
+                        (view1, selectedYear, selectedMonth, selectedDay) -> {
+                            // Cập nhật TextView với ngày đã chọn
+                            String selectedDate = selectedDay + "/" + (selectedMonth + 1) + "/" + selectedYear;
+                            ngayketthuc.setText(selectedDate);
+                        }, year, month, day);
+                datePickerDialog.show();
+            }
+        });
+
     }
 
     @Override
     public void onPopupWindowOpened(Spinner spinner) {
-        if (spinner.getId() == R.id.spnTaiKhoan) {
-            spnTaiKhoan.setBackground(getResources().getDrawable(R.drawable.bg_spinner_up, null));
-        } else if (spinner.getId() == R.id.spnDateStart) {
-            spnDateStart.setBackground(getResources().getDrawable(R.drawable.bg_spinner_up, null));
-        }
+        spnTaiKhoan.setBackground(getResources().getDrawable(R.drawable.bg_spinner_up, null));
     }
 
     @Override
     public void onPopupWindowClosed(Spinner spinner) {
-        if (spinner.getId() == R.id.spnTaiKhoan) {
-            spnTaiKhoan.setBackground(getResources().getDrawable(R.drawable.bg_spinner, null));
-        } else if (spinner.getId() == R.id.spnDateStart) {
-            spnDateStart.setBackground(getResources().getDrawable(R.drawable.bg_spinner, null));
-        }
+        spnTaiKhoan.setBackground(getResources().getDrawable(R.drawable.bg_spinner, null));
     }
     private void openFeedbackDialog(int gravity) {
         final Dialog dialog = new Dialog(this);

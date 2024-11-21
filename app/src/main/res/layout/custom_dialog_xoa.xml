@@ -1,20 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="350dp"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="20dp"
+    android:padding="10dp"
     android:maxWidth="300dp">
+
+    <TextView
+        android:id="@+id/tvTittle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Xác nhận"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:fontFamily="@font/inter_18pt_regular"
+        android:gravity="center"/>
+
 
     <TextView
         android:id="@+id/tvMessage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Bạn có chắc chắn muốn xoá?"
+        android:layout_marginBottom="20dp"
         android:textSize="18sp"
         android:textColor="@android:color/black"
-        android:paddingBottom="30dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:layout_marginLeft="10dp"
         android:fontFamily="@font/inter_18pt_regular"
         android:gravity="center"/>
@@ -25,7 +39,8 @@
         android:orientation="horizontal"
         android:gravity="center"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="10dp">
+        android:layout_marginBottom="20dp"
+        >
 
         <Button
             android:id="@+id/btnCancel"
@@ -34,7 +49,7 @@
             android:textAllCaps="false"
             android:textSize="16sp"
             android:text="Hủy"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="35dp"
             android:layout_marginLeft="15dp"
             android:textColor="@color/deep_bluepurple"
             android:fontFamily="@font/inter_18pt_bold"

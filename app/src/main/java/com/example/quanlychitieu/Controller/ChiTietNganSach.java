@@ -96,9 +96,7 @@ public class ChiTietNganSach extends AppCompatActivity {
                         AlertDialog alertDialog = (AlertDialog) dialog;
                         WindowManager.LayoutParams params = new WindowManager.LayoutParams();
                         params.copyFrom(alertDialog.getWindow().getAttributes()); // Lấy thuộc tính hiện tại của dialog
-                        params.width = 850; // Hoặc một giá trị cụ thể như 800
-                        params.height = WindowManager.LayoutParams.WRAP_CONTENT; // Hoặc một giá trị cụ thể
-                        alertDialog.getWindow().setAttributes(params); // Áp dụng các thuộc tính mới
+                        dialog.getWindow().setLayout(850, WindowManager.LayoutParams.WRAP_CONTENT);
                     }
                 });
 
