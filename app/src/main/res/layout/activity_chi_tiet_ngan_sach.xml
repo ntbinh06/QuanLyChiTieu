@@ -124,16 +124,16 @@
                     android:layout_height="wrap_content"
                     android:text="300.000"
                     android:textColor="@android:color/black"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:fontFamily="@font/inter_18pt_regular"/>
 
                 <TextView
                     android:id="@+id/tvRemainingMoney"
-                    android:layout_width="200dp"
+                    android:layout_width="205dp"
                     android:layout_height="wrap_content"
                     android:text="1.700.000"
                     android:textColor="@android:color/black"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:gravity="right"
                     android:fontFamily="@font/inter_18pt_regular"/>
             </LinearLayout>
@@ -183,10 +183,10 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/date"
+        android:id="@+id/start_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -194,52 +194,83 @@
 
         <ImageView
             android:id="@+id/imgTime"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_marginStart="43dp"
             android:layout_marginTop="10dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="18dp"
             android:contentDescription="Thời gian"
             android:src="@drawable/ic_calender_black" />
 
+        <LinearLayout
+            android:layout_width="272dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
             <TextView
-                android:id="@+id/tvTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20px"
-                android:text="Ngày bắt đầu: _"
-                android:textColor="@android:color/black"
-                android:textSize="20sp" />
+                android:text="Ngày bắt đầu"
+                android:textColor="@color/black_50"
+                android:textSize="12sp"/>
 
+            <TextView
+                android:id="@+id/ngaybatdau"
+                android:layout_width="272dp"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:text="20/10/2024"
+                android:textColor="@color/black"
+                android:inputType="numberDecimal"
+                android:layout_marginTop="5dp"/>
 
+        </LinearLayout>
     </LinearLayout>
+
     <LinearLayout
-        android:id="@+id/dentk"
+        android:id="@+id/end_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="170dp"
+        android:layout_marginTop="20dp"
         android:orientation="horizontal"
-        android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/budgetInfoLayout">
+        app:layout_constraintTop_toBottomOf="@id/start_date">
 
         <ImageView
             android:id="@+id/imgAccount2"
-            android:layout_width="24dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="28dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="43dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="16dp"
             android:contentDescription="Tài khoản"
             android:src="@drawable/ic_calender_black" />
 
-        <TextView
-            android:id="@+id/tvAccount2"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="272dp"
             android:layout_height="wrap_content"
-            android:text="Ngày kết thúc: _"
-            android:textColor="@android:color/black"
-            android:textSize="20sp" />
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ngày kết thúc"
+                android:textColor="@color/black_50"
+                android:textSize="12sp"/>
+
+            <TextView
+                android:id="@+id/ngayketthuc"
+                android:layout_width="272dp"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:text="20/10/2024"
+                android:textColor="@color/black"
+                android:inputType="numberDecimal"
+                android:layout_marginTop="5dp"/>
+
+        </LinearLayout>
+
     </LinearLayout>
     <!-- Nút Xóa và Sửa -->
     <LinearLayout
@@ -249,7 +280,7 @@
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/date">
+        app:layout_constraintTop_toBottomOf="@id/end_date">
 
         <Button
             android:id="@+id/btnDeleteNganSach"

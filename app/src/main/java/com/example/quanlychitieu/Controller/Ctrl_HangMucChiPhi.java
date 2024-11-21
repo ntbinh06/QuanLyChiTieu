@@ -36,6 +36,10 @@ public class Ctrl_HangMucChiPhi extends ArrayAdapter<Model_HangMucChiPhi> {
         if (convertView == null) {
             LayoutInflater inflater = LayoutInflater.from(context);
             convertView = inflater.inflate(resource, parent, false);
+            if (convertView == null) {
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item, parent, false);
+            }
+
 
             // Ánh xạ các view trong ViewHolder
             viewHolder = new ViewHolder();
@@ -51,6 +55,8 @@ public class Ctrl_HangMucChiPhi extends ArrayAdapter<Model_HangMucChiPhi> {
         Model_HangMucChiPhi contact = arrContact.get(position);
         viewHolder.tvAvatar.setImageResource(contact.getAvatarResource());
         viewHolder.tvName.setText(contact.getName());
+
+
 
         return convertView;
     }
