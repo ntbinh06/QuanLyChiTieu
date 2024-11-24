@@ -2,23 +2,18 @@ package com.example.quanlychitieu.View;
 
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
 
 import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.quanlychitieu.Controller.CacGiaoDich;
-import com.example.quanlychitieu.Model.DanhMucHangMuc;
+import com.example.quanlychitieu.Model.M_DanhMucHangMuc;
 import com.example.quanlychitieu.R;
 
 import java.util.ArrayList;
@@ -30,8 +25,8 @@ public class Fragment_ChiPhi extends Fragment  {
 
 
     private ListView lv;
-    private ArrayList<DanhMucHangMuc> danhMuc;
-    private View_ItemHangMuc myAdapter;
+    private ArrayList<M_DanhMucHangMuc> danhMuc;
+    private V_ItemHangMuc myAdapter;
 
     public Fragment_ChiPhi() {
     }
@@ -48,14 +43,14 @@ public class Fragment_ChiPhi extends Fragment  {
         // Tạo dữ liệu mẫu cho ListView
         for (int i = 0; i < tenGD.length; i++) {
             int index = i % tenGD.length;
-            danhMuc.add(new DanhMucHangMuc(image[i], tenGD[i]));
+            danhMuc.add(new M_DanhMucHangMuc(image[i], tenGD[i]));
         }
 
         // Khởi tạo Adapter
         // Inside Fragment_ChiPhi
 
 // Khởi tạo Adapter
-        myAdapter = new View_ItemHangMuc(getActivity(), R.layout.list_item, danhMuc, getChildFragmentManager());
+        myAdapter = new V_ItemHangMuc(getActivity(), R.layout.list_item, danhMuc, getChildFragmentManager());
         lv.setAdapter(myAdapter);
 
 

@@ -5,24 +5,22 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ArrayAdapter;
 
-import com.example.quanlychitieu.Model.Model_DanhSachUser;
+import com.example.quanlychitieu.Model.M_DanhSachUser;
 import com.example.quanlychitieu.R;
-import com.example.quanlychitieu.Controller.ThongTinNguoiDung; // Kiểm tra đường dẫn đúng
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Ctrl_DanhSachUser extends ArrayAdapter<Model_DanhSachUser> {
+public class Ctrl_DanhSachUser extends ArrayAdapter<M_DanhSachUser> {
     private final Context context;
     private final int resource;
-    private final List<Model_DanhSachUser> arrContact;
+    private final List<M_DanhSachUser> arrContact;
 
-    public Ctrl_DanhSachUser(Context context, int resource, ArrayList<Model_DanhSachUser> arrContact) {
+    public Ctrl_DanhSachUser(Context context, int resource, ArrayList<M_DanhSachUser> arrContact) {
         super(context, resource, arrContact);
         this.context = context;
         this.resource = resource;
@@ -46,7 +44,7 @@ public class Ctrl_DanhSachUser extends ArrayAdapter<Model_DanhSachUser> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        Model_DanhSachUser contact = arrContact.get(position);
+        M_DanhSachUser contact = arrContact.get(position);
         viewHolder.tvAvatar.setImageResource(contact.getAvatarResource());
         viewHolder.tvName.setText(contact.getName());
         viewHolder.tvGmail.setText(contact.getGmail());
@@ -58,7 +56,7 @@ public class Ctrl_DanhSachUser extends ArrayAdapter<Model_DanhSachUser> {
         viewHolder.ic_eye.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, ThongTinNguoiDung.class);
+                Intent intent = new Intent(context, Ctrl_ThongTinNguoiDung.class);
                 // Truyền dữ liệu vào Intent
                 intent.putExtra("userName", contact.getName());
                 intent.putExtra("userEmail", contact.getGmail());

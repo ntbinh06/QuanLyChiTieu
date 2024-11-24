@@ -12,7 +12,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.quanlychitieu.R;
 
-import java.util.ArrayList;
 public class Ctrl_XemThuNhap  extends AppCompatActivity{
 
     private int transactionId; // ID của giao dịch cần xóa, bạn sẽ lấy giá trị này từ Intent
@@ -20,7 +19,7 @@ public class Ctrl_XemThuNhap  extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.xemthunhap); // Your layout file
+        setContentView(R.layout.activity_xemthunhap); // Your layout file
 
         ImageButton ic_back = findViewById(R.id.ic_back);
         Button buttonsua = findViewById(R.id.btnSuaThuNhap);
@@ -62,7 +61,7 @@ public class Ctrl_XemThuNhap  extends AppCompatActivity{
         ic_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Ctrl_XemThuNhap.this, CacGiaoDich.class);
+                Intent intent = new Intent(Ctrl_XemThuNhap.this, Ctrl_CacGiaoDich.class);
                 startActivity(intent);
             }
         });
@@ -97,7 +96,7 @@ public class Ctrl_XemThuNhap  extends AppCompatActivity{
                         dialog.dismiss();
 
                         // Quay lại giao diện danh sách giao dịch
-                        Intent intent = new Intent(Ctrl_XemThuNhap.this, CacGiaoDich.class);
+                        Intent intent = new Intent(Ctrl_XemThuNhap.this, Ctrl_CacGiaoDich.class);
                         startActivity(intent);
                         finish(); // Hoặc sử dụng finish() để xóa activity hiện tại
                     }
@@ -126,6 +125,6 @@ public class Ctrl_XemThuNhap  extends AppCompatActivity{
     }
 
     private void navigateToLoginScreen() {
-        startActivity(new Intent(Ctrl_XemThuNhap.this, CacGiaoDich.class));
+        startActivity(new Intent(Ctrl_XemThuNhap.this, Ctrl_CacGiaoDich.class));
     }
 }

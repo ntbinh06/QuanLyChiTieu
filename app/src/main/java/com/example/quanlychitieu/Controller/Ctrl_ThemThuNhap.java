@@ -20,7 +20,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.quanlychitieu.Model.Model_HangMucThuNhap;
+import com.example.quanlychitieu.Model.M_HangMucThuNhap;
 import com.example.quanlychitieu.R;
 
 import java.util.ArrayList;
@@ -34,7 +34,7 @@ public class Ctrl_ThemThuNhap extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.themthunhap); // Your layout file
+        setContentView(R.layout.activity_themthunhap); // Your layout file
 
         spnthunhap = findViewById(R.id.spnthunhap);
         List<String> list = new ArrayList<>();
@@ -75,7 +75,7 @@ public class Ctrl_ThemThuNhap extends AppCompatActivity {
         buttonhuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Ctrl_ThemThuNhap.this, TongQuan.class);
+                Intent intent = new Intent(Ctrl_ThemThuNhap.this, Ctrl_TongQuan.class);
                 startActivity(intent);
             }
         });
@@ -83,7 +83,7 @@ public class Ctrl_ThemThuNhap extends AppCompatActivity {
         ic_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Ctrl_ThemThuNhap.this, TongQuan.class);
+                Intent intent = new Intent(Ctrl_ThemThuNhap.this, Ctrl_TongQuan.class);
                 startActivity(intent);
             }
         });
@@ -91,7 +91,7 @@ public class Ctrl_ThemThuNhap extends AppCompatActivity {
         buttonluu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Ctrl_ThemThuNhap.this, TongQuan.class);
+                Intent intent = new Intent(Ctrl_ThemThuNhap.this, Ctrl_TongQuan.class);
                 startActivity(intent);
             }
         });
@@ -108,7 +108,7 @@ public class Ctrl_ThemThuNhap extends AppCompatActivity {
     private void openFeedbackDialog(int gravity) {
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.hangmucthunhap); // Sử dụng layout mới cho dialog
+        dialog.setContentView(R.layout.activity_hangmucthunhap); // Sử dụng layout mới cho dialog
         Window window = dialog.getWindow();
         if (window == null) {
             return;
@@ -123,12 +123,12 @@ public class Ctrl_ThemThuNhap extends AppCompatActivity {
         ListView listView = dialog.findViewById(R.id.listView_thunhap); // Kiểm tra ID của ListView
 
         // Tạo danh sách chi phí
-        ArrayList<Model_HangMucThuNhap> arrContact = new ArrayList<>();
-        arrContact.add(new Model_HangMucThuNhap(R.drawable.wage, "Lương"));
-        arrContact.add(new Model_HangMucThuNhap(R.drawable.lending, "Thu lãi"));
-        arrContact.add(new Model_HangMucThuNhap(R.drawable.financial_statement, "Tiền trợ cấp"));
-        arrContact.add(new Model_HangMucThuNhap(R.drawable.low_income, "Tiền từ việc vặt"));
-        arrContact.add(new Model_HangMucThuNhap(R.drawable.streams, "Tiền tiết kiệm"));
+        ArrayList<M_HangMucThuNhap> arrContact = new ArrayList<>();
+        arrContact.add(new M_HangMucThuNhap(R.drawable.wage, "Lương"));
+        arrContact.add(new M_HangMucThuNhap(R.drawable.lending, "Thu lãi"));
+        arrContact.add(new M_HangMucThuNhap(R.drawable.financial_statement, "Tiền trợ cấp"));
+        arrContact.add(new M_HangMucThuNhap(R.drawable.low_income, "Tiền từ việc vặt"));
+        arrContact.add(new M_HangMucThuNhap(R.drawable.streams, "Tiền tiết kiệm"));
 
         // Khởi tạo adapter và gán cho ListView
         Ctrl_HangMucThuNhap customAdapter = new Ctrl_HangMucThuNhap(this, R.layout.list_item_hangmuc, arrContact);
@@ -138,7 +138,7 @@ public class Ctrl_ThemThuNhap extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Model_HangMucThuNhap selectedItem = arrContact.get(position);
+                M_HangMucThuNhap selectedItem = arrContact.get(position);
                 Toast.makeText(Ctrl_ThemThuNhap.this, "Bạn đã chọn: " + selectedItem.getName(), Toast.LENGTH_SHORT).show();
                 dialog.dismiss(); // Đóng dialog sau khi chọn
             }

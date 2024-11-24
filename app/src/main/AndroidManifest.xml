@@ -16,7 +16,7 @@
         android:theme="@style/Theme.QuanLyChiTieu"
         tools:targetApi="31">
         <activity
-            android:name=".Controller.TrangChuAdmin"
+            android:name=".Controller.Ctrl_TrangChuAdmin"
             android:exported="false" />
 
 
@@ -25,7 +25,7 @@
             android:exported="false" />
 
         <activity
-            android:name=".Controller.C_NganSach"
+            android:name=".Controller.Ctrl_NganSach"
             android:exported="false" />
 
         <activity
@@ -38,7 +38,7 @@
             android:exported="false" />
 
         <activity
-            android:name=".Controller.View_QuanLyHangMuc"
+            android:name=".Controller.Ctrl_QuanLyHangMuc"
             android:exported="false" />
 
 
@@ -53,7 +53,7 @@
 
         <activity
 
-            android:name=".Controller.ChiTietNganSach"
+            android:name=".Controller.Ctrl_ChiTietNganSach"
             android:exported="false" />
         <activity
 
@@ -66,12 +66,12 @@
 
 
         <activity
-            android:name=".Controller.RegisterActivity"
+            android:name=".Controller.Ctrl_RegisterActivity"
             android:exported="false" />
 
 
         <activity
-            android:name=".Controller.ChuyenTien"
+            android:name=".Controller.Ctrl_ChuyenTien"
             android:exported="false">
 <!--            <intent-filter>-->
 <!--                <action android:name="android.intent.action.MAIN" />-->
@@ -81,14 +81,14 @@
         </activity>
 
 
-        <activity android:name=".Controller.CacTaiKhoan"
+        <activity android:name=".Controller.Ctrl_CacTaiKhoan"
             android:exported="false">
 
         </activity>
 
 
         <activity
-            android:name=".Controller.CacGiaoDich"
+            android:name=".Controller.Ctrl_CacGiaoDich"
             android:exported="false" >
 <!--            <intent-filter>-->
 <!--                <action android:name="android.intent.action.MAIN" />-->
@@ -102,7 +102,7 @@
             android:exported="false" />
 
         <activity
-            android:name=".Controller.NganSachMoi"
+            android:name=".Controller.Ctrl_NganSachMoi"
             android:exported="false" />
 
         <activity
@@ -113,16 +113,16 @@
             android:exported="false" />
 
 
-        <activity android:name=".Controller.TongQuan" android:exported="false" >
+        <activity android:name=".Controller.Ctrl_TongQuan" android:exported="false" >
 
 
         </activity>
 
-        <activity android:name=".Controller.LoginActicity" />
+        <activity android:name=".Controller.Ctrl_LoginActicity" />
 
-        <activity android:name=".View.View_HangMucChiPhi" android:exported="false" />
+        <activity android:name=".View.V_HangMucChiPhi" android:exported="false" />
         <activity
-            android:name=".Controller.TrangChuDNDK"
+            android:name=".Controller.Ctrl_TrangChuDNDK"
             android:exported="true" >
 
             <intent-filter>
@@ -135,9 +135,9 @@
             android:name=".MainActivity"
             android:exported="true" />
 
-        <activity android:name=".Controller.ThongTinNguoiDung" />
+        <activity android:name=".Controller.Ctrl_ThongTinNguoiDung" />
 
-        <activity android:name=".View.View_DanhSachUser"
+        <activity android:name=".View.V_DanhSachUser"
             android:exported="false"/>
 
 

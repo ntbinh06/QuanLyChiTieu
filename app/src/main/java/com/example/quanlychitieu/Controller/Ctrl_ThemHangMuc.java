@@ -16,13 +16,13 @@ public class Ctrl_ThemHangMuc extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.themhangmuc);
+        setContentView(R.layout.activity_themhangmuc);
         ImageButton ic_back = findViewById(R.id.ic_back);
 
         ic_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Ctrl_ThemHangMuc.this, View_QuanLyHangMuc.class);
+                Intent intent = new Intent(Ctrl_ThemHangMuc.this, Ctrl_QuanLyHangMuc.class);
                 startActivity(intent);
             }
         });

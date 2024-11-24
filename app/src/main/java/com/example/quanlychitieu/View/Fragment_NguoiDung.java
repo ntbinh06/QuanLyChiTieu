@@ -1,7 +1,6 @@
 package com.example.quanlychitieu.View;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,8 +15,8 @@ import androidx.fragment.app.Fragment;
 
 import com.example.quanlychitieu.Controller.Ctrl_DoiMatKhau;
 import com.example.quanlychitieu.Controller.Ctrl_ThongTinCaNhan;
-import com.example.quanlychitieu.Controller.TongQuan;
-import com.example.quanlychitieu.Controller.TrangChuDNDK;
+import com.example.quanlychitieu.Controller.Ctrl_TongQuan;
+import com.example.quanlychitieu.Controller.Ctrl_TrangChuDNDK;
 import com.example.quanlychitieu.R;
 
 
@@ -33,7 +32,7 @@ public class Fragment_NguoiDung extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout cho Fragment
-        View view = inflater.inflate(R.layout.nguoi_dung, container, false);
+        View view = inflater.inflate(R.layout.activity_nguoi_dung, container, false);
 
         ImageView ic_back = view.findViewById(R.id.ic_back);
         ImageView thongtin= view.findViewById(R.id.thongtin);
@@ -43,7 +42,7 @@ public class Fragment_NguoiDung extends Fragment {
         ic_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), TongQuan.class));
+                startActivity(new Intent(getActivity(), Ctrl_TongQuan.class));
             }
         });
         thongtin.setOnClickListener(new View.OnClickListener() {
@@ -162,7 +161,7 @@ public class Fragment_NguoiDung extends Fragment {
     }
 
     private void navigateToLoginScreen() {
-        startActivity(new Intent(getActivity(), TrangChuDNDK.class));
+        startActivity(new Intent(getActivity(), Ctrl_TrangChuDNDK.class));
 
     }
 }

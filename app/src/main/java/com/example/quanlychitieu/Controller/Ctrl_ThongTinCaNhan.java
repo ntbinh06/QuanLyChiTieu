@@ -10,7 +10,6 @@ import android.widget.ImageButton;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.quanlychitieu.R;
-import com.example.quanlychitieu.View.Fragment_NguoiDung;
 
 public class Ctrl_ThongTinCaNhan extends AppCompatActivity {
 
@@ -18,7 +17,7 @@ public class Ctrl_ThongTinCaNhan extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.thongtincanhan); // Your layout file
+        setContentView(R.layout.activity_thongtincanhan); // Your layout file
 
 
         ImageButton ic_back = findViewById(R.id.ic_back);

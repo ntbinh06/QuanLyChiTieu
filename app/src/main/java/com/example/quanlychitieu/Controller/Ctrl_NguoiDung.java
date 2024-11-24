@@ -26,7 +26,7 @@ public class Ctrl_NguoiDung extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.nguoi_dung);
+        setContentView(R.layout.activity_nguoi_dung);
 
         ImageView ic_back = findViewById(R.id.ic_back);
         ImageView thongtin= findViewById(R.id.thongtin);
@@ -36,14 +36,14 @@ public class Ctrl_NguoiDung extends AppCompatActivity {
         ic_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Ctrl_NguoiDung.this, TongQuan.class));
+                startActivity(new Intent(Ctrl_NguoiDung.this, Ctrl_TongQuan.class));
             }
         });
 
         ic_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Ctrl_NguoiDung.this, TongQuan.class));
+                startActivity(new Intent(Ctrl_NguoiDung.this, Ctrl_TongQuan.class));
             }
         });
         thongtin.setOnClickListener(new View.OnClickListener() {
@@ -164,7 +164,7 @@ public class Ctrl_NguoiDung extends AppCompatActivity {
     }
 
     private void navigateToLoginScreen() {
-        startActivity(new Intent(Ctrl_NguoiDung.this, TrangChuDNDK.class));
+        startActivity(new Intent(Ctrl_NguoiDung.this, Ctrl_TrangChuDNDK.class));
 
     }
 }

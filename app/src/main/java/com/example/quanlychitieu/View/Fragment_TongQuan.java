@@ -1,6 +1,5 @@
 package com.example.quanlychitieu.View;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -8,38 +7,25 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupMenu;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import androidx.core.view.GravityCompat;
 
 
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
-import com.example.quanlychitieu.Controller.C_NganSach;
-import com.example.quanlychitieu.Controller.C_SideMenu;
-import com.example.quanlychitieu.Controller.CacGiaoDich;
-import com.example.quanlychitieu.Controller.CacTaiKhoan;
-import com.example.quanlychitieu.Controller.ChuyenTien;
+import com.example.quanlychitieu.Controller.Ctrl_NganSach;
+import com.example.quanlychitieu.Controller.Ctrl_CacGiaoDich;
+import com.example.quanlychitieu.Controller.Ctrl_CacTaiKhoan;
 import com.example.quanlychitieu.Controller.Ctrl_NguoiDung;
-import com.example.quanlychitieu.Controller.Ctrl_ThemChiPhi;
-import com.example.quanlychitieu.Controller.Ctrl_ThemThuNhap;
-import com.example.quanlychitieu.Controller.Ctrl_XemChiPhi;
-import com.example.quanlychitieu.Controller.TongQuan;
-import com.example.quanlychitieu.Controller.View_QuanLyHangMuc;
+import com.example.quanlychitieu.Controller.Ctrl_TongQuan;
+import com.example.quanlychitieu.Controller.Ctrl_QuanLyHangMuc;
 import com.example.quanlychitieu.R;
-import com.google.android.material.navigation.NavigationView;
 
 public class Fragment_TongQuan extends Fragment {
 
@@ -126,7 +112,7 @@ public class Fragment_TongQuan extends Fragment {
                 @Override
                 public void onClick(View v) {
                     // Chuyển sang màn hình xem tất cả tài khoản
-                    Intent intent = new Intent(getActivity(), CacTaiKhoan.class);
+                    Intent intent = new Intent(getActivity(), Ctrl_CacTaiKhoan.class);
                     startActivity(intent);
                     popupWindow.dismiss();
                 }
@@ -139,7 +125,7 @@ public class Fragment_TongQuan extends Fragment {
                 @Override
                 public void onClick(View v) {
                     // Chuyển sang màn hình xem tất cả giao dịch
-                    Intent intent = new Intent(getActivity(), CacGiaoDich.class);
+                    Intent intent = new Intent(getActivity(), Ctrl_CacGiaoDich.class);
                     startActivity(intent);
                     popupWindow.dismiss();
                 }
@@ -178,7 +164,7 @@ public class Fragment_TongQuan extends Fragment {
             tongquan.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(getActivity(), TongQuan.class);
+                    Intent intent = new Intent(getActivity(), Ctrl_TongQuan.class);
                     startActivity(intent);
                 }
             });
@@ -186,7 +172,7 @@ public class Fragment_TongQuan extends Fragment {
             cactaikhoan.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(getActivity(), CacTaiKhoan.class);
+                    Intent intent = new Intent(getActivity(), Ctrl_CacTaiKhoan.class);
                     startActivity(intent);
                 }
             });
@@ -194,7 +180,7 @@ public class Fragment_TongQuan extends Fragment {
             cacgiaodich.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(getActivity(), CacGiaoDich.class);
+                    Intent intent = new Intent(getActivity(), Ctrl_CacGiaoDich.class);
                     startActivity(intent);
                 }
             });
@@ -202,7 +188,7 @@ public class Fragment_TongQuan extends Fragment {
             ngansach.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(getActivity(), C_NganSach.class);
+                    Intent intent = new Intent(getActivity(), Ctrl_NganSach.class);
                     startActivity(intent);
                 }
             });
@@ -218,7 +204,7 @@ public class Fragment_TongQuan extends Fragment {
             qlhangmuc.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(getActivity(), View_QuanLyHangMuc.class);
+                    Intent intent = new Intent(getActivity(), Ctrl_QuanLyHangMuc.class);
                     startActivity(intent);
                 }
             });

@@ -1,28 +1,24 @@
 package com.example.quanlychitieu.Controller;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.quanlychitieu.Model.Model_HangMucChiPhi;
+import com.example.quanlychitieu.Model.M_HangMucChiPhi;
 import com.example.quanlychitieu.R;
 
 import java.util.ArrayList;
 
-public class Ctrl_HangMucChiPhi extends ArrayAdapter<Model_HangMucChiPhi> {
+public class Ctrl_HangMucChiPhi extends ArrayAdapter<M_HangMucChiPhi> {
     private final Context context;
     private final int resource;
-    private final ArrayList<Model_HangMucChiPhi> arrContact;
+    private final ArrayList<M_HangMucChiPhi> arrContact;
 
-    public Ctrl_HangMucChiPhi(Context context, int resource, ArrayList<Model_HangMucChiPhi> arrContact) {
+    public Ctrl_HangMucChiPhi(Context context, int resource, ArrayList<M_HangMucChiPhi> arrContact) {
         super(context, resource, arrContact);
         this.context = context;
         this.resource = resource;
@@ -52,7 +48,7 @@ public class Ctrl_HangMucChiPhi extends ArrayAdapter<Model_HangMucChiPhi> {
         }
 
         // Lấy dữ liệu cho vị trí hiện tại
-        Model_HangMucChiPhi contact = arrContact.get(position);
+        M_HangMucChiPhi contact = arrContact.get(position);
         viewHolder.tvAvatar.setImageResource(contact.getAvatarResource());
         viewHolder.tvName.setText(contact.getName());
 

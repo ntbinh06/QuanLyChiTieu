@@ -1,24 +1,20 @@
 package com.example.quanlychitieu.Controller;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.quanlychitieu.R;
 
-import java.util.ArrayList;
 public class Ctrl_XemChuyenTien extends AppCompatActivity {
     private int transactionId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.xemchuyentien); // Your layout file
+        setContentView(R.layout.activity_xemchuyentien); // Your layout file
 
         ImageButton ic_back = findViewById(R.id.ic_back);
         Button buttonsua = findViewById(R.id.btnSua);
@@ -53,7 +49,7 @@ public class Ctrl_XemChuyenTien extends AppCompatActivity {
         buttonsua.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Ctrl_XemChuyenTien.this, ChuyenTien.class);
+                Intent intent = new Intent(Ctrl_XemChuyenTien.this, Ctrl_ChuyenTien.class);
                 startActivity(intent);
             }
         });
@@ -61,14 +57,14 @@ public class Ctrl_XemChuyenTien extends AppCompatActivity {
         ic_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Ctrl_XemChuyenTien.this, TongQuan.class);
+                Intent intent = new Intent(Ctrl_XemChuyenTien.this, Ctrl_TongQuan.class);
                 startActivity(intent);
             }
         });
         buttonquay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Ctrl_XemChuyenTien.this, TongQuan.class);
+                Intent intent = new Intent(Ctrl_XemChuyenTien.this, Ctrl_TongQuan.class);
                 startActivity(intent);
             }
         });

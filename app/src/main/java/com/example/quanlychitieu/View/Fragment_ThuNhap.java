@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import com.example.quanlychitieu.Model.DanhMucHangMuc;
+import com.example.quanlychitieu.Model.M_DanhMucHangMuc;
 import com.example.quanlychitieu.R;
 import java.util.ArrayList;
 
@@ -20,8 +20,8 @@ public class Fragment_ThuNhap extends Fragment {
 
 
     private ListView lv;
-    private ArrayList<DanhMucHangMuc> danhMuc;
-    private View_ItemHangMuc myAdapter;
+    private ArrayList<M_DanhMucHangMuc> danhMuc;
+    private V_ItemHangMuc myAdapter;
 
     public Fragment_ThuNhap() {
     }
@@ -39,14 +39,14 @@ public class Fragment_ThuNhap extends Fragment {
         // Tạo dữ liệu mẫu cho ListView
         for (int i = 0; i < tenTN.length; i++) {
             int index = i % tenTN.length;
-            danhMuc.add(new DanhMucHangMuc(image[i], tenTN[i]));
+            danhMuc.add(new M_DanhMucHangMuc(image[i], tenTN[i]));
         }
 
         // Khởi tạo Adapter
         // Inside Fragment_ChiPhi
 
 // Khởi tạo Adapter
-        myAdapter = new View_ItemHangMuc(getActivity(), R.layout.list_item, danhMuc, getChildFragmentManager());
+        myAdapter = new V_ItemHangMuc(getActivity(), R.layout.list_item, danhMuc, getChildFragmentManager());
         lv.setAdapter(myAdapter);
 
 

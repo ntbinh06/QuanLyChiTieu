@@ -1,10 +1,8 @@
 package com.example.quanlychitieu.View;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,17 +10,14 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
-import androidx.appcompat.app.AppCompatActivity;
+
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
-import com.example.quanlychitieu.Controller.IconAdapter;
-import com.example.quanlychitieu.Controller.TongQuan;
-import com.example.quanlychitieu.Controller.TrangChuAdmin;
-import com.example.quanlychitieu.Model.IconManager;
+import com.example.quanlychitieu.Controller.Ctrl_IconAdapter;
+import com.example.quanlychitieu.Model.M_IconManager;
 import com.example.quanlychitieu.R;
 
 public class Fragment_Them_Hang_Muc extends DialogFragment {
@@ -45,10 +40,10 @@ public class Fragment_Them_Hang_Muc extends DialogFragment {
         selectedImageView = view.findViewById(R.id.selected_image);
         recyclerView = view.findViewById(R.id.recyclerViewIcons);
         // Lấy danh sách icon từ IconManager
-        List<Integer> iconList = IconManager.getIconList();
+        List<Integer> iconList = M_IconManager.getIconList();
 
         // Tạo adapter và truyền danh sách icon vào
-        IconAdapter adapter = new IconAdapter(iconList, selectedIcon -> {
+        Ctrl_IconAdapter adapter = new Ctrl_IconAdapter(iconList, selectedIcon -> {
             // Hiển thị icon được chọn trong ImageView
             selectedImageView.setImageResource(selectedIcon);
         });

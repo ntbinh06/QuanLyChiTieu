@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#5034C4"
-    tools:context=".Controller.TrangChuAdmin">
+    tools:context=".Controller.Ctrl_TrangChuAdmin">
     <!-- Header -->
     <LinearLayout
         android:id="@+id/header"

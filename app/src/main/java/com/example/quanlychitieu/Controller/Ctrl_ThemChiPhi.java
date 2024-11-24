@@ -22,7 +22,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.quanlychitieu.Model.Model_HangMucChiPhi;
+import com.example.quanlychitieu.Model.M_HangMucChiPhi;
 import com.example.quanlychitieu.R;
 
 import java.util.ArrayList;
@@ -35,7 +35,7 @@ public class Ctrl_ThemChiPhi extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.themchiphi); // Your layout file
+        setContentView(R.layout.activity_themchiphi); // Your layout file
 
         spnchiphi = findViewById(R.id.spnchiphi);
         List<String> list = new ArrayList<>();
@@ -75,21 +75,21 @@ public class Ctrl_ThemChiPhi extends AppCompatActivity {
         buttonhuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Ctrl_ThemChiPhi.this, TongQuan.class));
+                startActivity(new Intent(Ctrl_ThemChiPhi.this, Ctrl_TongQuan.class));
             }
         });
 
         ic_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Ctrl_ThemChiPhi.this, TongQuan.class));
+                startActivity(new Intent(Ctrl_ThemChiPhi.this, Ctrl_TongQuan.class));
             }
         });
 
         buttonluu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Ctrl_ThemChiPhi.this, TongQuan.class));
+                startActivity(new Intent(Ctrl_ThemChiPhi.this, Ctrl_TongQuan.class));
             }
         });
 
@@ -104,7 +104,7 @@ public class Ctrl_ThemChiPhi extends AppCompatActivity {
     private void openFeedbackDialog(int gravity) {
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.hangmucchiphi); // Đảm bảo layout này tồn tại
+        dialog.setContentView(R.layout.activity_hangmucchiphi); // Đảm bảo layout này tồn tại
 
         Window window = dialog.getWindow();
         if (window == null) {
@@ -125,16 +125,16 @@ public class Ctrl_ThemChiPhi extends AppCompatActivity {
             return; // Trả về nếu không tìm thấy ListView
         }
 
-        ArrayList<Model_HangMucChiPhi> arrContact = new ArrayList<>();
-        arrContact.add(new Model_HangMucChiPhi(R.drawable.food, "Đồ ăn/ Đồ uống"));
-        arrContact.add(new Model_HangMucChiPhi(R.drawable.shopping, "Mua sắm"));
-        arrContact.add(new Model_HangMucChiPhi(R.drawable.family, "Gia đình"));
-        arrContact.add(new Model_HangMucChiPhi(R.drawable.delivery_van, "Vận chuyển"));
-        arrContact.add(new Model_HangMucChiPhi(R.drawable.drum_set, "Giải trí"));
-        arrContact.add(new Model_HangMucChiPhi(R.drawable.house, "Nhà cửa"));
-        arrContact.add(new Model_HangMucChiPhi(R.drawable.healthcare, "Sức khỏe"));
-        arrContact.add(new Model_HangMucChiPhi(R.drawable.pets, "Thú cưng"));
-        arrContact.add(new Model_HangMucChiPhi(R.drawable.travel_luggage, "Du lịch"));
+        ArrayList<M_HangMucChiPhi> arrContact = new ArrayList<>();
+        arrContact.add(new M_HangMucChiPhi(R.drawable.food, "Đồ ăn/ Đồ uống"));
+        arrContact.add(new M_HangMucChiPhi(R.drawable.shopping, "Mua sắm"));
+        arrContact.add(new M_HangMucChiPhi(R.drawable.family, "Gia đình"));
+        arrContact.add(new M_HangMucChiPhi(R.drawable.delivery_van, "Vận chuyển"));
+        arrContact.add(new M_HangMucChiPhi(R.drawable.drum_set, "Giải trí"));
+        arrContact.add(new M_HangMucChiPhi(R.drawable.house, "Nhà cửa"));
+        arrContact.add(new M_HangMucChiPhi(R.drawable.healthcare, "Sức khỏe"));
+        arrContact.add(new M_HangMucChiPhi(R.drawable.pets, "Thú cưng"));
+        arrContact.add(new M_HangMucChiPhi(R.drawable.travel_luggage, "Du lịch"));
 
         Ctrl_HangMucChiPhi customAdapter = new Ctrl_HangMucChiPhi(this, R.layout.list_item_hangmuc, arrContact);
         listView.setAdapter(customAdapter); // Đảm bảo listView không null

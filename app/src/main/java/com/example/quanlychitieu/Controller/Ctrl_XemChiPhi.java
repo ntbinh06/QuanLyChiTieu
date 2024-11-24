@@ -20,7 +20,7 @@ public class Ctrl_XemChiPhi extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.xemchiphi); // Your layout file
+        setContentView(R.layout.activity_xemchiphi); // Your layout file
 
         ImageButton ic_back = findViewById(R.id.ic_back);
         Button buttonsua = findViewById(R.id.btnSuaChiPhi);
@@ -63,7 +63,7 @@ public class Ctrl_XemChiPhi extends AppCompatActivity {
         ic_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Ctrl_XemChiPhi.this, CacGiaoDich.class);
+                Intent intent = new Intent(Ctrl_XemChiPhi.this, Ctrl_CacGiaoDich.class);
                 startActivity(intent);
             }
         });
@@ -100,7 +100,7 @@ public class Ctrl_XemChiPhi extends AppCompatActivity {
                         dialog.dismiss();
 
                         // Quay lại giao diện danh sách giao dịch
-                        Intent intent = new Intent(Ctrl_XemChiPhi.this, CacGiaoDich.class);
+                        Intent intent = new Intent(Ctrl_XemChiPhi.this, Ctrl_CacGiaoDich.class);
                         startActivity(intent);
                         finish(); // Hoặc sử dụng finish() để xóa activity hiện tại
                     }
@@ -129,6 +129,6 @@ public class Ctrl_XemChiPhi extends AppCompatActivity {
     }
 
     private void navigateToLoginScreen() {
-        startActivity(new Intent(Ctrl_XemChiPhi.this, CacGiaoDich.class));
+        startActivity(new Intent(Ctrl_XemChiPhi.this, Ctrl_CacGiaoDich.class));
     }
 }

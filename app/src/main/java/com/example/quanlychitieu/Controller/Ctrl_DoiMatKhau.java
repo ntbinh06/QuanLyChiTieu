@@ -12,7 +12,7 @@ import com.example.quanlychitieu.R;
 public class Ctrl_DoiMatKhau extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.doi_mat_khau); // Your layout file
+        setContentView(R.layout.activity_doi_mat_khau); // Your layout file
 
 
         ImageButton ic_back = findViewById(R.id.ic_back);

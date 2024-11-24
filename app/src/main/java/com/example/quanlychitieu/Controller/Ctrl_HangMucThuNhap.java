@@ -1,31 +1,25 @@
 package com.example.quanlychitieu.Controller;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-
-import com.example.quanlychitieu.Model.Model_HangMucThuNhap;
+import com.example.quanlychitieu.Model.M_HangMucThuNhap;
 import com.example.quanlychitieu.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Ctrl_HangMucThuNhap extends ArrayAdapter<Model_HangMucThuNhap> {
+public class Ctrl_HangMucThuNhap extends ArrayAdapter<M_HangMucThuNhap> {
     private Context context;
     private int resource;
-    private List<Model_HangMucThuNhap> arrContact;
+    private List<M_HangMucThuNhap> arrContact;
 
-    public Ctrl_HangMucThuNhap(Context context, int resource, ArrayList<Model_HangMucThuNhap> arrContact) {
+    public Ctrl_HangMucThuNhap(Context context, int resource, ArrayList<M_HangMucThuNhap> arrContact) {
         super(context, resource, arrContact);
         this.context = context;
         this.resource = resource;
@@ -46,7 +40,7 @@ public class Ctrl_HangMucThuNhap extends ArrayAdapter<Model_HangMucThuNhap> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        Model_HangMucThuNhap contact = arrContact.get(position);
+        M_HangMucThuNhap contact = arrContact.get(position);
         viewHolder.tvAvatar.setImageResource(contact.getAvatarResource());
         viewHolder.tvName.setText(contact.getName());
 
