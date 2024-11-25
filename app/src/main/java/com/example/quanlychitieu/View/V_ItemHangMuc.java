@@ -40,10 +40,10 @@ public class V_ItemHangMuc extends ArrayAdapter<M_DanhMucHangMuc> {
 
         M_DanhMucHangMuc hangMuc = myList.get(position);
         ImageView img_HM = convertView.findViewById(R.id.image_hangMuc);
-        img_HM.setImageResource(hangMuc.getImage());
+        //img_HM.setImageResource(hangMuc.getImage());
 
         TextView tenHM = convertView.findViewById(R.id.name);
-        tenHM.setText(hangMuc.getTenHangMuc());
+        //tenHM.setText(hangMuc.getTenHangMuc());
 
         ImageButton icEye = convertView.findViewById(R.id.ic_eye);
         icEye.setOnClickListener(v -> openDialogFragment());

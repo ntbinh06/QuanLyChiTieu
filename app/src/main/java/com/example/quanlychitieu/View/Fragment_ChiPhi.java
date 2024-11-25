@@ -43,7 +43,7 @@ public class Fragment_ChiPhi extends Fragment  {
         // Tạo dữ liệu mẫu cho ListView
         for (int i = 0; i < tenGD.length; i++) {
             int index = i % tenGD.length;
-            danhMuc.add(new M_DanhMucHangMuc(image[i], tenGD[i]));
+            danhMuc.add(new M_DanhMucHangMuc());
         }
 
         // Khởi tạo Adapter

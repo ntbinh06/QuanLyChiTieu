@@ -1,41 +1,113 @@
 package com.example.quanlychitieu.Model;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class M_TaiKhoan {
 
-    private String loaiTaiKhoan, lansdCuoi;
-    private long tongSoTien;
+    private String idTaiKhoan;
+    private String tenTaiKhoan;
+    private double luongBanDau;
+    private Date ngayTao;
+    private Date lanSuDungCuoi;
+    private String donViTienTe;
+    private String ghiChu;
+    private String idUser;
 
-    public M_TaiKhoan(String loaiTaiKhoan, String lansdCuoi, long tongSoTien) {
-        this.loaiTaiKhoan = loaiTaiKhoan;
-        this.lansdCuoi = lansdCuoi;
-        this.tongSoTien = tongSoTien;
+    // Constructor không tham số
+    public M_TaiKhoan() {
     }
 
-    public String getLoaiTaiKhoan() {
-        return loaiTaiKhoan;
+    // Constructor đầy đủ
+    public M_TaiKhoan(String idTaiKhoan, String tenTaiKhoan, double luongBanDau, Date ngayTao, Date lanSuDungCuoi, String donViTienTe, String ghiChu, String idUser) {
+        this.idTaiKhoan = idTaiKhoan;
+        this.tenTaiKhoan = tenTaiKhoan;
+        this.luongBanDau = luongBanDau;
+        this.ngayTao = ngayTao;
+        this.lanSuDungCuoi = lanSuDungCuoi;
+        this.donViTienTe = donViTienTe;
+        this.ghiChu = ghiChu;
+        this.idUser = idUser;
     }
 
-    public void setLoaiTaiKhoan(String loaiTaiKhoan) {
-        this.loaiTaiKhoan = loaiTaiKhoan;
+    // Getters và Setters
+    public String getIdTaiKhoan() {
+        return idTaiKhoan;
     }
 
-    public String getLansdCuoi() {
-        return lansdCuoi;
+    public void setIdTaiKhoan(String idTaiKhoan) {
+        this.idTaiKhoan = idTaiKhoan;
     }
 
-    public void setLansdCuoi(String lansdCuoi) {
-        this.lansdCuoi = lansdCuoi;
+    public String getTenTaiKhoan() {
+        return tenTaiKhoan;
     }
 
-    public long getTongSoTien() {
-        return tongSoTien;
+    public void setTenTaiKhoan(String tenTaiKhoan) {
+        this.tenTaiKhoan = tenTaiKhoan;
     }
 
-    public void setTongSoTien(long tongSoTien) {
-        this.tongSoTien = tongSoTien;
+    public double getLuongBanDau() {
+        return luongBanDau;
     }
 
-    public String getFormattedSoTien() {
-        return String.format("%,d đ", tongSoTien);
+    public void setLuongBanDau(double luongBanDau) {
+        this.luongBanDau = luongBanDau;
+    }
+
+    public Date getNgayTao() {
+        return ngayTao;
+    }
+
+    public void setNgayTao(Date ngayTao) {
+        this.ngayTao = ngayTao;
+    }
+
+    public Date getLanSuDungCuoi() {
+        return lanSuDungCuoi;
+    }
+
+    public void setLanSuDungCuoi(Date lanSuDungCuoi) {
+        this.lanSuDungCuoi = lanSuDungCuoi;
+    }
+
+    public String getDonViTienTe() {
+        return donViTienTe;
+    }
+
+    public void setDonViTienTe(String donViTienTe) {
+        this.donViTienTe = donViTienTe;
+    }
+
+    public String getGhiChu() {
+        return ghiChu;
+    }
+
+    public void setGhiChu(String ghiChu) {
+        this.ghiChu = ghiChu;
+    }
+
+    public String getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(String idUser) {
+        this.idUser = idUser;
+    }
+
+    // Hàm định dạng tiền tệ
+    public String getFormattedLuongBanDau() {
+        return String.format("%,.0f %s", luongBanDau, donViTienTe);
+    }
+
+    // Hàm định dạng ngày thành chuỗi
+    public String getFormattedNgayTao() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        return ngayTao != null ? sdf.format(ngayTao) : "N/A";
+    }
+
+    public String getFormattedLanSuDungCuoi() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        return lanSuDungCuoi != null ? sdf.format(lanSuDungCuoi) : "N/A";
     }
 }

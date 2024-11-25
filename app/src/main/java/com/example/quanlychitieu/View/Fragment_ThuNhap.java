@@ -39,7 +39,7 @@ public class Fragment_ThuNhap extends Fragment {
         // Tạo dữ liệu mẫu cho ListView
         for (int i = 0; i < tenTN.length; i++) {
             int index = i % tenTN.length;
-            danhMuc.add(new M_DanhMucHangMuc(image[i], tenTN[i]));
+            danhMuc.add(new M_DanhMucHangMuc());
         }
 
         // Khởi tạo Adapter

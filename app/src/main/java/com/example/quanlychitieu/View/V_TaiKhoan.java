@@ -53,7 +53,7 @@ public class V_TaiKhoan extends ArrayAdapter<M_TaiKhoan>{
         M_TaiKhoan contact = arrContact.get(position);
 
         // Set the data to the views
-        viewHolder.tvLoaiTaiKhoan.setText(contact.getLoaiTaiKhoan());
+//        viewHolder.tvLoaiTaiKhoan.setText(contact.getLoaiTaiKhoan());
 
 
         // Return the completed view to render on screen

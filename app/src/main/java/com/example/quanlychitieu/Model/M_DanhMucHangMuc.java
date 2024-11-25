@@ -1,27 +1,79 @@
 package com.example.quanlychitieu.Model;
 
 public class M_DanhMucHangMuc {
-    private int image;
-    private String tenHangMuc;
+    private String idHangmuc;
+    private String tenHangmuc;
+    private int anhHangmuc;
+    private double nganSachDuTru;
+    private String idNhom;
+    private String idUser;
 
-    public int getImage() {
-        return image;
+    // Constructor mặc định (Firebase cần)
+    public M_DanhMucHangMuc() {
     }
 
-    public void setImage(int image) {
-        this.image = image;
+    public M_DanhMucHangMuc(String idHangmuc,String tenHangmuc  ,int anhHangmuc) {
+        this.idHangmuc= idHangmuc;
+        this.tenHangmuc = tenHangmuc;
+        this.anhHangmuc = anhHangmuc;
     }
 
-    public String getTenHangMuc() {
-        return tenHangMuc;
+    // Constructor đầy đủ
+    public M_DanhMucHangMuc(String idHangmuc, String tenHangmuc, int anhHangmuc, double nganSachDuTru, String idNhom, String idUser) {
+        this.idHangmuc = idHangmuc;
+        this.tenHangmuc = tenHangmuc;
+        this.anhHangmuc = anhHangmuc;
+        this.nganSachDuTru = nganSachDuTru;
+        this.idNhom = idNhom;
+        this.idUser = idUser;
     }
 
-    public void setTenHangMuc(String tenHangMuc) {
-        this.tenHangMuc = tenHangMuc;
+    // Getter và Setter
+    public String getIdHangmuc() {
+        return idHangmuc;
     }
 
-    public M_DanhMucHangMuc(int image, String tenHangMuc) {
-        this.image = image;
-        this.tenHangMuc = tenHangMuc;
+    public void setIdHangmuc(String idHangmuc) {
+        this.idHangmuc = idHangmuc;
+    }
+
+    public String getTenHangmuc() {
+        return tenHangmuc;
+    }
+
+    public void setTenHangmuc(String tenHangmuc) {
+        this.tenHangmuc = tenHangmuc;
+    }
+
+    public int getAnhHangmuc() {
+        return anhHangmuc;
+    }
+
+    public void setAnhHangmuc(int anhHangmuc) {
+        this.anhHangmuc = anhHangmuc;
+    }
+
+    public double getNganSachDuTru() {
+        return nganSachDuTru;
+    }
+
+    public void setNganSachDuTru(double nganSachDuTru) {
+        this.nganSachDuTru = nganSachDuTru;
+    }
+
+    public String getIdNhom() {
+        return idNhom;
+    }
+
+    public void setIdNhom(String idNhom) {
+        this.idNhom = idNhom;
+    }
+
+    public String getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(String idUser) {
+        this.idUser = idUser;
     }
 }

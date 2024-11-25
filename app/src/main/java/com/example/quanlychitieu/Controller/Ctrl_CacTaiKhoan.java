@@ -2,8 +2,10 @@ package com.example.quanlychitieu.Controller;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -15,8 +17,11 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.quanlychitieu.Model.M_DanhMucTaiKhoan;
 import com.example.quanlychitieu.R;
 import com.example.quanlychitieu.View.V_ItemCacTK;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Ctrl_CacTaiKhoan extends AppCompatActivity {
 
@@ -26,6 +31,7 @@ public class Ctrl_CacTaiKhoan extends AppCompatActivity {
     ArrayList<M_DanhMucTaiKhoan> taikhoan;
     V_ItemCacTK item;
     ListView lv;
+    private DatabaseReference taiKhoanref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +41,15 @@ public class Ctrl_CacTaiKhoan extends AppCompatActivity {
         // Khởi tạo ListView và adapter
         lv = findViewById(R.id.listView1);
         taikhoan = new ArrayList<>();
+        taiKhoanref= FirebaseDatabase.getInstance().getReference("taiKhoan");
+
+        // Thêm 5 tài khoản vào Firebase
+        addTaiKhoanToFirebase("TK001", "Tài khoản ví", 400000.0, "2024-11-25", "2024-11-26", "VND", "Ví tiền mặt", "DSEZCk7wpuPyegmLbv66Tn6HjCz1");
+        addTaiKhoanToFirebase("TK002", "Tài khoản ngân hàng", 750000.0, "2024-11-25", "2024-11-26", "VND", "Tài khoản ngân hàng chính", "DSEZCk7wpuPyegmLbv66Tn6HjCz1");
+        addTaiKhoanToFirebase("TK003", "Tài khoản trả trước", 2000000.0, "2024-11-25", "2024-11-26", "VND", "Tài khoản dành cho giao dịch trả trước", "DSEZCk7wpuPyegmLbv66Tn6HjCz1");
+        addTaiKhoanToFirebase("TK004", "Tài khoản tiết kiệm", 1500000.0, "2024-11-25", "2024-11-26", "VND", "Tài khoản tiết kiệm dài hạn", "DSEZCk7wpuPyegmLbv66Tn6HjCz1");
+        addTaiKhoanToFirebase("TK005", "Tài khoản đầu tư", 3000000.0, "2024-11-25", "2024-11-26", "VND", "Tài khoản dành cho đầu tư", "DSEZCk7wpuPyegmLbv66Tn6HjCz1");
+
         for (int i = 0; i < tenTK.length; i++) {
             taikhoan.add(new M_DanhMucTaiKhoan(tenTK[i], tien[i]));
         }
@@ -71,4 +86,29 @@ public class Ctrl_CacTaiKhoan extends AppCompatActivity {
         transaction.commit();
 
     }
+    private void addTaiKhoanToFirebase(String idTaiKhoan,String tenTaiKhoan, Double luongBanDau, String ngayTao, String lanSuDungCuoi, String donViTienTe, String ghiChu, String idUser) {
+        // Tạo key tự động
+        DatabaseReference taiKhoanRef = FirebaseDatabase.getInstance().getReference("TaiKhoan");
+
+        // Tạo một đối tượng HashMap để lưu dữ liệu
+        HashMap<String, Object> data = new HashMap<>();
+        data.put("idTaiKhoan", idTaiKhoan);
+        data.put("tenTaiKhoan", tenTaiKhoan);
+        data.put("luongBanDau", luongBanDau != null ? luongBanDau : 0.0);
+        data.put("ngayTao", ngayTao);
+        data.put("lanSuDungCuoi", lanSuDungCuoi);
+        data.put("donViTienTe", donViTienTe);
+        data.put("ghiChu", ghiChu);
+        data.put("idUser", idUser);
+
+        // Thêm dữ liệu vào Firebase
+        taiKhoanRef.child(idTaiKhoan).setValue(data).addOnSuccessListener(aVoid -> {
+            Log.d("Firebase", "ThemTaiKhoan thanh cong ");
+            Toast.makeText(this, "ThemTaiKhoan thanh cong!", Toast.LENGTH_SHORT).show();
+        }).addOnFailureListener(e -> {
+            Log.e("Firebase", "ThemTaiKhoan that bai ");
+            Toast.makeText(this, "Them tai khoan that bai: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        });
+    }
+
 }
