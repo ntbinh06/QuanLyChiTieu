@@ -72,17 +72,43 @@
         android:textSize="18sp"
         android:drawablePadding="15dp"/>
 
-    <EditText
-        android:id="@+id/ttcn_date"
+    <LinearLayout
         android:layout_width="350dp"
         android:layout_height="48dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:drawableLeft="@drawable/ic_calendar"
-        android:drawableTint="@color/deep_bluepurple"
-        android:text="16/09/2000"
-        android:textSize="18sp"
-        android:drawablePadding="15dp"/>
+        android:layout_marginLeft="30dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_calendar"
+                android:layout_marginTop="10dp"
+                 android:layout_marginLeft="5dp"/>
+
+
+            <TextView
+                android:id="@+id/ttcn_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="16/09/2000"
+                android:textColor="@color/black"
+                android:textSize="18sp"/>
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/black_50"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="3dp"/>
+    </LinearLayout>
 
     <EditText
         android:id="@+id/ttcn_phone"
