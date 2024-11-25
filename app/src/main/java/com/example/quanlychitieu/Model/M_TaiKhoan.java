@@ -7,7 +7,7 @@ public class M_TaiKhoan {
 
     private String idTaiKhoan;
     private String tenTaiKhoan;
-    private double luongBanDau;
+    private Double luongBanDau;
     private Date ngayTao;
     private Date lanSuDungCuoi;
     private String donViTienTe;
@@ -19,7 +19,7 @@ public class M_TaiKhoan {
     }
 
     // Constructor đầy đủ
-    public M_TaiKhoan(String idTaiKhoan, String tenTaiKhoan, double luongBanDau, Date ngayTao, Date lanSuDungCuoi, String donViTienTe, String ghiChu, String idUser) {
+    public M_TaiKhoan(String idTaiKhoan, String tenTaiKhoan, Double luongBanDau, Date ngayTao, Date lanSuDungCuoi, String donViTienTe, String ghiChu, String idUser) {
         this.idTaiKhoan = idTaiKhoan;
         this.tenTaiKhoan = tenTaiKhoan;
         this.luongBanDau = luongBanDau;
@@ -47,11 +47,11 @@ public class M_TaiKhoan {
         this.tenTaiKhoan = tenTaiKhoan;
     }
 
-    public double getLuongBanDau() {
+    public Double getLuongBanDau() {
         return luongBanDau;
     }
 
-    public void setLuongBanDau(double luongBanDau) {
+    public void setLuongBanDau(Double luongBanDau) {
         this.luongBanDau = luongBanDau;
     }
 
