@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.quanlychitieu.Controller.Ctrl_GioiThieu;
 import com.example.quanlychitieu.Controller.Ctrl_NganSach;
 import com.example.quanlychitieu.Controller.Ctrl_CacGiaoDich;
 import com.example.quanlychitieu.Controller.Ctrl_CacTaiKhoan;
@@ -160,6 +161,7 @@ public class Fragment_TongQuan extends Fragment {
             LinearLayout ngansach = dialog.findViewById(R.id.layoutNganSach);
             LinearLayout nguoidung = dialog.findViewById(R.id.layoutNguoiDung);
             LinearLayout qlhangmuc = dialog.findViewById(R.id.layoutQuanlyHangMuc);
+            LinearLayout gioithieu = dialog.findViewById(R.id.layoutGioiThieu);
 
             tongquan.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -209,6 +211,13 @@ public class Fragment_TongQuan extends Fragment {
                 }
             });
 
+            gioithieu.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getActivity(), Ctrl_GioiThieu.class);
+                    startActivity(intent);
+                }
+            });
             window.setAttributes(layoutParams);
             window.setGravity(Gravity.START); // Hiển thị từ bên trái
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
