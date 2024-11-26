@@ -14,7 +14,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.quanlychitieu.Model.M_TaiKhoan;
 import com.example.quanlychitieu.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import java.util.Date;
 
 public class Ctrl_ThemTaiKhoan extends Fragment {
 
@@ -34,7 +39,7 @@ public class Ctrl_ThemTaiKhoan extends Fragment {
         edtTenTaiKhoan = view.findViewById(R.id.edtTenTaiKhoan);
         edtLuongBatDau = view.findViewById(R.id.edtLuongBatDau);
         edtGhiChu = view.findViewById(R.id.edtGhiChu);
-        DonViTien = view.findViewById(R.id.spin_bank_from);
+        DonViTien = view.findViewById(R.id.DonViTien);
         btnHuy = view.findViewById(R.id.btnCancel);
         btnLuu = view.findViewById(R.id.btnSave);
 
@@ -47,16 +52,43 @@ public class Ctrl_ThemTaiKhoan extends Fragment {
         // Handle click event for Save button
         btnLuu.setOnClickListener(v -> {
             String tenTaiKhoan = edtTenTaiKhoan.getText().toString();
-            String luongBatDau = edtLuongBatDau.getText().toString();
+            String luongBatDauStr = edtLuongBatDau.getText().toString();
             String ghiChu = edtGhiChu.getText().toString();
             String donViTien = DonViTien.getText().toString();
 
             // Validate input
-            if (tenTaiKhoan.isEmpty() || luongBatDau.isEmpty()) {
+            if (tenTaiKhoan.isEmpty() || luongBatDauStr.isEmpty()) {
                 Toast.makeText(getContext(), "Vui lòng điền đủ thông tin", Toast.LENGTH_SHORT).show();
-            } else {
-                // Handle logic to save the new account (e.g., add to database or account list)
+                return;
+            }
+
+            try {
+                // Parse lương bắt đầu từ chuỗi sang số
+                double luongBatDau = Double.parseDouble(luongBatDauStr);
+
+                // Lấy idUser hiện tại từ Firebase Authentication
+                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                String idUser = currentUser != null ? currentUser.getUid() : "default_user";
+
+                // Tạo đối tượng M_TaiKhoan mới
+                M_TaiKhoan taiKhoanMoi = new M_TaiKhoan(
+                        "", // idTaiKhoan sẽ được tự động thêm trong addTaiKhoanToFirebase
+                        tenTaiKhoan,
+                        luongBatDau,
+                        new Date(), // ngayTao là ngày hiện tại
+                        new Date(), // lanSuDungCuoi là ngày hiện tại
+                        donViTien,
+                        ghiChu,
+                        idUser
+                );
+
+                // Gọi hàm thêm tài khoản vào Firebase
+                ((Ctrl_CacTaiKhoan) requireActivity()).addTaiKhoanToFirebase(taiKhoanMoi);
+
+                // Chuyển sang màn hình thông báo hoặc danh sách
                 replaceFragment(new Ctrl_ThongBaoThemTK());
+            } catch (NumberFormatException e) {
+                Toast.makeText(getContext(), "Lương bắt đầu không hợp lệ", Toast.LENGTH_SHORT).show();
             }
         });
 

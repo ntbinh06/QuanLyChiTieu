@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,15 +18,18 @@ import androidx.annotation.Nullable;
 import com.example.quanlychitieu.Controller.Ctrl_CacTaiKhoan;
 import com.example.quanlychitieu.Controller.Ctrl_XemTKChiTiet;
 import com.example.quanlychitieu.Model.M_DanhMucTaiKhoan;
+import com.example.quanlychitieu.Model.M_TaiKhoan;
 import com.example.quanlychitieu.R;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-public class V_ItemCacTK extends ArrayAdapter<M_DanhMucTaiKhoan> {
+public class V_ItemCacTK extends ArrayAdapter<M_TaiKhoan> {
     Activity context;
     int idLayout;
-    ArrayList<M_DanhMucTaiKhoan> myList;
-    public V_ItemCacTK(Activity context, int idLayout, ArrayList<M_DanhMucTaiKhoan> myList) {
+    ArrayList<M_TaiKhoan> myList;
+    public V_ItemCacTK(Activity context, int idLayout, ArrayList<M_TaiKhoan> myList) {
         super(context, idLayout,myList);
         this.context = context;
         this.idLayout = idLayout;
@@ -38,7 +42,7 @@ public class V_ItemCacTK extends ArrayAdapter<M_DanhMucTaiKhoan> {
         LayoutInflater myFlater= context.getLayoutInflater();
         convertView= myFlater.inflate(idLayout,null);
 
-        M_DanhMucTaiKhoan taikhoan= myList.get(position);
+        M_TaiKhoan taikhoan= myList.get(position);
         TextView tentk= convertView.findViewById(R.id.tenTK);
         TextView tien = convertView.findViewById(R.id.tien);
         ImageView iconXemChiTiet = convertView.findViewById(R.id.IconxemChiTiet);
@@ -46,7 +50,7 @@ public class V_ItemCacTK extends ArrayAdapter<M_DanhMucTaiKhoan> {
 
 
         tentk.setText(taikhoan.getTenTaiKhoan());
-        tien.setText(taikhoan.getTien()+" đ");
+        tien.setText(taikhoan.getLuongBanDau()+" đ");
 
         // Xử lý sự kiện khi nhấn vào icon con mắt
         iconXemChiTiet.setOnClickListener(v -> {
@@ -55,7 +59,7 @@ public class V_ItemCacTK extends ArrayAdapter<M_DanhMucTaiKhoan> {
 
             // Truyền dữ liệu tài khoản qua Intent
             intent.putExtra("tenTK", taikhoan.getTenTaiKhoan());
-            intent.putExtra("sodu", taikhoan.getTien());
+            intent.putExtra("sodu", taikhoan.getLuongBanDau());
 
             // Khởi động Activity
             context.startActivity(intent);
@@ -80,10 +84,12 @@ public class V_ItemCacTK extends ArrayAdapter<M_DanhMucTaiKhoan> {
                 btnDelete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        deleteTransaction(taikhoan.getTenTaiKhoan()); // Truyền tên tài khoản để xóa
+                        deleteTransaction(taikhoan.getIdTaiKhoan()); // Sử dụng idTaiKhoan để xóa
                         dialog.dismiss();
 
+                        // Quay lại màn hình tài khoản
                         Intent intent = new Intent(context, Ctrl_CacTaiKhoan.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         context.startActivity(intent);
                     }
                 });
@@ -103,11 +109,18 @@ public class V_ItemCacTK extends ArrayAdapter<M_DanhMucTaiKhoan> {
         return convertView;
     }
 
-    private void deleteTransaction(String tenTaiKhoan) {
-        // Logic xóa tài khoản từ cơ sở dữ liệu dựa trên tên tài khoản
-        // Ví dụ:
-        // SQLiteDatabase db = getWritableDatabase();
-        // db.delete("taiKhoan", "tenTaiKhoan=?", new String[]{tenTaiKhoan});
+    private void deleteTransaction(String idTaiKhoan) {
+        // Tham chiếu đến nút cha của Firebase (ví dụ: "TaiKhoan")
+        DatabaseReference taiKhoanRef = FirebaseDatabase.getInstance().getReference("TaiKhoan");
+
+        // Xóa tài khoản theo idTaiKhoan
+        taiKhoanRef.child(idTaiKhoan).removeValue().addOnSuccessListener(aVoid -> {
+            // Thông báo thành công
+            Toast.makeText(context, "Xóa tài khoản thành công", Toast.LENGTH_SHORT).show();
+        }).addOnFailureListener(e -> {
+            // Thông báo lỗi
+            Toast.makeText(context, "Lỗi khi xóa tài khoản: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        });
     }
 
 }

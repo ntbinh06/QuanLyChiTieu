@@ -15,6 +15,10 @@ public class M_TaiKhoan {
     private String idUser;
 
     // Constructor không tham số
+
+    public M_TaiKhoan() {
+    }
+
     public M_TaiKhoan(String idTaiKhoan, String tenTaiKhoan) {
         this.idTaiKhoan = idTaiKhoan;
         this.tenTaiKhoan = tenTaiKhoan;
