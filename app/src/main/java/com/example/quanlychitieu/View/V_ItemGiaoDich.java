@@ -1,63 +1,63 @@
 package com.example.quanlychitieu.View;
 
-import android.app.Activity;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.quanlychitieu.Model.M_DanhMucGiaoDich;
+import com.example.quanlychitieu.Model.M_GiaoDich;
 import com.example.quanlychitieu.R;
 
-import java.util.ArrayList;
+import java.util.List;
 
-public class V_ItemGiaoDich extends ArrayAdapter<M_DanhMucGiaoDich> {
-    Activity context;
-    int idLayout;
-    ArrayList<M_DanhMucGiaoDich> myList;
+public class V_ItemGiaoDich extends RecyclerView.Adapter<V_ItemGiaoDich.ViewHolder> {
 
-    //tạo constructor để layout gọi đến
-    public V_ItemGiaoDich(Activity context, int idLayout, ArrayList<M_DanhMucGiaoDich> myList) {
-        super(context, idLayout,myList);
+    private Context context;
+    private List<M_GiaoDich> myList;
+
+    public V_ItemGiaoDich(Context context, List<M_GiaoDich> myList) {
         this.context = context;
-        this.idLayout = idLayout;
         this.myList = myList;
     }
 
-    //gọi hàm getView-> tiến hành sắp xếp dữ liệu
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        //tạo để chứa layout
-        LayoutInflater myFlater= context.getLayoutInflater();
-        //đặt id layout lên đé để tạo tahfnh view
-        convertView= myFlater.inflate(idLayout,null);
-        //lấy 1 phần tử trong mảng
-        M_DanhMucGiaoDich giaoDich = myList.get(position);
-        //khai báo,tham chiếu id và hiển thị hình aảnh lên ImageView
-        ImageView img_GD= convertView.findViewById(R.id.img_DM);
-        img_GD.setImageResource(giaoDich.getImage());
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.list_item_cacdd, parent, false); // Đảm bảo layout đúng
+        return new ViewHolder(view);
+    }
 
-        //hiển thị tên DD
-        TextView tenGD = convertView.findViewById(R.id.textDescription);
-        tenGD.setText(giaoDich.getTenGD());
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        M_GiaoDich giaoDich = myList.get(position);
+        holder.bind(giaoDich);
+    }
 
-        //hiển thị tài khoản
-        TextView taiKhoan = convertView.findViewById(R.id.textAccount);
-        taiKhoan.setText(giaoDich.getTaikhoan());
+    @Override
+    public int getItemCount() {
+        return myList.size();
+    }
 
-        //hiển thị tiền
-        TextView tien = convertView.findViewById(R.id.textAmount);
-        tien.setText(giaoDich.getTien());
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView tenGD, taiKhoan, tien, ngay;
 
-        //hiển thị Ngày
-        TextView ngay = convertView.findViewById(R.id.textDate);
-        ngay.setText(giaoDich.getNgay());
-        return  convertView;
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            tenGD = itemView.findViewById(R.id.textDescription);
+            taiKhoan = itemView.findViewById(R.id.textAccount);
+            tien = itemView.findViewById(R.id.textAmount);
+            ngay = itemView.findViewById(R.id.textDate);
+        }
+
+        public void bind(M_GiaoDich giaoDich) {
+            tenGD.setText(giaoDich.getIdHangMuc());
+            taiKhoan.setText(giaoDich.getIdTaiKhoan());
+            tien.setText(String.valueOf(giaoDich.getGiaTri()));
+            ngay.setText(giaoDich.getFormattedNgayTao());
+        }
     }
 }

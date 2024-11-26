@@ -12,10 +12,9 @@ public class M_DanhMucHangMuc {
     public M_DanhMucHangMuc() {
     }
 
-    public M_DanhMucHangMuc(String idHangmuc,String tenHangmuc  ,String anhHangmuc) {
+    public M_DanhMucHangMuc(String idHangmuc,String tenHangmuc  ) {
         this.idHangmuc= idHangmuc;
         this.tenHangmuc = tenHangmuc;
-        this.anhHangmuc = anhHangmuc;
     }
 
     // Constructor đầy đủ
@@ -43,14 +42,6 @@ public class M_DanhMucHangMuc {
 
     public void setTenHangmuc(String tenHangmuc) {
         this.tenHangmuc = tenHangmuc;
-    }
-
-    public String getAnhHangmuc() {
-        return anhHangmuc;
-    }
-
-    public void setAnhHangmuc(String anhHangmuc) {
-        this.anhHangmuc = anhHangmuc;
     }
 
     public Double getNganSachDuTru() {

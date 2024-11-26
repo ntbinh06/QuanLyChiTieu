@@ -3,76 +3,68 @@ package com.example.quanlychitieu.Controller;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageButton;
-import android.widget.ListView;
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.quanlychitieu.Model.M_DanhMucGiaoDich;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.quanlychitieu.Model.M_GiaoDich;
 import com.example.quanlychitieu.R;
 import com.example.quanlychitieu.View.V_ItemGiaoDich;
+import android.util.Log;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Ctrl_CacGiaoDich extends AppCompatActivity {
-    int image[]= {R.drawable.food, R.drawable.family, R.drawable.shopping,R.drawable.wage};
-    String tenGD[]={"Đồ ăn","Mua sắm","Gia đình", "Lương"};
-    String tenTK[]={"Ví", "Tài khoản ngân hàng","Thẻ trả trước"};
-    String tien[]={"20.000","400.000","29.000"};
-    String ngay[]={"22/02/2024","16/02/2024","01/01/2024"};
-
-    ArrayList<M_DanhMucGiaoDich> mylist;
-    V_ItemGiaoDich myadapter;
-    ListView lv;
+    private FirebaseFirestore db;
+    private List<M_GiaoDich> giaoDichList;
+    private V_ItemGiaoDich myAdapter;
+    private RecyclerView rv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_cac_giao_dich);
-        lv= findViewById(R.id.listview);
-        mylist = new ArrayList<>();
-        for(int i=0;i<tenGD.length;i++){
-            int index = i % tenTK.length;
-            mylist.add(new M_DanhMucGiaoDich(image[i], tenGD[i], tenTK[index], tien[index], ngay[index]));
-        }
-        myadapter = new V_ItemGiaoDich(Ctrl_CacGiaoDich.this,R.layout.list_item_cacdd,mylist);
-        lv.setAdapter(myadapter);
 
+        // Khởi tạo Firestore
+        db = FirebaseFirestore.getInstance();
 
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                //lấy thông tin giao dịch được chọn
-                M_DanhMucGiaoDich giaoDich = mylist.get(position);
+        // Khởi tạo RecyclerView và Adapter
+        rv = findViewById(R.id.recyclerviewGD); // Đảm bảo ID khớp với layout XML
+        giaoDichList = new ArrayList<>();
 
-                Intent intent;
-                // Kiểm tra loại giao dịch và điều hướng đến Activity phù hợp
-                if (giaoDich.getTenGD().equals("Lương")) {
-                    intent = new Intent(Ctrl_CacGiaoDich.this, Ctrl_XemThuNhap.class);
-                } else {
-                    intent = new Intent(Ctrl_CacGiaoDich.this, Ctrl_XemChiPhi.class);
-                }
+        myAdapter = new V_ItemGiaoDich(Ctrl_CacGiaoDich.this, giaoDichList);
+        rv.setLayoutManager(new LinearLayoutManager(this));
+        rv.setAdapter(myAdapter);
 
-                // Truyền dữ liệu qua Intent
-                intent.putExtra("hinhGD", giaoDich.getImage());
-                intent.putExtra("tenGD", giaoDich.getTenGD());
-                intent.putExtra("tenTK", giaoDich.getTaikhoan());
-                intent.putExtra("tien", giaoDich.getTien());
-                intent.putExtra("ngay", giaoDich.getNgay());
+        // Lấy dữ liệu từ Firestore
+        loadGiaoDichFromFirestore();
 
-                // Chạy Activity mới
-                startActivity(intent);
-            }
-        });
-
-
+        // Nút quay về
         ImageButton ic_back = findViewById(R.id.ic_back);
-        ic_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Ctrl_CacGiaoDich.this, Ctrl_TongQuan.class));
-            }
-        });
+        ic_back.setOnClickListener(v -> startActivity(new Intent(Ctrl_CacGiaoDich.this, Ctrl_TongQuan.class)));
+    }
+
+    private void loadGiaoDichFromFirestore() {
+        db.collection("GiaoDich")
+                .addSnapshotListener((queryDocumentSnapshots, e) -> {
+                    if (e != null) {
+                        Log.e("Ctrl_CacGiaoDich", "Lỗi khi lấy dữ liệu từ Firestore: " + e.getMessage());
+                        return;
+                    }
+
+                    if (queryDocumentSnapshots != null) {
+                        giaoDichList.clear(); // Xóa danh sách cũ
+                        for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                            M_GiaoDich giaoDich = document.toObject(M_GiaoDich.class);
+                            giaoDichList.add(giaoDich);
+                            Log.d("GiaoDich", "Đã thêm giao dịch: " + giaoDich.getIdHangMuc());
+                        }
+                        myAdapter.notifyDataSetChanged(); // Cập nhật adapter để hiển thị dữ liệu mới
+                    }
+                });
     }
 }

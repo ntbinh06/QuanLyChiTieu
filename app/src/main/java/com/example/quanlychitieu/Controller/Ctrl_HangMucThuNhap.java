@@ -8,18 +8,18 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.quanlychitieu.Model.M_HangMucThuNhap;
+import com.example.quanlychitieu.Model.M_DanhMucHangMuc; // Sử dụng model mới
 import com.example.quanlychitieu.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Ctrl_HangMucThuNhap extends ArrayAdapter<M_HangMucThuNhap> {
+public class Ctrl_HangMucThuNhap extends ArrayAdapter<M_DanhMucHangMuc> { // Thay đổi kiểu dữ liệu
     private Context context;
     private int resource;
-    private List<M_HangMucThuNhap> arrContact;
+    private List<M_DanhMucHangMuc> arrContact; // Cập nhật kiểu danh sách
 
-    public Ctrl_HangMucThuNhap(Context context, int resource, ArrayList<M_HangMucThuNhap> arrContact) {
+    public Ctrl_HangMucThuNhap(Context context, int resource, ArrayList<M_DanhMucHangMuc> arrContact) {
         super(context, resource, arrContact);
         this.context = context;
         this.resource = resource;
@@ -31,7 +31,7 @@ public class Ctrl_HangMucThuNhap extends ArrayAdapter<M_HangMucThuNhap> {
         ViewHolder viewHolder;
 
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(resource, parent, false); // Sử dụng resource đã truyền vào
+            convertView = LayoutInflater.from(context).inflate(resource, parent, false);
             viewHolder = new ViewHolder();
             viewHolder.tvAvatar = convertView.findViewById(R.id.image_hangMuc);
             viewHolder.tvName = convertView.findViewById(R.id.name);
@@ -40,18 +40,15 @@ public class Ctrl_HangMucThuNhap extends ArrayAdapter<M_HangMucThuNhap> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        M_HangMucThuNhap contact = arrContact.get(position);
-        viewHolder.tvAvatar.setImageResource(contact.getAvatarResource());
-        viewHolder.tvName.setText(contact.getName());
-
+        // Lấy đối tượng M_DanhMucHangMuc từ danh sách
+        M_DanhMucHangMuc danhMuc = arrContact.get(position);
+        viewHolder.tvName.setText(danhMuc.getTenHangmuc()); // Cập nhật để lấy tên hạng mục
 
         return convertView;
     }
 
-    // Phương thức xử lý hành động khi click vào ic_lock
-
     public class ViewHolder {
         TextView tvName;
-        ImageView tvAvatar, icLock;
+        ImageView tvAvatar;
     }
 }

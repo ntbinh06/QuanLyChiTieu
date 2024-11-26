@@ -1,112 +1,91 @@
 package com.example.quanlychitieu.Model;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class M_GiaoDich {
-    private int id;                // ID của giao dịch
-    private double value;          // Giá trị của giao dịch
-    private int categoryId;        // ID của hạng mục
-    private int accountId;         // ID của tài khoản
-    private String date;           // Ngày giao dịch
-    private String from;           // Nguồn của giao dịch
-    private String note;           // Ghi chú
-    private String image;          // Đường dẫn hình ảnh (nếu có)
+    private String idGiaoDich;
+    private double giaTri;
+    private String idHangMuc;
+    private String idTaiKhoan;
+    private Date ngayTao; // Sử dụng Date
+    private String tu;
+    private String ghiChu;
 
+    // Constructor mặc định
+    public M_GiaoDich() {}
 
-    // Constructor
-    public M_GiaoDich(int id, double value, int categoryId, int accountId, String date, String from, String note, String image) {
-        this.id = id;
-        this.value = value;
-        this.categoryId = categoryId;
-        this.accountId = accountId;
-        this.date = date;
-        this.from = from;
-        this.note = note;
-        this.image = image;
+    // Constructor có tham số
+    public M_GiaoDich(String idGiaoDich, double giaTri, String idHangMuc, String idTaiKhoan, Date ngayTao, String tu, String ghiChu) {
+        this.idGiaoDich = idGiaoDich;
+        this.giaTri = giaTri;
+        this.idHangMuc = idHangMuc;
+        this.idTaiKhoan = idTaiKhoan;
+        this.ngayTao = ngayTao;
+        this.tu = tu;
+        this.ghiChu = ghiChu;
     }
 
-    // Getter và Setter cho id
-    public int getId() {
-        return id;
+    // Getters và Setters
+    public String getIdGiaoDich() {
+        return idGiaoDich;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdGiaoDich(String idGiaoDich) {
+        this.idGiaoDich = idGiaoDich;
     }
 
-    // Getter và Setter cho value
-    public double getValue() {
-        return value;
+    public double getGiaTri() {
+        return giaTri;
     }
 
-    public void setValue(double value) {
-        this.value = value;
+    public void setGiaTri(double giaTri) {
+        this.giaTri = giaTri;
     }
 
-    // Getter và Setter cho categoryId
-    public int getCategoryId() {
-        return categoryId;
+    public String getIdHangMuc() {
+        return idHangMuc;
     }
 
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
+    public void setIdHangMuc(String idHangMuc) {
+        this.idHangMuc = idHangMuc;
     }
 
-    // Getter và Setter cho accountId
-    public int getAccountId() {
-        return accountId;
+    public String getIdTaiKhoan() {
+        return idTaiKhoan;
     }
 
-    public void setAccountId(int accountId) {
-        this.accountId = accountId;
+    public void setIdTaiKhoan(String idTaiKhoan) {
+        this.idTaiKhoan = idTaiKhoan;
     }
 
-    // Getter và Setter cho date
-    public String getDate() {
-        return date;
+    public Date getNgayTao() {
+        return ngayTao;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setNgayTao(Date ngayTao) {
+        this.ngayTao = ngayTao;
     }
 
-    // Getter và Setter cho from
-    public String getFrom() {
-        return from;
+    public String getTu() {
+        return tu;
     }
 
-    public void setFrom(String from) {
-        this.from = from;
+    public void setTu(String tu) {
+        this.tu = tu;
     }
 
-    // Getter và Setter cho note
-    public String getNote() {
-        return note;
+    public String getGhiChu() {
+        return ghiChu;
     }
 
-    public void setNote(String note) {
-        this.note = note;
+    public void setGhiChu(String ghiChu) {
+        this.ghiChu = ghiChu;
     }
 
-    // Getter và Setter cho image
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    // Phương thức toString để hiển thị thông tin giao dịch
-    @Override
-    public String toString() {
-        return "Model_GiaoDich{" +
-                "id=" + id +
-                ", value=" + value +
-                ", categoryId=" + categoryId +
-                ", accountId=" + accountId +
-                ", date='" + date + '\'' +
-                ", from='" + from + '\'' +
-                ", note='" + note + '\'' +
-                ", image='" + image + '\'' +
-                '}';
+    // Phương thức chuyển đổi Date thành String
+    public String getFormattedNgayTao() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); // Định dạng ngày
+        return ngayTao != null ? dateFormat.format(ngayTao) : ""; // Trả về chuỗi định dạng hoặc chuỗi rỗng nếu ngày là null
     }
 }

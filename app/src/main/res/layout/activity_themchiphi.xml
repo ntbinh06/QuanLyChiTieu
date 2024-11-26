@@ -90,6 +90,7 @@
             android:background="?attr/selectableItemBackground"
             android:src="@drawable/ic_circle" />
         <TextView
+            android:id="@+id/chonhangmuc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
@@ -128,6 +129,7 @@
         android:layout_marginTop="345dp"
         tools:ignore="ExtraText">
         <ImageView
+            android:id="@+id/image_day"
             android:layout_width="38dp"
             android:layout_height="38dp"
             android:layout_marginTop="20dp"
@@ -136,7 +138,7 @@
             android:src="@drawable/ic_calender_black"
             android:contentDescription="@string/img1"/>
         <EditText
-            android:id="@+id/edit_day"
+            android:id="@+id/day"
             android:layout_width="230dp"
             android:layout_height="45dp"
             android:layout_below="@id/toolbar"
@@ -144,7 +146,8 @@
             android:layout_marginTop="20dp"
             android:textSize="18dp"
             android:hint="Ngày "
-            android:inputType="numberDecimal"
+            android:inputType="none"
+            android:focusable="false"
             android:padding="10dp"/>
     </LinearLayout>
 
@@ -171,7 +174,6 @@
             android:layout_marginTop="20dp"
             android:textSize="18dp"
             android:hint="Từ "
-            android:inputType="numberDecimal"
             android:padding="10dp"/>
     </LinearLayout>
 
@@ -198,7 +200,6 @@
             android:layout_marginTop="20dp"
             android:textSize="18dp"
             android:hint="Ghi chú"
-            android:inputType="numberDecimal"
             android:padding="10dp"/>
     </LinearLayout>
 

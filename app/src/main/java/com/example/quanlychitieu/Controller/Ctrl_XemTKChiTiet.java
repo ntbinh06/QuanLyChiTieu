@@ -38,18 +38,7 @@ public class Ctrl_XemTKChiTiet  extends AppCompatActivity{
         txtTenTaiKhoan = findViewById(R.id.tenTK);
         txtSoTien = findViewById(R.id.sodu);
 
-        //thêm item
-        for(int i=0;i<tenGD.length;i++){
-            int index = i % tenTK.length;
-            mylist.add(new M_DanhMucGiaoDich(image[i], tenGD[i], tenTK[index], tien[index], ngay[index]));
-        }
-        myadapter = new V_ItemGiaoDich(Ctrl_XemTKChiTiet.this,R.layout.list_item_cacdd,mylist);
-        lv.setAdapter(myadapter);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.danhsachuser), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+
 
         // Nhận dữ liệu từ Intent
         String tenTaiKhoan = getIntent().getStringExtra("tenTK");

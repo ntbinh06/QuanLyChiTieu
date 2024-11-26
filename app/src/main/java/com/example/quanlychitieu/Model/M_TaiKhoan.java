@@ -15,7 +15,15 @@ public class M_TaiKhoan {
     private String idUser;
 
     // Constructor không tham số
-    public M_TaiKhoan() {
+    public M_TaiKhoan(String idTaiKhoan, String tenTaiKhoan) {
+        this.idTaiKhoan = idTaiKhoan;
+        this.tenTaiKhoan = tenTaiKhoan;
+        this.luongBanDau = (double) 0; // Giá trị mặc định
+        this.ngayTao = new Date(); // Giá trị mặc định
+        this.lanSuDungCuoi = null; // Giá trị mặc định
+        this.donViTienTe = "VND"; // Giá trị mặc định
+        this.ghiChu = ""; // Giá trị mặc định
+        this.idUser = ""; // Giá trị mặc định
     }
 
     // Constructor đầy đủ
