@@ -192,6 +192,7 @@ public class Ctrl_NganSachMoi extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, tentaikhoanList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnTaiKhoan.setAdapter(adapter);
+        spnTaiKhoan.setDropDownVerticalOffset(140);
 
         spnTaiKhoan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

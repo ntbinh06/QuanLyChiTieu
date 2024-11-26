@@ -16,7 +16,7 @@ public class M_GiaoDich {
     public M_GiaoDich() {}
 
     // Constructor có tham số
-    public M_GiaoDich(String idGiaoDich, double giaTri, String idHangMuc, String idTaiKhoan, Date ngayTao, String tu, String ghiChu) {
+    public M_GiaoDich(String idGiaoDich, double giaTri, String idHangMuc,String idTaiKhoan, Date ngayTao, String tu, String ghiChu) {
         this.idGiaoDich = idGiaoDich;
         this.giaTri = giaTri;
         this.idHangMuc = idHangMuc;
@@ -82,6 +82,7 @@ public class M_GiaoDich {
     public void setGhiChu(String ghiChu) {
         this.ghiChu = ghiChu;
     }
+
 
     // Phương thức chuyển đổi Date thành String
     public String getFormattedNgayTao() {
