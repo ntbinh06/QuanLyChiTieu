@@ -163,17 +163,25 @@ public class Ctrl_ThemChiPhi extends AppCompatActivity {
                                     if (nganSachDuTru != null) {
                                         double updatedNganSachDuTru = nganSachDuTru - giaTri;
 
-                                        // Cập nhật lại giá trị ngân sách dự trù
-                                        hangMucRef.child("nganSachDuTru").setValue(updatedNganSachDuTru).addOnCompleteListener(updateTask -> {
-                                            if (updateTask.isSuccessful()) {
-                                                Toast.makeText(Ctrl_ThemChiPhi.this, "Thông tin đã được lưu và ngân sách được cập nhật!", Toast.LENGTH_SHORT).show();
-                                                Intent intent = new Intent(Ctrl_ThemChiPhi.this, Ctrl_TongQuan.class);
-                                                startActivity(intent);
-                                                finish();
-                                            } else {
-                                                Toast.makeText(Ctrl_ThemChiPhi.this, "Lỗi cập nhật ngân sách. Vui lòng thử lại.", Toast.LENGTH_SHORT).show();
-                                            }
-                                        });
+                                        // Kiểm tra nếu giá trị vượt quá ngân sách dự trù
+                                        if (updatedNganSachDuTru < 0) {
+                                            double vuotQua = Math.abs(updatedNganSachDuTru);
+                                            Toast.makeText(Ctrl_ThemChiPhi.this,
+                                                    "Cảnh báo: Giá trị ngân sách  đã vượt quá " + vuotQua,
+                                                    Toast.LENGTH_LONG).show();
+                                        } else {
+                                            // Cập nhật lại giá trị ngân sách dự trù
+                                            hangMucRef.child("nganSachDuTru").setValue(updatedNganSachDuTru).addOnCompleteListener(updateTask -> {
+                                                if (updateTask.isSuccessful()) {
+                                                    Toast.makeText(Ctrl_ThemChiPhi.this, "Thông tin đã được lưu và ngân sách được cập nhật!", Toast.LENGTH_SHORT).show();
+                                                    Intent intent = new Intent(Ctrl_ThemChiPhi.this, Ctrl_TongQuan.class);
+                                                    startActivity(intent);
+                                                    finish();
+                                                } else {
+                                                    Toast.makeText(Ctrl_ThemChiPhi.this, "Lỗi cập nhật ngân sách. Vui lòng thử lại.", Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
+                                        }
                                     }
                                 } else {
                                     Toast.makeText(Ctrl_ThemChiPhi.this, "Không tìm thấy ngân sách dự trù!", Toast.LENGTH_SHORT).show();
@@ -191,6 +199,7 @@ public class Ctrl_ThemChiPhi extends AppCompatActivity {
                 });
             }
         });
+
         btnCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -1,6 +1,8 @@
 package com.example.quanlychitieu.Model;
 
-public class M_DanhMucHangMuc {
+
+
+public class M_DanhMucHangMuc  {
     private String idHangmuc;
     private String tenHangmuc;
     private String anhHangmuc;
@@ -8,7 +10,7 @@ public class M_DanhMucHangMuc {
     private String idNhom;
     private String idUser;
 
-    // Constructor mặc định (Firebase cần)
+    // Constructor mặc định (Firebase cần)ac
     public M_DanhMucHangMuc() {
     }
 

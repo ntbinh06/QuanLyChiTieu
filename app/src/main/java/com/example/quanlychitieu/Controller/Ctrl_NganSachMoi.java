@@ -129,14 +129,20 @@ public class Ctrl_NganSachMoi extends AppCompatActivity {
 
                 // Lưu thông tin lên Firebase
                 DatabaseReference hangMucRef = FirebaseDatabase.getInstance().getReference("HangMuc").child(selectedHangMucId);
-
-                // Cập nhật các trường nganSachDuTru và idTaiKhoan mà không làm mất dữ liệu khác
                 hangMucRef.updateChildren(updates)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
+                                // Chuyển sang Ctrl_ChiTietNganSach sau khi cập nhật thành công
+                                Intent intent = new Intent(Ctrl_NganSachMoi.this, Ctrl_ChiTietNganSach.class);
+                                intent.putExtra("tenTaiKhoan", selectedTaiKhoan.getTenTaiKhoan()); // Thêm tên tài khoản vào Intent
+                                intent.putExtra("transactionId", selectedTaiKhoan.getIdTaiKhoan()); // Nếu cần
+                                intent.putExtra("soTien", Double.parseDouble(giaTri)); // Thêm số tiền
+                                startActivity(intent);
+                                // Chuyển tiếp đến Ctrl_NganSach
+                                Intent intentToNganSach = new Intent(Ctrl_NganSachMoi.this, Ctrl_NganSach.class);
+                                startActivity(intentToNganSach);
                                 Toast.makeText(Ctrl_NganSachMoi.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(Ctrl_NganSachMoi.this, Ctrl_NganSach.class));
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {

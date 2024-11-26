@@ -238,12 +238,11 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/lvNganSach"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_marginTop="20dp"
+                android:layout_height="292dp"
                 android:layout_gravity="center"
-                android:divider="@null">
-            </androidx.recyclerview.widget.RecyclerView>
+                android:layout_marginTop="20dp"
+                android:divider="@null"
+                android:orientation="vertical"></androidx.recyclerview.widget.RecyclerView>
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

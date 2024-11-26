@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -11,14 +12,26 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.quanlychitieu.Model.M_DanhMucHangMuc;
+import com.example.quanlychitieu.Model.M_TaiKhoan;
 import com.example.quanlychitieu.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Ctrl_ChiTietNganSach extends AppCompatActivity {
 
-    private int transactionId;
+    private String transactionId; // Biến để lưu transactionId
     private TextView txtTenHangMuc, txtSoTien, txtConLai, txtDaChi;
     private ImageView imgHangMuc;
 
@@ -38,114 +51,191 @@ public class Ctrl_ChiTietNganSach extends AppCompatActivity {
 
         Intent intent = getIntent();
         if (intent != null) {
-            int transactionId = intent.getIntExtra("transactionId", -1);
+            String idHangmuc = intent.getStringExtra("transactionId"); // Nhận ID dưới dạng String
+            if (idHangmuc == null || idHangmuc.isEmpty()) {
+                Toast.makeText(this, "ID không hợp lệ", Toast.LENGTH_SHORT).show();
+                finish();
+                return;
+            }
+
             String tenHangMuc = intent.getStringExtra("tenHangMuc");
-            long soTien = intent.getLongExtra("soTien", 0);
-            long soTienConLai = intent.getLongExtra("soTienConLai", 0);
-            int hinhAnh = intent.getIntExtra("hinhAnh", -1);
-
-
-            long daChi = soTien - soTienConLai;
+            double soTien = intent.getDoubleExtra("soTien", 0.0);
+            double soTienConLai = intent.getDoubleExtra("soTienConLai", 0.0);
+            double daChi = soTien - soTienConLai;
 
             txtTenHangMuc.setText(tenHangMuc);
             txtSoTien.setText(formatCurrency(soTien));
             txtConLai.setText(formatCurrency(soTienConLai));
             txtDaChi.setText(formatCurrency(daChi));
+
+            // Lưu transactionId
+            transactionId = idHangmuc; // Lưu ID dưới dạng String
         }
 
-        ic_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Ctrl_ChiTietNganSach.this, Ctrl_NganSach.class);
-                startActivity(intent);
-            }
+
+        ic_back.setOnClickListener(view -> {
+            Intent backIntent = new Intent(Ctrl_ChiTietNganSach.this, Ctrl_NganSach.class);
+            startActivity(backIntent);
         });
 
-        btnEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Ctrl_ChiTietNganSach.this, Ctrl_NganSachMoi.class);
-                startActivity(intent);
-            }
-        });
+        btnEdit.setOnClickListener(view -> {
+            String idHangMuc = transactionId; // ID hạng mục
+            DatabaseReference hangMucRef = FirebaseDatabase.getInstance().getReference("HangMuc").child(idHangMuc);
 
-
-        btnDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Tạo LayoutInflater để tạo view từ layout tùy chỉnh
-                LayoutInflater inflater = LayoutInflater.from(Ctrl_ChiTietNganSach.this);
-                View dialogView = inflater.inflate(R.layout.custom_dialog_xoa, null);
-
-                // Khởi tạo AlertDialog
-                AlertDialog.Builder builder = new AlertDialog.Builder(Ctrl_ChiTietNganSach.this);
-                builder.setView(dialogView); // Set layout tùy chỉnh
-
-
-                // Khởi tạo các thành phần trong layout tùy chỉnh
-                TextView tvMessage = dialogView.findViewById(R.id.tvMessage);
-                Button btnDelete = dialogView.findViewById(R.id.btnDelete);
-                Button btnCancel = dialogView.findViewById(R.id.btnCancel);
-
-                // Tạo AlertDialog
-                AlertDialog dialog = builder.create();
-                dialog.getWindow().setBackgroundDrawableResource(R.drawable.border_dialog);// Đặt nền cho dialog
-
-                dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                    @Override
-                    public void onShow(DialogInterface dialogInterface) {
-                        AlertDialog alertDialog = (AlertDialog) dialog;
-                        WindowManager.LayoutParams params = new WindowManager.LayoutParams();
-                        params.copyFrom(alertDialog.getWindow().getAttributes()); // Lấy thuộc tính hiện tại của dialog
-                        dialog.getWindow().setLayout(850, WindowManager.LayoutParams.WRAP_CONTENT);
+            hangMucRef.child("nganSachDuTru").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        Double currentNganSachDuTru = snapshot.getValue(Double.class);
+                        if (currentNganSachDuTru != null) {
+                            showEditDialog(idHangMuc, currentNganSachDuTru); // Gọi dialog sửa ngân sách
+                        } else {
+                            Toast.makeText(Ctrl_ChiTietNganSach.this, "Không tìm thấy ngân sách dự trù", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(Ctrl_ChiTietNganSach.this, "Không tìm thấy hạng mục", Toast.LENGTH_SHORT).show();
                     }
-                });
+                }
 
-                // Xử lý sự kiện cho nút Xóa
-                btnDelete.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        // Gọi phương thức xóa giao dịch từ cơ sở dữ liệu
-                        deleteTransaction(transactionId);
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(Ctrl_ChiTietNganSach.this, "Lỗi: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        });
 
-                        // Đóng dialog sau khi thực hiện xóa
-                        dialog.dismiss();
 
-                        // Quay lại giao diện danh sách giao dịch
+        btnDelete.setOnClickListener(view -> showDeleteDialog());
+    }
+    private void showEditDialog(String idHangMuc, double currentNganSachDuTru) {
+        LayoutInflater inflater = LayoutInflater.from(Ctrl_ChiTietNganSach.this);
+        View dialogView = inflater.inflate(R.layout.custom_dialog_edit_ngansach, null); // Tạo layout cho dialog
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(Ctrl_ChiTietNganSach.this);
+        builder.setView(dialogView);
+
+        TextView tvCurrentNganSach = dialogView.findViewById(R.id.tvCurrentNganSach); // TextView hiển thị ngân sách hiện tại
+        TextView editNewNganSach = dialogView.findViewById(R.id.editNewNganSach);     // EditText để nhập ngân sách mới
+        Button btnSave = dialogView.findViewById(R.id.btnSave);                      // Nút lưu
+        Button btnCancel = dialogView.findViewById(R.id.btnCancel);                  // Nút hủy
+
+        tvCurrentNganSach.setText(formatCurrency(currentNganSachDuTru)); // Hiển thị ngân sách hiện tại
+
+        AlertDialog dialog = builder.create();
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.border_dialog);
+
+        dialog.setOnShowListener(dialogInterface -> {
+            AlertDialog alertDialog = (AlertDialog) dialog;
+            WindowManager.LayoutParams params = new WindowManager.LayoutParams();
+            params.copyFrom(alertDialog.getWindow().getAttributes());
+            dialog.getWindow().setLayout(850, WindowManager.LayoutParams.WRAP_CONTENT);
+        });
+
+        btnSave.setOnClickListener(v -> {
+            String newNganSachStr = editNewNganSach.getText().toString().trim();
+            if (newNganSachStr.isEmpty()) {
+                Toast.makeText(Ctrl_ChiTietNganSach.this, "Vui lòng nhập giá trị mới", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            try {
+                double newNganSachDuTru = Double.parseDouble(newNganSachStr);
+
+                DatabaseReference hangMucRef = FirebaseDatabase.getInstance().getReference("HangMuc").child(idHangMuc);
+                Map<String, Object> updates = new HashMap<>();
+                updates.put("nganSachDuTru", newNganSachDuTru);
+
+                hangMucRef.updateChildren(updates).addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(Ctrl_ChiTietNganSach.this, "Cập nhật ngân sách thành công", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(Ctrl_ChiTietNganSach.this, Ctrl_NganSach.class);
                         startActivity(intent);
-                        finish(); // Hoặc sử dụng finish() để xóa activity hiện tại
+                        finish();
+                    } else {
+                        Toast.makeText(Ctrl_ChiTietNganSach.this, "Lỗi cập nhật: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
+            } catch (NumberFormatException e) {
+                Toast.makeText(Ctrl_ChiTietNganSach.this, "Giá trị không hợp lệ", Toast.LENGTH_SHORT).show();
+            }
+        });
 
-                // Xử lý sự kiện cho nút Hủy
-                btnCancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        // Đóng hộp thoại, không làm gì cả
-                        dialog.dismiss();
-                    }
-                });
+        btnCancel.setOnClickListener(v -> dialog.dismiss());
 
-                // Hiển thị AlertDialog
-                dialog.show();
+        dialog.show();
+    }
+
+    private void showDeleteDialog() {
+        LayoutInflater inflater = LayoutInflater.from(Ctrl_ChiTietNganSach.this);
+        View dialogView = inflater.inflate(R.layout.custom_dialog_xoa, null);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(Ctrl_ChiTietNganSach.this);
+        builder.setView(dialogView);
+
+        TextView tvMessage = dialogView.findViewById(R.id.tvMessage);
+        Button btnDelete = dialogView.findViewById(R.id.btnDelete);
+        Button btnCancel = dialogView.findViewById(R.id.btnCancel);
+
+        AlertDialog dialog = builder.create();
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.border_dialog);
+
+        dialog.setOnShowListener(dialogInterface -> {
+            AlertDialog alertDialog = (AlertDialog) dialog;
+            WindowManager.LayoutParams params = new WindowManager.LayoutParams();
+            params.copyFrom(alertDialog.getWindow().getAttributes());
+            dialog.getWindow().setLayout(850, WindowManager.LayoutParams.WRAP_CONTENT);
+        });
+
+        btnDelete.setOnClickListener(v -> {
+            String idHangmuc = transactionId; // Lấy ID đã lưu
+
+            Log.d("DeleteHangMuc", "Đang xóa: " + idHangmuc);
+            deleteNgansach(idHangmuc);  // Truyền transactionId vào deleteNgansach
+            dialog.dismiss();
+        });
+
+        btnCancel.setOnClickListener(v -> dialog.dismiss());
+
+        dialog.show();
+    }
+
+    private void deleteNgansach(String idHangmuc) {
+        DatabaseReference hangMucRef = FirebaseDatabase.getInstance().getReference("HangMuc").child(idHangmuc);
+
+        hangMucRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    // Tiến hành xóa
+                    hangMucRef.child("nganSachDuTru").removeValue()
+                            .addOnCompleteListener(task1 -> {
+                                if (task1.isSuccessful()) {
+                                    hangMucRef.child("idTaiKhoan").removeValue()
+                                            .addOnCompleteListener(task2 -> {
+                                                if (task2.isSuccessful()) {
+                                                    Toast.makeText(Ctrl_ChiTietNganSach.this, "Xóa thành công", Toast.LENGTH_SHORT).show();
+                                                    finish();
+                                                } else {
+                                                    Toast.makeText(Ctrl_ChiTietNganSach.this, "Lỗi xóa idTaiKhoan: " + task2.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
+                                } else {
+                                    Toast.makeText(Ctrl_ChiTietNganSach.this, "Lỗi xóa nganSachDuTru: " + task1.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                } else {
+                    Toast.makeText(Ctrl_ChiTietNganSach.this, "ID không tồn tại trong Firebase", Toast.LENGTH_SHORT).show();
+                }
             }
 
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(Ctrl_ChiTietNganSach.this, "Lỗi: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+            }
         });
     }
 
-    private void deleteTransaction(int transactionId) {
-        // Thêm logic xóa giao dịch từ cơ sở dữ liệu tại đây
-        // Ví dụ:
-        // SQLiteDatabase db = getWritableDatabase();
-        // db.delete("transactions", "id=?", new String[]{String.valueOf(transactionId)});
-    }
-
-    private void navigateToLoginScreen() {
-        startActivity(new Intent(Ctrl_ChiTietNganSach.this, Ctrl_NganSach.class));
-    }
-
-    private String formatCurrency(long amount) {
-        return String.format("%,d đ", amount);
+    private String formatCurrency(double amount) {
+        return String.format("%,.2f đ", amount); // Định dạng với 2 chữ số thập phân
     }
 }

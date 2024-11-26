@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="350dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:maxWidth="300dp">
+
+    <TextView
+        android:id="@+id/tvTittle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sửa ngân sách dự trù"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/inter_18pt_regular"
+        android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/tvCurrentNganSach"
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="40dp"
+        android:layout_height="wrap_content"
+        android:text="Ngân sách hiện tại: 0 đ"
+        android:textSize="18sp"
+        android:paddingBottom="8dp" />
+    <EditText
+        android:id="@+id/editNewNganSach"
+        android:layout_width="match_parent"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content"
+        android:hint="Nhập ngân sách mới"
+        android:inputType="numberDecimal" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        >
+
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:text="Hủy"
+            android:layout_marginRight="35dp"
+            android:layout_marginLeft="15dp"
+            android:textColor="@color/deep_bluepurple"
+            android:fontFamily="@font/inter_18pt_bold"
+            android:background="@drawable/bg_btn_huy"/>
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:text="Sửa"
+            android:background="@drawable/bg_btn_xoa_dangxuat"
+            android:textColor="@color/white"
+            android:fontFamily="@font/inter_18pt_bold"/>
+
+    </LinearLayout>
+</LinearLayout>
