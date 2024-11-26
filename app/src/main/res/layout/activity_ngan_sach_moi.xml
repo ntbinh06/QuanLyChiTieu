@@ -53,10 +53,12 @@
             android:padding="16dp"
             android:contentDescription="@string/img1"/>
         <TextView
+            android:id="@+id/chonhangmuc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:text="Chọn hạng mục"
+            android:textColor="@color/black"
             android:fontFamily="@font/inter_18pt_regular"
             android:textSize="24dp"
             android:layout_marginTop="20dp"/>
@@ -96,6 +98,7 @@
                 android:orientation="horizontal">
 
                 <EditText
+                    android:id="@+id/edit_dutru"
                     android:layout_width="272dp"
                     android:layout_height="wrap_content"
                     android:padding="16dp"
@@ -143,9 +146,7 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_marginTop="30dp"
-        tools:ignore="ExtraText"
-        android:orientation="horizontal">
-
+        tools:ignore="ExtraText">
         <ImageView
             android:layout_width="35dp"
             android:layout_height="35dp"
@@ -154,21 +155,16 @@
             android:background="?attr/selectableItemBackground"
             android:src="@drawable/ic_calender_black"
             android:contentDescription="@string/img1"/>
-
-
         <TextView
-            android:id="@+id/ngaybatdau"
-            android:layout_width="272dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="42dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
             android:text="1 tháng"
             android:textColor="@color/black"
-            android:inputType="numberDecimal"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="20dp"/>
+            android:textSize="18sp"/>
 
     </LinearLayout>
-
 
 
     <Button
@@ -176,7 +172,7 @@
     android:layout_width="325dp"
     android:layout_height="55dp"
     android:layout_gravity="center"
-    android:layout_marginTop="170dp"
+    android:layout_marginTop="100dp"
     android:background="@drawable/round_corner_20"
     android:backgroundTint="@color/deep_bluepurple"
     android:fontFamily="@font/inter_18pt_edium"

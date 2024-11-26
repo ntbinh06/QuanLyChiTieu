@@ -127,12 +127,12 @@ public class Ctrl_QuanLyHangMuc extends AppCompatActivity {
     // Thêm danh sách hạng mục mẫu vào Firebase
     private List<M_DanhMucHangMuc> createSampleHangMuc() {
         List<M_DanhMucHangMuc> danhSachHM = new ArrayList<>();
-        danhSachHM.add(new M_DanhMucHangMuc("1", "Tien Dien", "hthp/...jpg", 0.0, "2", "DSEZCk7wpuPyegmLbv66Tn6HjCz1"));
-        danhSachHM.add(new M_DanhMucHangMuc("2", "Giai tri", "/.jpg2", 1.0, "2", "DSEZCk7wpuPyegmLbv66Tn6HjCz1"));
-        danhSachHM.add(new M_DanhMucHangMuc("3", "Luong", "/.jpg3", 4.0, "1", "DSEZCk7wpuPyegmLbv66Tn6HjCz1"));
-        danhSachHM.add(new M_DanhMucHangMuc("4", "An Uong", "/an_uong.jpg", 2.0, "1", "DSEZCk7wpuPyegmLbv66Tn6HjCz1"));
-        danhSachHM.add(new M_DanhMucHangMuc("5", "Du Lich", "/du_lich.jpg", 3.5, "2", "DSEZCk7wpuPyegmLbv66Tn6HjCz1"));
-        danhSachHM.add(new M_DanhMucHangMuc("6", "Y Te", "/y_te.jpg", 1.2, "2", "DSEZCk7wpuPyegmLbv66Tn6HjCz1"));
+        danhSachHM.add(new M_DanhMucHangMuc("1", "Tien Dien", "hthp/...jpg", null, "2", "DSEZCk7wpuPyegmLbv66Tn6HjCz1"));
+        danhSachHM.add(new M_DanhMucHangMuc("2", "Giai tri", "/.jpg2", null, "2", "DSEZCk7wpuPyegmLbv66Tn6HjCz1"));
+        danhSachHM.add(new M_DanhMucHangMuc("3", "Luong", "/.jpg3", null, "1", "DSEZCk7wpuPyegmLbv66Tn6HjCz1"));
+        danhSachHM.add(new M_DanhMucHangMuc("4", "An Uong", "/an_uong.jpg", null, "1", "DSEZCk7wpuPyegmLbv66Tn6HjCz1"));
+        danhSachHM.add(new M_DanhMucHangMuc("5", "Du Lich", "/du_lich.jpg", null, "2", "DSEZCk7wpuPyegmLbv66Tn6HjCz1"));
+        danhSachHM.add(new M_DanhMucHangMuc("6", "Y Te", "/y_te.jpg", null, "2", "DSEZCk7wpuPyegmLbv66Tn6HjCz1"));
         return danhSachHM;
     }
 

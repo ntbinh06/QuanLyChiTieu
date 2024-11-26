@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -13,66 +14,65 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.quanlychitieu.Model.M_DanhMucHangMuc;
 import com.example.quanlychitieu.Model.M_HangMucChiPhi;
+import com.example.quanlychitieu.Model.M_TaiKhoan;
 import com.example.quanlychitieu.R;
 import com.example.quanlychitieu.View.V_CustomSpinner;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
-public class Ctrl_NganSachMoi extends AppCompatActivity implements V_CustomSpinner.OnSpinnerEventsListener{
-
-    private V_CustomSpinner spnTaiKhoan, spnDateStart;
-
+public class Ctrl_NganSachMoi extends AppCompatActivity {
+    private EditText editTextGiaTri;
+    private Spinner spnTaiKhoan;
+    private FirebaseFirestore db;
+    private DatabaseReference userRef;
+    private List<M_TaiKhoan> taiKhoanList; // Danh sách tài khoản
+    private List<M_DanhMucHangMuc> HangMucList;
+    private TextView chonHangMucTextView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_ngan_sach_moi);
-
-        // Initialize Spinner for Tai Khoan
+        db = FirebaseFirestore.getInstance();
+        editTextGiaTri = findViewById(R.id.edit_dutru);
         spnTaiKhoan = findViewById(R.id.spnTaiKhoan);
-        spnTaiKhoan.setSpinnerEventsListener(this);
+        chonHangMucTextView = findViewById(R.id.chonhangmuc);
 
-        // List for Tai Khoan Spinner
-        ArrayList<String> listTaiKhoan = new ArrayList<>();
-        listTaiKhoan.add("Ví");
-        listTaiKhoan.add("MB Bank");
-        listTaiKhoan.add("Tiết kiệm");
-
-        // Adapter for Tai Khoan Spinner
-        ArrayAdapter<String> adapterTaiKhoan = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, listTaiKhoan);
-        adapterTaiKhoan.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spnTaiKhoan.setAdapter(adapterTaiKhoan);
-
-        spnTaiKhoan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                Toast.makeText(Ctrl_NganSachMoi.this, spnTaiKhoan.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                // Do nothing
-            }
-        });
-
-        spnTaiKhoan.setDropDownVerticalOffset(150);
-
-        // Initialize Spinner for Date Start
+        // Lấy danh sách từ mô hình
+        taiKhoanList = new ArrayList<>();
+        userRef = FirebaseDatabase.getInstance().getReference("TaiKhoan");
+        // Lấy danh mục từ Firestore
+        gettaiKhoanList();
 
 
         // Window insets handling
@@ -101,27 +101,119 @@ public class Ctrl_NganSachMoi extends AppCompatActivity implements V_CustomSpinn
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Ctrl_NganSachMoi.this, Ctrl_NganSach.class));
+                // Lấy giá trị từ EditText
+                String giaTri = editTextGiaTri.getText().toString().trim();
+
+                // Kiểm tra giá trị giaTri không rỗng
+                if (giaTri.isEmpty()) {
+                    Toast.makeText(Ctrl_NganSachMoi.this, "Vui lòng nhập giá trị", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // Lấy ID tài khoản đã chọn từ danh sách tài khoản
+                M_TaiKhoan selectedTaiKhoan = taiKhoanList.stream()
+                        .filter(taiKhoan -> taiKhoan.getIdTaiKhoan().equals(selectedTaiKhoanId))
+                        .findFirst()
+                        .orElse(null);
+
+                // Kiểm tra xem tài khoản đã chọn có tồn tại hay không
+                if (selectedTaiKhoan == null) {
+                    Toast.makeText(Ctrl_NganSachMoi.this, "Tài khoản không hợp lệ", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // Tạo một đối tượng chứa các giá trị cần cập nhật
+                Map<String, Object> updates = new HashMap<>();
+                updates.put("nganSachDuTru", Double.parseDouble(giaTri));
+                updates.put("idTaiKhoan", selectedTaiKhoan.getIdTaiKhoan());
+
+                // Lưu thông tin lên Firebase
+                DatabaseReference hangMucRef = FirebaseDatabase.getInstance().getReference("HangMuc").child(selectedHangMucId);
+
+                // Cập nhật các trường nganSachDuTru và idTaiKhoan mà không làm mất dữ liệu khác
+                hangMucRef.updateChildren(updates)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(Ctrl_NganSachMoi.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(Ctrl_NganSachMoi.this, Ctrl_NganSach.class));
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(Ctrl_NganSachMoi.this, "Lỗi cập nhật dữ liệu: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
             }
         });
-
-
-
     }
 
-    @Override
-    public void onPopupWindowOpened(Spinner spinner) {
-        spnTaiKhoan.setBackground(getResources().getDrawable(R.drawable.bg_spinner_up, null));
-    }
+    private void gettaiKhoanList () {
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                taiKhoanList.clear(); // Xóa danh sách cũ nếu cần
 
-    @Override
-    public void onPopupWindowClosed(Spinner spinner) {
-        spnTaiKhoan.setBackground(getResources().getDrawable(R.drawable.bg_spinner, null));
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    String idTaiKhoan = snapshot.child("idTaiKhoan").getValue(String.class);
+                    String tenTaiKhoan = snapshot.child("tenTaiKhoan").getValue(String.class);
+
+                    // Tạo và thêm đối tượng M_TaiKhoan vào danh sách
+                    M_TaiKhoan taiKhoan = new M_TaiKhoan(idTaiKhoan, tenTaiKhoan); // Giả sử bạn có constructor như vậy
+                    taiKhoanList.add(taiKhoan);
+                }
+                updateSpinner();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(Ctrl_NganSachMoi.this, "Lỗi lấy dữ liệu", Toast.LENGTH_SHORT).show();
+                Log.e("DatabaseError", databaseError.getMessage());
+            }
+        });
     }
-    private void openFeedbackDialog(int gravity) {
+    private String selectedTaiKhoanId = null; // Biến để lưu ID tài khoản đã chọn
+
+    private void updateSpinner () {
+        List<String> tentaikhoanList = new ArrayList<>();
+        for (M_TaiKhoan taiKhoan : taiKhoanList) {
+            if (taiKhoan.getTenTaiKhoan() != null) { // Kiểm tra null trước khi thêm
+                tentaikhoanList.add(taiKhoan.getTenTaiKhoan());
+            }
+        }
+
+        // Kiểm tra nếu danh sách trống
+        if (tentaikhoanList.isEmpty()) {
+            Toast.makeText(this, "Không có tài khoản nào để hiển thị", Toast.LENGTH_SHORT).show();
+            return; // Ngừng thực hiện nếu không có dữ liệu
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, tentaikhoanList);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spnTaiKhoan.setAdapter(adapter);
+
+        spnTaiKhoan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                // Lưu ID tài khoản dựa trên chỉ số đã chọn
+                selectedTaiKhoanId = taiKhoanList.get(i).getIdTaiKhoan(); // Lấy ID tương ứng với tên tài khoản
+                String selectedItem = adapterView.getItemAtPosition(i).toString();
+                Toast.makeText(Ctrl_NganSachMoi.this, selectedItem, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                Toast.makeText(Ctrl_NganSachMoi.this, "Chưa chọn mục nào", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    private String selectedHangMucId = null; // Biến để lưu ID hạng mục đã chọn
+
+    private void openFeedbackDialog ( int gravity){
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.activity_hangmucchiphi); // Use a new layout for the dialog
+        dialog.setContentView(R.layout.activity_hangmucthunhap);
         Window window = dialog.getWindow();
         if (window == null) {
             return;
@@ -132,25 +224,57 @@ public class Ctrl_NganSachMoi extends AppCompatActivity implements V_CustomSpinn
         windowAttributes.gravity = gravity;
         window.setAttributes(windowAttributes);
 
-        // Set up ListView in the dialog
-        ListView listView = dialog.findViewById(R.id.listView_chiphi);
+        // Thiết lập ListView trong dialog
+        ListView listView = dialog.findViewById(R.id.listView_thunhap);
 
-        ArrayList<M_HangMucChiPhi> arrContact = new ArrayList<>();
-        arrContact.add(new M_HangMucChiPhi(R.drawable.food, "Đồ ăn/ Đồ uống"));
-        arrContact.add(new M_HangMucChiPhi(R.drawable.shopping, "Mua sắm"));
-        arrContact.add(new M_HangMucChiPhi(R.drawable.family, "Vận chuyển"));
-        arrContact.add(new M_HangMucChiPhi(R.drawable.delivery_van, "Giải trí"));
-        arrContact.add(new M_HangMucChiPhi(R.drawable.drum_set, "Nhà cửa"));
-        arrContact.add(new M_HangMucChiPhi(R.drawable.house, "Gia đình"));
-        arrContact.add(new M_HangMucChiPhi(R.drawable.healthcare, "Sức khỏe"));
-        arrContact.add(new M_HangMucChiPhi(R.drawable.pets, "Thú cưng"));
-        arrContact.add(new M_HangMucChiPhi(R.drawable.travel_luggage, "Du lịch"));
+        // Tạo danh sách hạng mục
+        ArrayList<M_DanhMucHangMuc> arrContact = new ArrayList<>();
 
-        Ctrl_HangMucChiPhi customAdapter = new Ctrl_HangMucChiPhi(this, R.layout.list_item, arrContact);
-        listView.setAdapter(customAdapter);
+        // Lấy dữ liệu từ Firebase
+        DatabaseReference danhMucRef = FirebaseDatabase.getInstance().getReference("HangMuc");
+
+        // Sử dụng idNhom là kiểu string "1"
+        String idNhom = "2"; // Giá trị string bạn muốn so sánh
+
+        danhMucRef.orderByChild("idNhom").equalTo(idNhom).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                arrContact.clear(); // Xóa danh sách cũ nếu cần
+
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    String idHangmuc = snapshot.child("idHangmuc").getValue(String.class);
+                    String tenHangmuc = snapshot.child("tenHangmuc").getValue(String.class);
+
+                    // Thêm vào danh sách
+                    arrContact.add(new M_DanhMucHangMuc(idHangmuc, tenHangmuc));
+                }
+
+                // Khởi tạo adapter và gán cho ListView
+                Ctrl_HangMucThuNhap customAdapter = new Ctrl_HangMucThuNhap(Ctrl_NganSachMoi.this, R.layout.list_item_hangmuc, arrContact);
+                listView.setAdapter(customAdapter);
+
+                // Thiết lập sự kiện cho ListView
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        M_DanhMucHangMuc selectedItem = arrContact.get(position);
+                        selectedHangMucId = selectedItem.getIdHangmuc(); // Lưu ID hạng mục đã chọn
+                        String tenHangMuc = selectedItem.getTenHangmuc(); // Lấy tên hạng mục
+                        chonHangMucTextView.setText(tenHangMuc); // Cập nhật TextView
+                        Toast.makeText(Ctrl_NganSachMoi.this, "Đã chọn: " + tenHangMuc, Toast.LENGTH_SHORT).show();
+                        dialog.dismiss(); // Đóng dialog sau khi chọn
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(Ctrl_NganSachMoi.this, "Lỗi lấy dữ liệu", Toast.LENGTH_SHORT).show();
+                Log.e("DatabaseError", databaseError.getMessage());
+            }
+        });
 
         dialog.setCancelable(Gravity.BOTTOM == gravity);
-        dialog.show(); // Show the dialog
+        dialog.show(); // Hiển thị dialog
     }
-
 }
