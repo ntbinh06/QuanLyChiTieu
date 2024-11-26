@@ -43,6 +43,7 @@ public class Ctrl_NganSach extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_ngan_sach);
 
         rvNganSach = findViewById(R.id.lvNganSach);

@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,6 +21,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.quanlychitieu.Model.M_NguoiDung;
 import com.example.quanlychitieu.R;
+import com.google.common.base.FinalizableReference;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -40,6 +42,7 @@ public class Ctrl_NguoiDung extends AppCompatActivity {
     private String userId;
     private TextView txtHeaderTenUser, txtHeaderEmailUser, txtTenUser, txtEamil, txtDateBirth, txtSDT;
     private LinearLayout thongtinCN;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +90,7 @@ public class Ctrl_NguoiDung extends AppCompatActivity {
                     Toast.makeText(Ctrl_NguoiDung.this, "Không thể tải dữ liệu", Toast.LENGTH_SHORT).show();
                 }
             });
+
         }
 
         thongtinCN.setOnClickListener(new View.OnClickListener() {

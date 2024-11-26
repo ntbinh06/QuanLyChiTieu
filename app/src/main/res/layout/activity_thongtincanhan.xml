@@ -73,10 +73,12 @@
         android:drawablePadding="15dp"/>
 
     <LinearLayout
+        android:id="@+id/birthDate"
         android:layout_width="350dp"
         android:layout_height="48dp"
         android:layout_marginLeft="30dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginTop="10dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -88,17 +90,18 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_calendar"
                 android:layout_marginTop="10dp"
-                 android:layout_marginLeft="5dp"/>
+                 android:layout_marginLeft="4dp"/>
 
 
             <TextView
                 android:id="@+id/ttcn_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
                 android:text="16/09/2000"
                 android:textColor="@color/black"
-                android:textSize="18sp"/>
+                android:textSize="18sp"
+                android:layout_marginLeft="15dp"/>
         </LinearLayout>
 
 
@@ -121,16 +124,38 @@
         android:textSize="18sp"
         android:drawablePadding="15dp"/>
 
-    <EditText
-        android:id="@+id/ttcn_email"
+    <LinearLayout
         android:layout_width="350dp"
         android:layout_height="48dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:drawableLeft="@drawable/baseline_email_24"
-        android:text="ntb@gmail.com"
-        android:textSize="18sp"
-        android:drawablePadding="15dp"/>
+        android:layout_marginLeft="30dp"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="24dp"
+                android:src="@drawable/baseline_email_24"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="4dp"/>
+
+
+            <TextView
+                android:id="@+id/ttcn_email"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:text="ntn@gmail.com"
+                android:textColor="@color/lightgray_2"
+                android:textSize="18sp"
+                android:layout_marginLeft="15dp"/>
+        </LinearLayout>
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/btn_save"

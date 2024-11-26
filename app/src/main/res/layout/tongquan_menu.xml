@@ -41,6 +41,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/txtTenUser_SideMenu"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/inter_18pt_regular"
@@ -49,6 +50,7 @@
                         android:textColor="@color/white"/>
 
                     <TextView
+                        android:id="@+id/txtEmail_SideMenu"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"

@@ -105,53 +105,7 @@ public class Ctrl_NganSachMoi extends AppCompatActivity implements V_CustomSpinn
             }
         });
 
-        //Ngay bat dau
-        TextView ngaybatdau = findViewById(R.id.ngaybatdau);
-        TextView ngayketthuc = findViewById(R.id.ngayketthuc);
 
-        ngaybatdau.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Lấy ngày hiện tại
-                Locale.setDefault(new Locale("vi", "VN"));
-                final Calendar calendar = Calendar.getInstance();
-                int year = calendar.get(Calendar.YEAR);
-                int month = calendar.get(Calendar.MONTH);
-                int day = calendar.get(Calendar.DAY_OF_MONTH);
-
-                // Tạo hộp thoại chọn ngày
-                DatePickerDialog datePickerDialog = new DatePickerDialog(Ctrl_NganSachMoi.this,
-                        R.style.CustomDatePickerDialog,
-                        (view1, selectedYear, selectedMonth, selectedDay) -> {
-                            // Cập nhật TextView với ngày đã chọn
-                            String selectedDate = selectedDay + "/" + (selectedMonth + 1) + "/" + selectedYear;
-                            ngaybatdau.setText(selectedDate);
-                        }, year, month, day);
-                datePickerDialog.show();
-            }
-        });
-
-        ngayketthuc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Lấy ngày hiện tại
-                Locale.setDefault(new Locale("vi", "VN"));
-                final Calendar calendar = Calendar.getInstance();
-                int year = calendar.get(Calendar.YEAR);
-                int month = calendar.get(Calendar.MONTH);
-                int day = calendar.get(Calendar.DAY_OF_MONTH);
-
-                // Tạo hộp thoại chọn ngày
-                DatePickerDialog datePickerDialog = new DatePickerDialog(Ctrl_NganSachMoi.this,
-                        R.style.CustomDatePickerDialog_ChuyenTien,
-                        (view1, selectedYear, selectedMonth, selectedDay) -> {
-                            // Cập nhật TextView với ngày đã chọn
-                            String selectedDate = selectedDay + "/" + (selectedMonth + 1) + "/" + selectedYear;
-                            ngayketthuc.setText(selectedDate);
-                        }, year, month, day);
-                datePickerDialog.show();
-            }
-        });
 
     }
 
