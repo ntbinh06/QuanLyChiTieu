@@ -37,6 +37,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import org.checkerframework.checker.nullness.qual.NonNull;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -136,25 +138,55 @@ public class Ctrl_ThemChiPhi extends AppCompatActivity {
                     return;
                 }
 
-                // Tạo đối tượng M_GiaoDich và lưu vào Firebase
+                // Tạo đối tượng M_GiaoDich
                 M_GiaoDich giaoDich = new M_GiaoDich();
                 giaoDich.setIdGiaoDich(FirebaseDatabase.getInstance().getReference("GiaoDich").push().getKey());
                 giaoDich.setGiaTri(giaTri);
                 giaoDich.setIdHangMuc(selectedHangMucId);
                 giaoDich.setIdTaiKhoan(selectedTaiKhoanId);
-                giaoDich.setNgayTao(ngayTao); // Lưu ngày dưới dạng Date
+                giaoDich.setNgayTao(ngayTao);
                 giaoDich.setTu(tu);
                 giaoDich.setGhiChu(ghiChu);
 
                 DatabaseReference giaoDichRef = FirebaseDatabase.getInstance().getReference("GiaoDich");
+
+                // Lưu giao dịch trước
                 giaoDichRef.child(giaoDich.getIdGiaoDich()).setValue(giaoDich).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        Toast.makeText(Ctrl_ThemChiPhi.this, "Thông tin đã được lưu!", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(Ctrl_ThemChiPhi.this, Ctrl_TongQuan.class);
-                        startActivity(intent);
-                        finish();
+                        // Sau khi lưu giao dịch, cập nhật ngân sách dự trù
+                        DatabaseReference hangMucRef = FirebaseDatabase.getInstance().getReference("HangMuc").child(selectedHangMucId);
+                        hangMucRef.child("nganSachDuTru").addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if (snapshot.exists()) {
+                                    Double nganSachDuTru = snapshot.getValue(Double.class);
+                                    if (nganSachDuTru != null) {
+                                        double updatedNganSachDuTru = nganSachDuTru - giaTri;
+
+                                        // Cập nhật lại giá trị ngân sách dự trù
+                                        hangMucRef.child("nganSachDuTru").setValue(updatedNganSachDuTru).addOnCompleteListener(updateTask -> {
+                                            if (updateTask.isSuccessful()) {
+                                                Toast.makeText(Ctrl_ThemChiPhi.this, "Thông tin đã được lưu và ngân sách được cập nhật!", Toast.LENGTH_SHORT).show();
+                                                Intent intent = new Intent(Ctrl_ThemChiPhi.this, Ctrl_TongQuan.class);
+                                                startActivity(intent);
+                                                finish();
+                                            } else {
+                                                Toast.makeText(Ctrl_ThemChiPhi.this, "Lỗi cập nhật ngân sách. Vui lòng thử lại.", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                                    }
+                                } else {
+                                    Toast.makeText(Ctrl_ThemChiPhi.this, "Không tìm thấy ngân sách dự trù!", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                Toast.makeText(Ctrl_ThemChiPhi.this, "Lỗi khi đọc ngân sách: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     } else {
-                        Toast.makeText(Ctrl_ThemChiPhi.this, "Lỗi lưu thông tin. Vui lòng thử lại.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Ctrl_ThemChiPhi.this, "Lỗi lưu thông tin giao dịch. Vui lòng thử lại.", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
