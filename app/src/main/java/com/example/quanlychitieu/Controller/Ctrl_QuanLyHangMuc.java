@@ -43,10 +43,10 @@ public class Ctrl_QuanLyHangMuc extends AppCompatActivity {
         hangMucRef = FirebaseDatabase.getInstance().getReference("HangMuc");
 
         // Thêm danh sách nhóm hạng mục vào Firebase
-        addNhomHangMucToFirebase(createSampleNhomHangMuc());
+        //addNhomHangMucToFirebase(createSampleNhomHangMuc());
 
         // Thêm danh sách hạng mục vào Firebase
-        addHangMucToFirebase(createSampleHangMuc());
+        //addHangMucToFirebase(createSampleHangMuc());
 
         // Ánh xạ các view
         framelayout = findViewById(R.id.framelayout);

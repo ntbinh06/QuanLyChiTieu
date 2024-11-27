@@ -89,6 +89,7 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/LSDC"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Lần sử dụng cuối: 01/10/2024"
@@ -96,6 +97,7 @@
                     android:textColor="@android:color/black"/>
 
                 <TextView
+                    android:id="@+id/LBD"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Lượng ban đầu: 850.222 đ"
@@ -103,6 +105,7 @@
                     android:textColor="@android:color/black"/>
 
                 <TextView
+                    android:id="@+id/NgayTao"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Ngày tạo: 01/01/2024"
@@ -111,8 +114,8 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-    <ListView
-        android:id="@+id/listview"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_marginTop="350dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

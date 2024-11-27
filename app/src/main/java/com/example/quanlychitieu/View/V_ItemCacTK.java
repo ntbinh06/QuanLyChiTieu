@@ -23,6 +23,7 @@ import com.example.quanlychitieu.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class V_ItemCacTK extends ArrayAdapter<M_TaiKhoan> {
@@ -54,12 +55,19 @@ public class V_ItemCacTK extends ArrayAdapter<M_TaiKhoan> {
 
         // Xử lý sự kiện khi nhấn vào icon con mắt
         iconXemChiTiet.setOnClickListener(v -> {
+             //Định dạng ngày
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             // Tạo Intent để chuyển sang Activity XemTaiKhoanChiTiet
             Intent intent = new Intent(context, Ctrl_XemTKChiTiet.class);
 
             // Truyền dữ liệu tài khoản qua Intent
+            intent.putExtra("idTK", taikhoan.getIdTaiKhoan());
             intent.putExtra("tenTK", taikhoan.getTenTaiKhoan());
-            intent.putExtra("sodu", taikhoan.getLuongBanDau());
+            intent.putExtra("luongbandau", String.valueOf(taikhoan.getLuongBanDau()));
+            intent.putExtra("ngayTao", sdf.format(taikhoan.getNgayTao()));
+            intent.putExtra("lanSuDungCuoi", sdf.format(taikhoan.getLanSuDungCuoi()));
+
+
 
             // Khởi động Activity
             context.startActivity(intent);
