@@ -11,7 +11,7 @@ public class M_GiaoDich {
     private String idTaiKhoan;
     private Date ngayTao; // Sử dụng Date
     private String tu;
-    private String ghiChu;
+    private String ghiChu;private M_NhomHangMuc nhomHangMuc;
 
     // Constructor mặc định
     public M_GiaoDich() {}
@@ -25,6 +25,7 @@ public class M_GiaoDich {
         this.ngayTao = ngayTao;
         this.tu = tu;
         this.ghiChu = ghiChu;
+
     }
 
     // Getters và Setters

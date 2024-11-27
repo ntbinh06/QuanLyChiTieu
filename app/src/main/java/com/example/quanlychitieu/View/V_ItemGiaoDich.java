@@ -1,15 +1,20 @@
 package com.example.quanlychitieu.View;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.quanlychitieu.Controller.Ctrl_XemChiPhi;
 import com.example.quanlychitieu.Model.M_GiaoDich;
+import com.example.quanlychitieu.Model.M_NhomHangMuc;
 import com.example.quanlychitieu.R;
 
 import java.util.List;
@@ -44,6 +49,7 @@ public class V_ItemGiaoDich extends RecyclerView.Adapter<V_ItemGiaoDich.ViewHold
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tenGD, taiKhoan, tien, ngay;
+        ImageView loaiGd; // Thanh dọc
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -51,6 +57,7 @@ public class V_ItemGiaoDich extends RecyclerView.Adapter<V_ItemGiaoDich.ViewHold
             taiKhoan = itemView.findViewById(R.id.textAccount);
             tien = itemView.findViewById(R.id.textAmount);
             ngay = itemView.findViewById(R.id.textDate);
+            loaiGd = itemView.findViewById(R.id.loaiGd);  // Ánh xạ thanh dọc
         }
 
         public void bind(M_GiaoDich giaoDich) {

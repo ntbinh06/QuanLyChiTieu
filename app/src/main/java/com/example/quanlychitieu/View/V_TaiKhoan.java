@@ -65,4 +65,6 @@ public class V_TaiKhoan extends ArrayAdapter<M_TaiKhoan>{
         TextView tvLoaiTaiKhoan, tvTongSoTien, tvLanSDCuoi;
 
     }
+
+
 }

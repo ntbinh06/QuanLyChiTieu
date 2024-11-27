@@ -8,6 +8,7 @@ android:padding="10dp"
 android:gravity="center_vertical">
 
     <LinearLayout
+        android:id="@+id/GiaoDich"
         android:layout_width="match_parent"
         android:layout_height="90dp"
         android:orientation="horizontal"
@@ -20,14 +21,15 @@ android:gravity="center_vertical">
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginEnd="10dp"
-            android:src="@drawable/ic_circle" /> <!-- Icon đại diện -->
+            android:src="@drawable/income" /> <!-- Icon đại diện -->
 
         <!-- LinearLayout for the text content -->
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp">
 
             <!-- Transaction description -->
             <TextView
@@ -93,6 +95,7 @@ android:gravity="center_vertical">
 
         <!-- Line icon at the end -->
         <ImageView
+            android:id="@+id/loaiGd"
             android:layout_width="5dp"
             android:layout_height="match_parent"
             android:layout_marginStart="15dp"
