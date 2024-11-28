@@ -40,33 +40,9 @@ public class V_SideMenu extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.tongquan_menu);
 
-        txtTenUser_SM = findViewById(R.id.txtTenUser_SideMenu);
-        txtEmailUser_SM = findViewById(R.id.txtEmail_SideMenu);
 
-        // Firebase User
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (currentUser != null) {
-            String userId = currentUser.getUid();
-            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("NguoiDung").child(userId);
 
-            userRef.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.exists()) {
-                        String tenUser = dataSnapshot.child("tenUser").getValue(String.class);
-                        String email = dataSnapshot.child("email").getValue(String.class);
 
-                        txtTenUser_SM.setText(tenUser);
-                        txtEmailUser_SM.setText(email);
-                    }
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    Toast.makeText(V_SideMenu.this, "Không thể tải dữ liệu", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
 
         // Áp dụng insets cho layout
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.tongquan_menu), (v, insets) -> {

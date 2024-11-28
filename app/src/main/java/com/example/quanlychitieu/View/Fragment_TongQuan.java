@@ -18,10 +18,12 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -35,11 +37,15 @@ import com.example.quanlychitieu.Controller.Ctrl_QuanLyHangMuc;
 import com.example.quanlychitieu.Model.M_GiaoDich;
 import com.example.quanlychitieu.Model.M_TaiKhoan;
 import com.example.quanlychitieu.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -70,6 +76,8 @@ public class Fragment_TongQuan extends Fragment {
 
             // Khởi tạo RecyclerView và Adapter
             rvCacTaiKhoan = view.findViewById(R.id.recyclerviewGD);
+            DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
+            rvCacTaiKhoan.addItemDecoration(dividerItemDecoration);
             taiKhoanList = new ArrayList<>();
             myAdapter = new V_TongQuan_CacTaiKhoan(getContext(), taiKhoanList);
             rvCacTaiKhoan.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -159,6 +167,34 @@ public class Fragment_TongQuan extends Fragment {
         private void showDialog() {
             Dialog dialog = new Dialog(getContext());
             dialog.setContentView(R.layout.tongquan_menu);
+
+            TextView txtTenUser_SM= dialog.findViewById(R.id.txtTenUser_SideMenu);
+            TextView  txtEmailUser_SM= dialog.findViewById(R.id.txtEmail_SideMenu);
+
+            // Firebase User
+            FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+            if (currentUser != null) {
+                String userId = currentUser.getUid();
+                DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("NguoiDung").child(userId);
+
+                userRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            String tenUser = dataSnapshot.child("tenUser").getValue(String.class);
+                            String email = dataSnapshot.child("email").getValue(String.class);
+
+                            txtTenUser_SM.setText(tenUser);
+                            txtEmailUser_SM.setText(email);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Toast.makeText(getContext(), "Không thể tải dữ liệu", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
 
             Window window = dialog.getWindow();
             if (window != null) {

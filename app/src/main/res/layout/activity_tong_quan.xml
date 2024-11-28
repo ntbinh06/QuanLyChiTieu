@@ -335,7 +335,10 @@
                             android:layout_height="match_parent"
                             android:id="@+id/recyclerviewGD"
                             android:layout_gravity="center"
-                            android:padding="16dp"/>
+                            android:layout_marginLeft="25dp"
+                            android:layout_marginRight="15dp">
+
+                        </androidx.recyclerview.widget.RecyclerView>
                     </LinearLayout>
                 </LinearLayout>
 
@@ -401,6 +404,7 @@
                                 android:layout_marginTop="5dp"
                                 android:fontFamily="@font/inter_18pt_regular"/>
                         </LinearLayout>
+
                     </LinearLayout>
                 </LinearLayout>
 
