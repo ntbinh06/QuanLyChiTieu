@@ -79,6 +79,7 @@ public class V_NganSach extends RecyclerView.Adapter<V_NganSach.ViewHolder> {
         TextView tienConLaiTextView;
 
         public ViewHolder(@NonNull View itemView) {
+
             super(itemView);
             tenHangmucTextView = itemView.findViewById(R.id.tenHangMuc);
             nganSachDuTruTextView = itemView.findViewById(R.id.soTien);

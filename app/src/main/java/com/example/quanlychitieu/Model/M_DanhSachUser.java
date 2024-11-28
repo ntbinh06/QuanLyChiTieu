@@ -9,6 +9,7 @@ public class M_DanhSachUser {
 
     // Constructor cho class Model_DanhSachUser
     public M_DanhSachUser(int avatarResource, String name, String gmail, int ic_info, int ic_lock) {
+
         this.avatarResource = avatarResource;
         this.name = name;
         this.gmail = gmail;

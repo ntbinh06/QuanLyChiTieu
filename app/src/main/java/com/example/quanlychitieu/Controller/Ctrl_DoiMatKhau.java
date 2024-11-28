@@ -17,6 +17,7 @@ public class Ctrl_DoiMatKhau extends AppCompatActivity{
 
         ImageButton ic_back = findViewById(R.id.ic_back);
         Button btn_save = findViewById(R.id.btn_save);
+
         ic_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
