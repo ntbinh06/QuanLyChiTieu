@@ -3,19 +3,29 @@ package com.example.quanlychitieu.Controller;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.quanlychitieu.Model.M_DanhMucHangMuc;
+import com.example.quanlychitieu.Model.M_GiaoDich;
 import com.example.quanlychitieu.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class Ctrl_XemChiPhi extends AppCompatActivity {
-    private int transactionId; // ID của giao dịch cần xóa, bạn sẽ lấy giá trị này từ Intent
+    private String transactionId;
+    private DatabaseReference giaoDichRef; // Firebase reference for the transaction to be deleted
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,16 +41,31 @@ public class Ctrl_XemChiPhi extends AppCompatActivity {
         TextView txtGiaGD = findViewById(R.id.xemCTGiaGD);
         TextView txtTKGD = findViewById(R.id.xemCTTKGD);
         TextView txtNgayGD = findViewById(R.id.xemCTNgayGD);
+        TextView txtTu = findViewById(R.id.txtTu);
+        TextView txtGhiChu = findViewById(R.id.txtGhiChu);
 
-        // Lấy dữ liệu từ Intent
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            int hinhGD = extras.getInt("hinhGD");
-            String tenGD = extras.getString("tenGD");
-            String giaGD = extras.getString("tien");
-            String tenTK = extras.getString("tenTK");
-            String ngayGD = extras.getString("ngay");
-            transactionId = extras.getInt("transactionId"); // Lấy ID giao dịch từ Intent
+        // Nhận idGiaoDich và idNhom từ Intent
+        String idGiaoDich = getIntent().getStringExtra("idGiaoDich");
+        String idNhom = getIntent().getStringExtra("idNhom");
+// Lấy tham chiếu đến Firebase
+        giaoDichRef = FirebaseDatabase.getInstance().getReference("GiaoDich");
+
+        Intent intent = getIntent();
+        if (intent != null) {
+            String idHangmuc = intent.getStringExtra("idGiaoDich"); // Nhận ID dưới dạng String
+            if (idHangmuc == null || idHangmuc.isEmpty()) {
+                Toast.makeText(this, "ID không hợp lệ", Toast.LENGTH_SHORT).show();
+                finish();
+                return;
+            }
+
+            int hinhGD = intent.getIntExtra("hinhGD", 0);
+            String tenGD = intent.getStringExtra("tenGD");
+            String giaGD = intent.getStringExtra("tien");
+            String tenTK = intent.getStringExtra("tenTK");
+            String ngayGD = intent.getStringExtra("ngay");
+            String tu = intent.getStringExtra("tu");
+            String ghiChu = intent.getStringExtra("ghiChu");
 
             // Gán dữ liệu cho các View
             imgHinhGD.setImageResource(hinhGD);
@@ -48,6 +73,11 @@ public class Ctrl_XemChiPhi extends AppCompatActivity {
             txtGiaGD.setText(giaGD);
             txtTKGD.setText(tenTK);
             txtNgayGD.setText(ngayGD);
+            txtGhiChu.setText(ghiChu);
+            txtTu.setText(tu);
+
+            // Lưu transactionId
+            transactionId = idHangmuc; // Lưu ID dưới dạng String
         }
 
         // Xử lý sự kiện nút Sửa
@@ -94,7 +124,7 @@ public class Ctrl_XemChiPhi extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         // Gọi phương thức xóa giao dịch từ cơ sở dữ liệu
-                        deleteTransaction(transactionId);
+                        deleteTransaction(transactionId); // Đảm bảo truyền đúng ID (String)
 
                         // Đóng dialog sau khi thực hiện xóa
                         dialog.dismiss();
@@ -121,14 +151,23 @@ public class Ctrl_XemChiPhi extends AppCompatActivity {
         });
     }
 
-    private void deleteTransaction(int transactionId) {
-        // Thêm logic xóa giao dịch từ cơ sở dữ liệu tại đây
-        // Ví dụ:
-        // SQLiteDatabase db = getWritableDatabase();
-        // db.delete("transactions", "id=?", new String[]{String.valueOf(transactionId)});
+    private void deleteTransaction(String transactionId) {
+        // Firebase database deletion logic
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        giaoDichRef = database.getReference("GiaoDich"); // Reference to the GiaoDich node
+
+        // Delete transaction by ID
+        giaoDichRef.child(transactionId).removeValue().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                Toast.makeText(Ctrl_XemChiPhi.this, "Giao dịch đã được xóa", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(Ctrl_XemChiPhi.this, "Xóa giao dịch thất bại", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void navigateToLoginScreen() {
         startActivity(new Intent(Ctrl_XemChiPhi.this, Ctrl_CacGiaoDich.class));
     }
+
 }

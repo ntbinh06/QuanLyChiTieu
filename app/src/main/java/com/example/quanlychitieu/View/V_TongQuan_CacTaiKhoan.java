@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.quanlychitieu.Controller.Ctrl_XemTKChiTiet;
+import com.example.quanlychitieu.Model.M_DanhMucHangMuc;
 import com.example.quanlychitieu.Model.M_GiaoDich;
 import com.example.quanlychitieu.Model.M_TaiKhoan;
 import com.example.quanlychitieu.R;
@@ -22,11 +23,13 @@ public class V_TongQuan_CacTaiKhoan extends RecyclerView.Adapter<V_TongQuan_CacT
 
     private Context context;
     private List<M_TaiKhoan> taiKhoanList;
+    private List<M_GiaoDich> giaoDichList;
 
     public V_TongQuan_CacTaiKhoan(Context context, List<M_TaiKhoan> taiKhoanList) {
         this.context = context;
         this.taiKhoanList = taiKhoanList;
     }
+
 
     @NonNull
     @Override
@@ -40,6 +43,9 @@ public class V_TongQuan_CacTaiKhoan extends RecyclerView.Adapter<V_TongQuan_CacT
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         M_TaiKhoan taiKhoan = taiKhoanList.get(position);
         holder.bind(taiKhoan);
+
+        double soDu = 0;
+
     }
 
     @Override

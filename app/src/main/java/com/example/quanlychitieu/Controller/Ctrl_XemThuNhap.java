@@ -2,6 +2,7 @@ package com.example.quanlychitieu.Controller;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -31,6 +32,11 @@ public class Ctrl_XemThuNhap  extends AppCompatActivity{
         TextView txtGiaGD = findViewById(R.id.xemCTGiaGD);
         TextView txtTKGD = findViewById(R.id.xemCTTKGD);
         TextView txtNgayGD = findViewById(R.id.xemCTNgayGD);
+
+        String idNhom = getIntent().getStringExtra("idNhom");
+        String idGiaoDich = getIntent().getStringExtra("idGiaoDich");
+        // Tiến hành xử lý với idGiaoDich và idNhom
+        Log.d("Ctrl_XemThuNhap", "idGiaoDich: " + idGiaoDich + ", idNhom: " + idNhom);
 
         // Nhận dữ liệu từ Intent
         Bundle extras = getIntent().getExtras();

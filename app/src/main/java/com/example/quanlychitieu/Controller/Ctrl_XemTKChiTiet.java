@@ -169,6 +169,7 @@ public class Ctrl_XemTKChiTiet extends AppCompatActivity {
 
                 // Cập nhật giao diện RecyclerView
                 myadapter = new V_ItemGiaoDich(Ctrl_XemTKChiTiet.this, mylist);
+
                 lv.setAdapter(myadapter);
             }
 

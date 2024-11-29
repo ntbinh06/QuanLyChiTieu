@@ -11,7 +11,8 @@ public class M_GiaoDich {
     private String idTaiKhoan;
     private Date ngayTao; // Sử dụng Date
     private String tu;
-    private String ghiChu;private M_NhomHangMuc nhomHangMuc;
+    private String ghiChu;
+    private String idNhom;
 
     // Constructor mặc định
     public M_GiaoDich() {}

@@ -56,7 +56,6 @@ public class Ctrl_ThongTinCaNhan extends AppCompatActivity {
         getResources().updateConfiguration(config, getResources().getDisplayMetrics());
 
         setContentView(R.layout.activity_thongtincanhan);
-
         // Khởi tạo các thành phần giao diện
         ImageButton ic_back = findViewById(R.id.ic_back);
         Button btn_save = findViewById(R.id.btn_save);

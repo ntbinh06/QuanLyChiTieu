@@ -34,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="25dp"
-                android:text="CÁC CHI PHÍ"
+                android:text="CHI TIẾT CHI PHÍ"
                 android:textColor="@android:color/white"
                 android:textSize="24sp"
                 android:textStyle="bold"
@@ -137,6 +137,7 @@
                 android:textSize="20dp"
                 android:layout_marginTop="30dp"/>
             <TextView
+                android:id="@+id/txtTu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
@@ -155,6 +156,7 @@
                 android:textSize="20dp"
                 android:layout_marginTop="30dp"/>
             <TextView
+                android:id="@+id/txtGhiChu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
