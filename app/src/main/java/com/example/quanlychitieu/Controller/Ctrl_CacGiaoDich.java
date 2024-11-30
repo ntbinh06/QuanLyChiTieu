@@ -65,17 +65,16 @@ public class Ctrl_CacGiaoDich extends AppCompatActivity {
 
         // Cài đặt RecyclerView
         // Cập nhật khi khởi tạo adapter
-        myAdapter = new V_ItemGiaoDich(this, giaoDichList);  // Truyền nhomHangMucMap vào adapter
+        myAdapter = new V_ItemGiaoDich(this, giaoDichList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(myAdapter);
-
 
         recyclerView.addOnItemTouchListener(new Ctrl_RecyclerViewItemClickListener(this, recyclerView, new Ctrl_RecyclerViewItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
 
-                // Lấy thông tin giao dịch tại vị trí `position`
+                // Lấy thông tin giao dịch tại vị trí được nhấp
                 dbRef.child("GiaoDich").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -90,16 +89,16 @@ public class Ctrl_CacGiaoDich extends AppCompatActivity {
                                     public void onDataChange(DataSnapshot hangMucSnap) {
                                         String idNhom = hangMucSnap.child("idNhom").getValue(String.class);
 
-                                        // Logic điều hướng dựa trên idNhom hoặc điều kiện khác
+                                        // Điều hướng dựa trên idNhom
                                         Intent intent;
-                                        if ("1".equals(idNhom)) { // Điều kiện mở giao diện 1
+                                        if ("1".equals(idNhom)) {
                                             intent = new Intent(view.getContext(), Ctrl_XemThuNhap.class);
-                                        } else { // Điều kiện mở giao diện 2
+                                        } else {
                                             intent = new Intent(view.getContext(), Ctrl_XemChiPhi.class);
                                         }
 
-                                        // Truyền `idNhom` qua Intent
-                                        intent.putExtra("idGiaoDich", giaoDichSnap.getKey()); // Truyền idGiaoDich cho việc lấy chi tiết
+                                        // Truyền ID giao dịch và ID nhóm qua Intent
+                                        intent.putExtra("idGiaoDich", giaoDichSnap.getKey());
                                         intent.putExtra("idNhom", idNhom);
                                         view.getContext().startActivity(intent);
                                     }
@@ -109,7 +108,6 @@ public class Ctrl_CacGiaoDich extends AppCompatActivity {
                                         Log.w("Firebase", "loadHangMuc:onCancelled", databaseError.toException());
                                     }
                                 });
-
                                 break;
                             }
                             currentIndex++;
