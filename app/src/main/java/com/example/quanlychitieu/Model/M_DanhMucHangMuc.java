@@ -38,6 +38,14 @@ public class M_DanhMucHangMuc  {
         this.idHangmuc = idHangmuc;
     }
 
+    public String getAnhHangmuc() {
+        return anhHangmuc;
+    }
+
+    public void setAnhHangmuc(String anhHangmuc) {
+        this.anhHangmuc = anhHangmuc;
+    }
+
     public String getTenHangmuc() {
         return tenHangmuc;
     }

@@ -6,7 +6,8 @@
     android:orientation="horizontal"
     android:id="@+id/listView"
     android:padding="16dp"
-    tools:ignore="InvalidId">
+    tools:ignore="InvalidId"
+    tools:context=".View.V_ItemHangMuc">
 
     <ImageView
         android:id="@+id/image_hangMuc"

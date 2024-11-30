@@ -45,8 +45,12 @@ public class Ctrl_QuanLyHangMuc extends AppCompatActivity {
         // Thêm danh sách nhóm hạng mục vào Firebase
         //addNhomHangMucToFirebase(createSampleNhomHangMuc());
 
-        // Thêm danh sách hạng mục vào Firebase
-        //addHangMucToFirebase(createSampleHangMuc());
+//        // Xóa và thêm dữ liệu mới
+//        deleteAllHangMuc(); // Xóa tất cả hạng mục
+//
+////         Thêm danh sách hạng mục vào Firebase
+//        addHangMucToFirebase(createSampleHangMuc());
+
 
         // Ánh xạ các view
         framelayout = findViewById(R.id.framelayout);
@@ -91,7 +95,10 @@ public class Ctrl_QuanLyHangMuc extends AppCompatActivity {
         });
 
         // Sự kiện click để mở DialogFragment thêm hạng mục
-        addHangMuc.setOnClickListener(v -> openDialogFragment());
+        addHangMuc.setOnClickListener(v -> {
+            int idNhom = tablayout.getSelectedTabPosition() == 0 ? 1 : 2; // Tab 0 -> idNhom = 1, Tab 1 -> idNhom = 2
+            openAddHangMucFragment(idNhom);
+        });
     }
 
     // Phương thức hiển thị Fragment
@@ -103,9 +110,9 @@ public class Ctrl_QuanLyHangMuc extends AppCompatActivity {
     }
 
     // Mở DialogFragment để thêm hạng mục
-    private void openDialogFragment() {
-        Fragment_Them_Hang_Muc dialogFragment = new Fragment_Them_Hang_Muc();
-        dialogFragment.show(getSupportFragmentManager(), "ThemHangMuc");
+    private void openAddHangMucFragment(int idNhom) {
+        Fragment_Them_Hang_Muc fragment = Fragment_Them_Hang_Muc.newInstance(idNhom);
+        fragment.show(getSupportFragmentManager(), "ThemHangMuc");
     }
 
     // Thêm danh sách nhóm hạng mục mẫu vào Firebase
@@ -127,20 +134,29 @@ public class Ctrl_QuanLyHangMuc extends AppCompatActivity {
     // Thêm danh sách hạng mục mẫu vào Firebase
     private List<M_DanhMucHangMuc> createSampleHangMuc() {
         List<M_DanhMucHangMuc> danhSachHM = new ArrayList<>();
-        danhSachHM.add(new M_DanhMucHangMuc("1", "Tien Dien", "hthp/...jpg", null, "2", "DSEZCk7wpuPyegmLbv66Tn6HjCz1"));
-        danhSachHM.add(new M_DanhMucHangMuc("2", "Giai tri", "/.jpg2", null, "2", "DSEZCk7wpuPyegmLbv66Tn6HjCz1"));
-        danhSachHM.add(new M_DanhMucHangMuc("3", "Luong", "/.jpg3", null, "1", "DSEZCk7wpuPyegmLbv66Tn6HjCz1"));
-        danhSachHM.add(new M_DanhMucHangMuc("4", "An Uong", "/an_uong.jpg", null, "1", "DSEZCk7wpuPyegmLbv66Tn6HjCz1"));
-        danhSachHM.add(new M_DanhMucHangMuc("5", "Du Lich", "/du_lich.jpg", null, "2", "DSEZCk7wpuPyegmLbv66Tn6HjCz1"));
-        danhSachHM.add(new M_DanhMucHangMuc("6", "Y Te", "/y_te.jpg", null, "2", "DSEZCk7wpuPyegmLbv66Tn6HjCz1"));
+        danhSachHM.add(new M_DanhMucHangMuc("1", "Tiền Điện", "money", 500.0, "2", "DSEZCk7wpuPyegmLbv66Tn6HjCz1"));
+        danhSachHM.add(new M_DanhMucHangMuc("2", "Giải trí", "drum_set", null, "2", "DSEZCk7wpuPyegmLbv66Tn6HjCz1"));
+        danhSachHM.add(new M_DanhMucHangMuc("3", "Lương", "lending", null, "1", "DSEZCk7wpuPyegmLbv66Tn6HjCz1"));
+        danhSachHM.add(new M_DanhMucHangMuc("4", "Ăn Uống", "food", null, "2", "DSEZCk7wpuPyegmLbv66Tn6HjCz1"));
+        danhSachHM.add(new M_DanhMucHangMuc("5", "Du Lịch", "travel_luggage", null, "2", "DSEZCk7wpuPyegmLbv66Tn6HjCz1"));
+        danhSachHM.add(new M_DanhMucHangMuc("6", "Y Tế", "healthcare", null, "2", "DSEZCk7wpuPyegmLbv66Tn6HjCz1"));
         return danhSachHM;
     }
 
+
     private void addHangMucToFirebase(List<M_DanhMucHangMuc> danhSachHM) {
         for (M_DanhMucHangMuc hangMuc : danhSachHM) {
+            Log.d("FirebaseData", "Hạng mục: " + hangMuc.getTenHangmuc() + ", Ảnh: " + hangMuc.getAnhHangmuc());
             hangMucRef.child(hangMuc.getIdHangmuc()).setValue(hangMuc)
                     .addOnSuccessListener(aVoid -> Log.d("Firebase", "Thêm hạng mục thành công: " + hangMuc.getTenHangmuc()))
                     .addOnFailureListener(e -> Log.e("Firebase", "Lỗi thêm hạng mục: " + e.getMessage()));
         }
     }
+    private void deleteAllHangMuc() {
+        hangMucRef.removeValue()
+                .addOnSuccessListener(aVoid -> Log.d("Firebase", "Đã xóa tất cả hạng mục thành công"))
+                .addOnFailureListener(e -> Log.e("Firebase", "Lỗi khi xóa hạng mục: " + e.getMessage()));
+    }
+
+
 }

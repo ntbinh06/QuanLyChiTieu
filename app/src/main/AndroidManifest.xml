@@ -44,7 +44,13 @@
 
         <activity
             android:name=".Controller.Ctrl_QuanLyHangMuc"
-            android:exported="false" />
+            android:exported="false" >
+<!--                <intent-filter>-->
+<!--                    <action android:name="android.intent.action.MAIN" />-->
+
+<!--                    <category android:name="android.intent.category.LAUNCHER" />-->
+<!--                </intent-filter>-->
+        </activity>
 
 
         <activity
@@ -68,12 +74,7 @@
         <activity
             android:name=".Controller.Ctrl_ThongTinCaNhan"
             android:exported="false" />
-        <activity
-            android:name=".Controller.Ctrl_SuaChiPhi"
-            android:exported="false" />
-        <activity
-            android:name=".Controller.Ctrl_SuaThuNhap"
-            android:exported="false" />
+
 
         <activity
             android:name=".Controller.Ctrl_RegisterActivity"
@@ -93,7 +94,11 @@
 
         <activity android:name=".Controller.Ctrl_CacTaiKhoan"
             android:exported="false">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
 
         </activity>
 

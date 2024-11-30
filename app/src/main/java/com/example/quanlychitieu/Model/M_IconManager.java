@@ -16,13 +16,20 @@ public class M_IconManager {
                 R.drawable.food,
                 R.drawable.family,
                 R.drawable.shopping,
-                R.drawable.wage,
+                R.drawable.analysis,
                 R.drawable.delivery_van,
                 R.drawable.drum_set,
                 R.drawable.house,
                 R.drawable.healthcare,
                 R.drawable.pets,
-                R.drawable.travel_luggage
+                R.drawable.travel_luggage,
+                R.drawable.like,
+                R.drawable.money,
+                R.drawable.streams,
+                R.drawable.teamwork,
+                R.drawable.makeup,
+                R.drawable.school,
+                R.drawable.barbershop
         );
     }
 }
