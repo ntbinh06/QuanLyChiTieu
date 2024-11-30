@@ -69,6 +69,8 @@ public class Ctrl_CacGiaoDich extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(myAdapter);
 
+
+        //Chuyen huong den Thu Nhap va Chi phi
         recyclerView.addOnItemTouchListener(new Ctrl_RecyclerViewItemClickListener(this, recyclerView, new Ctrl_RecyclerViewItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -157,6 +159,7 @@ public class Ctrl_CacGiaoDich extends AppCompatActivity {
     }
 
 
+    //Hien thi ten hang muc
     private void loadHangMuc() {
         DatabaseReference hangMucRef = FirebaseDatabase.getInstance().getReference("HangMuc");
         hangMucRef.addValueEventListener(new ValueEventListener() {
@@ -180,6 +183,7 @@ public class Ctrl_CacGiaoDich extends AppCompatActivity {
     }
 
 
+    //Hien thi ten tai khoan
     private void loadTaiKhoan() {
         DatabaseReference taiKhoanRef = FirebaseDatabase.getInstance().getReference("TaiKhoan");
         taiKhoanRef.addValueEventListener(new ValueEventListener() {

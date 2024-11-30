@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -51,6 +53,8 @@ import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -86,26 +90,72 @@ public class Fragment_TongQuan extends Fragment {
         rvCacTaiKhoan.setLayoutManager(new LinearLayoutManager(getContext()));
         rvCacTaiKhoan.setAdapter(myAdapter);
 
-        DatabaseReference taiKhoanRef = FirebaseDatabase.getInstance().getReference("TaiKhoan");
-        taiKhoanRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                double tong = 0.0;
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    M_TaiKhoan taiKhoan = dataSnapshot.getValue(M_TaiKhoan.class);
-                    taiKhoanList.add(taiKhoan);
 
+        //Hien thi Tong So Du
+        eyeIcon = view.findViewById(R.id.ic_eye);
+        amountTextView = view.findViewById(R.id.txtTongTienSH);
+
+        final Drawable eyeClosed = ContextCompat.getDrawable(getContext(), R.drawable.eye_of); // Đảm bảo icon đóng mắt là đúng
+        final Drawable eyeOpened = ContextCompat.getDrawable(getContext(), R.drawable.eye_of); // Đảm bảo icon mở mắt là đúng
+
+        // Lưu giá trị ban đầu vào tag của amountTextView để sử dụng khi cần hiển thị lại
+        amountTextView.setTag(amountTextView.getText().toString());
+
+        eyeIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isAmountVisible) {
+                    // Ẩn số bằng dấu "*"
+                    String amountText = amountTextView.getText().toString();
+                    StringBuilder hiddenText = new StringBuilder();
+                    for (int i = 0; i < amountText.length(); i++) {
+                        hiddenText.append('*');
+                    }
+                    amountTextView.setText(hiddenText.toString());
+                    eyeIcon.setImageDrawable(eyeClosed); // Thay đổi icon mắt thành đóng
+                } else {
+                    // Hiển thị lại số tiền
+                    amountTextView.setText(amountTextView.getTag().toString()); // Lấy lại giá trị ban đầu từ tag
+                    eyeIcon.setImageDrawable(eyeOpened); // Thay đổi icon mắt thành mở
                 }
-                myAdapter.notifyDataSetChanged();
-
-            }
-
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
+                isAmountVisible = !isAmountVisible; // Đổi trạng thái của isAmountVisible
             }
         });
+
+
+
+
+
+        //HIEN THI DANH SACH CAC KHOAN
+        long startTimestamp = getStartOfDayTimestamp(3); // 2 ngày gần nhất
+        long endTimestamp = getEndOfDayTimestamp();
+
+        DatabaseReference taiKhoanRef = FirebaseDatabase.getInstance().getReference("TaiKhoan");
+        taiKhoanRef.orderByChild("ngayTao")
+                .limitToFirst(3)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        taiKhoanList.clear(); // Xóa danh sách cũ
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                            M_TaiKhoan taiKhoan = dataSnapshot.getValue(M_TaiKhoan.class);
+                            taiKhoanList.add(taiKhoan); // Thêm tài khoản vào danh sách
+                        }
+
+                        // Đảo ngược danh sách để sắp xếp giảm dần (ngày tạo gần nhất trước)
+                        Collections.reverse(taiKhoanList);
+
+                        // Cập nhật giao diện RecyclerView
+                        myAdapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Toast.makeText(getContext(), "Không thể tải dữ liệu", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
 
 
 
@@ -160,9 +210,6 @@ public class Fragment_TongQuan extends Fragment {
                 showCustomPopupWindow(v, false);
             }
         });
-
-        amountTextView = view.findViewById(R.id.txtTongTienSH);
-        eyeIcon = view.findViewById(R.id.ic_eye);
 
         return view;
     }
@@ -265,4 +312,27 @@ public class Fragment_TongQuan extends Fragment {
 
         dialog.show();
     }
+
+
+
+    private long getStartOfDayTimestamp(int daysAgo) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_YEAR, -daysAgo);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar.getTimeInMillis();
+    }
+
+    private long getEndOfDayTimestamp() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
+        calendar.set(Calendar.MILLISECOND, 999);
+        return calendar.getTimeInMillis();
+    }
+
+
 }
