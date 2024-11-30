@@ -69,6 +69,8 @@ public class Ctrl_CacGiaoDich extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(myAdapter);
 
+
+        //Chuyen huong den Thu Nhap va Chi phi
         recyclerView.addOnItemTouchListener(new Ctrl_RecyclerViewItemClickListener(this, recyclerView, new Ctrl_RecyclerViewItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -91,15 +93,25 @@ public class Ctrl_CacGiaoDich extends AppCompatActivity {
 
                                         // Điều hướng dựa trên idNhom
                                         Intent intent;
+                                        // Điều hướng dựa trên idNhom
                                         if ("1".equals(idNhom)) {
                                             intent = new Intent(view.getContext(), Ctrl_XemThuNhap.class);
                                         } else {
                                             intent = new Intent(view.getContext(), Ctrl_XemChiPhi.class);
                                         }
 
-                                        // Truyền ID giao dịch và ID nhóm qua Intent
-                                        intent.putExtra("idGiaoDich", giaoDichSnap.getKey());
-                                        intent.putExtra("idNhom", idNhom);
+// Truyền thêm thông tin cần thiết từ giao dịch
+                                        M_GiaoDich giaoDich = giaoDichSnap.getValue(M_GiaoDich.class);
+                                        if (giaoDich != null) {
+                                            intent.putExtra("idGiaoDich", giaoDichSnap.getKey()); // Đảm bảo bạn đang truyền ID giao dịch
+                                            intent.putExtra("idHangMuc", giaoDich.getIdHangMuc());
+                                            intent.putExtra("idTaiKhoan", giaoDich.getIdTaiKhoan());
+                                            intent.putExtra("giaTri", giaoDich.getGiaTri());
+                                            intent.putExtra("ngayTao", giaoDich.getFormattedNgayTao());
+                                            intent.putExtra("tu", giaoDich.getTu());
+                                            intent.putExtra("ghiChu", giaoDich.getGhiChu());
+                                        }
+
                                         view.getContext().startActivity(intent);
                                     }
 
@@ -157,6 +169,7 @@ public class Ctrl_CacGiaoDich extends AppCompatActivity {
     }
 
 
+    //Hien thi ten hang muc
     private void loadHangMuc() {
         DatabaseReference hangMucRef = FirebaseDatabase.getInstance().getReference("HangMuc");
         hangMucRef.addValueEventListener(new ValueEventListener() {
@@ -180,6 +193,7 @@ public class Ctrl_CacGiaoDich extends AppCompatActivity {
     }
 
 
+    //Hien thi ten tai khoan
     private void loadTaiKhoan() {
         DatabaseReference taiKhoanRef = FirebaseDatabase.getInstance().getReference("TaiKhoan");
         taiKhoanRef.addValueEventListener(new ValueEventListener() {

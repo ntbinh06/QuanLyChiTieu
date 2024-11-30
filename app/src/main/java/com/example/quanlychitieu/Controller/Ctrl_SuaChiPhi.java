@@ -44,54 +44,69 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
-public class Ctrl_ThemChiPhi extends AppCompatActivity {
-    private EditText editTextGiaTri, editTextTu, editTextGhiChu;
+public class Ctrl_SuaChiPhi extends AppCompatActivity {
+    private EditText editTextGiaTri, editTextTu, editTextGhiChu, editTextDate;
     private Spinner spnchiphi;
-    private FirebaseFirestore db;
-    private DatabaseReference userRef;
-    private List<M_TaiKhoan> taiKhoanList; // Danh sách tài khoản
-    private List<M_DanhMucHangMuc> HangMucList;
-    private static final int PICK_IMAGE_REQUEST = 1;
-    private EditText editTextDate;
     private ImageView imageViewCalendar;
+    private DatabaseReference userRef, giaoDichRef;
+    private List<M_TaiKhoan> taiKhoanList = new ArrayList<>();
+    private static final int PICK_IMAGE_REQUEST = 1;
+    private String transactionId, selectedTaiKhoanId, selectedHangMucId;
     private TextView chonHangMucTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_themchiphi); // Your layout file
+        setContentView(R.layout.activity_suachiphi); // Your layout file
 
-        spnchiphi = findViewById(R.id.spnchiphi);
-        db = FirebaseFirestore.getInstance();
+        // Khởi tạo các view
         editTextGiaTri = findViewById(R.id.edit_value);
         editTextTu = findViewById(R.id.edit_tu);
         editTextGhiChu = findViewById(R.id.edit_note);
-        chonHangMucTextView = findViewById(R.id.chonhangmuc);
-
         editTextDate = findViewById(R.id.day);
         imageViewCalendar = findViewById(R.id.image_day);
+        chonHangMucTextView = findViewById(R.id.chonhangmuc);
+        spnchiphi = findViewById(R.id.spnchiphi);
 
+        // Nhận dữ liệu từ Intent
+        Intent intent = getIntent();
+        transactionId = intent.getStringExtra("idGiaoDich");
+        double giaTri = intent.getDoubleExtra("giaTri", 0);
+        String ngayTao = intent.getStringExtra("ngayTao");
+        String ghiChu = intent.getStringExtra("ghiChu");
+        String tu = intent.getStringExtra("tu");
+        String idHangMuc = intent.getStringExtra("idHangMuc");
+        String idTaiKhoan = intent.getStringExtra("idTaiKhoan");
+        ImageButton ic_back = findViewById(R.id.ic_back);
+        Button buttonhuy = findViewById(R.id.buttonhuy);
+        Button buttonluu = findViewById(R.id.buttonluu);
+        ImageView btnCamera = findViewById(R.id.btnCamera);
+        ImageButton hangmuc = findViewById(R.id.hangmuc);
+        // Gán dữ liệu cho các view
+        editTextGiaTri.setText(String.valueOf(giaTri));
+        editTextDate.setText(ngayTao);
+        editTextGhiChu.setText(ghiChu != null ? ghiChu : "Không có ghi chú");
+        editTextTu.setText(tu != null ? tu : "Không có thông tin");
+
+        // Khởi tạo Firebase
+        userRef = FirebaseDatabase.getInstance().getReference("TaiKhoan");
+        giaoDichRef = FirebaseDatabase.getInstance().getReference("GiaoDich").child(transactionId);
+
+        // Lấy thông tin danh mục hàng hóa
+        loadHangMuc(idHangMuc);
+        // Lấy thông tin tài khoản
+        loadTaiKhoan(idTaiKhoan);
         imageViewCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDatePickerDialog();
             }
         });
-        // Lấy danh sách từ mô hình
-        taiKhoanList = new ArrayList<>();
-        userRef = FirebaseDatabase.getInstance().getReference("TaiKhoan");
-        // Lấy danh mục từ Firestore
-        gettaiKhoanList();
-
-        ImageButton hangmuc = findViewById(R.id.hangmuc);
-        ImageButton ic_back = findViewById(R.id.ic_back);
-        Button buttonhuy = findViewById(R.id.buttonhuy);
-        Button buttonluu = findViewById(R.id.buttonluu);
-        ImageView btnCamera = findViewById(R.id.btnCamera);
-
         hangmuc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,25 +117,31 @@ public class Ctrl_ThemChiPhi extends AppCompatActivity {
         buttonhuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Ctrl_ThemChiPhi.this, Ctrl_TongQuan.class));
+                startActivity(new Intent(Ctrl_SuaChiPhi.this, Ctrl_TongQuan.class));
             }
         });
 
         ic_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Ctrl_ThemChiPhi.this, Ctrl_TongQuan.class));
+                startActivity(new Intent(Ctrl_SuaChiPhi.this, Ctrl_TongQuan.class));
             }
         });
-
+        btnCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openGallery();
+            }
+        });
         buttonluu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 double giaTri;
+                // Kiểm tra giá trị nhập vào cho giaTri
                 try {
                     giaTri = Double.parseDouble(editTextGiaTri.getText().toString().trim());
                 } catch (NumberFormatException e) {
-                    Toast.makeText(Ctrl_ThemChiPhi.this, "Giá trị không hợp lệ!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Ctrl_SuaChiPhi.this, "Giá trị không hợp lệ!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -134,77 +155,66 @@ public class Ctrl_ThemChiPhi extends AppCompatActivity {
                 try {
                     ngayTao = sdf.parse(dateStr);
                 } catch (ParseException e) {
-                    Toast.makeText(Ctrl_ThemChiPhi.this, "Ngày không hợp lệ!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Ctrl_SuaChiPhi.this, "Ngày không hợp lệ!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                // Tạo đối tượng M_GiaoDich
-                M_GiaoDich giaoDich = new M_GiaoDich();
-                giaoDich.setIdGiaoDich(FirebaseDatabase.getInstance().getReference("GiaoDich").push().getKey());
-                giaoDich.setGiaTri(giaTri);
-                giaoDich.setIdHangMuc(selectedHangMucId);
-                giaoDich.setIdTaiKhoan(selectedTaiKhoanId);
-                giaoDich.setNgayTao(ngayTao);
-                giaoDich.setTu(tu);
-                giaoDich.setGhiChu(ghiChu);
+                // Nhận ID giao dịch từ Intent
+                String idGiaoDich = getIntent().getStringExtra("idGiaoDich");
+                if (idGiaoDich == null || idGiaoDich.isEmpty()) {
+                    Toast.makeText(Ctrl_SuaChiPhi.this, "ID giao dịch không hợp lệ!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-                DatabaseReference giaoDichRef = FirebaseDatabase.getInstance().getReference("GiaoDich");
+                // Sử dụng giá trị cũ nếu ID hạng mục hoặc tài khoản là null
+                String hangMucIdToUpdate = selectedHangMucId != null ? selectedHangMucId : getCurrentHangMucId();
+                String taiKhoanIdToUpdate = selectedTaiKhoanId != null ? selectedTaiKhoanId : getCurrentTaiKhoanId();
 
-                // Lưu giao dịch trước
-                giaoDichRef.child(giaoDich.getIdGiaoDich()).setValue(giaoDich).addOnCompleteListener(task -> {
+                // Tạo đối tượng M_GiaoDich và cập nhật vào Firebase
+                DatabaseReference giaoDichRef = FirebaseDatabase.getInstance().getReference("GiaoDich").child(idGiaoDich);
+
+                // Tạo một HashMap để cập nhật các trường mong muốn
+                HashMap<String, Object> updates = new HashMap<>();
+                updates.put("giaTri", giaTri);
+                updates.put("idHangMuc", hangMucIdToUpdate); // Cập nhật ID hạng mục
+                updates.put("idTaiKhoan", taiKhoanIdToUpdate); // Cập nhật ID tài khoản
+                updates.put("ngayTao", ngayTao); // Lưu ngày dưới dạng Date
+                updates.put("tu", tu);
+                updates.put("ghiChu", ghiChu);
+
+                // Cập nhật dữ liệu vào Firebase
+                giaoDichRef.updateChildren(updates).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        // Sau khi lưu giao dịch, cập nhật ngân sách dự trù
-                        DatabaseReference hangMucRef = FirebaseDatabase.getInstance().getReference("HangMuc").child(selectedHangMucId);
-                        hangMucRef.child("nganSachDuTru").addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                if (snapshot.exists()) {
-                                    Double nganSachDuTru = snapshot.getValue(Double.class);
-                                    if (nganSachDuTru != null) {
-                                        double updatedNganSachDuTru = nganSachDuTru - giaTri;
-
-                                        // Kiểm tra nếu giá trị vượt quá ngân sách dự trù
-                                        if (updatedNganSachDuTru < 0) {
-                                            double vuotQua = Math.abs(updatedNganSachDuTru);
-                                            Toast.makeText(Ctrl_ThemChiPhi.this,
-                                                    "Cảnh báo: Giá trị ngân sách  đã vượt quá " + vuotQua,
-                                                    Toast.LENGTH_LONG).show();
-                                        } else {
-                                            // Cập nhật lại giá trị ngân sách dự trù
-                                            hangMucRef.child("nganSachDuTru").setValue(updatedNganSachDuTru).addOnCompleteListener(updateTask -> {
-                                                if (updateTask.isSuccessful()) {
-                                                    Toast.makeText(Ctrl_ThemChiPhi.this, "Thông tin đã được lưu và ngân sách được cập nhật!", Toast.LENGTH_SHORT).show();
-                                                    Intent intent = new Intent(Ctrl_ThemChiPhi.this, Ctrl_TongQuan.class);
-                                                    startActivity(intent);
-                                                    finish();
-                                                } else {
-                                                    Toast.makeText(Ctrl_ThemChiPhi.this, "Lỗi cập nhật ngân sách. Vui lòng thử lại.", Toast.LENGTH_SHORT).show();
-                                                }
-                                            });
-                                        }
-                                    }
-                                } else {
-                                    startActivity(new Intent(Ctrl_ThemChiPhi.this, Ctrl_TongQuan.class));
-
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-                                Toast.makeText(Ctrl_ThemChiPhi.this, "Lỗi khi đọc ngân sách: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                        Toast.makeText(Ctrl_SuaChiPhi.this, "Thông tin đã được cập nhật!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(Ctrl_SuaChiPhi.this, Ctrl_CacGiaoDich.class);
+                        startActivity(intent);
+                        finish();
                     } else {
-                        Toast.makeText(Ctrl_ThemChiPhi.this, "Lỗi lưu thông tin giao dịch. Vui lòng thử lại.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Ctrl_SuaChiPhi.this, "Lỗi cập nhật thông tin. Vui lòng thử lại.", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
-        });
 
-        btnCamera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openGallery();
+            // Phương thức để lấy ID hạng mục hiện tại
+            private String getCurrentHangMucId() {
+                // Nhận ID hạng mục từ Intent
+                String idHangMuc = getIntent().getStringExtra("idHangMuc");
+                if (idHangMuc != null && !idHangMuc.isEmpty()) {
+                    return idHangMuc; // Trả về ID từ Intent
+                }
+
+                // Nếu không có ID từ Intent, kiểm tra biến toàn cục
+                if (selectedHangMucId != null) {
+                    return selectedHangMucId; // Trả về giá trị đã chọn
+                } else {
+                    // Nếu chưa chọn, có thể trả về một giá trị mặc định hoặc null
+                    return null; // Hoặc "defaultHangMucId" nếu cần
+                }
+            }
+            // Phương thức để lấy ID tài khoản hiện tại
+            private String getCurrentTaiKhoanId() {
+                // Trả về ID tài khoản hiện tại, có thể lấy từ một biến toàn cục hoặc một phương thức nào đó
+                return selectedTaiKhoanId != null ? selectedTaiKhoanId : "defaultTaiKhoanId"; // Thay "defaultTaiKhoanId" bằng giá trị mặc định nếu cần
             }
         });
     }
@@ -216,50 +226,71 @@ public class Ctrl_ThemChiPhi extends AppCompatActivity {
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(this,
                 (view, selectedYear, selectedMonth, selectedDay) -> {
-                    // Cập nhật ngày vào EditText theo định dạng dd/MM/yyyy
                     String selectedDate = String.format("%02d/%02d/%d", selectedDay, (selectedMonth + 1), selectedYear);
                     editTextDate.setText(selectedDate);
                 }, year, month, day);
         datePickerDialog.show();
     }
-    private void gettaiKhoanList() {
-        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+
+
+    private void loadHangMuc(String idHangMuc) {
+        DatabaseReference hangMucRef = FirebaseDatabase.getInstance().getReference("HangMuc").child(idHangMuc);
+        hangMucRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                taiKhoanList.clear(); // Xóa danh sách cũ nếu cần
-
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    String idTaiKhoan = snapshot.child("idTaiKhoan").getValue(String.class);
-                    String tenTaiKhoan = snapshot.child("tenTaiKhoan").getValue(String.class);
-
-                    // Tạo và thêm đối tượng M_TaiKhoan vào danh sách
-                    M_TaiKhoan taiKhoan = new M_TaiKhoan(idTaiKhoan, tenTaiKhoan); // Giả sử bạn có constructor như vậy
-                    taiKhoanList.add(taiKhoan);
-                }
-                updateSpinner();
+            public void onDataChange(DataSnapshot hangMucSnap) {
+                M_DanhMucHangMuc danhMucHangMuc = hangMucSnap.getValue(M_DanhMucHangMuc.class);
+                chonHangMucTextView.setText(danhMucHangMuc != null ? danhMucHangMuc.getTenHangmuc() : "Không có tên");
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(Ctrl_ThemChiPhi.this, "Lỗi lấy dữ liệu", Toast.LENGTH_SHORT).show();
-                Log.e("DatabaseError", databaseError.getMessage());
+                Toast.makeText(Ctrl_SuaChiPhi.this, "Lỗi khi tải danh mục", Toast.LENGTH_SHORT).show();
             }
         });
     }
-    private String selectedTaiKhoanId = null; // Biến để lưu ID tài khoản đã chọn
 
-    private void updateSpinner() {
+    private void loadTaiKhoan(String idTaiKhoan) {
+        userRef.child(idTaiKhoan).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot taiKhoanSnap) {
+                M_TaiKhoan taiKhoan = taiKhoanSnap.getValue(M_TaiKhoan.class);
+                // Cập nhật tên tài khoản nếu có
+                // Cần thêm một TextView để hiển thị tên tài khoản
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(Ctrl_SuaChiPhi.this, "Lỗi khi tải tài khoản", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        getTaiKhoanList(idTaiKhoan); // Lấy danh sách tài khoản
+    }
+
+    private void getTaiKhoanList(String selectedId) {
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                taiKhoanList.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    String idTaiKhoan = snapshot.child("idTaiKhoan").getValue(String.class);
+                    String tenTaiKhoan = snapshot.child("tenTaiKhoan").getValue(String.class);
+                    taiKhoanList.add(new M_TaiKhoan(idTaiKhoan, tenTaiKhoan));
+                }
+                updateSpinner(selectedId);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(Ctrl_SuaChiPhi.this, "Lỗi lấy dữ liệu", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void updateSpinner(String selectedId) {
         List<String> tentaikhoanList = new ArrayList<>();
         for (M_TaiKhoan taiKhoan : taiKhoanList) {
-            if (taiKhoan.getTenTaiKhoan() != null) { // Kiểm tra null trước khi thêm
-                tentaikhoanList.add(taiKhoan.getTenTaiKhoan());
-            }
-        }
-
-        // Kiểm tra nếu danh sách trống
-        if (tentaikhoanList.isEmpty()) {
-            Toast.makeText(this, "Không có tài khoản nào để hiển thị", Toast.LENGTH_SHORT).show();
-            return; // Ngừng thực hiện nếu không có dữ liệu
+            tentaikhoanList.add(taiKhoan.getTenTaiKhoan());
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, tentaikhoanList);
@@ -269,19 +300,27 @@ public class Ctrl_ThemChiPhi extends AppCompatActivity {
         spnchiphi.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                // Lưu ID tài khoản dựa trên chỉ số đã chọn
-                selectedTaiKhoanId = taiKhoanList.get(i).getIdTaiKhoan(); // Lấy ID tương ứng với tên tài khoản
-                String selectedItem = adapterView.getItemAtPosition(i).toString();
-                Toast.makeText(Ctrl_ThemChiPhi.this, selectedItem, Toast.LENGTH_SHORT).show();
+                selectedTaiKhoanId = taiKhoanList.get(i).getIdTaiKhoan(); // Lưu ID tài khoản đã chọn
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                Toast.makeText(Ctrl_ThemChiPhi.this, "Chưa chọn mục nào", Toast.LENGTH_SHORT).show();
+                selectedTaiKhoanId = null; // Không có gì được chọn
             }
         });
+
+        // Chọn tài khoản mặc định nếu ID đã cho
+        if (selectedId != null) {
+            for (int i = 0; i < taiKhoanList.size(); i++) {
+                if (taiKhoanList.get(i).getIdTaiKhoan().equals(selectedId)) {
+                    spnchiphi.setSelection(i);
+                    break;
+                }
+            }
+        }
     }
-    private String selectedHangMucId = null; // Biến để lưu ID hạng mục đã chọn
+
+
 
     private void openFeedbackDialog(int gravity) {
         final Dialog dialog = new Dialog(this);
@@ -310,24 +349,19 @@ public class Ctrl_ThemChiPhi extends AppCompatActivity {
         String idNhom = "2"; // Giá trị string bạn muốn so sánh
 
         danhMucRef.orderByChild("idNhom").equalTo(idNhom).addListenerForSingleValueEvent(new ValueEventListener() {
-
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                arrContact.clear(); // Xóa danh sách cũ nếu cần
-
+                arrContact.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     String idHangmuc = snapshot.child("idHangmuc").getValue(String.class);
                     String tenHangmuc = snapshot.child("tenHangmuc").getValue(String.class);
-
-                    // Thêm vào danh sách
                     arrContact.add(new M_DanhMucHangMuc(idHangmuc, tenHangmuc));
                 }
 
                 // Khởi tạo adapter và gán cho ListView
-                Ctrl_HangMucThuNhap customAdapter = new Ctrl_HangMucThuNhap(Ctrl_ThemChiPhi.this, R.layout.list_item_hangmuc, arrContact);
+                Ctrl_HangMucThuNhap customAdapter = new Ctrl_HangMucThuNhap(Ctrl_SuaChiPhi.this, R.layout.list_item_hangmuc, arrContact);
                 listView.setAdapter(customAdapter);
 
-                // Thiết lập sự kiện cho ListView
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -335,7 +369,7 @@ public class Ctrl_ThemChiPhi extends AppCompatActivity {
                         selectedHangMucId = selectedItem.getIdHangmuc(); // Lưu ID hạng mục đã chọn
                         String tenHangMuc = selectedItem.getTenHangmuc(); // Lấy tên hạng mục
                         chonHangMucTextView.setText(tenHangMuc); // Cập nhật TextView
-                        Toast.makeText(Ctrl_ThemChiPhi.this, "Đã chọn: " + tenHangMuc, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Ctrl_SuaChiPhi.this, "Đã chọn: " + tenHangMuc, Toast.LENGTH_SHORT).show();
                         dialog.dismiss(); // Đóng dialog sau khi chọn
                     }
                 });
@@ -343,13 +377,13 @@ public class Ctrl_ThemChiPhi extends AppCompatActivity {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(Ctrl_ThemChiPhi.this, "Lỗi lấy dữ liệu", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Ctrl_SuaChiPhi.this, "Lỗi lấy dữ liệu", Toast.LENGTH_SHORT).show();
                 Log.e("DatabaseError", databaseError.getMessage());
             }
         });
 
         dialog.setCancelable(Gravity.BOTTOM == gravity);
-        dialog.show(); // Hiển thị dialog
+        dialog.show(); // Hiển thị dialog// Hiển thị dialog
     }
 
     private void openGallery() {
@@ -364,8 +398,9 @@ public class Ctrl_ThemChiPhi extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             Uri imageUri = data.getData();
-            // Thực hiện các hành động cần thiết với hình ảnh, ví dụ: hiển thị trong ImageView
+            // Thực hiện các hành động cần thiết với hình ảnh
         }
     }
-}
 
+
+}

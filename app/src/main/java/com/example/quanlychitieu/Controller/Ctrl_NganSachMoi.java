@@ -220,7 +220,7 @@ public class Ctrl_NganSachMoi extends AppCompatActivity {
     private void openFeedbackDialog ( int gravity){
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.activity_hangmucthunhap);
+        dialog.setContentView(R.layout.activity_hangmucchiphi);
         Window window = dialog.getWindow();
         if (window == null) {
             return;
@@ -232,7 +232,7 @@ public class Ctrl_NganSachMoi extends AppCompatActivity {
         window.setAttributes(windowAttributes);
 
         // Thiết lập ListView trong dialog
-        ListView listView = dialog.findViewById(R.id.listView_thunhap);
+        ListView listView = dialog.findViewById(R.id.listView_chiphi);
 
         // Tạo danh sách hạng mục
         ArrayList<M_DanhMucHangMuc> arrContact = new ArrayList<>();

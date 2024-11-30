@@ -141,9 +141,16 @@ public class Ctrl_ThemThuNhap extends AppCompatActivity {
                     return;
                 }
 
-                // Tạo đối tượng M_GiaoDich và lưu vào Firebase
+                // Nhận ID giao dịch từ Intent
+                String idGiaoDich = getIntent().getStringExtra("idGiaoDich");
+                if (idGiaoDich == null || idGiaoDich.isEmpty()) {
+                    Toast.makeText(Ctrl_ThemThuNhap.this, "ID giao dịch không hợp lệ!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // Tạo đối tượng M_GiaoDich và cập nhật vào Firebase
                 M_GiaoDich giaoDich = new M_GiaoDich();
-                giaoDich.setIdGiaoDich(FirebaseDatabase.getInstance().getReference("GiaoDich").push().getKey());
+                giaoDich.setIdGiaoDich(idGiaoDich); // Sử dụng ID giao dịch hiện tại
                 giaoDich.setGiaTri(giaTri);
                 giaoDich.setIdHangMuc(selectedHangMucId);
                 giaoDich.setIdTaiKhoan(selectedTaiKhoanId);
@@ -151,15 +158,16 @@ public class Ctrl_ThemThuNhap extends AppCompatActivity {
                 giaoDich.setTu(tu);
                 giaoDich.setGhiChu(ghiChu);
 
-                DatabaseReference giaoDichRef = FirebaseDatabase.getInstance().getReference("GiaoDich");
-                giaoDichRef.child(giaoDich.getIdGiaoDich()).setValue(giaoDich).addOnCompleteListener(task -> {
+                // Cập nhật dữ liệu vào Firebase
+                DatabaseReference giaoDichRef = FirebaseDatabase.getInstance().getReference("GiaoDich").child(idGiaoDich);
+                giaoDichRef.setValue(giaoDich).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        Toast.makeText(Ctrl_ThemThuNhap.this, "Thông tin đã được lưu!", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(Ctrl_ThemThuNhap.this, Ctrl_TongQuan.class);
+                        Toast.makeText(Ctrl_ThemThuNhap.this, "Thông tin đã được cập nhật!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(Ctrl_ThemThuNhap.this, Ctrl_CacGiaoDich.class);
                         startActivity(intent);
                         finish();
                     } else {
-                        Toast.makeText(Ctrl_ThemThuNhap.this, "Lỗi lưu thông tin. Vui lòng thử lại.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Ctrl_ThemThuNhap.this, "Lỗi cập nhật thông tin. Vui lòng thử lại.", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
