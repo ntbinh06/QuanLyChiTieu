@@ -141,16 +141,9 @@ public class Ctrl_ThemThuNhap extends AppCompatActivity {
                     return;
                 }
 
-                // Nhận ID giao dịch từ Intent
-                String idGiaoDich = getIntent().getStringExtra("idGiaoDich");
-                if (idGiaoDich == null || idGiaoDich.isEmpty()) {
-                    Toast.makeText(Ctrl_ThemThuNhap.this, "ID giao dịch không hợp lệ!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
                 // Tạo đối tượng M_GiaoDich và cập nhật vào Firebase
                 M_GiaoDich giaoDich = new M_GiaoDich();
-                giaoDich.setIdGiaoDich(idGiaoDich); // Sử dụng ID giao dịch hiện tại
+                giaoDich.setIdGiaoDich(FirebaseDatabase.getInstance().getReference("GiaoDich").push().getKey());
                 giaoDich.setGiaTri(giaTri);
                 giaoDich.setIdHangMuc(selectedHangMucId);
                 giaoDich.setIdTaiKhoan(selectedTaiKhoanId);
@@ -159,7 +152,7 @@ public class Ctrl_ThemThuNhap extends AppCompatActivity {
                 giaoDich.setGhiChu(ghiChu);
 
                 // Cập nhật dữ liệu vào Firebase
-                DatabaseReference giaoDichRef = FirebaseDatabase.getInstance().getReference("GiaoDich").child(idGiaoDich);
+                DatabaseReference giaoDichRef = FirebaseDatabase.getInstance().getReference("GiaoDich").child(giaoDich.getIdGiaoDich());
                 giaoDichRef.setValue(giaoDich).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         Toast.makeText(Ctrl_ThemThuNhap.this, "Thông tin đã được cập nhật!", Toast.LENGTH_SHORT).show();
