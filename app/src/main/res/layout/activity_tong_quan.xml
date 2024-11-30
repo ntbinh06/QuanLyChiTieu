@@ -324,7 +324,7 @@
 
                     <LinearLayout
                         android:layout_width="350dp"
-                        android:layout_height="220dp"
+                        android:layout_height="250dp"
                         android:layout_gravity="center"
                         android:background="@drawable/bogoc_20_bluepurple"
                         android:layout_marginTop="10dp"
@@ -336,7 +336,8 @@
                             android:id="@+id/recyclerviewGD"
                             android:layout_gravity="center"
                             android:layout_marginLeft="25dp"
-                            android:layout_marginRight="15dp">
+                            android:layout_marginRight="25dp"
+                            android:layout_marginTop="10dp">
 
                         </androidx.recyclerview.widget.RecyclerView>
                     </LinearLayout>

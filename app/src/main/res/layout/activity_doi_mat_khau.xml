@@ -52,9 +52,10 @@
         android:layout_marginTop="20dp"
         android:drawableLeft="@drawable/security_24"
         android:hint="Nhập mật khẩu hiện tại"
-        android:textColor="@color/gray_9A"
+        android:textColor="@color/black"
         android:drawablePadding="15dp"
-        android:paddingBottom="16dp"/>
+        android:paddingBottom="16dp"
+        android:inputType="textPassword"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -74,9 +75,10 @@
         android:layout_marginTop="20dp"
         android:drawableLeft="@drawable/security_24"
         android:hint="Nhập mật khẩu mới"
-        android:textColor="@color/gray_9A"
+        android:textColor="@color/black"
         android:drawablePadding="15dp"
-        android:paddingBottom="16dp"/>
+        android:paddingBottom="16dp"
+        android:inputType="textPassword"/>
     <EditText
         android:id="@+id/inputPassAgainNew"
         android:layout_width="340dp"
@@ -85,9 +87,10 @@
         android:layout_marginTop="10dp"
         android:drawableLeft="@drawable/security_24"
         android:hint="Nhập lại mật khẩu mới"
-        android:textColor="@color/gray_9A"
+        android:textColor="@color/black"
         android:drawablePadding="15dp"
-        android:paddingBottom="16dp"/>
+        android:paddingBottom="16dp"
+        android:inputType="textPassword"/>
 
     <Button
         android:id="@+id/btn_save"
