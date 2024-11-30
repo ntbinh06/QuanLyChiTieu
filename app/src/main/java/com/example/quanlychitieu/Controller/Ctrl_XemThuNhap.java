@@ -1,4 +1,5 @@
 package com.example.quanlychitieu.Controller;
+
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,13 +10,23 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.quanlychitieu.Model.M_DanhMucHangMuc;
+import com.example.quanlychitieu.Model.M_GiaoDich;
+import com.example.quanlychitieu.Model.M_TaiKhoan;
 import com.example.quanlychitieu.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-public class Ctrl_XemThuNhap  extends AppCompatActivity{
+public class Ctrl_XemThuNhap extends AppCompatActivity {
 
-    private int transactionId; // ID của giao dịch cần xóa, bạn sẽ lấy giá trị này từ Intent
+    private String transactionId; // ID của giao dịch cần xóa, bạn sẽ lấy giá trị này từ Intent
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,35 +43,112 @@ public class Ctrl_XemThuNhap  extends AppCompatActivity{
         TextView txtGiaGD = findViewById(R.id.xemCTGiaGD);
         TextView txtTKGD = findViewById(R.id.xemCTTKGD);
         TextView txtNgayGD = findViewById(R.id.xemCTNgayGD);
+        TextView txtTu = findViewById(R.id.txtTu);
+        TextView txtGhiChu = findViewById(R.id.txtGhiChu);
 
-        String idNhom = getIntent().getStringExtra("idNhom");
-        String idGiaoDich = getIntent().getStringExtra("idGiaoDich");
-        // Tiến hành xử lý với idGiaoDich và idNhom
-        Log.d("Ctrl_XemThuNhap", "idGiaoDich: " + idGiaoDich + ", idNhom: " + idNhom);
+        // Nhận idGiaoDich từ Intent
+        Intent intent = getIntent();
+        transactionId = intent.getStringExtra("idGiaoDich");
 
-        // Nhận dữ liệu từ Intent
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            int hinhGD = extras.getInt("hinhGD");
-            String tenGD = extras.getString("tenGD");
-            String giaGD = extras.getString("tien");
-            String tenTK = extras.getString("tenTK");
-            String ngayGD = extras.getString("ngay");
-            transactionId = extras.getInt("transactionId");
+        // Ghi log để kiểm tra ID giao dịch
+        Log.d("Ctrl_XemThuNhap", "transactionId: " + transactionId);
 
-            // Gán dữ liệu cho các View
-            imgHinhGD.setImageResource(hinhGD);
-            txtTenGD.setText(tenGD);
-            txtGiaGD.setText(giaGD);
-            txtTKGD.setText(tenTK);
-            txtNgayGD.setText(ngayGD);
+        // Kiểm tra ID giao dịch
+        if (transactionId == null || transactionId.isEmpty()) {
+            Toast.makeText(this, "ID không hợp lệ", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
         }
 
-        buttonsua.setOnClickListener(new View.OnClickListener() {
+        // Thiết lập Firebase reference
+        DatabaseReference giaoDichRef = FirebaseDatabase.getInstance().getReference("GiaoDich").child(transactionId);
+
+        // Lấy dữ liệu giao dịch từ Firebase
+        giaoDichRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Ctrl_XemThuNhap.this, Ctrl_ThemThuNhap.class);
-                startActivity(intent);
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    M_GiaoDich giaoDich = dataSnapshot.getValue(M_GiaoDich.class);
+                    if (giaoDich != null) {
+                        txtGiaGD.setText(String.valueOf(giaoDich.getGiaTri()));
+                        txtGhiChu.setText(giaoDich.getGhiChu() != null ? giaoDich.getGhiChu() : "Không có ghi chú");
+                        txtTu.setText(giaoDich.getTu() != null ? giaoDich.getTu() : "Không có thông tin");
+                        txtNgayGD.setText(giaoDich.getFormattedNgayTao());
+
+                        // Lấy tên tài khoản
+                        String idTaiKhoan = giaoDich.getIdTaiKhoan();
+                        DatabaseReference taiKhoanRef = FirebaseDatabase.getInstance().getReference("TaiKhoan").child(idTaiKhoan);
+                        taiKhoanRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.exists()) {
+                                    M_TaiKhoan taiKhoan = dataSnapshot.getValue(M_TaiKhoan.class);
+                                    if (taiKhoan != null) {
+                                        txtTKGD.setText(taiKhoan.getTenTaiKhoan() != null ? taiKhoan.getTenTaiKhoan() : "Không có tên tài khoản");
+                                    } else {
+                                        txtTKGD.setText("Không có tên tài khoản");
+                                    }
+                                } else {
+                                    txtTKGD.setText("Không có tên tài khoản");
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                                Toast.makeText(Ctrl_XemThuNhap.this, "Lỗi khi tải tên tài khoản", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                        // Lấy tên hạng mục
+                        String idHangMuc = giaoDich.getIdHangMuc();
+                        DatabaseReference hangMucRef = FirebaseDatabase.getInstance().getReference("HangMuc").child(idHangMuc);
+                        hangMucRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.exists()) {
+                                    M_DanhMucHangMuc hangMuc = dataSnapshot.getValue(M_DanhMucHangMuc.class);
+                                    if (hangMuc != null) {
+                                        txtTenGD.setText(hangMuc.getTenHangmuc() != null ? hangMuc.getTenHangmuc() : "Không có tên hạng mục");
+                                    } else {
+                                        txtTenGD.setText("Không có tên hạng mục");
+                                    }
+                                } else {
+                                    txtTenGD.setText("Không có tên hạng mục");
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                                Toast.makeText(Ctrl_XemThuNhap.this, "Lỗi khi tải tên hạng mục", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                        // Xử lý sự kiện nút Sửa
+                        buttonsua.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(Ctrl_XemThuNhap.this, Ctrl_SuaThuNhap.class);
+                                intent.putExtra("idGiaoDich", transactionId);
+                                intent.putExtra("giaTri", giaoDich.getGiaTri());
+                                intent.putExtra("ngayTao", giaoDich.getFormattedNgayTao());
+                                intent.putExtra("ghiChu", giaoDich.getGhiChu());
+                                intent.putExtra("tu", giaoDich.getTu());
+                                intent.putExtra("idHangMuc", giaoDich.getIdHangMuc());
+                                intent.putExtra("idTaiKhoan", giaoDich.getIdTaiKhoan());
+                                startActivity(intent);
+                            }
+                        });
+                    } else {
+                        Toast.makeText(Ctrl_XemThuNhap.this, "Dữ liệu giao dịch không hợp lệ", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(Ctrl_XemThuNhap.this, "Giao dịch không tồn tại", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(Ctrl_XemThuNhap.this, "Lỗi khi tải dữ liệu", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -71,6 +159,7 @@ public class Ctrl_XemThuNhap  extends AppCompatActivity{
                 startActivity(intent);
             }
         });
+
         buttonxoa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -123,11 +212,15 @@ public class Ctrl_XemThuNhap  extends AppCompatActivity{
         });
     }
 
-    private void deleteTransaction(int transactionId) {
-        // Thêm logic xóa giao dịch từ cơ sở dữ liệu tại đây
-        // Ví dụ:
-        // SQLiteDatabase db = getWritableDatabase();
-        // db.delete("transactions", "id=?", new String[]{String.valueOf(transactionId)});
+    private void deleteTransaction(String transactionId) {
+        DatabaseReference giaoDichRef = FirebaseDatabase.getInstance().getReference("GiaoDich").child(transactionId);
+        giaoDichRef.removeValue().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                Toast.makeText(Ctrl_XemThuNhap.this, "Giao dịch đã được xóa", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(Ctrl_XemThuNhap.this, "Lỗi khi xóa giao dịch", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void navigateToLoginScreen() {

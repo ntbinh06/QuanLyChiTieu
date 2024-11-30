@@ -135,6 +135,7 @@
                 android:textSize="20dp"
                 android:layout_marginTop="30dp"/>
             <TextView
+                android:id="@+id/txtTu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
@@ -153,6 +154,7 @@
                 android:textSize="20dp"
                 android:layout_marginTop="30dp"/>
             <TextView
+                android:id="@+id/txtGhiChu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
