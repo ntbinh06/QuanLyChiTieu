@@ -161,7 +161,7 @@
                         android:layout_gravity="center">
 
                         <TextView
-                            android:id="@+id/txt_soluoc"
+                            android:id="@+id/txt_ThangHienTai"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
@@ -185,7 +185,7 @@
 
                                 <!-- ProgressBar lớn -->
                                 <ProgressBar
-                                    android:id="@+id/progressBar1"
+                                    android:id="@+id/progressBarThuNhap"
                                     style="?android:attr/progressBarStyleHorizontal"
                                     android:layout_width="125dp"
                                     android:layout_height="125dp"
@@ -193,12 +193,11 @@
                                     android:layout_marginBottom="5dp"
                                     android:indeterminate="false"
                                     android:max="100"
-                                    android:progress="80"
                                     android:progressDrawable="@drawable/circular_progress_1" />
 
                                 <!-- ProgressBar nhỏ, nằm bên trong ProgressBar lớn -->
                                 <ProgressBar
-                                    android:id="@+id/progressBar2"
+                                    android:id="@+id/progressBarChiPhi"
                                     style="?android:attr/progressBarStyleHorizontal"
                                     android:layout_width="60dp"
                                     android:layout_height="70dp"
@@ -206,7 +205,6 @@
                                     android:layout_marginBottom="5dp"
                                     android:indeterminate="false"
                                     android:max="100"
-                                    android:progress="60"
                                     android:progressDrawable="@drawable/circular_progress_2" />
                             </FrameLayout>
 
@@ -234,14 +232,6 @@
                                     android:textColor="@color/black_50"
                                     android:textSize="15sp" />
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="5dp"
-                                    android:fontFamily="@font/inter_18pt_regular"
-                                    android:text="Tổng cộng:"
-                                    android:textColor="@color/black_50"
-                                    android:textSize="15sp" />
                             </LinearLayout>
 
                             <LinearLayout
@@ -268,21 +258,10 @@
                                     android:layout_marginTop="5dp"
                                     android:fontFamily="@font/inter_18pt_edium"
                                     android:text="5.000.000 đ"
-                                    android:textColor="@color/red"
+                                    android:textColor="@color/red_2"
                                     android:textSize="15sp"
                                     android:gravity="right"/>
 
-                                <TextView
-                                    android:id="@+id/txtTongCong"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="10dp"
-                                    android:layout_marginTop="5dp"
-                                    android:fontFamily="@font/inter_18pt_edium"
-                                    android:text="3.000.000 đ"
-                                    android:gravity="right"
-                                    android:textColor="@color/deep_blue"
-                                    android:textSize="15sp" />
                             </LinearLayout>
                         </LinearLayout>
 

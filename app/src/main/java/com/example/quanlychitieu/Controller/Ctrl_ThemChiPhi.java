@@ -65,6 +65,7 @@ public class Ctrl_ThemChiPhi extends AppCompatActivity {
         setContentView(R.layout.activity_themchiphi); // Your layout file
 
         spnchiphi = findViewById(R.id.spnchiphi);
+        spnchiphi.setDropDownVerticalOffset(140);
         db = FirebaseFirestore.getInstance();
         editTextGiaTri = findViewById(R.id.edit_value);
         editTextTu = findViewById(R.id.edit_tu);
