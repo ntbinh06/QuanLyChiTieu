@@ -84,6 +84,7 @@ public class Fragment_TongQuan extends Fragment {
         // Khởi tạo RecyclerView và Adapter
         rvCacTaiKhoan = view.findViewById(R.id.recyclerviewGD);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
+
         rvCacTaiKhoan.addItemDecoration(dividerItemDecoration);
         taiKhoanList = new ArrayList<>();
         myAdapter = new V_TongQuan_CacTaiKhoan(getContext(), taiKhoanList);

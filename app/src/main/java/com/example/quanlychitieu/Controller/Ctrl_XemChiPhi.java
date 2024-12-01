@@ -50,6 +50,7 @@ public class Ctrl_XemChiPhi extends AppCompatActivity {
         // Nhận idGiaoDich từ Intent
         Intent intent = getIntent();
         String transactionId = intent.getStringExtra("idGiaoDich");
+        String idNhom = intent.getStringExtra("idNhom");
 
         // Ghi log để kiểm tra ID giao dịch
         Log.d("Ctrl_XemChiPhi", "transactionId: " + transactionId);

@@ -70,65 +70,82 @@ public class Ctrl_CacGiaoDich extends AppCompatActivity {
         recyclerView.setAdapter(myAdapter);
 
 
-        //Chuyen huong den Thu Nhap va Chi phi
         recyclerView.addOnItemTouchListener(new Ctrl_RecyclerViewItemClickListener(this, recyclerView, new Ctrl_RecyclerViewItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
+                // Giả sử bạn có một danh sách chứa giao dịch
+                M_GiaoDich selectedGiaoDich = giaoDichList.get(position); // Lấy giao dịch từ vị trí
+                String idGiaoDich = selectedGiaoDich.getIdGiaoDich();
+
                 DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
 
-                // Lấy thông tin giao dịch tại vị trí được nhấp
-                dbRef.child("GiaoDich").addListenerForSingleValueEvent(new ValueEventListener() {
+                // Truy vấn bảng GiaoDich
+                dbRef.child("GiaoDich").child(idGiaoDich).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        int currentIndex = 0;
-                        for (DataSnapshot giaoDichSnap : dataSnapshot.getChildren()) {
-                            if (currentIndex == position) {
-                                String idHangMuc = giaoDichSnap.child("idHangMuc").getValue(String.class);
+                    public void onDataChange(@NonNull DataSnapshot giaoDichSnap) {
+                        if (giaoDichSnap.exists()) {
+                            String idHangMuc = giaoDichSnap.child("idHangMuc").getValue(String.class);
+                            long giaTri = giaoDichSnap.child("giaTri").getValue(Long.class);
 
-                                // Truy vấn `HangMuc` để lấy `idNhom`
-                                dbRef.child("HangMuc").child(idHangMuc).addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(DataSnapshot hangMucSnap) {
+                            // Truy vấn bảng HangMuc dựa trên idHangMuc
+                            dbRef.child("HangMuc").child(idHangMuc).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot hangMucSnap) {
+                                    if (hangMucSnap.exists()) {
                                         String idNhom = hangMucSnap.child("idNhom").getValue(String.class);
+                                        String tenHangMuc = hangMucSnap.child("tenHangMuc").getValue(String.class);
 
-                                        // Điều hướng dựa trên idNhom
-                                        Intent intent;
-                                        // Điều hướng dựa trên idNhom
-                                        if ("1".equals(idNhom)) {
-                                            intent = new Intent(view.getContext(), Ctrl_XemThuNhap.class);
-                                        } else {
-                                            intent = new Intent(view.getContext(), Ctrl_XemChiPhi.class);
-                                        }
+                                        // Truy vấn bảng NhomHangMuc dựa trên idNhom
+                                        dbRef.child("NhomHangMuc").child(idNhom).addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot nhomSnap) {
+                                                if (nhomSnap.exists()) {
+                                                    String tenNhom = nhomSnap.child("tenNhom").getValue(String.class);
 
-// Truyền thêm thông tin cần thiết từ giao dịch
-                                        M_GiaoDich giaoDich = giaoDichSnap.getValue(M_GiaoDich.class);
-                                        if (giaoDich != null) {
-                                            intent.putExtra("idGiaoDich", giaoDichSnap.getKey()); // Đảm bảo bạn đang truyền ID giao dịch
-                                            intent.putExtra("idHangMuc", giaoDich.getIdHangMuc());
-                                            intent.putExtra("idTaiKhoan", giaoDich.getIdTaiKhoan());
-                                            intent.putExtra("giaTri", giaoDich.getGiaTri());
-                                            intent.putExtra("ngayTao", giaoDich.getFormattedNgayTao());
-                                            intent.putExtra("tu", giaoDich.getTu());
-                                            intent.putExtra("ghiChu", giaoDich.getGhiChu());
-                                        }
+                                                    // Chuyển hướng theo idNhom
+                                                    Intent intent = new Intent();
+                                                    if ("1".equals(idNhom)) {
+                                                        intent = new Intent(view.getContext(), Ctrl_XemThuNhap.class);
+                                                    } else if ("2".equals(idNhom)) {
+                                                        intent = new Intent(view.getContext(), Ctrl_XemChiPhi.class);
+                                                    }
 
-                                        view.getContext().startActivity(intent);
+                                                    // Truyền dữ liệu giao dịch
+                                                    intent.putExtra("idGiaoDich", idGiaoDich);
+                                                    intent.putExtra("idHangMuc", idHangMuc);
+                                                    intent.putExtra("giaTri", giaTri);
+                                                    intent.putExtra("tenHangMuc", tenHangMuc);
+                                                    intent.putExtra("tenNhom", tenNhom);
+
+                                                    view.getContext().startActivity(intent);
+
+                                                    // Ghi log thông tin
+                                                    Log.d("Firebase", "Chi tiết giao dịch:");
+                                                    Log.d("Firebase", "Tên nhóm: " + tenNhom);
+                                                    Log.d("Firebase", "Tên hạng mục: " + tenHangMuc);
+                                                    Log.d("Firebase", "Giá trị giao dịch: " + giaTri);
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+                                                Log.e("Firebase", "Lỗi truy vấn NhomHangMuc: " + error.getMessage());
+                                            }
+                                        });
                                     }
+                                }
 
-                                    @Override
-                                    public void onCancelled(DatabaseError databaseError) {
-                                        Log.w("Firebase", "loadHangMuc:onCancelled", databaseError.toException());
-                                    }
-                                });
-                                break;
-                            }
-                            currentIndex++;
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+                                    Log.e("Firebase", "Lỗi truy vấn HangMuc: " + error.getMessage());
+                                }
+                            });
                         }
                     }
 
                     @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        Log.w("Firebase", "loadGiaoDich:onCancelled", databaseError.toException());
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Log.e("Firebase", "Lỗi truy vấn GiaoDich: " + error.getMessage());
                     }
                 });
             }
@@ -138,6 +155,7 @@ public class Ctrl_CacGiaoDich extends AppCompatActivity {
                 // Xử lý khi click dài (nếu cần thiết)
             }
         }));
+
 
 
 

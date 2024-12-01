@@ -51,6 +51,10 @@ public class V_ItemGiaoDich extends RecyclerView.Adapter<V_ItemGiaoDich.ViewHold
         holder.bind(giaoDich, context);  // Truyền context vào đây
     }
 
+    public M_GiaoDich getItem(int position) {
+        return myList.get(position);
+    }
+
     @Override
     public int getItemCount() {
         return myList.size();
@@ -76,28 +80,6 @@ public class V_ItemGiaoDich extends RecyclerView.Adapter<V_ItemGiaoDich.ViewHold
             tien.setText(String.valueOf(giaoDich.getGiaTri()));
             ngay.setText(giaoDich.getFormattedNgayTao());
 
-            // Lấy idNhomHangMuc từ Firebase qua idHangMuc
-            DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
-            dbRef.child("HangMuc").child(giaoDich.getIdHangMuc()).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    String idNhomHangMuc = snapshot.child("idNhom").getValue(String.class);
-
-                    // Cập nhật màu cho thanh theo idNhomHangMuc
-                    if ("1".equals(idNhomHangMuc)) { // Nhóm "Thu nhập"
-                        loaiGd.setColorFilter(ContextCompat.getColor(context, R.color.green));
-                    } else if ("2".equals(idNhomHangMuc)) { // Nhóm "Chi phí"
-                        loaiGd.setColorFilter(ContextCompat.getColor(context, R.color.red_2));
-                    } else {
-                        loaiGd.setColorFilter(ContextCompat.getColor(context, R.color.gray_9A));
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    Log.e("Firebase", "Error fetching HangMuc", error.toException());
-                }
-            });
         }
     }
 }
