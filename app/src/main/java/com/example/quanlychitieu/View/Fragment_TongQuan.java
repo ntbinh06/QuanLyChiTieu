@@ -18,8 +18,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 
 
 import androidx.annotation.NonNull;
@@ -28,6 +30,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 import com.example.quanlychitieu.Controller.Ctrl_GioiThieu;
 import com.example.quanlychitieu.Controller.Ctrl_NganSach;
@@ -37,7 +41,9 @@ import com.example.quanlychitieu.Controller.Ctrl_NguoiDung;
 import com.example.quanlychitieu.Controller.Ctrl_RecyclerViewItemClickListener;
 import com.example.quanlychitieu.Controller.Ctrl_TongQuan;
 import com.example.quanlychitieu.Controller.Ctrl_QuanLyHangMuc;
+import com.example.quanlychitieu.Controller.Ctrl_XemChiPhi;
 import com.example.quanlychitieu.Controller.Ctrl_XemTKChiTiet;
+import com.example.quanlychitieu.Controller.Ctrl_XemThuNhap;
 import com.example.quanlychitieu.Model.M_GiaoDich;
 import com.example.quanlychitieu.Model.M_TaiKhoan;
 import com.example.quanlychitieu.R;
@@ -51,24 +57,29 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class Fragment_TongQuan extends Fragment {
 
     private ImageView btnMenu, btnXemCacTaiKhoan, btnXemCacGiaoDich;
-    private TextView amountTextView;
+    private TextView amountTextView, currentMonthofYear, txtTongThuNhap, txtTongChiPhi;
     private ImageView eyeIcon;
     private boolean isAmountVisible = true;
     private RecyclerView rvCacTaiKhoan;
     private List<M_TaiKhoan> taiKhoanList = new ArrayList<>();
     private Map<String, String> taiKhoanMap = new HashMap<>();
     private V_TongQuan_CacTaiKhoan myAdapter;
+    private ProgressBar progressBarThuNhap, progressBarChiPhi;
 
     public Fragment_TongQuan() {}
 
@@ -80,6 +91,8 @@ public class Fragment_TongQuan extends Fragment {
         btnMenu = view.findViewById(R.id.btnMenu);
         btnXemCacTaiKhoan = view.findViewById(R.id.all_cactaikhoan);
         btnXemCacGiaoDich = view.findViewById(R.id.all_cacgiaodich);
+        progressBarThuNhap = view.findViewById(R.id.progressBarThuNhap);
+        progressBarChiPhi = view.findViewById(R.id.progressBarChiPhi);
 
         // Khởi tạo RecyclerView và Adapter
         rvCacTaiKhoan = view.findViewById(R.id.recyclerviewGD);
@@ -90,6 +103,23 @@ public class Fragment_TongQuan extends Fragment {
         myAdapter = new V_TongQuan_CacTaiKhoan(getContext(), taiKhoanList);
         rvCacTaiKhoan.setLayoutManager(new LinearLayoutManager(getContext()));
         rvCacTaiKhoan.setAdapter(myAdapter);
+
+        // Hiển thị tháng năm hiện tại
+        currentMonthofYear = view.findViewById(R.id.txt_ThangHienTai);
+
+        // Lấy tháng và năm hiện tại
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("MMMM / yyyy", new Locale("Vi", "VN")); // "vi" để hiển thị tiếng Việt
+        String currentMonthYear = sdf.format(calendar.getTime());
+
+        // Gán chuỗi tháng năm vào TextView
+        currentMonthofYear.setText(currentMonthYear);
+
+
+        // Tinh Tong thu nhap va Tong Chi phi của tháng hien tai
+        txtTongChiPhi = view.findViewById(R.id.txtTongChiPhi);
+        txtTongThuNhap = view.findViewById(R.id.txtTongThuNhap);
+        loadThuChiThangHienTai();
 
 
         //Hien thi Tong So Du
@@ -141,7 +171,7 @@ public class Fragment_TongQuan extends Fragment {
                         }
 
                         // Đảo ngược danh sách để sắp xếp giảm dần (ngày tạo gần nhất trước)
-                        Collections.reverse(taiKhoanList);
+                        //Collections.reverse( taiKhoanList);
 
                         // Cập nhật giao diện RecyclerView
                         myAdapter.notifyDataSetChanged();
@@ -312,6 +342,100 @@ public class Fragment_TongQuan extends Fragment {
     }
 
 
+    public void loadThuChiThangHienTai() {
+        DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
+
+        // Lấy tháng và năm hiện tại
+        Calendar calendar = Calendar.getInstance();
+        int thangHienTai = calendar.get(Calendar.MONTH) + 1; // Tháng (1-12)
+        int namHienTai = calendar.get(Calendar.YEAR); // Năm
+
+        // Bước 1: Tải dữ liệu từ bảng HangMuc
+        dbRef.child("HangMuc").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot hangMucSnap) {
+                // Tạo HashMap lưu idHangMuc -> idNhom
+                HashMap<String, String> hangMucMap = new HashMap<>();
+                for (DataSnapshot hangMuc : hangMucSnap.getChildren()) {
+                    String idHangMuc = hangMuc.getKey();
+                    String idNhom = hangMuc.child("idNhom").getValue(String.class);
+                    if (idHangMuc != null && idNhom != null) {
+                        hangMucMap.put(idHangMuc, idNhom);
+                    }
+                }
+
+                // Bước 2: Tải dữ liệu từ bảng GiaoDich
+                dbRef.child("GiaoDich").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot giaoDichSnap) {
+                        long tongThuNhap = 0;
+                        long tongChiPhi = 0;
+
+                        for (DataSnapshot giaoDich : giaoDichSnap.getChildren()) {
+                            String idHangMuc = giaoDich.child("idHangMuc").getValue(String.class);
+                            Long giaTri = giaoDich.child("giaTri").getValue(Long.class);
+
+                            // Lấy thông tin ngày
+                            Integer ngay = giaoDich.child("ngayTao/date").getValue(Integer.class);
+                            Integer thang = giaoDich.child("ngayTao/month").getValue(Integer.class);
+                            Integer nam = giaoDich.child("ngayTao/year").getValue(Integer.class);
+
+                            if (idHangMuc != null && giaTri != null && ngay != null && thang != null && nam != null) {
+                                thang += 1; // Firebase lưu tháng từ 0-11
+                                nam += 1900; // Firebase lưu năm từ 1900
+
+                                // Kiểm tra giao dịch có thuộc tháng và năm hiện tại
+                                if (thang == thangHienTai && nam == namHienTai) {
+                                    String idNhom = hangMucMap.get(idHangMuc);
+
+                                    if ("1".equals(idNhom)) { // Nhóm 1 là thu nhập
+                                        tongThuNhap += giaTri;
+                                    } else if ("2".equals(idNhom)) { // Nhóm 2 là chi phí
+                                        tongChiPhi += giaTri;
+                                    }
+                                }
+                            }
+                        }
+
+                        // Tính tỷ lệ phần trăm cho thu nhập và chi phí
+                        long tongCong = tongThuNhap + tongChiPhi;
+                        int percentThuNhap = 0;
+                        int percentChiPhi = 0;
+
+                        if (tongCong > 0) { // Đảm bảo tổng không phải là 0
+                            percentThuNhap = (int) ((tongThuNhap * 100) / tongCong);
+                            percentChiPhi = (int) ((tongChiPhi * 100) / tongCong);
+                        }
+
+                        // Định dạng số tiền
+                        NumberFormat format = NumberFormat.getInstance(Locale.forLanguageTag("vi-VN"));
+                        String formattedThuNhap = format.format(tongThuNhap) + " đ";
+                        String formattedChiPhi = format.format(tongChiPhi) + " đ";
+
+                        // Cập nhật ProgressBar
+                        progressBarThuNhap.setMax(100); // Đảm bảo max là 100
+                        progressBarChiPhi.setMax(100); // Đảm bảo max là 100
+                        progressBarThuNhap.setProgress(percentThuNhap);
+                        progressBarChiPhi.setProgress(percentChiPhi);
+
+                        // Cập nhật giá trị hiển thị
+                        txtTongThuNhap.setText(formattedThuNhap);
+                        txtTongChiPhi.setText(formattedChiPhi);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Log.e("Firebase", "Lỗi truy vấn GiaoDich: " + error.getMessage());
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("Firebase", "Lỗi truy vấn HangMuc: " + error.getMessage());
+            }
+        });
+    }
 
 
 

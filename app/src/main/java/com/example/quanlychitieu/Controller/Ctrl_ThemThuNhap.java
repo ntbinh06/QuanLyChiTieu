@@ -71,6 +71,7 @@ public class Ctrl_ThemThuNhap extends AppCompatActivity {
         editTextGhiChu = findViewById(R.id.edit_note);
          chonHangMucTextView = findViewById(R.id.chonhangmuc);
         spnthunhap = findViewById(R.id.spnthunhap);
+        spnthunhap.setDropDownVerticalOffset(140);
 
         editTextDate = findViewById(R.id.day);
         imageViewCalendar = findViewById(R.id.image_day);
