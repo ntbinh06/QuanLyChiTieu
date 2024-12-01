@@ -171,7 +171,7 @@ public class Fragment_TongQuan extends Fragment {
                         }
 
                         // Đảo ngược danh sách để sắp xếp giảm dần (ngày tạo gần nhất trước)
-                        Collections.reverse(taiKhoanList);
+                        //Collections.reverse( taiKhoanList);
 
                         // Cập nhật giao diện RecyclerView
                         myAdapter.notifyDataSetChanged();
