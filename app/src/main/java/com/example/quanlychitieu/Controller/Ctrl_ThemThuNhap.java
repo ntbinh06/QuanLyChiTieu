@@ -44,8 +44,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 public class Ctrl_ThemThuNhap extends AppCompatActivity {
 
@@ -131,23 +133,35 @@ public class Ctrl_ThemThuNhap extends AppCompatActivity {
                 String ghiChu = editTextGhiChu.getText().toString().trim();
                 String dateStr = editTextDate.getText().toString().trim();
 
-                // Chuyển đổi chuỗi ngày tháng thành đối tượng Date
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-                Date ngayTao;
-                try {
-                    ngayTao = sdf.parse(dateStr);
-                } catch (ParseException e) {
-                    Toast.makeText(Ctrl_ThemThuNhap.this, "Ngày không hợp lệ!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
 
-                // Tạo đối tượng M_GiaoDich và cập nhật vào Firebase
+
+                // Tạo đối tượng M_GiaoDich
                 M_GiaoDich giaoDich = new M_GiaoDich();
                 giaoDich.setIdGiaoDich(FirebaseDatabase.getInstance().getReference("GiaoDich").push().getKey());
                 giaoDich.setGiaTri(giaTri);
                 giaoDich.setIdHangMuc(selectedHangMucId);
                 giaoDich.setIdTaiKhoan(selectedTaiKhoanId);
-                giaoDich.setNgayTao(ngayTao); // Lưu ngày dưới dạng Date
+
+                // Chuyển đổi chuỗi ngày tháng thành đối tượng Date
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+                Date ngayTao;
+                try {
+                    ngayTao = sdf.parse(dateStr);
+
+                    // Lưu ngày tạo dưới dạng Map
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTime(ngayTao);
+                    Map<String, Object> dateMap = new HashMap<>();
+                    dateMap.put("ngay", calendar.get(Calendar.DAY_OF_MONTH));
+                    dateMap.put("thang", calendar.get(Calendar.MONTH) + 1); // Tháng được tính từ 0
+                    dateMap.put("nam", calendar.get(Calendar.YEAR));
+
+                    giaoDich.setNgayTao(dateMap); // Cập nhật ngày tạo để lưu trên Firebase
+                } catch (ParseException e) {
+                    Toast.makeText(Ctrl_ThemThuNhap.this, "Ngày không hợp lệ!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 giaoDich.setTu(tu);
                 giaoDich.setGhiChu(ghiChu);
 

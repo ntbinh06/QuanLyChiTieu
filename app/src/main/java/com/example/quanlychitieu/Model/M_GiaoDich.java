@@ -1,15 +1,16 @@
 package com.example.quanlychitieu.Model;
 
-
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Map;
 
 public class M_GiaoDich {
     private String idGiaoDich;
     private double giaTri;
     private String idHangMuc;
     private String idTaiKhoan;
-    private Date ngayTao; // Sử dụng Date
+    private Map<String, Object> ngayTao;  // Sử dụng Map cho ngày
     private String tu;
     private String ghiChu;
     private String idNhom;
@@ -18,7 +19,7 @@ public class M_GiaoDich {
     public M_GiaoDich() {}
 
     // Constructor có tham số
-    public M_GiaoDich(String idGiaoDich, double giaTri, String idHangMuc,String idTaiKhoan, Date ngayTao, String tu, String ghiChu) {
+    public M_GiaoDich(String idGiaoDich, double giaTri, String idHangMuc, String idTaiKhoan, Map<String, Object> ngayTao, String tu, String ghiChu) {
         this.idGiaoDich = idGiaoDich;
         this.giaTri = giaTri;
         this.idHangMuc = idHangMuc;
@@ -26,7 +27,6 @@ public class M_GiaoDich {
         this.ngayTao = ngayTao;
         this.tu = tu;
         this.ghiChu = ghiChu;
-
     }
 
     // Getters và Setters
@@ -62,11 +62,11 @@ public class M_GiaoDich {
         this.idTaiKhoan = idTaiKhoan;
     }
 
-    public Date getNgayTao() {
+    public Map<String, Object> getNgayTao() {
         return ngayTao;
     }
 
-    public void setNgayTao(Date ngayTao) {
+    public void setNgayTao(Map<String, Object> ngayTao) {
         this.ngayTao = ngayTao;
     }
 
@@ -86,10 +86,19 @@ public class M_GiaoDich {
         this.ghiChu = ghiChu;
     }
 
-
-    // Phương thức chuyển đổi Date thành String
+    // Phương thức chuyển đổi Map thành String
     public String getFormattedNgayTao() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); // Định dạng ngày
-        return ngayTao != null ? dateFormat.format(ngayTao) : ""; // Trả về chuỗi định dạng hoặc chuỗi rỗng nếu ngày là null
+        if (ngayTao != null) {
+            int ngay = Integer.parseInt(ngayTao.get("ngay").toString());
+            int thang = Integer.parseInt(ngayTao.get("thang").toString());
+            int nam = Integer.parseInt(ngayTao.get("nam").toString());
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(nam, thang - 1, ngay); // Tháng trong Calendar bắt đầu từ 0
+
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            return dateFormat.format(calendar.getTime()); // Trả về định dạng ngày
+        }
+        return ""; // Trả về chuỗi rỗng nếu ngày là null
     }
 }

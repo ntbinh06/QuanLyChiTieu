@@ -113,6 +113,7 @@
                     android:fontFamily="@font/inter_18pt_regular"/>
 
                 <TextView
+                    android:id="@+id/totalrest"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="2,400,000"
@@ -136,6 +137,7 @@
                     android:layout_marginLeft="15dp">
 
                     <TextView
+                        android:id="@+id/tong"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="5 M"
@@ -169,6 +171,7 @@
                     android:layout_marginLeft="5dp">
 
                     <TextView
+                        android:id="@+id/totaldachi"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="2.6 M"
@@ -201,6 +204,7 @@
                     android:layout_marginLeft="5dp">
 
                     <TextView
+                        android:id="@+id/dayrest"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="29 ngày"

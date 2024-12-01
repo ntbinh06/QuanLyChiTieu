@@ -11,6 +11,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,7 +33,8 @@ import java.util.Map;
 public class Ctrl_ChiTietNganSach extends AppCompatActivity {
 
     private String transactionId; // Biến để lưu transactionId
-    private TextView txtTenHangMuc, txtSoTien, txtConLai, txtDaChi;
+    private TextView txtTenHangMuc, txtSoTien, txtConLai, txtDaChi,tvDay;
+    private ProgressBar pgbTienTrinh;
     private ImageView imgHangMuc;
 
     @Override
@@ -40,11 +42,13 @@ public class Ctrl_ChiTietNganSach extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chi_tiet_ngan_sach);
 
+        pgbTienTrinh=findViewById(R.id.pgbTienTrinh);
         txtTenHangMuc = findViewById(R.id.tvCategoryName);
         txtSoTien = findViewById(R.id.tvAmount);
         txtConLai = findViewById(R.id.tvRemainingMoney);
         txtDaChi = findViewById(R.id.tvSpentMoney);
         imgHangMuc = findViewById(R.id.imgCategory);
+        tvDay = findViewById(R.id.tvDay);
         ImageButton ic_back = findViewById(R.id.ic_back);
         Button btnEdit = findViewById(R.id.btnEdit);
         Button btnDelete = findViewById(R.id.btnDeleteNganSach);
@@ -63,14 +67,54 @@ public class Ctrl_ChiTietNganSach extends AppCompatActivity {
             double soTienConLai = intent.getDoubleExtra("soTienConLai", 0.0);
             double daChi = soTien - soTienConLai;
 
+
             txtTenHangMuc.setText(tenHangMuc);
             txtSoTien.setText(formatCurrency(soTien));
             txtConLai.setText(formatCurrency(soTienConLai));
             txtDaChi.setText(formatCurrency(daChi));
+                // Cập nhật ProgressBar
+            pgbTienTrinh.setMax((int) soTien); // Thiết lập giá trị tối đa cho ProgressBar
+            pgbTienTrinh.setProgress((int) daChi); // Thiết lập giá trị hiện tại cho ProgressBar
+
+            // Đổi màu ProgressBar nếu cần
+            if (daChi >= soTien) {
+                pgbTienTrinh.setProgressDrawable(getResources().getDrawable(R.drawable.progress_red)); // Đặt drawable màu đỏ nếu đã chi tiêu vượt ngân sách
+            } else {
+                pgbTienTrinh.setProgressDrawable(getResources().getDrawable(R.drawable.progress_bar)); // Đặt drawable màu mặc định
+            }
 
             // Lưu transactionId
             transactionId = idHangmuc; // Lưu ID dưới dạng String
+            // Truy vấn Firebase để lấy ngayTaoNganSach
+            DatabaseReference hangMucRef = FirebaseDatabase.getInstance().getReference("HangMuc").child(transactionId);
+            hangMucRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        Map<String, Object> ngayTaoNganSach = (Map<String, Object>) dataSnapshot.child("ngayTaoNganSach").getValue();
+                        if (ngayTaoNganSach != null) {
+                            int ngay = ((Long) ngayTaoNganSach.get("ngay")).intValue();
+                            int thang = ((Long) ngayTaoNganSach.get("thang")).intValue();
+                            int nam = ((Long) ngayTaoNganSach.get("nam")).intValue();
+
+                            // Hiển thị ngày tạo ngân sách
+                            String formattedDate = String.format("%02d/%02d/%d", ngay, thang, nam);
+                            tvDay.setText(formattedDate); // txtNgayTao là TextView để hiển thị ngày
+                        } else {
+                            Toast.makeText(Ctrl_ChiTietNganSach.this, "Ngày tạo không tồn tại", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(Ctrl_ChiTietNganSach.this, "ID không tồn tại trong Firebase", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Toast.makeText(Ctrl_ChiTietNganSach.this, "Lỗi: " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
         }
+
 
 
         ic_back.setOnClickListener(view -> {
@@ -210,13 +254,14 @@ public class Ctrl_ChiTietNganSach extends AppCompatActivity {
                     hangMucRef.child("nganSachDuTru").removeValue()
                             .addOnCompleteListener(task1 -> {
                                 if (task1.isSuccessful()) {
-                                    hangMucRef.child("idTaiKhoan").removeValue()
+                                    // Xóa trường ngayTaoNganSach
+                                    hangMucRef.child("ngayTaoNganSach").removeValue()
                                             .addOnCompleteListener(task2 -> {
                                                 if (task2.isSuccessful()) {
                                                     Toast.makeText(Ctrl_ChiTietNganSach.this, "Xóa thành công", Toast.LENGTH_SHORT).show();
                                                     finish();
                                                 } else {
-                                                    Toast.makeText(Ctrl_ChiTietNganSach.this, "Lỗi xóa idTaiKhoan: " + task2.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(Ctrl_ChiTietNganSach.this, "Lỗi xóa ngayTaoNganSach: " + task2.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                                 }
                                             });
                                 } else {

@@ -172,13 +172,20 @@ public class Ctrl_SuaChiPhi extends AppCompatActivity {
 
                 // Tạo đối tượng M_GiaoDich và cập nhật vào Firebase
                 DatabaseReference giaoDichRef = FirebaseDatabase.getInstance().getReference("GiaoDich").child(idGiaoDich);
+                // Lưu ngày tháng dưới dạng Map
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(ngayTao);
+                Map<String, Object> dateMap = new HashMap<>();
+                dateMap.put("ngay", calendar.get(Calendar.DAY_OF_MONTH));
+                dateMap.put("thang", calendar.get(Calendar.MONTH) + 1); // Tháng được tính từ 0
+                dateMap.put("nam", calendar.get(Calendar.YEAR));
 
                 // Tạo một HashMap để cập nhật các trường mong muốn
                 HashMap<String, Object> updates = new HashMap<>();
                 updates.put("giaTri", giaTri);
                 updates.put("idHangMuc", hangMucIdToUpdate); // Cập nhật ID hạng mục
                 updates.put("idTaiKhoan", taiKhoanIdToUpdate); // Cập nhật ID tài khoản
-                updates.put("ngayTao", ngayTao); // Lưu ngày dưới dạng Date
+                updates.put("ngayTao", dateMap);
                 updates.put("tu", tu);
                 updates.put("ghiChu", ghiChu);
 
@@ -355,6 +362,7 @@ public class Ctrl_SuaChiPhi extends AppCompatActivity {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     String idHangmuc = snapshot.child("idHangmuc").getValue(String.class);
                     String tenHangmuc = snapshot.child("tenHangmuc").getValue(String.class);
+
                     arrContact.add(new M_DanhMucHangMuc(idHangmuc, tenHangmuc));
                 }
 
