@@ -465,15 +465,12 @@ public class Fragment_TongQuan extends Fragment {
                             Long giaTri = giaoDich.child("giaTri").getValue(Long.class);
 
                             // Lấy thông tin ngày
-                            Integer ngay = giaoDich.child("ngayTao/date").getValue(Integer.class);
-                            Integer thang = giaoDich.child("ngayTao/month").getValue(Integer.class);
-                            Integer nam = giaoDich.child("ngayTao/year").getValue(Integer.class);
+                            Integer ngay = giaoDich.child("ngayTao/ngay").getValue(Integer.class);
+                            Integer thang = giaoDich.child("ngayTao/thang").getValue(Integer.class);
+                            Integer nam = giaoDich.child("ngayTao/nam").getValue(Integer.class);
 
                             if (idHangMuc != null && giaTri != null && ngay != null && thang != null && nam != null) {
-                                thang += 1; // Firebase lưu tháng từ 0-11
-                                nam += 1900; // Firebase lưu năm từ 1900
-
-                                // Kiểm tra giao dịch có thuộc tháng và năm hiện tại
+                                // Kiểm tra giao dịch có thuộc tháng và năm hiện tại không
                                 if (thang == thangHienTai && nam == namHienTai) {
                                     String idNhom = hangMucMap.get(idHangMuc);
 
@@ -525,6 +522,7 @@ public class Fragment_TongQuan extends Fragment {
             }
         });
     }
+
 
     //Hien thi ten hang muc
     private void loadHangMuc() {
