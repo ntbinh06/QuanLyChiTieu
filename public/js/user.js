@@ -1,83 +1,30 @@
-// Array of users to display
-const users = [
-    {
-        avatar: '../images/user_women.png',
-        name: 'Lê Thị Kim Ngân',
-        email: 'ltkngan@gmail.com',
-    },
-    {
-        avatar: '../images/user_women.png',
-        name: 'Nguyễn Thanh Bình',
-        email: 'ntbinh@gmail.com',
-    },
-    {
-        avatar: '../images/user_women.png',
-        name: 'Cái Thị Nhân Đức',
-        email: 'nguyenvana@gmail.com',
-    },
-    {
-        avatar: '../images/user_women.png',
-        name: 'Nguyễn Như Ngọc',
-        email: 'nnngoc@gmail.com',
-    },
-    {
-        avatar: '../images/user_women.png',
-        name: 'Nguyễn Văn A',
-        email: 'nguyenvana@gmail.com',
-    },
-    {
-        avatar: '../images/user_women.png',
-        name: 'Nguyễn Văn A',
-        email: 'nguyenvana@gmail.com',
-    },
-    {
-        avatar: '../images/user_women.png',
-        name: 'Nguyễn Văn A',
-        email: 'nguyenvana@gmail.com',
-    },
-    {
-        avatar: '../images/user_women.png',
-        name: 'Nguyễn Văn A',
-        email: 'nguyenvana@gmail.com',
-    },
-    {
-        avatar: '../images/user_women.png',
-        name: 'Nguyễn Văn A',
-        email: 'nguyenvana@gmail.com',
-    },
-    {
-        avatar: '../images/user_women.png',
-        name: 'Nguyễn Văn A',
-        email: 'nguyenvana@gmail.com',
-    },
-];
-
-// Function to render user list
-function renderUserList(userList) {
-    const userListContainer = document.getElementById('userList');
-    userListContainer.innerHTML = ''; // Clear existing elements
-
-    userList.forEach(user => {
-        // Create a user list item
-        const userItem = document.createElement('li');
-        userItem.innerHTML = `
-            <div class="user-avatar">
-                <img src="${user.avatar}" alt="User Avatar">
-            </div>
-            <div class="user-info">
-                <div class="user-name">${user.name}</div>
-                <div class="user-email">${user.email}</div>
-            </div>
-            <div class="user-icon">
-                <a href="/XemChiTietUser" class="user-icon-eye"><i class="fa-solid fa-eye"></i></a>
-                <a href="#" class="user-icon-lock"><i class="fa-solid fa-lock"></i></a>
-            </div>
-        `;
-        userListContainer.appendChild(userItem);
-    });
-}
-
-// Ensure the function is called once the DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-    renderUserList(users);
-});
+app.get('/QuanLyNguoiDung', async (req, res) => {
+    try {
+      const userRef = ref(database, 'NguoiDung'); // Tham chiếu tới nhánh 'NguoiDung'
+      const snapshot = await get(userRef); // Lấy dữ liệu từ Firebase
+  
+      if (snapshot.exists()) {
+        const data = snapshot.val(); // Dữ liệu người dùng
+        const userList = [];
+  
+        // Chuyển đổi dữ liệu Firebase thành mảng
+        for (const id in data) {
+          userList.push({
+            avatar: '../images/user_women.png', // Đường dẫn ảnh cố định
+            name: data[id].tenUser,  // Tên người dùng
+            email: data[id].email,   // Email người dùng
+          });
+        }
+  
+        // Truyền dữ liệu vào view EJS
+        res.render('QuanLyNguoiDung', { userList });
+      } else {
+        // Trường hợp không có dữ liệu
+        res.render('QuanLyNguoiDung', { userList: [] });
+      }
+    } catch (error) {
+      console.error("Lỗi khi đọc dữ liệu Firebase: ", error);
+      res.render('QuanLyNguoiDung', { userList: [] });
+    }
+  });
+  

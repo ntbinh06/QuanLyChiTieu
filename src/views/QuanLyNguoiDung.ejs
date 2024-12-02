@@ -11,6 +11,7 @@
     <title>Quản lý người dùng</title>
 </head>
 <body>
+    <!-- Sidebar -->
     <aside>
         <div class="sidebar">
             <div class="sidebar_title">
@@ -29,6 +30,7 @@
         </div>
     </aside>
 
+    <!-- Header -->
     <header>
         <div class="user-icon">
             <img src="../images/user_women.png" alt="User">
@@ -41,18 +43,42 @@
         </div>
     </header>
 
+    <!-- Content -->
     <div class="content">
+        <!-- Tìm kiếm người dùng -->
         <div class="search-section">
-            <input type="text" placeholder="Tìm kiếm" class="search-input">
-            <button class="search-button">
+            <input type="text" placeholder="Tìm kiếm" class="search-input" id="search-input">
+            <button class="search-button" id="search-button">
                 <img src="../images/search_ic.png" alt="Search">
             </button>
         </div>
 
-        <ul class="user-list" id="userList"></ul>
+        <!-- Danh sách người dùng -->
+        <ul class="user-list" id="userList">
+            <!-- Sử dụng EJS để lặp qua userList và hiển thị dữ liệu -->
+            <% if (userList && userList.length > 0) { %>
+                <% userList.forEach(function(user) { %>
+                    <li>
+                        <div class="user-avatar">
+                            <img src="<%= user.avatar %>" alt="User Avatar">
+                        </div>
+                        <div class="user-info">
+                            <div class="user-name"><%= user.name %></div>
+                            <div class="user-email"><%= user.email %></div>
+                        </div>
+                        <div class="user-icon">
+                            <a href="/XemChiTietUser" class="user-icon-eye"><i class="fa-solid fa-eye"></i></a>
+                            <a href="#" class="user-icon-lock"><i class="fa-solid fa-lock"></i></a>
+                        </div>
+                    </li>
+                <% }); %>
+            <% } else { %>
+                <li>Không có người dùng nào.</li>
+            <% } %>
+        </ul>
     </div>
 
     <!-- JavaScript -->
-    <script src="/js/user.js"></script>
+    <script src="../js/user.js"></script>
 </body>
 </html>
