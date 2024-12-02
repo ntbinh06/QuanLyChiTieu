@@ -2,7 +2,9 @@ body {
     height: 100vh;
     background-color: #f2f2ff;
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-family: 'Inter', sans-serif;
+    font-weight: normal;
+    font-style: normal;
     position: relative; /* To use absolute positioning for child elements */
 }
 

@@ -15,43 +15,23 @@
     <title>Thông tin cá nhân</title>
 </head>
 <body>
-    <div class="sidebar">
-        <div class="sidebar_title">
-            <div style="margin-right: 10px;">
-                <img src="../images/coins_1.jpg" alt="User Avatar">
+    <aside>
+        <div class="sidebar">
+            <div class="sidebar_title">
+                <div style="margin-right: 10px;">
+                    <img src="../images/coins_1.jpg" alt="User Avatar">
+                </div>
+                <div>
+                    <h2>NGÂN SÁCH<br>NHANH CHÓNG</h2>
+                </div>
             </div>
-            <div>
-                <h2>NGÂN SÁCH<br>NHANH CHÓNG</h2>
-            </div>
+            <ul>
+                <li><a href="/TrangChu" class="active"><i class="fas fa-home"></i> Trang chủ</a></li>
+                <li><a href="/QuanLyNguoiDung"><i class="fas fa-users"></i> Quản lý người dùng</a></li>
+                <li><a href="/ThongTinAdmin"><i class="fas fa-user-cog"></i> Thông tin cá nhân</a></li>
+            </ul>
         </div>
-
-        <div class="menu_home">
-            <div>
-                <img src="../images/ic_home.png" alt="Home">
-            </div>
-            <div>
-                <a href="#">Trang chủ</a>
-            </div>
-        </div>
-
-        <div class="menu_manageUser">
-            <div>
-                <img src="../images/ic_users.png" alt="Home">
-            </div>
-            <div>
-                <a href="/QuanLyNguoiDung">Quản Lý Người Dùng</a>
-            </div>
-        </div>
-
-        <div class="menu_infoUser">
-            <div>
-                <img src="../images/user (1).png" alt="Home">
-            </div>
-            <div>
-                <a href="/ThongTinAdmin">Thông tin cá nhân</a>
-            </div>
-        </div>
-      </div>
+    </aside>
 
     <header>
         <div class="user-icon">
@@ -79,7 +59,7 @@
             <label><span>✉️</span> Email</label>
             <input type="text" placeholder="Email">
 
-            <button class="luu-button" onclick="window.location.href='QuanLyNguoiDung'">Lưu</button>
+            <button class="luu-button" onclick="window.location.href='TrangChu'">Lưu</button>
         </div>
         <div class="avatar-container">
             <img src="https://via.placeholder.com/80" alt="Avatar">
