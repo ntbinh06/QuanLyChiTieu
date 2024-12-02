@@ -2,11 +2,10 @@ const express = require('express');
 const path = require('path');
 
 const app = express();
-const PORT = process.env.PORT || 3006;
+const PORT = process.env.PORT || 3010;
 
 // Phục vụ các file tĩnh từ thư mục public
 app.use(express.static(path.join(__dirname, 'public')));
-
 
 // Thiết lập view engine
 app.set('view engine', 'ejs');
@@ -19,18 +18,19 @@ app.get('/', (req, res) => {
 
 app.get('/QuanLyNguoiDung', (req, res) => {
     res.render('QuanLyNguoiDung.ejs');
-  });
-  app.get('/XemChiTietUser', (req, res) => {
+});
+
+app.get('/XemChiTietUser', (req, res) => {
     res.render('XemChiTietUser.ejs');
-  });
-  app.get('/ThongTinAdmin', (req, res) => {
+});
+
+app.get('/ThongTinAdmin', (req, res) => {
     res.render('ThongTinAdmin.ejs');
-  });
-  app.get('/TrangChu', (req, res) => {
+});
+
+app.get('/TrangChu', (req, res) => {
     res.render('TrangChu.ejs');
-  });
-
-
+});
 
 // Bắt đầu server
 app.listen(PORT, () => {
