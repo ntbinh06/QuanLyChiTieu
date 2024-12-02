@@ -213,12 +213,17 @@ public class Ctrl_XemChiPhi extends AppCompatActivity {
     }
 
     private void deleteTransaction(String transactionId) {
-        giaoDichRef.child(transactionId).removeValue().addOnCompleteListener(task -> {
+        DatabaseReference giaoDichRef = FirebaseDatabase.getInstance().getReference("GiaoDich").child(transactionId);
+        giaoDichRef.removeValue().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 Toast.makeText(Ctrl_XemChiPhi.this, "Giao dịch đã được xóa", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(Ctrl_XemChiPhi.this, "Xóa giao dịch thất bại", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Ctrl_XemChiPhi.this, "Lỗi khi xóa giao dịch", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void navigateToLoginScreen() {
+        startActivity(new Intent(Ctrl_XemChiPhi.this, Ctrl_CacGiaoDich.class));
     }
 }

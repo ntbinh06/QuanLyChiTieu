@@ -73,7 +73,7 @@ import java.util.Map;
 
 public class Fragment_TongQuan extends Fragment {
 
-    private ImageView btnMenu, btnXemCacTaiKhoan, btnXemCacGiaoDich, imgEmptyState;
+    private ImageView btnMenu, btnXemCacTaiKhoan, btnXemCacGiaoDich, imgEmptyState,btnsodo;
     private TextView amountTextView, currentMonthofYear, txtTongThuNhap, txtTongChiPhi, txtEmptyState;
     private ImageView eyeIcon;
     private boolean isAmountVisible = true;
@@ -96,6 +96,7 @@ public class Fragment_TongQuan extends Fragment {
         View view = inflater.inflate(R.layout.activity_tong_quan, container, false);
 
         btnMenu = view.findViewById(R.id.btnMenu);
+        btnsodo = view.findViewById(R.id.all_sodo);
         btnXemCacTaiKhoan = view.findViewById(R.id.all_cactaikhoan);
         btnXemCacGiaoDich = view.findViewById(R.id.all_cacgiaodich);
         progressBarThuNhap = view.findViewById(R.id.progressBarThuNhap);
@@ -313,7 +314,12 @@ public class Fragment_TongQuan extends Fragment {
                 showDialog();
             }
         });
-
+        btnsodo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showCustomPopupWindow(v, true);
+            }
+        });
         btnXemCacTaiKhoan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
