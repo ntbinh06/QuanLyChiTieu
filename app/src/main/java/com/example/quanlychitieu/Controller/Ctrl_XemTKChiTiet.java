@@ -2,6 +2,7 @@ package com.example.quanlychitieu.Controller;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -88,6 +89,92 @@ public class Ctrl_XemTKChiTiet extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        lv.addOnItemTouchListener(new Ctrl_RecyclerViewItemClickListener(this, lv, new Ctrl_RecyclerViewItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                // Giả sử bạn có một danh sách chứa giao dịch
+                M_GiaoDich selectedGiaoDich = mylist.get(position); // Lấy giao dịch từ vị trí
+                String idGiaoDich = selectedGiaoDich.getIdGiaoDich();
+
+                DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
+
+                // Truy vấn bảng GiaoDich
+                dbRef.child("GiaoDich").child(idGiaoDich).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot giaoDichSnap) {
+                        if (giaoDichSnap.exists()) {
+                            String idHangMuc = giaoDichSnap.child("idHangMuc").getValue(String.class);
+                            long giaTri = giaoDichSnap.child("giaTri").getValue(Long.class);
+
+                            // Truy vấn bảng HangMuc dựa trên idHangMuc
+                            dbRef.child("HangMuc").child(idHangMuc).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot hangMucSnap) {
+                                    if (hangMucSnap.exists()) {
+                                        String idNhom = hangMucSnap.child("idNhom").getValue(String.class);
+                                        String tenHangMuc = hangMucSnap.child("tenHangMuc").getValue(String.class);
+
+                                        // Truy vấn bảng NhomHangMuc dựa trên idNhom
+                                        dbRef.child("NhomHangMuc").child(idNhom).addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot nhomSnap) {
+                                                if (nhomSnap.exists()) {
+                                                    String tenNhom = nhomSnap.child("tenNhom").getValue(String.class);
+
+                                                    // Chuyển hướng theo idNhom
+                                                    Intent intent = new Intent();
+                                                    if ("1".equals(idNhom)) {
+                                                        intent = new Intent(view.getContext(), Ctrl_XemThuNhap.class);
+                                                    } else if ("2".equals(idNhom)) {
+                                                        intent = new Intent(view.getContext(), Ctrl_XemChiPhi.class);
+                                                    }
+
+                                                    // Truyền dữ liệu giao dịch
+                                                    intent.putExtra("idGiaoDich", idGiaoDich);
+                                                    intent.putExtra("idHangMuc", idHangMuc);
+                                                    intent.putExtra("giaTri", giaTri);
+                                                    intent.putExtra("tenHangMuc", tenHangMuc);
+                                                    intent.putExtra("tenNhom", tenNhom);
+
+                                                    view.getContext().startActivity(intent);
+
+                                                    // Ghi log thông tin
+                                                    Log.d("Firebase", "Chi tiết giao dịch:");
+                                                    Log.d("Firebase", "Tên nhóm: " + tenNhom);
+                                                    Log.d("Firebase", "Tên hạng mục: " + tenHangMuc);
+                                                    Log.d("Firebase", "Giá trị giao dịch: " + giaTri);
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+                                                Log.e("Firebase", "Lỗi truy vấn NhomHangMuc: " + error.getMessage());
+                                            }
+                                        });
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+                                    Log.e("Firebase", "Lỗi truy vấn HangMuc: " + error.getMessage());
+                                }
+                            });
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Log.e("Firebase", "Lỗi truy vấn GiaoDich: " + error.getMessage());
+                    }
+                });
+            }
+
+            @Override
+            public void onLongItemClick(View view, int position) {
+                // Xử lý khi click dài (nếu cần thiết)
+            }
+        }));
     }
 
     // Phương thức tải dữ liệu hạng mục

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="310dp"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/lv_tq_cacgiaodich"
+    android:layout_marginBottom="20dp"
+    android:layout_marginTop="8dp">
+
+    <!-- Image for the icon -->
+    <ImageView
+        android:id="@+id/img_DM"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/transaction"
+        android:layout_marginStart="8dp" /> <!-- Icon đại diện -->
+
+    <TextView
+        android:id="@+id/textDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="Đồ ăn/ Đồ uống"
+        android:textColor="@color/black"
+        android:fontFamily="@font/inter_18pt_regular"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@id/img_DM"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/inter_18pt_regular"
+        android:text="Ví"
+        android:textColor="#A8A8A8"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@id/img_DM"
+        app:layout_constraintTop_toBottomOf="@id/textDescription" />
+
+    <TextView
+        android:id="@+id/textAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:text="100.000 đ"
+        android:fontFamily="@font/inter_18pt_regular"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/loaiGd"
+        app:layout_constraintHorizontal_bias="0.988"
+        app:layout_constraintStart_toEndOf="@+id/textAccount"
+        app:layout_constraintTop_toTopOf="@id/textDescription" />
+
+    <TextView
+        android:id="@+id/textDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="29/03/2024"
+        android:fontFamily="@font/inter_18pt_regular"
+        android:textColor="#A8A8A8"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/textAmount"
+        app:layout_constraintTop_toBottomOf="@+id/textAmount" />
+
+    <ImageView
+        android:id="@+id/loaiGd"
+        android:layout_width="3dp"
+        android:layout_height="45dp"
+        android:background="@drawable/round_corner_25dp"
+        android:backgroundTint="@android:color/holo_red_dark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

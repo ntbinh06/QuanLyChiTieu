@@ -1,110 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="10dp"
+    android:gravity="center_vertical">
 
-<LinearLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:orientation="horizontal"
-android:padding="10dp"
-android:gravity="center_vertical">
-
-    <LinearLayout
-        android:id="@+id/GiaoDich"
-        android:layout_width="match_parent"
-        android:layout_height="90dp"
-        android:orientation="horizontal"
-        android:padding="10dp"
-        android:layout_marginTop="10dp"
-        android:gravity="center_vertical">
-        <!-- Image for the icon -->
-        <ImageView
-            android:id="@+id/img_DM"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginEnd="10dp"
-            android:src="@drawable/income" /> <!-- Icon đại diện -->
-
-        <!-- LinearLayout for the text content -->
         <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginLeft="5dp">
-
-            <!-- Transaction description -->
-            <TextView
-                android:id="@+id/textDescription"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Đồ ăn/ Đồ uống"
-                android:textSize="18sp"
-                android:textColor="@color/black"
-                android:layout_marginEnd="3dp"/>
-
-            <!-- Account or payment method -->
-            <TextView
-                android:id="@+id/textAccount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Ví"
-                android:textSize="16sp"
-                android:textColor="#A8A8A8"
-                android:layout_marginTop="4dp" />
-        </LinearLayout>
-
-        <!-- LinearLayout for the amount and date -->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:id="@+id/GiaoDich"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:layout_marginTop="10dp"
             android:gravity="center_vertical">
+            <!-- Image for the icon -->
+            <ImageView
+                android:id="@+id/img_DM"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/transaction" /> <!-- Icon đại diện -->
 
-            <!-- Transaction amount -->
+            <!-- LinearLayout for the text content -->
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp">
+
+                <!-- Transaction description -->
+                <TextView
+                    android:id="@+id/textDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Đồ ăn/ Đồ uống"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:layout_marginEnd="3dp"/>
+
+                <!-- Account or payment method -->
+                <TextView
+                    android:id="@+id/textAccount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ví"
+                    android:textSize="14sp"
+                    android:textColor="#A8A8A8"
+                    android:layout_marginTop="4dp" />
+            </LinearLayout>
+
+            <!-- LinearLayout for the amount and date -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/textAmount"
+                android:orientation="vertical"
+                android:gravity="center_vertical">
+
+                <!-- Transaction amount -->
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="100.000"
-                    android:textSize="18sp"
-                    android:textColor="@android:color/holo_red_dark"
-                    android:layout_marginEnd="3dp"/>
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/textAmount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="100.000"
+                        android:textSize="16sp"
+                        android:textColor="@android:color/holo_red_dark"
+                        android:layout_marginEnd="3dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="đ"
+                        android:textSize="18sp"
+                        android:textColor="@android:color/holo_red_dark"
+                        android:layout_marginEnd="3dp"/>
+                </LinearLayout>
+
+
+                <!-- Transaction date -->
                 <TextView
+                    android:id="@+id/textDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="đ"
-                    android:textSize="18sp"
-                    android:textColor="@android:color/holo_red_dark"
-                    android:layout_marginEnd="3dp"/>
+                    android:text="29/03/2024"
+                    android:textSize="14sp"
+                    android:textColor="#A8A8A8"
+                    android:layout_marginTop="4dp" />
             </LinearLayout>
 
+            <!-- Line icon at the end -->
+            <ImageView
+                android:id="@+id/loaiGd"
+                android:layout_width="5dp"
+                android:layout_height="80dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/round_corner_25dp"
+                android:backgroundTint="@android:color/holo_red_dark" />
 
-            <!-- Transaction date -->
-            <TextView
-                android:id="@+id/textDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="29/03/2024"
-                android:textSize="16sp"
-                android:textColor="#A8A8A8"
-                android:layout_marginTop="4dp" />
+
         </LinearLayout>
-
-        <!-- Line icon at the end -->
-        <ImageView
-            android:id="@+id/loaiGd"
-            android:layout_width="5dp"
-            android:layout_height="match_parent"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="10dp"
-            android:background="@drawable/round_corner_25dp"
-            android:backgroundTint="@android:color/holo_red_dark" />
-
-
-    </LinearLayout>
 
 
 </LinearLayout>

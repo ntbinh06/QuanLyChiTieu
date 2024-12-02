@@ -96,52 +96,27 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="168dp"
-        android:fontFamily="@font/jaldi"
-        android:text="Tổng cộng:"
-        android:textColor="#000000"
-        android:textSize="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="21dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="@+id/textView4"
-        app:layout_constraintStart_toEndOf="@+id/textView4"
-        app:layout_constraintTop_toTopOf="@+id/textView4">
+        tools:layout_editor_absoluteX="264dp"
+        tools:layout_editor_absoluteY="192dp">
 
         <TextView
             android:id="@+id/Tong"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:text=""
             android:gravity="center"
+            android:text=""
             android:textColor="#000000" />
 
-        <TextView
-            android:layout_width="20dp"
-            android:layout_height="30dp"
-            android:fontFamily="@font/jaldi"
-            android:text="đ"
-            android:textColor="#000000"
-            android:textSize="18sp"
-            android:gravity="center"
-            tools:layout_editor_absoluteX="335dp"
-            tools:layout_editor_absoluteY="186dp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="650dp"
-
+        android:layout_height="match_parent"
+        android:layout_marginTop="200dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -149,10 +124,11 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerviewGD"
-            android:layout_marginTop="50dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:divider="@null">
+            android:divider="@null"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp">
     </androidx.recyclerview.widget.RecyclerView>
 
     </LinearLayout>

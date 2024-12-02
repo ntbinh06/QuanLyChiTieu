@@ -31,6 +31,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import java.text.NumberFormat;
+import java.util.Comparator;
 import java.util.Locale;
 
 import com.example.quanlychitieu.Controller.Ctrl_GioiThieu;
@@ -44,6 +45,7 @@ import com.example.quanlychitieu.Controller.Ctrl_QuanLyHangMuc;
 import com.example.quanlychitieu.Controller.Ctrl_XemChiPhi;
 import com.example.quanlychitieu.Controller.Ctrl_XemTKChiTiet;
 import com.example.quanlychitieu.Controller.Ctrl_XemThuNhap;
+import com.example.quanlychitieu.Model.M_DanhMucHangMuc;
 import com.example.quanlychitieu.Model.M_GiaoDich;
 import com.example.quanlychitieu.Model.M_TaiKhoan;
 import com.example.quanlychitieu.R;
@@ -71,15 +73,20 @@ import java.util.Map;
 
 public class Fragment_TongQuan extends Fragment {
 
-    private ImageView btnMenu, btnXemCacTaiKhoan, btnXemCacGiaoDich;
-    private TextView amountTextView, currentMonthofYear, txtTongThuNhap, txtTongChiPhi;
+    private ImageView btnMenu, btnXemCacTaiKhoan, btnXemCacGiaoDich, imgEmptyState;
+    private TextView amountTextView, currentMonthofYear, txtTongThuNhap, txtTongChiPhi, txtEmptyState;
     private ImageView eyeIcon;
     private boolean isAmountVisible = true;
-    private RecyclerView rvCacTaiKhoan;
+    private RecyclerView rvCacTaiKhoan, rvCacGiaoDich;
     private List<M_TaiKhoan> taiKhoanList = new ArrayList<>();
+    private List<M_GiaoDich> giaoDichList = new ArrayList<>();
+    private V_TongQuan_CacGiaoDich giaoDichAdapter;
     private Map<String, String> taiKhoanMap = new HashMap<>();
     private V_TongQuan_CacTaiKhoan myAdapter;
     private ProgressBar progressBarThuNhap, progressBarChiPhi;
+    private DatabaseReference taiKhoanRef, giaoDichRef;
+    private Map<String, M_DanhMucHangMuc> hangMucMap = new HashMap<>();
+    private Map<String, String> nhomHangMucMap = new HashMap<>();
 
     public Fragment_TongQuan() {}
 
@@ -93,8 +100,11 @@ public class Fragment_TongQuan extends Fragment {
         btnXemCacGiaoDich = view.findViewById(R.id.all_cacgiaodich);
         progressBarThuNhap = view.findViewById(R.id.progressBarThuNhap);
         progressBarChiPhi = view.findViewById(R.id.progressBarChiPhi);
+        txtEmptyState = view.findViewById(R.id.txtEmptyState);
+        imgEmptyState = view.findViewById(R.id.imgEmptyState);
+        rvCacGiaoDich = view.findViewById(R.id.recyclerViewTransactions);
 
-        // Khởi tạo RecyclerView và Adapter
+        // Khởi tạo RecyclerView và Adapter cac tai khoan
         rvCacTaiKhoan = view.findViewById(R.id.recyclerviewGD);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
 
@@ -103,6 +113,15 @@ public class Fragment_TongQuan extends Fragment {
         myAdapter = new V_TongQuan_CacTaiKhoan(getContext(), taiKhoanList);
         rvCacTaiKhoan.setLayoutManager(new LinearLayoutManager(getContext()));
         rvCacTaiKhoan.setAdapter(myAdapter);
+
+// Kết nối đến Firebase Database
+
+
+        ///Khoi tao RecycleView vaf Adapter cac giao dich
+        giaoDichList = new ArrayList<>();
+        giaoDichAdapter = new V_TongQuan_CacGiaoDich(getContext(), giaoDichList);
+        rvCacGiaoDich.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvCacGiaoDich.setAdapter(giaoDichAdapter);
 
         // Hiển thị tháng năm hiện tại
         currentMonthofYear = view.findViewById(R.id.txt_ThangHienTai);
@@ -122,14 +141,14 @@ public class Fragment_TongQuan extends Fragment {
         loadThuChiThangHienTai();
 
 
-        //Hien thi Tong So Du
         eyeIcon = view.findViewById(R.id.ic_eye);
         amountTextView = view.findViewById(R.id.txtTongTienSH);
 
-        final Drawable eyeClosed = ContextCompat.getDrawable(getContext(), R.drawable.eye_of); // Đảm bảo icon đóng mắt là đúng
-        final Drawable eyeOpened = ContextCompat.getDrawable(getContext(), R.drawable.eye_of); // Đảm bảo icon mở mắt là đúng
+// Giả sử bạn có các icon đóng/mở mắt
+        final Drawable eyeClosed = ContextCompat.getDrawable(getContext(), R.drawable.eye_of);
+        final Drawable eyeOpened = ContextCompat.getDrawable(getContext(), R.drawable.eye_of);
 
-        // Lưu giá trị ban đầu vào tag của amountTextView để sử dụng khi cần hiển thị lại
+// Lưu giá trị ban đầu vào tag của amountTextView để sử dụng khi cần hiển thị lại
         amountTextView.setTag(amountTextView.getText().toString());
 
         eyeIcon.setOnClickListener(new View.OnClickListener() {
@@ -157,38 +176,11 @@ public class Fragment_TongQuan extends Fragment {
 
 
 
-        //HIEN THI DANH SACH CAC KHOAN
-        DatabaseReference taiKhoanRef = FirebaseDatabase.getInstance().getReference("TaiKhoan");
-        taiKhoanRef.orderByChild("ngayTao")
-                .limitToFirst(3)
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        taiKhoanList.clear(); // Xóa danh sách cũ
-                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                            M_TaiKhoan taiKhoan = dataSnapshot.getValue(M_TaiKhoan.class);
-                            taiKhoanList.add(taiKhoan); // Thêm tài khoản vào danh sách
-                        }
 
-                        // Đảo ngược danh sách để sắp xếp giảm dần (ngày tạo gần nhất trước)
-                        //Collections.reverse( taiKhoanList);
-
-                        // Cập nhật giao diện RecyclerView
-                        myAdapter.notifyDataSetChanged();
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        Toast.makeText(getContext(), "Không thể tải dữ liệu", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-
-
-
-
-
-        // Khi người dùng nhấn vào item để xem chi tiết
+        //HIEN THI DANH SACH CAC TAI KHOAN
+        taiKhoanRef = FirebaseDatabase.getInstance().getReference("TaiKhoan");
+        loadCacTaiKhoan();
+            // Khi người dùng nhấn vào item để xem chi tiết
         rvCacTaiKhoan.addOnItemTouchListener(new Ctrl_RecyclerViewItemClickListener(getContext(), rvCacTaiKhoan, new Ctrl_RecyclerViewItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -216,6 +208,103 @@ public class Fragment_TongQuan extends Fragment {
 
             }
         }));
+
+
+
+        // HIEN THI CAC GIAO DICH
+        giaoDichRef = FirebaseDatabase.getInstance().getReference("GiaoDich");
+        loadGiaoDich();
+        loadHangMuc();
+        loadTaiKhoan();
+        rvCacGiaoDich.addOnItemTouchListener(new Ctrl_RecyclerViewItemClickListener(getContext(), rvCacGiaoDich, new Ctrl_RecyclerViewItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                // Giả sử bạn có một danh sách chứa giao dịch
+                M_GiaoDich selectedGiaoDich = giaoDichList.get(position); // Lấy giao dịch từ vị trí
+                String idGiaoDich = selectedGiaoDich.getIdGiaoDich();
+
+                DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
+
+                // Truy vấn bảng GiaoDich
+                dbRef.child("GiaoDich").child(idGiaoDich).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot giaoDichSnap) {
+                        if (giaoDichSnap.exists()) {
+                            String idHangMuc = giaoDichSnap.child("idHangMuc").getValue(String.class);
+                            long giaTri = giaoDichSnap.child("giaTri").getValue(Long.class);
+
+                            // Truy vấn bảng HangMuc dựa trên idHangMuc
+                            dbRef.child("HangMuc").child(idHangMuc).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot hangMucSnap) {
+                                    if (hangMucSnap.exists()) {
+                                        String idNhom = hangMucSnap.child("idNhom").getValue(String.class);
+                                        String tenHangMuc = hangMucSnap.child("tenHangMuc").getValue(String.class);
+
+                                        // Truy vấn bảng NhomHangMuc dựa trên idNhom
+                                        dbRef.child("NhomHangMuc").child(idNhom).addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot nhomSnap) {
+                                                if (nhomSnap.exists()) {
+                                                    String tenNhom = nhomSnap.child("tenNhom").getValue(String.class);
+
+                                                    // Chuyển hướng theo idNhom
+                                                    Intent intent = new Intent();
+                                                    if ("1".equals(idNhom)) {
+                                                        intent = new Intent(view.getContext(), Ctrl_XemThuNhap.class);
+                                                    } else if ("2".equals(idNhom)) {
+                                                        intent = new Intent(view.getContext(), Ctrl_XemChiPhi.class);
+                                                    }
+
+                                                    // Truyền dữ liệu giao dịch
+                                                    intent.putExtra("idGiaoDich", idGiaoDich);
+                                                    intent.putExtra("idHangMuc", idHangMuc);
+                                                    intent.putExtra("giaTri", giaTri);
+                                                    intent.putExtra("tenHangMuc", tenHangMuc);
+                                                    intent.putExtra("tenNhom", tenNhom);
+
+                                                    view.getContext().startActivity(intent);
+
+                                                    // Ghi log thông tin
+                                                    Log.d("Firebase", "Chi tiết giao dịch:");
+                                                    Log.d("Firebase", "Tên nhóm: " + tenNhom);
+                                                    Log.d("Firebase", "Tên hạng mục: " + tenHangMuc);
+                                                    Log.d("Firebase", "Giá trị giao dịch: " + giaTri);
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+                                                Log.e("Firebase", "Lỗi truy vấn NhomHangMuc: " + error.getMessage());
+                                            }
+                                        });
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+                                    Log.e("Firebase", "Lỗi truy vấn HangMuc: " + error.getMessage());
+                                }
+                            });
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Log.e("Firebase", "Lỗi truy vấn GiaoDich: " + error.getMessage());
+                    }
+                });
+            }
+
+            @Override
+            public void onLongItemClick(View view, int position) {
+                // Xử lý khi click dài (nếu cần thiết)
+            }
+        }));
+
+
+
+
 
         // Thiết lập sự kiện click cho btnMenu
         btnMenu.setOnClickListener(new View.OnClickListener() {
@@ -436,6 +525,155 @@ public class Fragment_TongQuan extends Fragment {
             }
         });
     }
+
+    //Hien thi ten hang muc
+    private void loadHangMuc() {
+        DatabaseReference hangMucRef = FirebaseDatabase.getInstance().getReference("HangMuc");
+        hangMucRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                hangMucMap.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    M_DanhMucHangMuc hangMuc = dataSnapshot.getValue(M_DanhMucHangMuc.class);
+                    if (hangMuc != null) {
+                        hangMucMap.put(hangMuc.getIdHangmuc(), hangMuc);  // Lưu đối tượng M_DanhMucHangMuc vào map
+                    }
+                }
+                loadGiaoDich();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getContext(), "Không thể tải dữ liệu hạng mục", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
+    //Hien thi ten tai khoan
+    private void loadTaiKhoan() {
+        DatabaseReference taiKhoanRef = FirebaseDatabase.getInstance().getReference("TaiKhoan");
+        taiKhoanRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                taiKhoanMap.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    M_TaiKhoan taiKhoan = dataSnapshot.getValue(M_TaiKhoan.class);
+                    if (taiKhoan != null) {
+                        taiKhoanMap.put(taiKhoan.getIdTaiKhoan(), taiKhoan.getTenTaiKhoan());
+                    }
+                }
+                loadGiaoDich();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getContext(), "Không thể tải dữ liệu tài khoản", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void loadGiaoDich() {
+        giaoDichRef.orderByChild("ngayTao").limitToLast(4).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                giaoDichList.clear(); // Xóa dữ liệu cũ
+
+                // Duyệt qua từng giao dịch
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    M_GiaoDich giaoDich = dataSnapshot.getValue(M_GiaoDich.class);
+
+                    // Lấy tên hạng mục
+                    M_DanhMucHangMuc hangMuc = hangMucMap.get(giaoDich.getIdHangMuc());
+                    String tenHangMuc = (hangMuc != null) ? hangMuc.getTenHangmuc() : "Không xác định";
+
+                    // Lấy tên tài khoản
+                    String tenTaiKhoan = taiKhoanMap.get(giaoDich.getIdTaiKhoan());
+                    if (tenTaiKhoan == null) {
+                        tenTaiKhoan = "Không xác định";
+                    }
+
+                    // Gán tên vào giao dịch
+                    giaoDich.setIdHangMuc(tenHangMuc);
+                    giaoDich.setIdTaiKhoan(tenTaiKhoan);
+
+                    // Thêm giao dịch vào danh sách
+                    giaoDichList.add(giaoDich);
+                }
+
+
+                // Cập nhật adapter sau khi thêm giao dịch vào danh sách
+                giaoDichAdapter.notifyDataSetChanged();
+
+                // Cập nhật giao diện
+                updateUI();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getContext(), "Lỗi khi tải dữ liệu", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
+
+
+
+    private void updateUI() {
+        if (giaoDichList.isEmpty()) {
+            rvCacGiaoDich.setVisibility(View.GONE);
+            imgEmptyState.setVisibility(View.VISIBLE);
+            txtEmptyState.setVisibility(View.VISIBLE);
+        } else {
+            rvCacGiaoDich.setVisibility(View.VISIBLE);
+            imgEmptyState.setVisibility(View.GONE);
+            giaoDichAdapter.notifyDataSetChanged();
+        }
+    }
+
+    private void loadCacTaiKhoan(){
+        taiKhoanRef.orderByChild("ngayTao")
+                .limitToFirst(3)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        taiKhoanList.clear(); // Xóa danh sách cũ
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                            M_TaiKhoan taiKhoan = dataSnapshot.getValue(M_TaiKhoan.class);
+                            taiKhoanList.add(taiKhoan); // Thêm tài khoản vào danh sách
+                        }
+
+                        // Đảo ngược danh sách để sắp xếp giảm dần (ngày tạo gần nhất trước)
+                        //Collections.reverse( taiKhoanList);
+
+                        // Cập nhật giao diện RecyclerView
+                        myAdapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Toast.makeText(getContext(), "Không thể tải dữ liệu", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void tinhTongTienCuaTatCaTaiKhoan() {
+        // Biến để lưu tổng số tiền của tất cả các tài khoản
+        double tongTienTatCa = 0;
+
+        // Duyệt qua tất cả các tài khoản trong danh sách taiKhoanList
+        for (M_TaiKhoan taiKhoan : taiKhoanList) {
+            // Lấy số tiền của mỗi tài khoản và cộng vào tổng
+            double soTien = taiKhoan.getLuongBanDau(); // Giả sử phương thức getLuongBanDau() trả về số tiền của tài khoản
+            tongTienTatCa += soTien; // Cộng dồn vào tổng số tiền
+        }
+
+        // Chuyển đổi tổng số tiền thành chuỗi và hiển thị lên TextView
+        String tongTienStr = String.format("%.2f", tongTienTatCa); // Định dạng số tiền với 2 chữ số thập phân
+        amountTextView.setText(tongTienStr); // Hiển thị tổng số tiền lên TextView
+    }
+
 
 
 
