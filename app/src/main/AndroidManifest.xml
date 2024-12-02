@@ -20,7 +20,9 @@
         <activity
             android:name=".Controller.Ctrl_TrangChuAdmin"
             android:exported="false" />
-
+        <activity
+            android:name=".Controller.Ctrl_ThongKe"
+            android:exported="false" />
         <activity
             android:name=".Controller.Ctrl_SuaChiPhi"
             android:exported="false" />

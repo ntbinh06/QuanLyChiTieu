@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="190dp"
+    android:orientation="vertical"
+    android:layout_marginTop="25dp"
+    android:layout_marginLeft="30dp"
+    android:backgroundTint="#E1E1E1"
+    android:layout_marginRight="30dp"
+    android:background="@drawable/round_corner_20">
+
+    <LinearLayout
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bogoc_20_bluepurple"
+        android:orientation="vertical"
+        android:layout_gravity="center">
+
+        <TextView
+            android:id="@+id/txt_ThangHienTai"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/inter_18pt_regular"
+            android:text="Tháng 9 / 2024"
+            android:textColor="@color/bluepurple_80"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp">
+
+                <!-- ProgressBar lớn -->
+                <ProgressBar
+                    android:id="@+id/progressBarThuNhap"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="125dp"
+                    android:layout_height="125dp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="5dp"
+                    android:indeterminate="false"
+                    android:max="100"
+                    android:progressDrawable="@drawable/circular_progress_1" />
+
+                <!-- ProgressBar nhỏ, nằm bên trong ProgressBar lớn -->
+                <ProgressBar
+                    android:id="@+id/progressBarChiPhi"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="60dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="5dp"
+                    android:indeterminate="false"
+                    android:max="100"
+                    android:progressDrawable="@drawable/circular_progress_2" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_18pt_regular"
+                    android:text="Thu nhập:"
+                    android:textColor="@color/black_50"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/inter_18pt_regular"
+                    android:text="Chi phí:"
+                    android:textColor="@color/black_50"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txtTongThuNhap"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:fontFamily="@font/inter_18pt_edium"
+                    android:text="8.000.000 đ"
+                    android:textColor="@color/green"
+                    android:textSize="14sp"
+                    android:gravity="right"/>
+
+                <TextView
+                    android:id="@+id/txtTongChiPhi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/inter_18pt_edium"
+                    android:text="5.000.000 đ"
+                    android:textColor="@color/red_2"
+                    android:textSize="15sp"
+                    android:gravity="right"/>
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

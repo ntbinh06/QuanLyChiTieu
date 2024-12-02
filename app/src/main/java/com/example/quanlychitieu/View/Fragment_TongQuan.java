@@ -40,6 +40,7 @@ import com.example.quanlychitieu.Controller.Ctrl_CacGiaoDich;
 import com.example.quanlychitieu.Controller.Ctrl_CacTaiKhoan;
 import com.example.quanlychitieu.Controller.Ctrl_NguoiDung;
 import com.example.quanlychitieu.Controller.Ctrl_RecyclerViewItemClickListener;
+import com.example.quanlychitieu.Controller.Ctrl_ThongKe;
 import com.example.quanlychitieu.Controller.Ctrl_TongQuan;
 import com.example.quanlychitieu.Controller.Ctrl_QuanLyHangMuc;
 import com.example.quanlychitieu.Controller.Ctrl_XemChiPhi;
@@ -317,7 +318,7 @@ public class Fragment_TongQuan extends Fragment {
         btnsodo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showCustomPopupWindow(v, true);
+                showCustomPopupWindowsodo(v, true);
             }
         });
         btnXemCacTaiKhoan.setOnClickListener(new View.OnClickListener() {
@@ -357,6 +358,32 @@ public class Fragment_TongQuan extends Fragment {
             menuItem1.setText("Xem tất cả");
             menuItem1.setOnClickListener(v -> {
                 Intent intent = new Intent(getActivity(), Ctrl_CacTaiKhoan.class);
+                startActivity(intent);
+                popupWindow.dismiss();
+            });
+        } else {
+            menuItem1.setText("Xem tất cả");
+            menuItem1.setOnClickListener(v -> {
+                Intent intent = new Intent(getActivity(), Ctrl_CacGiaoDich.class);
+                startActivity(intent);
+                popupWindow.dismiss();
+            });
+        }
+    }
+    private void showCustomPopupWindowsodo(View anchorView, boolean isTaiKhoanMenu) {
+        LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View popupView = inflater.inflate(R.layout.popup_menu_custom, null);
+
+        PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        popupWindow.setFocusable(true);
+        popupWindow.showAsDropDown(anchorView, anchorView.getWidth(), -20);
+
+        TextView menuItem1 = popupView.findViewById(R.id.menu_item_1);
+
+        if (isTaiKhoanMenu) {
+            menuItem1.setText("Xem tất cả");
+            menuItem1.setOnClickListener(v -> {
+                Intent intent = new Intent(getActivity(), Ctrl_ThongKe.class);
                 startActivity(intent);
                 popupWindow.dismiss();
             });
