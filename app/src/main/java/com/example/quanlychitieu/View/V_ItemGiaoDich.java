@@ -82,4 +82,11 @@ public class V_ItemGiaoDich extends RecyclerView.Adapter<V_ItemGiaoDich.ViewHold
 
         }
     }
+    public void updateData(List<M_GiaoDich> newData) {
+        this.myList.clear(); // Làm rỗng danh sách trước
+        if (newData != null) {
+            this.myList.addAll(newData); // Thêm dữ liệu mới
+        }
+        notifyDataSetChanged(); // Làm mới RecyclerView
+    }
 }

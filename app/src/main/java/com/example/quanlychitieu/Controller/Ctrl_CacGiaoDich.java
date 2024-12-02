@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import androidx.appcompat.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +43,7 @@ public class Ctrl_CacGiaoDich extends AppCompatActivity {
     private RecyclerView recyclerView;
     private V_ItemGiaoDich myAdapter;
     private List<M_GiaoDich> giaoDichList = new ArrayList<>();
+    private List<M_GiaoDich>  originalList = new ArrayList<>();
     private Map<String, M_DanhMucHangMuc> hangMucMap = new HashMap<>();
     private Map<String, String> taiKhoanMap = new HashMap<>();
     private Map<String, String> nhomHangMucMap = new HashMap<>();
@@ -49,6 +51,7 @@ public class Ctrl_CacGiaoDich extends AppCompatActivity {
     private TextView txtTong;
     private TextView currentMonthText;
     private ImageView prevMonthButton, nextMonthButton;
+    private SearchView searchView;
 
     private int currentMonthOffset = 0;
 
@@ -62,7 +65,7 @@ public class Ctrl_CacGiaoDich extends AppCompatActivity {
         currentMonthText = findViewById(R.id.TextTime);
         prevMonthButton = findViewById(R.id.backDate);
         nextMonthButton = findViewById(R.id.nextDate);
-
+        searchView= findViewById(R.id.search_view);
         // Cài đặt RecyclerView
         // Cập nhật khi khởi tạo adapter
         myAdapter = new V_ItemGiaoDich(this, giaoDichList);
@@ -184,7 +187,70 @@ public class Ctrl_CacGiaoDich extends AppCompatActivity {
             Intent intent = new Intent(Ctrl_CacGiaoDich.this, Ctrl_TongQuan.class);
             startActivity(intent);
         });
+
+        searchView.setIconified(false); // Đảm bảo SearchView luôn mở rộng
+        searchView.clearFocus(); // Không tự động focus khi vào màn hình
+
+//        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+//            @Override
+//            public boolean onClose() {
+//                giaoDichList.clear();
+//                giaoDichList.addAll(originalList); // Khôi phục danh sách từ bản gốc
+//                myAdapter.updateData(giaoDichList); // Làm mới RecyclerView
+//                return false; // Giữ hành vi mặc định
+//            }
+//        });
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                // Xử lý tìm kiếm khi người dùng nhấn nút tìm kiếm
+                if (query != null && !query.isEmpty()) {
+                    searchGiaoDich(query.trim());
+                } else {
+                    Toast.makeText(Ctrl_CacGiaoDich.this, "Vui lòng nhập từ khóa tìm kiếm!", Toast.LENGTH_SHORT).show();
+                }
+                return true; // Giữ bàn phím khi nhấn nút tìm kiếm
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (newText.isEmpty()) {
+                    giaoDichList.clear();
+                    giaoDichList.addAll(originalList); // Khôi phục danh sách đầy đủ
+                    myAdapter.notifyDataSetChanged(); // Làm mới RecyclerView
+                }
+                return false; // Trả về false để giữ lại hành vi mặc định
+            }
+        });
+
     }
+
+    private void searchGiaoDich(String keyword) {
+        List<M_GiaoDich> filteredList = new ArrayList<>();
+        for (M_GiaoDich giaoDich : originalList) {
+            String idHangMuc = giaoDich.getIdHangMuc(); // Lấy ID hạng mục từ giao dịch
+            Log.d("SearchDG_ID", "ID Hang Muc: " + idHangMuc);
+
+            // So sánh keyword với idHangMuc
+            if (idHangMuc != null && idHangMuc.toLowerCase().contains(keyword.toLowerCase())) {
+                filteredList.add(giaoDich);
+                Log.d("SearchDG_Match", "Tìm thấy giao dịch khớp: " + idHangMuc);
+            } else {
+                Log.d("SearchDG_NotMatch", "Không tìm thấy khớp: " + idHangMuc);
+            }
+        }
+
+        // Cập nhật adapter nếu tìm thấy kết quả
+        if (!filteredList.isEmpty()) {
+            myAdapter.updateData(filteredList);
+            Toast.makeText(this, "Tìm thấy " + filteredList.size() + " kết quả.", Toast.LENGTH_SHORT).show();
+        } else {
+            myAdapter.updateData(new ArrayList<>()); // Làm rỗng danh sách nếu không tìm thấy
+            Toast.makeText(this, "Không tìm thấy giao dịch nào phù hợp!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
 
     //Hien thi ten hang muc
@@ -198,6 +264,7 @@ public class Ctrl_CacGiaoDich extends AppCompatActivity {
                     M_DanhMucHangMuc hangMuc = dataSnapshot.getValue(M_DanhMucHangMuc.class);
                     if (hangMuc != null) {
                         hangMucMap.put(hangMuc.getIdHangmuc(), hangMuc);  // Lưu đối tượng M_DanhMucHangMuc vào map
+                        Log.d("LoadHangMuc", "ID: " + hangMuc.getIdHangmuc() + ", Ten: " + hangMuc.getTenHangmuc());
                     }
                 }
                 loadGiaoDich();
@@ -245,6 +312,7 @@ public class Ctrl_CacGiaoDich extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 giaoDichList.clear();
+                originalList.clear(); // Đảm bảo không bị trùng lặp
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     M_GiaoDich giaoDich = dataSnapshot.getValue(M_GiaoDich.class);
                     if (giaoDich != null) {
@@ -284,6 +352,7 @@ public class Ctrl_CacGiaoDich extends AppCompatActivity {
                         }
                     }
                 }
+                originalList.addAll(giaoDichList); // Lưu bản gốc để phục hồi
                 myAdapter.notifyDataSetChanged();
             }
 
