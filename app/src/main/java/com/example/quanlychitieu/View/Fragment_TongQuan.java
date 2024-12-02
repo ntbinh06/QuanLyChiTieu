@@ -180,7 +180,7 @@ public class Fragment_TongQuan extends Fragment {
         //HIEN THI DANH SACH CAC TAI KHOAN
         taiKhoanRef = FirebaseDatabase.getInstance().getReference("TaiKhoan");
         loadCacTaiKhoan();
-            // Khi người dùng nhấn vào item để xem chi tiết
+        // Khi người dùng nhấn vào item để xem chi tiết
         rvCacTaiKhoan.addOnItemTouchListener(new Ctrl_RecyclerViewItemClickListener(getContext(), rvCacTaiKhoan, new Ctrl_RecyclerViewItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {

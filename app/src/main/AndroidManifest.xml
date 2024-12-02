@@ -81,12 +81,7 @@
         <activity
             android:name=".Controller.Ctrl_ThongTinCaNhan"
             android:exported="false" />
-        <activity
-            android:name=".Controller.Ctrl_SuaChiPhi"
-            android:exported="false" />
-        <activity
-            android:name=".Controller.Ctrl_SuaThuNhap"
-            android:exported="false" />
+
 
         <activity
             android:name=".Controller.Ctrl_RegisterActivity"
