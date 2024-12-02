@@ -249,9 +249,15 @@ public class Ctrl_CacGiaoDich extends AppCompatActivity {
                     M_GiaoDich giaoDich = dataSnapshot.getValue(M_GiaoDich.class);
                     if (giaoDich != null) {
                         try {
-                            Date giaoDichDate = giaoDich.getNgayTao();
+                            // Lấy ngày, tháng, năm từ Map ngayTao
+                            Map<String, Object> ngayTao = giaoDich.getNgayTao();
+                            int ngay = Integer.parseInt(ngayTao.get("ngay").toString());
+                            int thang = Integer.parseInt(ngayTao.get("thang").toString()) - 1; // Tháng trong Calendar bắt đầu từ 0
+                            int nam = Integer.parseInt(ngayTao.get("nam").toString());
+
+                            // Tạo đối tượng Calendar từ ngày, tháng, năm
                             Calendar giaoDichCal = Calendar.getInstance();
-                            giaoDichCal.setTime(giaoDichDate);
+                            giaoDichCal.set(nam, thang, ngay);
 
                             if (giaoDichCal.get(Calendar.YEAR) == selectedYear &&
                                     giaoDichCal.get(Calendar.MONTH) == selectedMonth) {
@@ -273,6 +279,8 @@ public class Ctrl_CacGiaoDich extends AppCompatActivity {
                             }
                         } catch (NumberFormatException e) {
                             Toast.makeText(Ctrl_CacGiaoDich.this, "Định dạng ngày không hợp lệ", Toast.LENGTH_SHORT).show();
+                        } catch (NullPointerException e) {
+                            Toast.makeText(Ctrl_CacGiaoDich.this, "Thông tin ngày tháng không đầy đủ", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }

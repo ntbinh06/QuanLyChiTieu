@@ -170,13 +170,20 @@
             android:layout_marginStart="28dp"
             android:layout_marginEnd="16dp"
             android:contentDescription="Tài khoản"
-            android:src="@drawable/ic_bank" />
+            android:src="@drawable/ic_calender_black" />
 
         <TextView
-            android:id="@+id/tvAccount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tài khoản"
+            android:text="Ngày tạo:"
+            android:textColor="@android:color/black"
+            android:textSize="20sp" />
+        <TextView
+            android:id="@+id/tvDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:text="___"
             android:textColor="@android:color/black"
             android:textSize="20sp" />
     </LinearLayout>
@@ -205,7 +212,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:text="1 tháng"
+            android:text=" Dự trù trong 1 tháng"
             android:textColor="@android:color/black"
             android:textSize="18sp"/>
     </LinearLayout>

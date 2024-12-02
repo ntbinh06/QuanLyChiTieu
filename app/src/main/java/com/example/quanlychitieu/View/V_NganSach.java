@@ -1,9 +1,11 @@
 package com.example.quanlychitieu.View;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -26,7 +28,7 @@ public class V_NganSach extends RecyclerView.Adapter<V_NganSach.ViewHolder> {
         this.giaoDichList = giaoDichList;
     }
 
-    // Thêm phương thức lấy soTienConLai
+    // Phương thức để tính số tiền còn lại
     public double getSoTienConLai(int position) {
         M_DanhMucHangMuc item = danhMucList.get(position);
         double totalGiatri = 0;
@@ -66,6 +68,16 @@ public class V_NganSach extends RecyclerView.Adapter<V_NganSach.ViewHolder> {
 
         holder.nganSachDuTruTextView.setText(String.valueOf(nganSachDuTru)); // Hiển thị ngân sách dự trù
         holder.tienConLaiTextView.setText(String.valueOf(giatriconlai));
+
+        // Cập nhật ProgressBar
+        holder.progressBar.setMax((int) nganSachDuTru);
+        holder.progressBar.setProgress((int) totalGiatri);
+        // Đổi màu ProgressBar thành đỏ nếu totalGiatri >= nganSachDuTru
+        if (totalGiatri >= nganSachDuTru) {
+            holder.progressBar.setProgressDrawable(context.getResources().getDrawable(R.drawable.progress_red)); // Drawable màu đỏ
+        } else {
+            holder.progressBar.setProgressDrawable(context.getResources().getDrawable(R.drawable.progress_bar)); // Drawable màu mặc định
+        }
     }
 
     @Override
@@ -77,13 +89,14 @@ public class V_NganSach extends RecyclerView.Adapter<V_NganSach.ViewHolder> {
         TextView tenHangmucTextView;
         TextView nganSachDuTruTextView;
         TextView tienConLaiTextView;
+        ProgressBar progressBar; // Thêm ProgressBar
 
         public ViewHolder(@NonNull View itemView) {
-
             super(itemView);
             tenHangmucTextView = itemView.findViewById(R.id.tenHangMuc);
             nganSachDuTruTextView = itemView.findViewById(R.id.soTien);
             tienConLaiTextView = itemView.findViewById(R.id.tienConLai);
+            progressBar = itemView.findViewById(R.id.pgbTienTrinh); // Khởi tạo ProgressBar
         }
     }
 }

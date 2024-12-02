@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,7 +17,7 @@ public class Ctrl_GioiThieu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gioi_thieu); // Kiểm tra layout
 
-        ImageButton ic_back = findViewById(R.id.ic_back);
+        ImageView ic_back = findViewById(R.id.ic_back);
 
 
         ic_back.setOnClickListener(new View.OnClickListener() {

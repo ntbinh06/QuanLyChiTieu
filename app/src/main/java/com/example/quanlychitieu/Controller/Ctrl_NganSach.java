@@ -2,9 +2,11 @@ package com.example.quanlychitieu.Controller;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -34,14 +36,13 @@ import java.util.Locale;
 import me.tankery.lib.circularseekbar.CircularSeekBar;
 
 public class Ctrl_NganSach extends AppCompatActivity {
-
     private RecyclerView rvNganSach;
     private Button btnTaoNganSach;
-    private TextView currentMonthText;
+    private TextView currentMonthText, tong, totalrest, totaldachi, dayrest;
     private ImageView prevMonthButton, nextMonthButton;
+    private CircularSeekBar arcProgressBar;
 
     private int currentMonthOffset = 0;
-    private int pos = 0;
 
     // Firebase references
     private DatabaseReference databaseDanhMuc;
@@ -50,24 +51,29 @@ public class Ctrl_NganSach extends AppCompatActivity {
     private ArrayList<M_DanhMucHangMuc> danhMucList = new ArrayList<>();
     private ArrayList<M_GiaoDich> giaoDichList = new ArrayList<>();
 
+    private double soTienConLai = 0.0; // Biến để lưu số tiền còn lại
+    private double soTien = 0.0; // Biến để lưu số tiền dự trù
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ngan_sach);
 
+        // Khởi tạo TextView
+        tong = findViewById(R.id.tong);
+        totalrest = findViewById(R.id.totalrest);
+        totaldachi = findViewById(R.id.totaldachi);
+        arcProgressBar = findViewById(R.id.arcProgressBar);
+        dayrest = findViewById(R.id.dayrest);
         rvNganSach = findViewById(R.id.lvNganSach);
+        rvNganSach.setLayoutManager(new LinearLayoutManager(this));
 
         // Khởi tạo Firebase references
         databaseDanhMuc = FirebaseDatabase.getInstance().getReference("HangMuc");
         databaseGiaoDich = FirebaseDatabase.getInstance().getReference("GiaoDich");
 
-        // Sử dụng LinearLayoutManager để hiển thị danh sách theo chiều dọc
-        rvNganSach.setLayoutManager(new LinearLayoutManager(this));
+        loadData(); // Gọi loadData để tải danh mục ngay khi bắt đầu
 
-        // Gán Adapter cho RecyclerView
-        loadData();
-
-        // Xử lý sự kiện cho các nút khác
         btnTaoNganSach = findViewById(R.id.btnTaoNgansach);
         btnTaoNganSach.setOnClickListener(view -> {
             Intent intent = new Intent(Ctrl_NganSach.this, Ctrl_NganSachMoi.class);
@@ -79,21 +85,19 @@ public class Ctrl_NganSach extends AppCompatActivity {
             Intent intent = new Intent(Ctrl_NganSach.this, Ctrl_TongQuan.class);
             startActivity(intent);
         });
-        // Khi người dùng nhấn vào item để xem chi tiết
+
+        // Xử lý sự kiện click cho RecyclerView
         rvNganSach.addOnItemTouchListener(new Ctrl_RecyclerViewItemClickListener(this, rvNganSach, new Ctrl_RecyclerViewItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 M_DanhMucHangMuc nganSach = danhMucList.get(position);
-
-                // Lấy adapter để gọi phương thức getSoTienConLai
                 V_NganSach adapter = (V_NganSach) rvNganSach.getAdapter();
                 double soTienConLai = adapter.getSoTienConLai(position);
 
-                // Tạo Intent để truyền dữ liệu sang Ctrl_ChiTietNganSach
                 Intent intent = new Intent(Ctrl_NganSach.this, Ctrl_ChiTietNganSach.class);
-                intent.putExtra("transactionId", nganSach.getIdHangmuc()); // Giữ nguyên kiểu dữ liệu
+                intent.putExtra("transactionId", nganSach.getIdHangmuc());
                 intent.putExtra("tenHangMuc", nganSach.getTenHangmuc());
-                intent.putExtra("soTien", nganSach.getNganSachDuTru()); // Không cần chuyển đổi sang double nếu đã là double
+                intent.putExtra("soTien", nganSach.getNganSachDuTru());
                 intent.putExtra("soTienConLai", soTienConLai);
                 startActivity(intent);
             }
@@ -103,14 +107,13 @@ public class Ctrl_NganSach extends AppCompatActivity {
                 // Xử lý nếu cần thiết
             }
         }));
-        // Thiết lập các nút điều hướng tháng
+
         currentMonthText = findViewById(R.id.currentMonthText);
         prevMonthButton = findViewById(R.id.prevMonthButton);
         nextMonthButton = findViewById(R.id.nextMonthButton);
 
         updateMonthText();
 
-        // Sự kiện cho DatePickerDialog
         currentMonthText.setOnClickListener(v -> showMonthYearPicker());
         prevMonthButton.setOnClickListener(v -> {
             currentMonthOffset--;
@@ -121,41 +124,37 @@ public class Ctrl_NganSach extends AppCompatActivity {
             currentMonthOffset++;
             updateMonthText();
         });
+    }
 
-        // Arc Progress Bar
-        CircularSeekBar circularSeekBar = findViewById(R.id.arcProgressBar);
-        circularSeekBar.setMax(200);
-        Handler handler = new Handler(Looper.getMainLooper());
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (pos <= 200) {
-                    circularSeekBar.setProgress(pos);
-                    if (pos == 200) {
-                        int redColor = getResources().getColor(R.color.red_2, null);
-                        circularSeekBar.setCircleProgressColor(redColor); // Đổi màu thành đỏ
-                    }
-                    pos++;
-                    handler.postDelayed(this, 200);
-                }
+    private void updateTong() {
+        double totalNganSachDuTru = 0.0;
+        for (M_DanhMucHangMuc danhMuc : danhMucList) {
+            if (danhMuc.getNganSachDuTru() != null) {
+                totalNganSachDuTru += danhMuc.getNganSachDuTru();
             }
-        }, 200);
+        }
+
+        // Hiển thị tổng vào TextView
+        tong.setText(String.format("%.2f M", totalNganSachDuTru));
     }
 
     private void loadData() {
-        // Lấy danh mục từ Firebase
         databaseDanhMuc.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 danhMucList.clear();
+                soTien = 0.0; // Đặt lại số tiền mỗi lần tải dữ liệu mới
+
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     M_DanhMucHangMuc danhMuc = snapshot.getValue(M_DanhMucHangMuc.class);
-                    // Kiểm tra và chỉ thêm vào danhMucList nếu nganSachDuTru khác null
                     if (danhMuc != null && danhMuc.getNganSachDuTru() != null) {
                         danhMucList.add(danhMuc);
+                        soTien += danhMuc.getNganSachDuTru();
                     }
                 }
-                loadGiaoDich(); // Chỉ gọi loadGiaoDich nếu đã có danh mục
+
+                loadGiaoDich(); // Gọi loadGiaoDich sau khi đã tải danh mục
+                updateTong(); // Cập nhật tổng ngay sau khi tải danh mục
             }
 
             @Override
@@ -163,23 +162,62 @@ public class Ctrl_NganSach extends AppCompatActivity {
                 // Xử lý lỗi nếu cần
             }
         });
-
     }
 
     private void loadGiaoDich() {
-        // Lấy giao dịch từ Firebase
         databaseGiaoDich.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 giaoDichList.clear();
+                double totalSpent = 0.0;
+
+                // Lấy tháng và năm hiện tại từ currentMonthText
+                Calendar currentCalendar = Calendar.getInstance();
+                currentCalendar.add(Calendar.MONTH, currentMonthOffset);
+                SimpleDateFormat sdf = new SimpleDateFormat("MM/yyyy", new Locale("vi", "VN"));
+                String monthYear = sdf.format(currentCalendar.getTime());
+
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     M_GiaoDich giaoDich = snapshot.getValue(M_GiaoDich.class);
                     if (giaoDich != null) {
+                        String ngayTao = giaoDich.getFormattedNgayTao();
+                        if (ngayTao != null && ngayTao.endsWith(monthYear)) {
+                            totalSpent += giaoDich.getGiaTri();
+                        }
                         giaoDichList.add(giaoDich);
                     }
                 }
-                // Gán adapter cho RecyclerView sau khi tải xong dữ liệu
+
+                soTienConLai = soTien - totalSpent;
+
+                double totalDachi = 0.0;
+                for (M_DanhMucHangMuc danhMuc : danhMucList) {
+                    if (danhMuc.getNganSachDuTru() != null) {
+                        String idHangMuc = danhMuc.getIdHangmuc();
+                        for (M_GiaoDich giaoDich : giaoDichList) {
+                            if (giaoDich.getIdHangMuc() != null && giaoDich.getIdHangMuc().equals(idHangMuc)) {
+                                totalDachi += giaoDich.getGiaTri();
+                            }
+                        }
+                    }
+                }
+
+                totaldachi.setText(String.format("%.2f M", totalSpent));
+
+                double remainingAmount = soTien - totalDachi;
+                totalrest.setText(String.format("%.2f M", remainingAmount));
+
+                // Cập nhật CircularSeekBar
+                arcProgressBar.setMax((int) soTien); // Giá trị tối đa là số tiền dự trù
+                arcProgressBar.setProgress((int) totalDachi); // Thiết lập giá trị hiện tại
+
+                int currentDay = currentCalendar.get(Calendar.DAY_OF_MONTH);
+                int totalDaysInMonth = currentCalendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+                int daysLeft = totalDaysInMonth - currentDay;
+                dayrest.setText(String.format("%d ngày", daysLeft));
+
                 V_NganSach customAdapter = new V_NganSach(Ctrl_NganSach.this, danhMucList, giaoDichList);
+                // Cập nhật adapter cho RecyclerView
                 rvNganSach.setAdapter(customAdapter);
             }
 
@@ -193,13 +231,17 @@ public class Ctrl_NganSach extends AppCompatActivity {
     private void updateMonthText() {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MONTH, currentMonthOffset);
+
         if (currentMonthOffset == 0) {
             currentMonthText.setText("Tháng này");
         } else {
-            SimpleDateFormat sdf = new SimpleDateFormat("MMMM yyyy", new Locale("Vi", "VN"));
+            SimpleDateFormat sdf = new SimpleDateFormat("MMMM yyyy", new Locale("vi", "VN"));
             String monthText = sdf.format(calendar.getTime());
             currentMonthText.setText(monthText);
         }
+
+        // Gọi loadData để tải lại danh mục và kiểm tra giao dịch
+        loadData();
     }
 
     private void showMonthYearPicker() {
@@ -210,10 +252,7 @@ public class Ctrl_NganSach extends AppCompatActivity {
                 this,
                 R.style.CustomDatePickerDialog,
                 (view, year, month, dayOfMonth) -> {
-                    Calendar selectedDate = Calendar.getInstance();
-                    selectedDate.set(year, month, 1);
-                    Calendar currentDate = Calendar.getInstance();
-                    currentMonthOffset = (year - currentDate.get(Calendar.YEAR)) * 12 + (month - currentDate.get(Calendar.MONTH));
+                    currentMonthOffset = (year - Calendar.getInstance().get(Calendar.YEAR)) * 12 + (month - Calendar.getInstance().get(Calendar.MONTH));
                     updateMonthText();
                 },
                 calendar.get(Calendar.YEAR),
@@ -221,6 +260,7 @@ public class Ctrl_NganSach extends AppCompatActivity {
                 calendar.get(Calendar.DAY_OF_MONTH)
         );
 
+        // Ẩn spinner ngày
         try {
             Field dayPicker = datePickerDialog.getDatePicker().getClass().getDeclaredField("mDaySpinner");
             dayPicker.setAccessible(true);

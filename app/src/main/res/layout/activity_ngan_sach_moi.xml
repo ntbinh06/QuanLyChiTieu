@@ -40,7 +40,7 @@
         android:layout_width="match_parent"
         android:orientation="horizontal"
         android:layout_height="70dp"
-        android:layout_marginTop="30dp">
+        android:layout_marginTop="40dp">
 
         <ImageButton
             android:id="@+id/hangmuc"
@@ -69,7 +69,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="50dp"
         android:layout_gravity="center">
 
         <ImageView
@@ -116,36 +116,13 @@
         </LinearLayout>
     </LinearLayout>
 
-    <!-- Select account Layout -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="30dp"
-        android:layout_gravity="center">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/banking_finance_bank_icon"
-            android:layout_marginStart="43dp"
-            android:layout_marginTop="10dp"
-            android:contentDescription="Bank icon"/>
-
-        <com.example.quanlychitieu.View.V_CustomSpinner
-            android:id="@+id/spnTaiKhoan"
-            android:layout_width="272dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="20dp"
-            android:background="@drawable/bg_spinner"
-            android:contentDescription="Chọn tài khoản"/>
-    </LinearLayout>
 
     <!-- Select date Layout -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="50dp"
         tools:ignore="ExtraText">
         <ImageView
             android:layout_width="35dp"
@@ -160,7 +137,7 @@
             android:layout_marginStart="42dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1 tháng"
+            android:text="Dự trù trong 1 tháng"
             android:textColor="@color/black"
             android:textSize="18sp"/>
 

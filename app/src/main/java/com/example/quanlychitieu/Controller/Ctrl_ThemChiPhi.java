@@ -44,8 +44,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 public class Ctrl_ThemChiPhi extends AppCompatActivity {
     private EditText editTextGiaTri, editTextTu, editTextGhiChu;
@@ -145,7 +147,17 @@ public class Ctrl_ThemChiPhi extends AppCompatActivity {
                 giaoDich.setGiaTri(giaTri);
                 giaoDich.setIdHangMuc(selectedHangMucId);
                 giaoDich.setIdTaiKhoan(selectedTaiKhoanId);
-                giaoDich.setNgayTao(ngayTao);
+
+                // Lưu ngày tháng dưới dạng Map
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(ngayTao);
+                Map<String, Object> dateMap = new HashMap<>();
+                dateMap.put("ngay", calendar.get(Calendar.DAY_OF_MONTH));
+                dateMap.put("thang", calendar.get(Calendar.MONTH) + 1); // Tháng được tính từ 0
+                dateMap.put("nam", calendar.get(Calendar.YEAR));
+
+                giaoDich.setNgayTao(dateMap); // Set ngày tạo là map
+
                 giaoDich.setTu(tu);
                 giaoDich.setGhiChu(ghiChu);
 
@@ -168,25 +180,19 @@ public class Ctrl_ThemChiPhi extends AppCompatActivity {
                                         if (updatedNganSachDuTru < 0) {
                                             double vuotQua = Math.abs(updatedNganSachDuTru);
                                             Toast.makeText(Ctrl_ThemChiPhi.this,
-                                                    "Cảnh báo: Giá trị ngân sách  đã vượt quá " + vuotQua,
+                                                    "Cảnh báo: Giá trị ngân sách đã vượt quá " + vuotQua,
                                                     Toast.LENGTH_LONG).show();
                                         } else {
                                             // Cập nhật lại giá trị ngân sách dự trù
-                                            hangMucRef.child("nganSachDuTru").setValue(updatedNganSachDuTru).addOnCompleteListener(updateTask -> {
-                                                if (updateTask.isSuccessful()) {
-                                                    Toast.makeText(Ctrl_ThemChiPhi.this, "Thông tin đã được lưu và ngân sách được cập nhật!", Toast.LENGTH_SHORT).show();
-                                                    Intent intent = new Intent(Ctrl_ThemChiPhi.this, Ctrl_TongQuan.class);
-                                                    startActivity(intent);
-                                                    finish();
-                                                } else {
-                                                    Toast.makeText(Ctrl_ThemChiPhi.this, "Lỗi cập nhật ngân sách. Vui lòng thử lại.", Toast.LENGTH_SHORT).show();
-                                                }
-                                            });
+
+                                            Toast.makeText(Ctrl_ThemChiPhi.this, "Thông tin đã được lưu!", Toast.LENGTH_SHORT).show();
+                                            Intent intent = new Intent(Ctrl_ThemChiPhi.this, Ctrl_TongQuan.class);
+                                            startActivity(intent);
+                                            finish();
                                         }
                                     }
                                 } else {
                                     startActivity(new Intent(Ctrl_ThemChiPhi.this, Ctrl_TongQuan.class));
-
                                 }
                             }
 
@@ -201,7 +207,6 @@ public class Ctrl_ThemChiPhi extends AppCompatActivity {
                 });
             }
         });
-
         btnCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
