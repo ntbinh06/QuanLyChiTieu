@@ -1,201 +1,174 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-weight: normal;
-    font-style: normal;
-}
-
-body {
-    font-family: 'Inter', sans-serif;
-    display: flex;
-    height: 100vh;
-    background-color: #f3f4f6;
-}
-
-.container {
-    display: flex;
-    width: 100%;
-}
-
+/* Sidebar */
 .sidebar {
-    width: 300px;
     background-color: #CECEFF;
     color: #3D378B;
-    padding: 20px;
+    width: 320px;
+    height: 100vh;
+    float: left;
+    padding-top: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-.sidebar h2 {
-    display: flex;
-    align-items: center; /* Căn giữa hình ảnh và chữ theo chiều dọc */
-    gap: 10px; /* Khoảng cách giữa hình ảnh và chữ */
-}
-
-.ngansach-icon {
-    width: 50px; /* Điều chỉnh kích thước hình ảnh cho phù hợp */
-    height: auto;
-}
-
-.sidebar ul {
-    list-style-type: none;
-    width: 100%;
-}
-
-.sidebar ul li {
-    margin: 15px 0;
-}
-
-.sidebar ul li a {
+    box-sizing: border-box;
+    position: fixed;
+    overflow: hidden;
+    z-index: 2;
+  }
+  
+  .sidebar a {
     color: #3D378B;
     text-decoration: none;
+    padding: 15px 10px;
     display: block;
-    padding: 10px;
-    border-radius: 8px;
-}
-
-.sidebar ul li a.active, .sidebar ul li a:hover {
-    background-color: #5a52d4; /* Màu nền khi hover */
+    border-radius: 5px;
+    font-size: 20px;
+  }
+  
+  .sidebar a:hover {
+    background-color: #3D378B;
     color: white;
-}
-.sidebar ul li a:hover i {
-    color: white; /* Màu icon khi hover */
-}
-
-.content {
-    flex-grow: 1;
-    padding: 20px;
-}
-
-.header {
+  }
+  
+  .sidebar_title {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #F5F5F5;
+    padding-bottom: 10px;
+    height: 70px;
+    width: 100%;
+  }
+  
+  .sidebar_title img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-left: 15px;
+    margin-right: 10px;
+  }
+  
+  .sidebar_title h2 {
+    font-size: 20px;
+    margin: 0;
+    font-style: normal;
+  }
+  
+  .sidebar ul li {
+    margin: 10px 15px;
+    list-style-type: none;
+   
+  }
+  
+  .sidebar ul {
+    width: 300px;
+    margin-right: 45px;
+  }
+  
+  .sidebar ul li a {
+    display: block;
+    border-radius: 8px;
+    
+  }
+  
+  .sidebar i{
+    margin-right: 10px;
+  }
+/* Header */
+header {
+    background-color: white;
+    height: 80px;
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    margin-bottom: 20px;
-    margin-right: 10px;
+    padding: 10px 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1;
 }
 
-.header h1 {
-    display: flex;
-    align-items: center;
-    font-size: 22px; /* Điều chỉnh kích thước chữ nếu cần */
-    color: #5034C4; /* Đặt màu cho cả chữ và icon */
+.user-icon img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
 }
 
-.header .icon {
-    margin-right: 8px; /* Khoảng cách giữa icon avatar và chữ */
-}
-
-.header .fa-caret-down {
-    color: inherit; /* Sử dụng cùng màu với chữ "Administrator" */
-    margin-left: 5px; /* Khoảng cách giữa chữ và mũi tên */
-    font-size: 14px; /* Kích thước icon */
-}
-
-.welcome {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-}
-
-.welcome-card p{
-    color: #282A8A;
-    font-style: italic;
-    margin-left: 50px;
-}
-
-.welcome-card, .user-count-card {
-    background-color: #f0f0f0;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    flex: 1;
-}
-
-.user-count-card {
-    background-color: #f7f7ff;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    padding: 15px 50px;
-    max-width: 340px;
-    display: flex;
-    margin-left: 30px;
-    align-items: center; /* Đảm bảo icon và văn bản được căn giữa theo chiều dọc */
-}
-
-.soluong-icon {
-    width: 90px; /* Kích thước của icon, điều chỉnh nếu cần */
-    height: 90px;
-    margin-right: 10px; /* Khoảng cách giữa icon và văn bản */
-}
-
-.user-count-card p {
-    color: #3B288A; /* Màu chữ cho tiêu đề */
-    font-size: 14px; /* Kích thước chữ cho tiêu đề */
-    margin: 0; /* Loại bỏ khoảng cách thừa */
-}
-
-.user-count-card h3 {
-    font-size: 24px; /* Kích thước chữ cho số liệu */
-    margin: 5px 0 0 0; /* Khoảng cách bên trên của số liệu */
-}
-
-.hello-icon {
-    width: 90px;
-    vertical-align: middle;
-    margin-right: 10px;
-}
-
-.admin-name {
+.name-admin {
+    font-size: 16px;
     font-weight: bold;
-    font-size: 24px;
+    color: #3D378B;
+    margin: 0 10px;
 }
 
-.statistics-chart {
-    display: flex;
-    gap: 20px;
-}
-
-.chart {
-    flex: 2;
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.user-activity {
-    flex: 1;
-    background-color: white;
-    width: 340px;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+.header-icon i {
+    color: #3D378B;
+    font-size: 14px;
     margin-left: 10px;
 }
 
-.user-activity h2 {
-    margin-bottom: 15px;
-    font-size: 18px;
-    color: #3B288A;
+
+/* Content */
+.content {
+    margin-left: 300px;
+    padding: 20px;
+    background-color: #F6F6FF;
+    min-height: 100vh;
 }
 
-.user-activity ul {
-    margin-left: 20px;
-    list-style-type: none;
+/* Welcome Section */
+.welcome-section {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
 }
 
-.user-activity li {
+.welcome-card, .user-count-card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    flex: 1;
     display: flex;
     align-items: center;
-    margin: 10px 0;
+    gap: 15px;
 }
 
-.user-icon {
-    width: 30px;
-    height: 30px;
+/* Chart Section */
+.chart-section {
+    background-color: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+/* User Activity Section */
+.user-activity-section {
+    background-color: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.user-activity-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.user-activity-list li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     margin-right: 10px;
+}
+
+.user-name {
+    font-size: 16px;
+    color: #5034C4;
 }

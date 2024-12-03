@@ -99,22 +99,36 @@ app.get('/QuanLyHangMuc', async (req, res) => {
 
 app.get('/TrangChu', async (req, res) => {
   try {
-    const userRef = ref(database, 'NguoiDung');
+    const userRef = ref(database, 'NguoiDung'); // Tham chiếu đến bảng NguoiDung
     const snapshot = await get(userRef);
 
     let userCount = 0;
+    let allUsers = [];
+
     if (snapshot.exists()) {
       const data = snapshot.val();
-      userCount = Object.keys(data).length; // Đếm số lượng người dùng
+      userCount = Object.keys(data).length; // Đếm tổng số người dùng
+
+      // Duyệt qua tất cả người dùng và thêm vào danh sách
+      for (const id in data) {
+        const user = data[id];
+        allUsers.push({
+          avatar: user.avatar || '../images/binh.png', // Avatar mặc định
+          name: user.tenUser || "Người dùng không tên",
+          email: user.email || "Không có email",
+        });
+      }
     }
 
-    // Render TrangChu.ejs với số lượng người dùng
-    res.render('TrangChu', { userCount });
+    // Render giao diện TrangChu với danh sách tất cả người dùng
+    res.render('TrangChu', { userCount, activeUsers: allUsers });
   } catch (error) {
     console.error("Lỗi khi đọc dữ liệu Firebase: ", error);
-    res.render('TrangChu', { userCount: 0 });
+    res.render('TrangChu', { userCount: 0, activeUsers: [] });
   }
 });
+
+
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
