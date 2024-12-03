@@ -10,7 +10,6 @@
         crossorigin="anonymous"
         referrerpolicy="no-referrer"
     />
-    <link rel="stylesheet" href="../css/QuanLyNguoiDung.css" />
     <link rel="stylesheet" href="../css/XemChiTietUser.css" />
     <title>Xem chi tiết người dùng</title>
 </head>
@@ -28,7 +27,7 @@
             <ul>
                 <li><a href="/TrangChu" class="active"><i class="fas fa-home"></i> Trang chủ</a></li>
                 <li><a href="/QuanLyNguoiDung"><i class="fas fa-users"></i> Quản lý người dùng</a></li>
-                <li><a href="/QuanLyHangMuc"><i class="fas fa-user-cog"></i>Quản lý hạng mục/a></li>
+                <li><a href="/QuanLyHangMuc"><i class="fas fa-user-cog"></i>Quản lý hạng mục</a></li>
             </ul>
         </div>
     </aside>
@@ -47,24 +46,24 @@
 
     <div class="main-container">
         <div class="form-container">
-            <label><span>👤</span> Tên người dùng</label>
-            <input type="text" placeholder="Tên người dùng">
-
-            <label><span>📅</span> Ngày sinh</label>
-            <input type="text" placeholder="Ngày sinh">
-
-            <label><span>📞</span> Số điện thoại</label>
-            <input type="text" placeholder="Số điện thoại">
-
-            <label><span>✉️</span> Email</label>
-            <input type="text" placeholder="Email">
-
-            <button class="submit-button" onclick="window.location.href='QuanLyNguoiDung'">Duyệt tài khoản</button>
+          <label><span>👤</span> Tên người dùng</label>
+          <div class="text-box"><%= name %></div>
+      
+          <label><span>📅</span> Ngày sinh</label>
+          <div class="text-box"><%= birthDate %></div>
+      
+          <label><span>📞</span> Số điện thoại</label>
+          <div class="text-box"><%= phone %></div>
+      
+          <label><span>✉️</span> Email</label>
+          <div class="text-box"><%= email %></div>
+      
+          <button class="submit-button" onclick="window.location.href='/QuanLyNguoiDung'">Quay lại</button>
         </div>
         <div class="avatar-container">
-            <img src="https://via.placeholder.com/80" alt="Avatar">
-            <label>Ảnh đại diện</label>
+          <img src="<%= avatar %>" alt="Avatar">
+          <label>Ảnh đại diện</label>
         </div>
-    </div>
+      </div>      
 </body>
 </html>

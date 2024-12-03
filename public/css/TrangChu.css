@@ -132,21 +132,38 @@ header {
     gap: 15px;
 }
 
+.dashboard {
+  display: flex; /* Đặt container thành flex */
+  gap: 20px; /* Khoảng cách giữa biểu đồ và danh sách */
+  align-items: flex-start; /* Căn theo hàng trên cùng */
+  margin-bottom: 20px;
+}
+
 /* Chart Section */
 .chart-section {
-    background-color: white;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
+  flex: 4; /* Chiếm 4 phần không gian */
+  max-width: 70%; /* Biểu đồ không rộng hơn 50% container */
+  background-color: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chart-section canvas {
+  max-width: 100%; /* Giới hạn kích thước biểu đồ trong container */
+  height: 200px; /* Chiều cao cố định */
 }
 
 /* User Activity Section */
 .user-activity-section {
-    background-color: white;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  flex: 2; /* Chiếm 3 phần không gian */
+  background-color: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .user-activity-list {

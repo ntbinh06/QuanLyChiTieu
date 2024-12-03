@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const { initializeApp } = require('firebase/app');
 const { getDatabase, ref, get } = require('firebase/database');
+const { update } = require('firebase/database'); // Import hàm update
 
 const app = express();
 const PORT = process.env.PORT || 3007;
@@ -43,9 +44,11 @@ app.get('/QuanLyNguoiDung', async (req, res) => {
 
       for (const id in data) {
         userList.push({
+          id: id, // Thêm userId
           avatar: '../images/user_women.png',
           name: data[id].tenUser,
           email: data[id].email,
+          lock: data[id].lock || false, // Thêm trạng thái lock
         });
       }
 
@@ -65,14 +68,60 @@ app.get('/QuanLyNguoiDung', async (req, res) => {
   }
 });
 
+// Route xử lý toggle trạng thái khóa
+app.post('/toggleLock', express.json(), async (req, res) => {
+  const { userId, lock } = req.body; // Lấy userId và trạng thái mới từ request body
+
+  if (!userId) {
+    return res.status(400).send('Thiếu userId!');
+  }
+
+  try {
+    const userRef = ref(database, `NguoiDung/${userId}`); // Tham chiếu đến người dùng
+    await update(userRef, { lock }); // Cập nhật trạng thái khóa trong Firebase
+
+    res.status(200).send('Cập nhật trạng thái thành công!');
+  } catch (error) {
+    console.error('Lỗi khi cập nhật trạng thái khóa:', error);
+    res.status(500).send('Lỗi máy chủ!');
+  }
+});
 
 // Các route khác
 app.get('/', (req, res) => {
   res.render('DangNhap', { title: 'Đăng nhập' });
 });
-app.get('/XemChiTietUser', (req, res) => {
-  res.render('XemChiTietUser.ejs');
+
+//Xemchitiet
+app.get('/XemChiTietUser', async (req, res) => {
+  const userId = req.query.userId; // Lấy userId từ query string
+
+  if (!userId) {
+    return res.send('Không tìm thấy userId!');
+  }
+
+  try {
+    const userRef = ref(database, `NguoiDung/${userId}`); // Truy cập vào userId trong Firebase
+    const snapshot = await get(userRef);
+
+    if (snapshot.exists()) {
+      const userDetails = snapshot.val();
+      res.render('XemChiTietUser', {
+        name: userDetails.tenUser || "Không có tên",
+        birthDate: userDetails.ngaySinh || "Không có ngày sinh",
+        phone: userDetails.SDT || "Không có số điện thoại",
+        email: userDetails.email || "Không có email",
+        avatar: userDetails.avatar || "../images/user_women.png", // Avatar mặc định
+      });
+    } else {
+      res.status(404).send('Người dùng không tồn tại!');
+    }
+  } catch (error) {
+    console.error('Lỗi khi lấy dữ liệu người dùng: ', error);
+    res.status(500).send('Lỗi máy chủ!');
+  }
 });
+
 app.get('/QuanLyHangMuc', async (req, res) => {
   try {
     const categoryRef = ref(database, 'HangMuc'); // Tham chiếu tới bảng HangMuc

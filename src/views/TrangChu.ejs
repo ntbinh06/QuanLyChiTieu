@@ -61,24 +61,24 @@
             </div>
         </div>
 
-        <!-- Phần Biểu Đồ -->
-        <div class="chart-section">
-            <div class="chart">
+        <!-- Dashboard Section -->
+        <div class="dashboard">
+            <!-- Chart Section -->
+            <div class="chart-section">
                 <canvas id="userChart"></canvas>
             </div>
-        </div>
-
-        <!-- Những Người Dùng Tích Cực -->
-        <div class="user-activity-section">
-            <h2>Những người dùng tích cực trong tuần qua</h2>
-            <ul class="user-activity-list">
-                <% activeUsers.forEach(user => { %>
-                    <li style="margin-bottom: 10px;">
-                      <img src="<%= user.avatar %>" alt="User Avatar" style="width: 50px; height: 50px; border-radius: 50%;">
-                      <span style="margin-left: 10px;"><%= user.name %></span>
-                    </li>
-                  <% }) %>
-            </ul>
+            <!-- User Activity Section -->
+            <div class="user-activity-section">
+                <h2>Những người dùng tích cực trong tuần qua</h2>
+                <ul class="user-activity-list">
+                    <% activeUsers.forEach(user => { %>
+                        <li>
+                            <img src="<%= user.avatar %>" alt="User Avatar" class="user-avatar">
+                            <span class="user-name"><%= user.name %></span>
+                        </li>
+                    <% }) %>
+                </ul>
+            </div>
         </div>
     </div>
 
