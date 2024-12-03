@@ -24,7 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 public class Ctrl_RegisterActivity extends AppCompatActivity {
 
     private Button btnDangKy;
-    private FirebaseAuth auth;
+    private FirebaseAuth auth; // FirebaseAuth instance
     private FirebaseDatabase database;
     private DatabaseReference userRef;
 
@@ -39,12 +39,12 @@ public class Ctrl_RegisterActivity extends AppCompatActivity {
         EditText inputEmail = findViewById(R.id.dk_inputEmail);
         EditText inputPassword = findViewById(R.id.dk_inputPassword);
 
-        // Firebase Auth và Realtime Database
-        auth = FirebaseAuth.getInstance();
+        // Firebase Auth and Realtime Database initialization
+        auth = FirebaseAuth.getInstance(); // Correct initialization
         database = FirebaseDatabase.getInstance();
-        userRef = database.getReference("NguoiDung"); // Tham chiếu đến node "NguoiDung"
+        userRef = database.getReference("NguoiDung");
 
-        // Sự kiện khi nhấn vào nút Đăng ký
+        // Register button click event
         btnDangKy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,7 +67,7 @@ public class Ctrl_RegisterActivity extends AppCompatActivity {
                     return;
                 }
 
-                // Kiểm tra xem email đã tồn tại chưa
+                // Check if email already exists
                 userRef.orderByChild("email").equalTo(email)
                         .addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
@@ -75,14 +75,16 @@ public class Ctrl_RegisterActivity extends AppCompatActivity {
                                 if (dataSnapshot.exists()) {
                                     showAlertDialog("Email này đã được đăng ký. Vui lòng chọn email khác.");
                                 } else {
-                                    // Tạo tài khoản mới
+                                    // Create a new user account
                                     auth.createUserWithEmailAndPassword(email, password)
                                             .addOnCompleteListener(task1 -> {
                                                 if (task1.isSuccessful()) {
-                                                    String userId = auth.getCurrentUser().getUid();
-                                                    // Các trường không nhập sẽ được đặt là null
-                                                    M_NguoiDung user = new M_NguoiDung(userId, name, email, password);
+                                                    String userId = auth.getCurrentUser().getUid(); // Get the user ID from Firebase Auth
 
+                                                    // Create a new user object with the user ID
+                                                    M_NguoiDung user = new M_NguoiDung(userId, name, email, password); // lock is false by default
+
+                                                    // Save the user data to the Realtime Database
                                                     userRef.child(userId).setValue(user)
                                                             .addOnCompleteListener(task2 -> {
                                                                 if (task2.isSuccessful()) {
@@ -111,27 +113,23 @@ public class Ctrl_RegisterActivity extends AppCompatActivity {
             }
         });
 
-        // Chuyển đến màn hình Đăng nhập
+        // Navigate to Login screen
         tv_btnDangNhap.setOnClickListener(view -> {
             Intent intent = new Intent(Ctrl_RegisterActivity.this, Ctrl_LoginActicity.class);
             startActivity(intent);
         });
     }
 
-    // Hàm hiển thị Dialog
+    // Show AlertDialog
     private void showAlertDialog(String message) {
         new AlertDialog.Builder(Ctrl_RegisterActivity.this)
                 .setMessage(message)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss(); // Đóng Dialog khi người dùng nhấn OK
-                    }
-                })
-                .setCancelable(false) // Không cho phép đóng bằng cách nhấn ra ngoài dialog
+                .setPositiveButton("OK", (dialog, which) -> dialog.dismiss())
+                .setCancelable(false)
                 .show();
     }
 
+    // Convert Firebase error messages to Vietnamese
     private String convertErrorMessageToVietnamese(String errorMessage) {
         switch (errorMessage) {
             case "The email address is already in use by another account.":
@@ -147,7 +145,7 @@ public class Ctrl_RegisterActivity extends AppCompatActivity {
         }
     }
 
-    // Hàm kiểm tra định dạng email
+    // Check email format
     private boolean isEmailValid(String email) {
         String emailPattern = "^[a-zA-Z0-9._%+-]+@gmail\\.com$";
         return email.matches(emailPattern);

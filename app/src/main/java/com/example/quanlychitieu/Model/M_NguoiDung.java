@@ -6,7 +6,8 @@ public class M_NguoiDung {
     private String email;        // Email
     private String ngaySinh;     // Ngaysinh (dùng String để dễ dàng định dạng)
     private String sdt;          // Sdt
-    private String matKhau;      // Matkhau
+    private String matKhau;
+    private boolean lock;
     private String anhDaiDien;
 
     public M_NguoiDung() {
@@ -21,7 +22,8 @@ public class M_NguoiDung {
         this.matKhau = matKhau;
         this.ngaySinh = null; // Chưa có
         this.sdt = null; // Chưa có
-        this.anhDaiDien = null; // Chưa có
+        this.anhDaiDien = null;
+        this.lock = false;
     }
 
     // Constructor đầy đủ, dùng khi cập nhật thông tin
@@ -91,5 +93,12 @@ public class M_NguoiDung {
 
     public void setAnhDaiDien(String anhDaiDien) {
         this.anhDaiDien = anhDaiDien;
+    }
+    public boolean isLock() {
+        return lock;
+    }
+
+    public void setLock(boolean lock) {
+        this.lock = lock;
     }
 }

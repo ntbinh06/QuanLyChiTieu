@@ -12,7 +12,7 @@ public class M_TaiKhoan {
     private Date lanSuDungCuoi;
     private String donViTienTe;
     private String ghiChu;
-    private String idUser;
+    private String userId;
 
     // Constructor không tham số
 
@@ -27,11 +27,11 @@ public class M_TaiKhoan {
         this.lanSuDungCuoi = null; // Giá trị mặc định
         this.donViTienTe = "VND"; // Giá trị mặc định
         this.ghiChu = ""; // Giá trị mặc định
-        this.idUser = ""; // Giá trị mặc định
+        this.userId = ""; // Giá trị mặc định
     }
 
     // Constructor đầy đủ
-    public M_TaiKhoan(String idTaiKhoan, String tenTaiKhoan, Double luongBanDau, Date ngayTao, Date lanSuDungCuoi, String donViTienTe, String ghiChu, String idUser) {
+    public M_TaiKhoan(String idTaiKhoan, String tenTaiKhoan, Double luongBanDau, Date ngayTao, Date lanSuDungCuoi, String donViTienTe, String ghiChu, String userId) {
         this.idTaiKhoan = idTaiKhoan;
         this.tenTaiKhoan = tenTaiKhoan;
         this.luongBanDau = luongBanDau;
@@ -39,7 +39,7 @@ public class M_TaiKhoan {
         this.lanSuDungCuoi = lanSuDungCuoi;
         this.donViTienTe = donViTienTe;
         this.ghiChu = ghiChu;
-        this.idUser = idUser;
+        this.userId = userId;
     }
 
     // Getters và Setters
@@ -99,12 +99,12 @@ public class M_TaiKhoan {
         this.ghiChu = ghiChu;
     }
 
-    public String getIdUser() {
-        return idUser;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setIdUser(String idUser) {
-        this.idUser = idUser;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     // Hàm định dạng tiền tệ

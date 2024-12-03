@@ -24,6 +24,7 @@ import com.example.quanlychitieu.Controller.Ctrl_IconAdapter;
 import com.example.quanlychitieu.Model.M_DanhMucHangMuc;
 import com.example.quanlychitieu.Model.M_IconManager;
 import com.example.quanlychitieu.R;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -146,6 +147,9 @@ public class Fragment_Them_Hang_Muc extends DialogFragment {
             return;
         }
 
+        // Lấy UID của người dùng hiện tại
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
         // Nếu ID hạng mục không rỗng thì cập nhật
         if (!TextUtils.isEmpty(idHangMuc)) {
             hangMucRef.child(idHangMuc).setValue(new M_DanhMucHangMuc(
@@ -154,7 +158,7 @@ public class Fragment_Them_Hang_Muc extends DialogFragment {
                     getResources().getResourceEntryName(selectedIcon),
                     null,
                     String.valueOf(idNhom),
-                    "DSEZCk7wpuPyegmLbv66Tn6HjCz1"
+                    userId // Thêm userId vào đây
             )).addOnSuccessListener(aVoid -> {
                 Toast.makeText(getContext(), "Cập nhật hạng mục thành công!", Toast.LENGTH_SHORT).show();
                 dismiss();
@@ -170,7 +174,7 @@ public class Fragment_Them_Hang_Muc extends DialogFragment {
                     getResources().getResourceEntryName(selectedIcon),
                     null,
                     String.valueOf(idNhom),
-                    "DSEZCk7wpuPyegmLbv66Tn6HjCz1"
+                    userId // Thêm userId vào đây
             )).addOnSuccessListener(aVoid -> {
                 Toast.makeText(getContext(), "Thêm hạng mục thành công!", Toast.LENGTH_SHORT).show();
                 dismiss();

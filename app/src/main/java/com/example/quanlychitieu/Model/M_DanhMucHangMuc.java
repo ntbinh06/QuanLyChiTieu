@@ -8,7 +8,7 @@ public class M_DanhMucHangMuc  {
     private String anhHangmuc;
     private Double nganSachDuTru;
     private String idNhom;
-    private String idUser;
+    private String userId;
 
     // Constructor mặc định (Firebase cần)ac
     public M_DanhMucHangMuc() {
@@ -26,7 +26,7 @@ public class M_DanhMucHangMuc  {
         this.anhHangmuc = anhHangmuc;
         this.nganSachDuTru = nganSachDuTru;
         this.idNhom = idNhom;
-        this.idUser = idUser;
+        this.userId = idUser;
     }
 
     // Getter và Setter
@@ -70,11 +70,11 @@ public class M_DanhMucHangMuc  {
         this.idNhom = idNhom;
     }
 
-    public String getIdUser() {
-        return idUser;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setIdUser(String idUser) {
-        this.idUser = idUser;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

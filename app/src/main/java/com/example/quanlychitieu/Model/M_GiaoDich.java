@@ -2,7 +2,6 @@ package com.example.quanlychitieu.Model;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Map;
 
 public class M_GiaoDich {
@@ -14,6 +13,7 @@ public class M_GiaoDich {
     private String tu;
     private String ghiChu;
     private String idNhom;
+    private String userId;
 
     // Constructor mặc định
     public M_GiaoDich() {}
@@ -85,7 +85,13 @@ public class M_GiaoDich {
     public void setGhiChu(String ghiChu) {
         this.ghiChu = ghiChu;
     }
+    public String getUserId() {
+        return userId;
+    }
 
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
     // Phương thức chuyển đổi Map thành String
     public String getFormattedNgayTao() {
         if (ngayTao != null) {

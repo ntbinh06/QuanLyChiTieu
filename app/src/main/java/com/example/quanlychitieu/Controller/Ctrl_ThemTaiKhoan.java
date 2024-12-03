@@ -66,9 +66,9 @@ public class Ctrl_ThemTaiKhoan extends Fragment {
                 // Parse lương bắt đầu từ chuỗi sang số
                 double luongBatDau = Double.parseDouble(luongBatDauStr);
 
-                // Lấy idUser hiện tại từ Firebase Authentication
+                // Lấy userId hiện tại từ Firebase Authentication
                 FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-                String idUser = currentUser != null ? currentUser.getUid() : "default_user";
+                String userId = currentUser != null ? currentUser.getUid() : "default_user";
 
                 // Tạo đối tượng M_TaiKhoan mới
                 M_TaiKhoan taiKhoanMoi = new M_TaiKhoan(
@@ -79,8 +79,9 @@ public class Ctrl_ThemTaiKhoan extends Fragment {
                         new Date(), // lanSuDungCuoi là ngày hiện tại
                         donViTien,
                         ghiChu,
-                        idUser
-                );
+                        userId
+
+                    );
 
                 // Gọi hàm thêm tài khoản vào Firebase
                 ((Ctrl_CacTaiKhoan) requireActivity()).addTaiKhoanToFirebase(taiKhoanMoi);

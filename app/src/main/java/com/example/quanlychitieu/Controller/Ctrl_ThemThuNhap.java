@@ -30,6 +30,7 @@ import com.example.quanlychitieu.Model.M_GiaoDich;
 import com.example.quanlychitieu.Model.M_HangMucThuNhap;
 import com.example.quanlychitieu.Model.M_TaiKhoan;
 import com.example.quanlychitieu.R;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -134,7 +135,8 @@ public class Ctrl_ThemThuNhap extends AppCompatActivity {
                 String ghiChu = editTextGhiChu.getText().toString().trim();
                 String dateStr = editTextDate.getText().toString().trim();
 
-
+                // Lấy UID của người dùng hiện tại
+                String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
                 // Tạo đối tượng M_GiaoDich
                 M_GiaoDich giaoDich = new M_GiaoDich();
@@ -142,6 +144,7 @@ public class Ctrl_ThemThuNhap extends AppCompatActivity {
                 giaoDich.setGiaTri(giaTri);
                 giaoDich.setIdHangMuc(selectedHangMucId);
                 giaoDich.setIdTaiKhoan(selectedTaiKhoanId);
+                giaoDich.setUserId(userId);
 
                 // Chuyển đổi chuỗi ngày tháng thành đối tượng Date
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());

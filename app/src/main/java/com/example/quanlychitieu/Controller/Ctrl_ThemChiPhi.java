@@ -30,6 +30,7 @@ import com.example.quanlychitieu.Model.M_GiaoDich;
 import com.example.quanlychitieu.Model.M_HangMucChiPhi;
 import com.example.quanlychitieu.Model.M_TaiKhoan;
 import com.example.quanlychitieu.R;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -60,6 +61,7 @@ public class Ctrl_ThemChiPhi extends AppCompatActivity {
     private EditText editTextDate;
     private ImageView imageViewCalendar;
     private TextView chonHangMucTextView;
+    private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,13 +142,15 @@ public class Ctrl_ThemChiPhi extends AppCompatActivity {
                     Toast.makeText(Ctrl_ThemChiPhi.this, "Ngày không hợp lệ!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
+            // Lấy UID của người dùng hiện tại
+                String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
                 // Tạo đối tượng M_GiaoDich
                 M_GiaoDich giaoDich = new M_GiaoDich();
                 giaoDich.setIdGiaoDich(FirebaseDatabase.getInstance().getReference("GiaoDich").push().getKey());
                 giaoDich.setGiaTri(giaTri);
                 giaoDich.setIdHangMuc(selectedHangMucId);
                 giaoDich.setIdTaiKhoan(selectedTaiKhoanId);
+                giaoDich.setUserId(userId);
 
                 // Lưu ngày tháng dưới dạng Map
                 Calendar calendar = Calendar.getInstance();
@@ -162,7 +166,6 @@ public class Ctrl_ThemChiPhi extends AppCompatActivity {
                 giaoDich.setGhiChu(ghiChu);
 
                 DatabaseReference giaoDichRef = FirebaseDatabase.getInstance().getReference("GiaoDich");
-
                 // Lưu giao dịch trước
                 giaoDichRef.child(giaoDich.getIdGiaoDich()).setValue(giaoDich).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {

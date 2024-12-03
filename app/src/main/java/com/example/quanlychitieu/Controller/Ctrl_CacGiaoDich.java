@@ -22,6 +22,7 @@ import com.example.quanlychitieu.Model.M_NhomHangMuc;
 import com.example.quanlychitieu.Model.M_TaiKhoan;
 import com.example.quanlychitieu.R;
 import com.example.quanlychitieu.View.V_ItemGiaoDich;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -303,19 +304,21 @@ public class Ctrl_CacGiaoDich extends AppCompatActivity {
 
     private void loadGiaoDich() {
         DatabaseReference giaoDichRef = FirebaseDatabase.getInstance().getReference("GiaoDich");
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid(); // Lấy UID của người dùng hiện tại
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MONTH, currentMonthOffset);
         int selectedYear = calendar.get(Calendar.YEAR);
         int selectedMonth = calendar.get(Calendar.MONTH);
 
-        giaoDichRef.addValueEventListener(new ValueEventListener() {
+        // Lấy danh sách tất cả giao dịch
+        giaoDichRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 giaoDichList.clear();
                 originalList.clear(); // Đảm bảo không bị trùng lặp
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     M_GiaoDich giaoDich = dataSnapshot.getValue(M_GiaoDich.class);
-                    if (giaoDich != null) {
+                    if (giaoDich != null && userId.equals(giaoDich.getUserId())) { // Kiểm tra userId
                         try {
                             // Lấy ngày, tháng, năm từ Map ngayTao
                             Map<String, Object> ngayTao = giaoDich.getNgayTao();

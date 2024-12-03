@@ -8,6 +8,7 @@ public class M_NganSach {
     private long soTienConLai;
     private int hinhAnh;
     private int phanTramChi;
+    private String userId;
 
     public M_NganSach(String tenHangMuc, String trangThai, long tongSoTien, long soTienConLai, int hinhAnh, int phanTramChi) {
         this.tenHangMuc = tenHangMuc;
@@ -48,5 +49,12 @@ public class M_NganSach {
 
     public int getPgrBar() {
         return phanTramChi;
+    }
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

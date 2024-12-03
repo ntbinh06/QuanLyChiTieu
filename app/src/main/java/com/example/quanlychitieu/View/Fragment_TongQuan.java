@@ -472,8 +472,8 @@ public class Fragment_TongQuan extends Fragment {
         int thangHienTai = calendar.get(Calendar.MONTH) + 1; // Tháng (1-12)
         int namHienTai = calendar.get(Calendar.YEAR); // Năm
 
-        // Bước 1: Tải dữ liệu từ bảng HangMuc
-        dbRef.child("HangMuc").addListenerForSingleValueEvent(new ValueEventListener() {
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid(); // Lấy UID của người dùng hiện tại
+        dbRef.child("HangMuc").orderByChild("userId").equalTo(userId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot hangMucSnap) {
                 // Tạo HashMap lưu idHangMuc -> idNhom
@@ -487,30 +487,33 @@ public class Fragment_TongQuan extends Fragment {
                 }
 
                 // Bước 2: Tải dữ liệu từ bảng GiaoDich
-                dbRef.child("GiaoDich").addListenerForSingleValueEvent(new ValueEventListener() {
+                dbRef.child("GiaoDich").orderByChild("userId").equalTo(userId).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot giaoDichSnap) {
                         long tongThuNhap = 0;
                         long tongChiPhi = 0;
 
                         for (DataSnapshot giaoDich : giaoDichSnap.getChildren()) {
-                            String idHangMuc = giaoDich.child("idHangMuc").getValue(String.class);
-                            Long giaTri = giaoDich.child("giaTri").getValue(Long.class);
+                            String giaoDichUserId = giaoDich.child("userId").getValue(String.class);
+                            if (userId.equals(giaoDichUserId)) { // Kiểm tra userId
+                                String idHangMuc = giaoDich.child("idHangMuc").getValue(String.class);
+                                Long giaTri = giaoDich.child("giaTri").getValue(Long.class);
 
-                            // Lấy thông tin ngày
-                            Integer ngay = giaoDich.child("ngayTao/ngay").getValue(Integer.class);
-                            Integer thang = giaoDich.child("ngayTao/thang").getValue(Integer.class);
-                            Integer nam = giaoDich.child("ngayTao/nam").getValue(Integer.class);
+                                // Lấy thông tin ngày
+                                Integer ngay = giaoDich.child("ngayTao/ngay").getValue(Integer.class);
+                                Integer thang = giaoDich.child("ngayTao/thang").getValue(Integer.class);
+                                Integer nam = giaoDich.child("ngayTao/nam").getValue(Integer.class);
 
-                            if (idHangMuc != null && giaTri != null && ngay != null && thang != null && nam != null) {
-                                // Kiểm tra giao dịch có thuộc tháng và năm hiện tại không
-                                if (thang == thangHienTai && nam == namHienTai) {
-                                    String idNhom = hangMucMap.get(idHangMuc);
+                                if (idHangMuc != null && giaTri != null && ngay != null && thang != null && nam != null) {
+                                    // Kiểm tra giao dịch có thuộc tháng và năm hiện tại không
+                                    if (thang == thangHienTai && nam == namHienTai) {
+                                        String idNhom = hangMucMap.get(idHangMuc);
 
-                                    if ("1".equals(idNhom)) { // Nhóm 1 là thu nhập
-                                        tongThuNhap += giaTri;
-                                    } else if ("2".equals(idNhom)) { // Nhóm 2 là chi phí
-                                        tongChiPhi += giaTri;
+                                        if ("1".equals(idNhom)) { // Nhóm 1 là thu nhập
+                                            tongThuNhap += giaTri;
+                                        } else if ("2".equals(idNhom)) { // Nhóm 2 là chi phí
+                                            tongChiPhi += giaTri;
+                                        }
                                     }
                                 }
                             }
@@ -556,7 +559,6 @@ public class Fragment_TongQuan extends Fragment {
         });
     }
 
-
     //Hien thi ten hang muc
     private void loadHangMuc() {
         DatabaseReference hangMucRef = FirebaseDatabase.getInstance().getReference("HangMuc");
@@ -583,18 +585,21 @@ public class Fragment_TongQuan extends Fragment {
 
     //Hien thi ten tai khoan
     private void loadTaiKhoan() {
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid(); // Lấy UID của người dùng hiện tại
         DatabaseReference taiKhoanRef = FirebaseDatabase.getInstance().getReference("TaiKhoan");
-        taiKhoanRef.addValueEventListener(new ValueEventListener() {
+
+        // Thêm điều kiện lọc theo userId
+        taiKhoanRef.orderByChild("userId").equalTo(userId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                taiKhoanMap.clear();
+                taiKhoanMap.clear(); // Xóa dữ liệu cũ
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     M_TaiKhoan taiKhoan = dataSnapshot.getValue(M_TaiKhoan.class);
                     if (taiKhoan != null) {
                         taiKhoanMap.put(taiKhoan.getIdTaiKhoan(), taiKhoan.getTenTaiKhoan());
                     }
                 }
-                loadGiaoDich();
+                loadGiaoDich(); // Gọi phương thức để tải giao dịch sau khi đã có dữ liệu tài khoản
             }
 
             @Override
@@ -605,7 +610,8 @@ public class Fragment_TongQuan extends Fragment {
     }
 
     private void loadGiaoDich() {
-        giaoDichRef.orderByChild("ngayTao").limitToLast(4).addValueEventListener(new ValueEventListener() {
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid(); // Lấy UID của người dùng hiện tại
+        giaoDichRef.orderByChild("userId").equalTo(userId).limitToLast(4).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 giaoDichList.clear(); // Xóa dữ liệu cũ
@@ -632,7 +638,6 @@ public class Fragment_TongQuan extends Fragment {
                     giaoDichList.add(giaoDich);
                 }
 
-
                 // Cập nhật adapter sau khi thêm giao dịch vào danh sách
                 giaoDichAdapter.notifyDataSetChanged();
 
@@ -647,10 +652,6 @@ public class Fragment_TongQuan extends Fragment {
         });
     }
 
-
-
-
-
     private void updateUI() {
         if (giaoDichList.isEmpty()) {
             rvCacGiaoDich.setVisibility(View.GONE);
@@ -663,30 +664,31 @@ public class Fragment_TongQuan extends Fragment {
         }
     }
 
-    private void loadCacTaiKhoan(){
-        taiKhoanRef.orderByChild("ngayTao")
-                .limitToFirst(3)
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        taiKhoanList.clear(); // Xóa danh sách cũ
-                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                            M_TaiKhoan taiKhoan = dataSnapshot.getValue(M_TaiKhoan.class);
-                            taiKhoanList.add(taiKhoan); // Thêm tài khoản vào danh sách
-                        }
-
-                        // Đảo ngược danh sách để sắp xếp giảm dần (ngày tạo gần nhất trước)
-                        //Collections.reverse( taiKhoanList);
-
-                        // Cập nhật giao diện RecyclerView
-                        myAdapter.notifyDataSetChanged();
+    private void loadCacTaiKhoan() {
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid(); // Lấy UID của người dùng hiện tại
+        taiKhoanRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                taiKhoanList.clear(); // Xóa danh sách cũ
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    M_TaiKhoan taiKhoan = dataSnapshot.getValue(M_TaiKhoan.class);
+                    if (taiKhoan != null &&userId.equals(taiKhoan.getUserId())) {
+                        taiKhoanList.add(taiKhoan); // Thêm tài khoản vào danh sách
                     }
+                }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        Toast.makeText(getContext(), "Không thể tải dữ liệu", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                // Đảo ngược danh sách để sắp xếp giảm dần (ngày tạo gần nhất trước)
+                Collections.reverse(taiKhoanList);
+
+                // Cập nhật giao diện RecyclerView
+                myAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getContext(), "Không thể tải dữ liệu", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void tinhTongTienCuaTatCaTaiKhoan() {

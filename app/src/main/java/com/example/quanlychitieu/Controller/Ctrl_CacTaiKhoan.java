@@ -15,21 +15,18 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.quanlychitieu.Model.M_DanhMucTaiKhoan;
 import com.example.quanlychitieu.Model.M_TaiKhoan;
 import com.example.quanlychitieu.R;
 import com.example.quanlychitieu.View.V_ItemCacTK;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class Ctrl_CacTaiKhoan extends AppCompatActivity {
     ArrayList<M_TaiKhoan> taikhoan;
@@ -125,7 +122,7 @@ public class Ctrl_CacTaiKhoan extends AppCompatActivity {
             data.put("lanSuDungCuoi", taiKhoannew.getLanSuDungCuoi());
             data.put("donViTienTe", taiKhoannew.getDonViTienTe());
             data.put("ghiChu", taiKhoannew.getGhiChu());
-            data.put("idUser", taiKhoannew.getIdUser());
+            data.put("userId", taiKhoannew.getUserId());
 
             // Thêm dữ liệu vào Firebase
             taiKhoanRef.child(autoId).setValue(data).addOnSuccessListener(aVoid -> {
@@ -143,19 +140,22 @@ public class Ctrl_CacTaiKhoan extends AppCompatActivity {
 
 
     private void loadTaiKhoanFromFirebase() {
+        // Lấy UID của người dùng hiện tại
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
         // Lấy dữ liệu từ Firebase
         taiKhoanref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 taikhoan.clear();  // Xóa các item cũ
-                Log.d("FirebaseData", "du lieu firebase nhan duoc: " + dataSnapshot.toString());
+                Log.d("FirebaseData", "Dữ liệu Firebase nhận được: " + dataSnapshot.toString());
                 double tongTien = 0;
 
                 // Duyệt qua dữ liệu Firebase
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     M_TaiKhoan itemTaiKhoan = snapshot.getValue(M_TaiKhoan.class);
-//                    taikhoan.add(itemTaiKhoan);
-                    if (itemTaiKhoan != null) {
+                    if (itemTaiKhoan != null && userId.equals(itemTaiKhoan.getUserId())) {
+                        // Thêm tài khoản vào danh sách nếu userId khớp
                         taikhoan.add(itemTaiKhoan);
                         tongTien += itemTaiKhoan.getLuongBanDau(); // Cộng giá trị luongBanDau
                     }
@@ -163,10 +163,10 @@ public class Ctrl_CacTaiKhoan extends AppCompatActivity {
 
                 // Hiển thị tổng tiền lên TextView
                 TextView txtTong = findViewById(R.id.Tong); // Lấy TextView bằng ID
-                txtTong.setText(String.format("%,.0f", tongTien)); // Định dạng số tiền (thêm đằng sau 'đ')
+                txtTong.setText(String.format("%,.0f", tongTien) + " đ"); // Định dạng số tiền (thêm đằng sau 'đ')
 
                 // Cập nhật ListView với dữ liệu lấy từ Firebase
-                item = new V_ItemCacTK(Ctrl_CacTaiKhoan.this,R.layout.list_item_taikhoan, taikhoan);
+                item = new V_ItemCacTK(Ctrl_CacTaiKhoan.this, R.layout.list_item_taikhoan, taikhoan);
                 Log.d("AdapterDebug", "Số lượng tài khoản: " + taikhoan.size());
                 lv.setAdapter(item);
             }
@@ -174,7 +174,7 @@ public class Ctrl_CacTaiKhoan extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 // Xử lý lỗi khi lấy dữ liệu từ Firebase
-                Log.e("FirebaseError", "Loi khi lay du lieu: " + databaseError.getMessage());
+                Log.e("FirebaseError", "Lỗi khi lấy dữ liệu: " + databaseError.getMessage());
                 Toast.makeText(Ctrl_CacTaiKhoan.this, "Có lỗi xảy ra khi tải dữ liệu", Toast.LENGTH_SHORT).show();
             }
         });

@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.quanlychitieu.Model.M_DanhMucHangMuc;
 import com.example.quanlychitieu.R;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -63,13 +64,17 @@ public class Fragment_ChiPhi extends Fragment {
     }
 
     private void loadHangMucFromFirebase() {
-        hangMucRef.orderByChild("idNhom").equalTo("2").addValueEventListener(new ValueEventListener() {
+        // Lấy UID của người dùng hiện tại
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        // Lấy dữ liệu từ Firebase, lọc theo userId và idNhom
+        hangMucRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 danhMuc.clear(); // Xóa dữ liệu cũ
                 for (DataSnapshot data : snapshot.getChildren()) {
                     M_DanhMucHangMuc hangMuc = data.getValue(M_DanhMucHangMuc.class);
-                    if (hangMuc != null) {
+                    if (hangMuc != null && "2".equals(hangMuc.getIdNhom())&& userId.equals(hangMuc.getUserId())) { // Kiểm tra idNhom
                         danhMuc.add(hangMuc);
                     }
                 }

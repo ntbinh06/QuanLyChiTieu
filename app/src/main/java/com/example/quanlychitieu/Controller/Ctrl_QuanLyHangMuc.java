@@ -116,7 +116,7 @@ public class Ctrl_QuanLyHangMuc extends AppCompatActivity {
     }
 
     // Thêm danh sách nhóm hạng mục mẫu vào Firebase
-    private List<M_NhomHangMuc> createSampleNhomHangMuc() {
+    public List<M_NhomHangMuc> createSampleNhomHangMuc() {
         List<M_NhomHangMuc> danhSachNhomHM = new ArrayList<>();
         danhSachNhomHM.add(new M_NhomHangMuc("1", "Nhóm Thu Nhập"));
         danhSachNhomHM.add(new M_NhomHangMuc("2", "Nhóm Chi Phí"));
