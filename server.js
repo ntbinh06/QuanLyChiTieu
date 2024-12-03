@@ -4,7 +4,7 @@ const { initializeApp } = require('firebase/app');
 const { getDatabase, ref, get } = require('firebase/database');
 
 const app = express();
-const PORT = process.env.PORT || 3029;
+const PORT = process.env.PORT || 3034;
 
 // Cấu hình Firebase
 const firebaseConfig = {
@@ -39,6 +39,7 @@ app.get('/', (req, res) => {
 });
 
 // Route xử lý đăng nhập
+// Route xử lý đăng nhập
 app.post('/DangNhap', async (req, res) => {
   const { email, password } = req.body;
   try {
@@ -60,7 +61,11 @@ app.post('/DangNhap', async (req, res) => {
       }
 
       if (isAuthenticated) {
-        res.render('TrangChu', { user: userInfo }); // Chuyển đến Trang Chủ với thông tin người dùng
+        // Truy xuất userCount để truyền vào TrangChu
+        const userCount = Object.keys(users).length;
+
+        // Truyền thêm userCount vào template TrangChu.ejs
+        res.render('TrangChu', { user: userInfo, userCount });
       } else {
         res.render('DangNhap', { error: 'Email hoặc mật khẩu không chính xác!' });
       }
@@ -127,18 +132,49 @@ app.get('/XemChiTietUser/:userId', async (req, res) => {
     res.status(500).send('Internal Server Error');
   }
 });
+app.get('/QuanLyHangMuc', async (req, res) => {
+  try {
+    const categoryRef = ref(database, 'HangMuc'); // Tham chiếu tới bảng HangMuc
+    const snapshot = await get(categoryRef);
 
-// Route hiển thị thông tin admin
-app.get('/ThongTinAdmin', (req, res) => {
-  res.render('ThongTinAdmin');
+    let categoryList = []; // Khởi tạo danh sách hạng mục
+    if (snapshot.exists()) {
+      const data = snapshot.val();
+      for (const id in data) {
+        categoryList.push({
+          tenHangMuc: data[id].tenHangmuc || "Không có tên", // Tên hạng mục
+          anhHangMuc: '../images/money.png',
+        });
+      }
+    }
+
+    // Truyền danh sách hạng mục vào file QuanLyHangMuc.ejs
+    res.render('QuanLyHangMuc', { categoryList });
+  } catch (error) {
+    console.error("Lỗi khi đọc dữ liệu Firebase: ", error);
+    res.render('QuanLyHangMuc', { categoryList: [] }); // Truyền danh sách rỗng khi lỗi
+  }
 });
 
-// Route trang chủ sau khi đăng nhập thành công
-app.get('/TrangChu', (req, res) => {
-  res.render('TrangChu', { user: null }); // Bạn có thể truyền thông tin người dùng từ phiên
+app.get('/TrangChu', async (req, res) => {
+  try {
+    const userRef = ref(database, 'NguoiDung');
+    const snapshot = await get(userRef);
+
+    let userCount = 0;
+    if (snapshot.exists()) {
+      const data = snapshot.val();
+      userCount = Object.keys(data).length; // Đếm số lượng người dùng
+    }
+
+    // Render TrangChu.ejs với số lượng người dùng
+    res.render('TrangChu', { userCount });
+  } catch (error) {
+    console.error("Lỗi khi đọc dữ liệu Firebase: ", error);
+    res.render('TrangChu', { userCount: 0 });
+  }
 });
 
-// Bắt đầu server
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
