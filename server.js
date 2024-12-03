@@ -4,7 +4,7 @@ const { initializeApp } = require('firebase/app');
 const { getDatabase, ref, get } = require('firebase/database');
 
 const app = express();
-const PORT = process.env.PORT || 3006;
+const PORT = process.env.PORT || 3007;
 
 // Cấu hình Firebase
 const firebaseConfig = {
@@ -73,12 +73,49 @@ app.get('/', (req, res) => {
 app.get('/XemChiTietUser', (req, res) => {
   res.render('XemChiTietUser.ejs');
 });
-app.get('/ThongTinAdmin', (req, res) => {
-  res.render('ThongTinAdmin.ejs');
+app.get('/QuanLyHangMuc', async (req, res) => {
+  try {
+    const categoryRef = ref(database, 'HangMuc'); // Tham chiếu tới bảng HangMuc
+    const snapshot = await get(categoryRef);
+
+    let categoryList = []; // Khởi tạo danh sách hạng mục
+    if (snapshot.exists()) {
+      const data = snapshot.val();
+      for (const id in data) {
+        categoryList.push({
+          tenHangMuc: data[id].tenHangmuc || "Không có tên", // Tên hạng mục
+          anhHangMuc: '../images/money.png',
+        });
+      }
+    }
+
+    // Truyền danh sách hạng mục vào file QuanLyHangMuc.ejs
+    res.render('QuanLyHangMuc', { categoryList });
+  } catch (error) {
+    console.error("Lỗi khi đọc dữ liệu Firebase: ", error);
+    res.render('QuanLyHangMuc', { categoryList: [] }); // Truyền danh sách rỗng khi lỗi
+  }
 });
-app.get('/TrangChu', (req, res) => {
-  res.render('TrangChu.ejs');
+
+app.get('/TrangChu', async (req, res) => {
+  try {
+    const userRef = ref(database, 'NguoiDung');
+    const snapshot = await get(userRef);
+
+    let userCount = 0;
+    if (snapshot.exists()) {
+      const data = snapshot.val();
+      userCount = Object.keys(data).length; // Đếm số lượng người dùng
+    }
+
+    // Render TrangChu.ejs với số lượng người dùng
+    res.render('TrangChu', { userCount });
+  } catch (error) {
+    console.error("Lỗi khi đọc dữ liệu Firebase: ", error);
+    res.render('TrangChu', { userCount: 0 });
+  }
 });
+
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
