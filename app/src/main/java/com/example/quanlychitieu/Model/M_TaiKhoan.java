@@ -15,31 +15,34 @@ public class M_TaiKhoan {
     private String userId;
 
     // Constructor không tham số
-
     public M_TaiKhoan() {
+        this.luongBanDau = 0.0; // Giá trị mặc định
+        this.ngayTao = new Date(); // Ngày tạo mặc định
+        this.donViTienTe = "VND"; // Đơn vị tiền tệ mặc định
+        this.ghiChu = ""; // Ghi chú mặc định
     }
 
-    public M_TaiKhoan(String idTaiKhoan, String tenTaiKhoan, String userId) {
+    public M_TaiKhoan(String idTaiKhoan, String tenTaiKhoan, String userId, Double luongBanDau) {
         this.idTaiKhoan = idTaiKhoan;
         this.tenTaiKhoan = tenTaiKhoan;
-        this.luongBanDau = 0.0; // Default value
-        this.ngayTao = new Date(); // Default value
-        this.lanSuDungCuoi = null; // Default value
-        this.donViTienTe = "VND"; // Default value
-        this.ghiChu = ""; // Default value
-        this.userId = userId; // Initialize userId
+        this.luongBanDau = luongBanDau != null ? luongBanDau : 0.0; // Giá trị mặc định nếu null
+        this.ngayTao = new Date(); // Ngày tạo mặc định
+        this.lanSuDungCuoi = null; // Giá trị mặc định
+        this.donViTienTe = "VND"; // Đơn vị tiền tệ mặc định
+        this.ghiChu = ""; // Ghi chú mặc định
+        this.userId = userId; // Khởi tạo userId
     }
 
     // Constructor đầy đủ
     public M_TaiKhoan(String idTaiKhoan, String tenTaiKhoan, Double luongBanDau, Date ngayTao, Date lanSuDungCuoi, String donViTienTe, String ghiChu, String userId) {
         this.idTaiKhoan = idTaiKhoan;
         this.tenTaiKhoan = tenTaiKhoan;
-        this.luongBanDau = luongBanDau;
-        this.ngayTao = ngayTao;
-        this.lanSuDungCuoi = lanSuDungCuoi;
-        this.donViTienTe = donViTienTe;
-        this.ghiChu = ghiChu;
-        this.userId = userId;
+        this.luongBanDau = luongBanDau != null ? luongBanDau : 0.0; // Giá trị mặc định nếu null
+        this.ngayTao = ngayTao != null ? ngayTao : new Date(); // Ngày tạo mặc định
+        this.lanSuDungCuoi = lanSuDungCuoi; // Giá trị có thể null
+        this.donViTienTe = donViTienTe != null ? donViTienTe : "VND"; // Đơn vị tiền tệ mặc định
+        this.ghiChu = ghiChu != null ? ghiChu : ""; // Ghi chú mặc định
+        this.userId = userId; // Khởi tạo userId
     }
 
     // Getters và Setters
@@ -122,7 +125,4 @@ public class M_TaiKhoan {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         return lanSuDungCuoi != null ? sdf.format(lanSuDungCuoi) : "N/A";
     }
-
-
-
 }

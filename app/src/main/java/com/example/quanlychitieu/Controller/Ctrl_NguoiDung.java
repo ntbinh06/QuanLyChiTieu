@@ -183,26 +183,38 @@ public class Ctrl_NguoiDung extends AppCompatActivity {
         finish(); // Kết thúc Ctrl_NguoiDung
     }
 
-    // Hàm xóa tài khoản (thêm logic nếu cần)
     private void deleteUserAccount() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
-            // Delete user data from Firestore/Realtime Database
-            FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-            firestore.collection("users").document(user.getUid()).delete();
+            // Lấy ID người dùng
+            String userId = user.getUid();
 
-            // Delete user from Firebase Authentication
+            // Xóa tài khoản Firebase Authentication
             user.delete()
-                    .addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            // Redirect to login screen after account deletion
-                            navigateToLoginScreen();
+                    .addOnCompleteListener(deleteTask -> {
+                        if (deleteTask.isSuccessful()) {
+                            // Nếu xóa tài khoản thành công, tiến hành xóa dữ liệu người dùng từ Realtime Database
+                            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("NguoiDung").child(userId);
+                            userRef.removeValue()
+                                    .addOnCompleteListener(task -> {
+                                        if (task.isSuccessful()) {
+                                            Toast.makeText(Ctrl_NguoiDung.this, "Xóa tài khoản và dữ liệu thành công", Toast.LENGTH_SHORT).show();
+                                            navigateToLoginScreen();
+                                        } else {
+                                            // Thông báo lỗi khi xóa dữ liệu người dùng không thành công
+                                            String errorMessage = task.getException() != null ? task.getException().getMessage() : "Lỗi không xác định";
+                                            Toast.makeText(Ctrl_NguoiDung.this, "Xóa dữ liệu người dùng không thành công: " + errorMessage, Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
                         } else {
-                            Toast.makeText(Ctrl_NguoiDung.this, "Account deletion failed", Toast.LENGTH_SHORT).show();
+                            // Thông báo lỗi khi xóa tài khoản không thành công
+                            String errorMessage = deleteTask.getException() != null ? deleteTask.getException().getMessage() : "Lỗi không xác định";
+                            Toast.makeText(Ctrl_NguoiDung.this, "Xóa tài khoản không thành công: " + errorMessage, Toast.LENGTH_SHORT).show();
                         }
                     });
+        } else {
+            // Thông báo nếu không có người dùng nào đang đăng nhập
+            Toast.makeText(Ctrl_NguoiDung.this, "Không có người dùng đăng nhập", Toast.LENGTH_SHORT).show();
         }
-        navigateToLoginScreen();
     }
-
 }

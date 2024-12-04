@@ -286,10 +286,10 @@ public class Ctrl_SuaThuNhap extends AppCompatActivity {
                     String idTaiKhoan = snapshot.child("idTaiKhoan").getValue(String.class);
                     String tenTaiKhoan = snapshot.child("tenTaiKhoan").getValue(String.class);
                     String hangMucUserId = snapshot.child("userId").getValue(String.class); // Assuming userId is stored
-
+                    double luongBanDau = snapshot.child("luongBanDau").getValue(Double.class);
                     // Create and add M_TaiKhoan object to the list if userId matches
                     if (userId != null && userId.equals(hangMucUserId)) {
-                        M_TaiKhoan taiKhoan = new M_TaiKhoan(idTaiKhoan, tenTaiKhoan, hangMucUserId); // Assuming constructor includes userId
+                        M_TaiKhoan taiKhoan = new M_TaiKhoan(idTaiKhoan, tenTaiKhoan, hangMucUserId, luongBanDau); // Assuming constructor includes userId
                         taiKhoanList.add(taiKhoan);
                     }
                 }

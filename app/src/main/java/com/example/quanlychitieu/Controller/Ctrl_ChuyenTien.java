@@ -1,122 +1,182 @@
 package com.example.quanlychitieu.Controller;
 
-import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.quanlychitieu.Model.M_TaiKhoan;
 import com.example.quanlychitieu.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
+import java.util.Map;
 
 public class Ctrl_ChuyenTien extends AppCompatActivity {
+
     private Spinner spnfrom;
     private Spinner spnto;
-    private ImageView btnCalender;
-    private TextView txtDateMonthYear;
+    private DatabaseReference userRef;
+    private List<M_TaiKhoan> taiKhoanList;
+    private EditText inPut_monney;
+
+    private String selectedFromAccountId = null; // ID tài khoản gửi
+    private String selectedToAccountId = null;   // ID tài khoản nhận
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_chuyen_tien);
+
         spnfrom = findViewById(R.id.spin_bank_from);
-        List<String> list = new ArrayList<>();
-        list.add("Ví");
-        list.add("Tài khoản ngân hàng");
-        list.add("Trả trước");
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, list);
-        adapter.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
-        spnfrom.setAdapter(adapter);
-
-        spnfrom.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(Ctrl_ChuyenTien.this, spnfrom.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                // Handle case where nothing is selected if needed
-            }
-        });
-
         spnto = findViewById(R.id.spin_bank_to);
-        List<String> list1 = new ArrayList<>();
-        list1.add("Ví");
-        list1.add("Tài khoản ngân hàng");
-        list1.add("Trả trước");
+        inPut_monney = findViewById(R.id.inPut_monney);
+        taiKhoanList = new ArrayList<>();
+        userRef = FirebaseDatabase.getInstance().getReference("TaiKhoan");
 
-        ArrayAdapter<String> adapter1 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, list);
-        adapter1.setDropDownViewResource(android.R.layout.simple_list_item_single_choice);
-        spnto.setAdapter(adapter);
+        getTaiKhoanList();
 
-        spnto.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(Ctrl_ChuyenTien.this, spnto.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-                // Handle case where nothing is selected if needed
-            }
-        });
         ImageButton ic_back = findViewById(R.id.ic_back);
         Button btn_save = findViewById(R.id.btn_save);
-        ic_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Ctrl_ChuyenTien.this, Ctrl_TongQuan.class));
-            }
-        });
+
+        ic_back.setOnClickListener(v -> startActivity(new Intent(Ctrl_ChuyenTien.this, Ctrl_TongQuan.class)));
 
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Ctrl_ChuyenTien.this, Ctrl_CacTaiKhoan.class));
+                // Lấy số tiền nhập vào
+                Double inputMoney;
+                try {
+                    inputMoney = Double.parseDouble(inPut_monney.getText().toString());
+                } catch (NumberFormatException e) {
+                    Toast.makeText(Ctrl_ChuyenTien.this, "Vui lòng nhập số tiền hợp lệ", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // Kiểm tra tài khoản đã chọn
+                if (selectedFromAccountId == null || selectedToAccountId == null) {
+                    Toast.makeText(Ctrl_ChuyenTien.this, "Vui lòng chọn tài khoản", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // Lấy thông tin tài khoản
+                M_TaiKhoan fromAccount = taiKhoanList.get(spnfrom.getSelectedItemPosition());
+                M_TaiKhoan toAccount = taiKhoanList.get(spnto.getSelectedItemPosition());
+
+                // Cập nhật số dư
+                double newFromBalance = fromAccount.getLuongBanDau() - inputMoney;
+                double newToBalance = toAccount.getLuongBanDau() + inputMoney;
+
+                // Kiểm tra số dư
+                if (newFromBalance < 0) {
+                    Toast.makeText(Ctrl_ChuyenTien.this, "Số dư không đủ", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // Cập nhật vào cơ sở dữ liệu
+                Map<String, Object> updates = new HashMap<>();
+                updates.put(selectedFromAccountId + "/luongBanDau", newFromBalance);
+                updates.put(selectedToAccountId + "/luongBanDau", newToBalance);
+
+                userRef.updateChildren(updates).addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        // Cập nhật danh sách địa phương
+                        fromAccount.setLuongBanDau(newFromBalance);
+                        toAccount.setLuongBanDau(newToBalance);
+                        Toast.makeText(Ctrl_ChuyenTien.this, "Chuyển tiền thành công", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(Ctrl_ChuyenTien.this, Ctrl_CacTaiKhoan.class));
+                    } else {
+                        Toast.makeText(Ctrl_ChuyenTien.this, "Lỗi khi cập nhật số dư", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+    }
+    private void getTaiKhoanList() {
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                taiKhoanList.clear();
+                String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    String idTaiKhoan = snapshot.child("idTaiKhoan").getValue(String.class);
+                    String tenTaiKhoan = snapshot.child("tenTaiKhoan").getValue(String.class);
+                    String hangMucUserId = snapshot.child("userId").getValue(String.class);
+                    double luongBanDau = snapshot.child("luongBanDau").getValue(Double.class); // Lấy giá trị luongBanDau
+
+                    if (userId.equals(hangMucUserId)) {
+                        M_TaiKhoan taiKhoan = new M_TaiKhoan(idTaiKhoan, tenTaiKhoan, hangMucUserId, luongBanDau);
+                        taiKhoanList.add(taiKhoan);
+                    }
+                }
+                updateSpinner();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(Ctrl_ChuyenTien.this, "Lỗi lấy dữ liệu", Toast.LENGTH_SHORT).show();
+                Log.e("DatabaseError", databaseError.getMessage());
+            }
+        });
+    }
+
+    private void updateSpinner() {
+        List<String> tentaikhoanList = new ArrayList<>();
+        for (M_TaiKhoan taiKhoan : taiKhoanList) {
+            if (taiKhoan.getTenTaiKhoan() != null) {
+                tentaikhoanList.add(taiKhoan.getTenTaiKhoan());
+            }
+        }
+
+        if (tentaikhoanList.isEmpty()) {
+            Toast.makeText(this, "Không có tài khoản nào để hiển thị", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, tentaikhoanList);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spnfrom.setAdapter(adapter);
+        spnto.setAdapter(adapter);
+
+        spnfrom.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                selectedFromAccountId = taiKhoanList.get(i).getIdTaiKhoan();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                Toast.makeText(Ctrl_ChuyenTien.this, "Chưa chọn tài khoản gửi", Toast.LENGTH_SHORT).show();
             }
         });
 
-        //Hop thoai chon ngay thang nam
-        txtDateMonthYear = findViewById(R.id.txtDateMonthYear); // Khởi tạo TextView để hiển thị ngày tháng
-
-        // Thiết lập sự kiện nhấn vào icon lịch
-        btnCalender = findViewById(R.id.button_calendar);
-        btnCalender.setOnClickListener(new View.OnClickListener() {
+        spnto.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onClick(View v) {
-                // Lấy ngày hiện tại
-                Locale.setDefault(new Locale("vi", "VN"));
-                final Calendar calendar = Calendar.getInstance();
-                int year = calendar.get(Calendar.YEAR);
-                int month = calendar.get(Calendar.MONTH);
-                int day = calendar.get(Calendar.DAY_OF_MONTH);
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                selectedToAccountId = taiKhoanList.get(i).getIdTaiKhoan();
+            }
 
-                // Tạo hộp thoại chọn ngày
-                DatePickerDialog datePickerDialog = new DatePickerDialog(Ctrl_ChuyenTien.this,
-                        R.style.CustomDatePickerDialog_ChuyenTien,
-                        (view1, selectedYear, selectedMonth, selectedDay) -> {
-                            // Cập nhật TextView với ngày đã chọn
-                            String selectedDate = selectedDay + "/" + (selectedMonth + 1) + "/" + selectedYear;
-                            txtDateMonthYear.setText(selectedDate);
-                        }, year, month, day);
-                datePickerDialog.show();
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                Toast.makeText(Ctrl_ChuyenTien.this, "Chưa chọn tài khoản nhận", Toast.LENGTH_SHORT).show();
             }
         });
     }
