@@ -63,13 +63,36 @@
 
         <!-- Dashboard Section -->
         <div class="dashboard">
-            <!-- Chart Section -->
-            <div class="chart-section">
-                <canvas id="userChart"></canvas>
+            <!-- Hiển thị tổng số người dùng -->
+            <!-- <div>
+                <h2>Tổng số người dùng: <%= userCount %></h2>
+                <ul>
+                    <% activeUsers.forEach(user => { %>
+                        <li>
+                            <img src="<%= user.avatar %>" alt="Avatar" width="50">
+                            <span><%= user.name %></span>
+                            <span>(<%= user.email %>)</span>
+                        </li>
+                    <% }) %>
+                </ul>
+            </div> -->
+
+            <!-- Hiển thị danh sách hạng mục -->
+            <!-- Phần Tổng số lượng hạng mục -->
+            <div class="total-count-section">
+                <h2>Tổng số lượng hạng mục: <%= totalCategories %></h2>
+                <ul>
+                    <% categoryList.forEach(category => { %>
+                        <li>
+                            <img src="<%= category.anhHangMuc %>" alt="Hạng mục">
+                            <span><%= category.tenHangMuc %></span>
+                        </li>
+                    <% }) %>
+                </ul>
             </div>
             <!-- User Activity Section -->
             <div class="user-activity-section">
-                <h2>Những người dùng tích cực trong tuần qua</h2>
+                <h2>Danh sách người dùng</h2>
                 <ul class="user-activity-list">
                     <% activeUsers.forEach(user => { %>
                         <li>

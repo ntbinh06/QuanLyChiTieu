@@ -148,19 +148,19 @@ app.get('/QuanLyHangMuc', async (req, res) => {
 
 app.get('/TrangChu', async (req, res) => {
   try {
-    const userRef = ref(database, 'NguoiDung'); // Tham chiếu đến bảng NguoiDung
-    const snapshot = await get(userRef);
+    // Tham chiếu đến bảng NguoiDung
+    const userRef = ref(database, 'NguoiDung');
+    const userSnapshot = await get(userRef);
 
     let userCount = 0;
     let allUsers = [];
+    if (userSnapshot.exists()) {
+      const userData = userSnapshot.val();
+      userCount = Object.keys(userData).length; // Đếm tổng số người dùng
 
-    if (snapshot.exists()) {
-      const data = snapshot.val();
-      userCount = Object.keys(data).length; // Đếm tổng số người dùng
-
-      // Duyệt qua tất cả người dùng và thêm vào danh sách
-      for (const id in data) {
-        const user = data[id];
+      // Duyệt qua danh sách người dùng
+      for (const id in userData) {
+        const user = userData[id];
         allUsers.push({
           avatar: user.avatar || '../images/binh.png', // Avatar mặc định
           name: user.tenUser || "Người dùng không tên",
@@ -169,14 +169,43 @@ app.get('/TrangChu', async (req, res) => {
       }
     }
 
-    // Render giao diện TrangChu với danh sách tất cả người dùng
-    res.render('TrangChu', { userCount, activeUsers: allUsers });
+    // Tham chiếu đến bảng HangMuc
+    const categoryRef = ref(database, 'HangMuc');
+    const categorySnapshot = await get(categoryRef);
+
+    let categoryList = [];
+    let totalCategories = 0;
+    if (categorySnapshot.exists()) {
+      const categoryData = categorySnapshot.val();
+      totalCategories = Object.keys(categoryData).length; // Tổng số lượng hạng mục
+
+      // Duyệt qua danh sách hạng mục
+      for (const id in categoryData) {
+        const category = categoryData[id];
+        categoryList.push({
+          tenHangMuc: category.tenHangmuc || "Không có tên",
+          anhHangMuc: '../images/money.png', // Ảnh mặc định
+        });
+      }
+    }
+
+    // Render giao diện TrangChu với danh sách người dùng và hạng mục
+    res.render('TrangChu', {
+      userCount,
+      activeUsers: allUsers,
+      categoryList,
+      totalCategories,
+    });
   } catch (error) {
     console.error("Lỗi khi đọc dữ liệu Firebase: ", error);
-    res.render('TrangChu', { userCount: 0, activeUsers: [] });
+    res.render('TrangChu', {
+      userCount: 0,
+      activeUsers: [],
+      categoryList: [],
+      totalCategories: 0,
+    });
   }
 });
-
 
 
 app.listen(PORT, () => {
