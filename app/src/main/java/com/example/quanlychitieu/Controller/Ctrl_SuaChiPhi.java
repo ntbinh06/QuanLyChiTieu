@@ -30,6 +30,7 @@ import com.example.quanlychitieu.Model.M_GiaoDich;
 import com.example.quanlychitieu.Model.M_HangMucChiPhi;
 import com.example.quanlychitieu.Model.M_TaiKhoan;
 import com.example.quanlychitieu.R;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -279,10 +280,17 @@ public class Ctrl_SuaChiPhi extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 taiKhoanList.clear();
+                String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     String idTaiKhoan = snapshot.child("idTaiKhoan").getValue(String.class);
                     String tenTaiKhoan = snapshot.child("tenTaiKhoan").getValue(String.class);
-                    taiKhoanList.add(new M_TaiKhoan(idTaiKhoan, tenTaiKhoan));
+                    String hangMucUserId = snapshot.child("userId").getValue(String.class); // Assuming userId is stored
+
+                    // Create and add M_TaiKhoan object to the list if userId matches
+                    if (userId != null && userId.equals(hangMucUserId)) {
+                        M_TaiKhoan taiKhoan = new M_TaiKhoan(idTaiKhoan, tenTaiKhoan, hangMucUserId); // Assuming constructor includes userId
+                        taiKhoanList.add(taiKhoan);
+                    }
                 }
                 updateSpinner(selectedId);
             }
@@ -351,7 +359,7 @@ public class Ctrl_SuaChiPhi extends AppCompatActivity {
 
         // Lấy dữ liệu từ Firebase
         DatabaseReference danhMucRef = FirebaseDatabase.getInstance().getReference("HangMuc");
-
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         // Sử dụng idNhom là kiểu string "1"
         String idNhom = "2"; // Giá trị string bạn muốn so sánh
 
@@ -362,8 +370,14 @@ public class Ctrl_SuaChiPhi extends AppCompatActivity {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     String idHangmuc = snapshot.child("idHangmuc").getValue(String.class);
                     String tenHangmuc = snapshot.child("tenHangmuc").getValue(String.class);
+                    String hangMucUserId = snapshot.child("userId").getValue(String.class); // Assuming userId is stored in each item
 
-                    arrContact.add(new M_DanhMucHangMuc(idHangmuc, tenHangmuc));
+                    // Check if the userId matches
+                    if (userId != null && userId.equals(hangMucUserId)) {
+                        // Add to the list if userId matches
+                        arrContact.add(new M_DanhMucHangMuc(idHangmuc, tenHangmuc));
+                    }
+
                 }
 
                 // Khởi tạo adapter và gán cho ListView

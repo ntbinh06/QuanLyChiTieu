@@ -236,14 +236,17 @@ public class Ctrl_ThemChiPhi extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 taiKhoanList.clear(); // Xóa danh sách cũ nếu cần
-
+                String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     String idTaiKhoan = snapshot.child("idTaiKhoan").getValue(String.class);
                     String tenTaiKhoan = snapshot.child("tenTaiKhoan").getValue(String.class);
+                    String hangMucUserId = snapshot.child("userId").getValue(String.class); // Assuming userId is stored
 
-                    // Tạo và thêm đối tượng M_TaiKhoan vào danh sách
-                    M_TaiKhoan taiKhoan = new M_TaiKhoan(idTaiKhoan, tenTaiKhoan); // Giả sử bạn có constructor như vậy
-                    taiKhoanList.add(taiKhoan);
+                    // Create and add M_TaiKhoan object to the list if userId matches
+                    if (userId != null && userId.equals(hangMucUserId)) {
+                        M_TaiKhoan taiKhoan = new M_TaiKhoan(idTaiKhoan, tenTaiKhoan, hangMucUserId); // Assuming constructor includes userId
+                        taiKhoanList.add(taiKhoan);
+                    }
                 }
                 updateSpinner();
             }
@@ -314,7 +317,7 @@ public class Ctrl_ThemChiPhi extends AppCompatActivity {
 
         // Lấy dữ liệu từ Firebase
         DatabaseReference danhMucRef = FirebaseDatabase.getInstance().getReference("HangMuc");
-
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         // Sử dụng idNhom là kiểu string "1"
         String idNhom = "2"; // Giá trị string bạn muốn so sánh
 
@@ -327,9 +330,14 @@ public class Ctrl_ThemChiPhi extends AppCompatActivity {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     String idHangmuc = snapshot.child("idHangmuc").getValue(String.class);
                     String tenHangmuc = snapshot.child("tenHangmuc").getValue(String.class);
+                    String hangMucUserId = snapshot.child("userId").getValue(String.class); // Assuming userId is stored in each item
 
-                    // Thêm vào danh sách
-                    arrContact.add(new M_DanhMucHangMuc(idHangmuc, tenHangmuc));
+                    // Check if the userId matches
+                    if (userId != null && userId.equals(hangMucUserId)) {
+                        // Add to the list if userId matches
+                        arrContact.add(new M_DanhMucHangMuc(idHangmuc, tenHangmuc));
+                    }
+
                 }
 
                 // Khởi tạo adapter và gán cho ListView

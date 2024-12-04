@@ -209,15 +209,21 @@ public class Ctrl_ThemThuNhap extends AppCompatActivity {
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                taiKhoanList.clear(); // Xóa danh sách cũ nếu cần
+                taiKhoanList.clear(); // Clear the old list if needed
+
+                // Get the current user's ID
+                String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     String idTaiKhoan = snapshot.child("idTaiKhoan").getValue(String.class);
                     String tenTaiKhoan = snapshot.child("tenTaiKhoan").getValue(String.class);
+                    String hangMucUserId = snapshot.child("userId").getValue(String.class); // Assuming userId is stored
 
-                    // Tạo và thêm đối tượng M_TaiKhoan vào danh sách
-                    M_TaiKhoan taiKhoan = new M_TaiKhoan(idTaiKhoan, tenTaiKhoan); // Giả sử bạn có constructor như vậy
-                    taiKhoanList.add(taiKhoan);
+                    // Create and add M_TaiKhoan object to the list if userId matches
+                    if (userId != null && userId.equals(hangMucUserId)) {
+                        M_TaiKhoan taiKhoan = new M_TaiKhoan(idTaiKhoan, tenTaiKhoan, hangMucUserId); // Assuming constructor includes userId
+                        taiKhoanList.add(taiKhoan);
+                    }
                 }
                 updateSpinner();
             }
@@ -229,20 +235,22 @@ public class Ctrl_ThemThuNhap extends AppCompatActivity {
             }
         });
     }
-    private String selectedTaiKhoanId = null; // Biến để lưu ID tài khoản đã chọn
+
+    private String selectedTaiKhoanId = null; // Variable to store the selected account ID
 
     private void updateSpinner() {
         List<String> tentaikhoanList = new ArrayList<>();
         for (M_TaiKhoan taiKhoan : taiKhoanList) {
-            if (taiKhoan.getTenTaiKhoan() != null) { // Kiểm tra null trước khi thêm
+            // Add the account name to the list
+            if (taiKhoan.getTenTaiKhoan() != null) {
                 tentaikhoanList.add(taiKhoan.getTenTaiKhoan());
             }
         }
 
-        // Kiểm tra nếu danh sách trống
+        // Check if the list is empty
         if (tentaikhoanList.isEmpty()) {
             Toast.makeText(this, "Không có tài khoản nào để hiển thị", Toast.LENGTH_SHORT).show();
-            return; // Ngừng thực hiện nếu không có dữ liệu
+            return; // Stop execution if there is no data
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, tentaikhoanList);
@@ -252,8 +260,8 @@ public class Ctrl_ThemThuNhap extends AppCompatActivity {
         spnthunhap.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                // Lưu ID tài khoản dựa trên chỉ số đã chọn
-                selectedTaiKhoanId = taiKhoanList.get(i).getIdTaiKhoan(); // Lấy ID tương ứng với tên tài khoản
+                // Save the account ID based on the selected index
+                selectedTaiKhoanId = taiKhoanList.get(i).getIdTaiKhoan(); // Get the ID corresponding to the account name
                 String selectedItem = adapterView.getItemAtPosition(i).toString();
                 Toast.makeText(Ctrl_ThemThuNhap.this, selectedItem, Toast.LENGTH_SHORT).show();
             }
@@ -288,7 +296,7 @@ public class Ctrl_ThemThuNhap extends AppCompatActivity {
 
         // Lấy dữ liệu từ Firebase
         DatabaseReference danhMucRef = FirebaseDatabase.getInstance().getReference("HangMuc");
-
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         // Sử dụng idNhom là kiểu string "1"
         String idNhom = "1"; // Giá trị string bạn muốn so sánh
 
@@ -300,9 +308,14 @@ public class Ctrl_ThemThuNhap extends AppCompatActivity {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     String idHangmuc = snapshot.child("idHangmuc").getValue(String.class);
                     String tenHangmuc = snapshot.child("tenHangmuc").getValue(String.class);
+                    String hangMucUserId = snapshot.child("userId").getValue(String.class); // Assuming userId is stored in each item
 
-                    // Thêm vào danh sách
-                    arrContact.add(new M_DanhMucHangMuc(idHangmuc, tenHangmuc));
+                    // Check if the userId matches
+                    if (userId != null && userId.equals(hangMucUserId)) {
+                        // Add to the list if userId matches
+                        arrContact.add(new M_DanhMucHangMuc(idHangmuc, tenHangmuc));
+                    }
+
                 }
 
                 // Khởi tạo adapter và gán cho ListView

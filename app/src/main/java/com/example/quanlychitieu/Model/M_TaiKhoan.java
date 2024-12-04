@@ -19,15 +19,15 @@ public class M_TaiKhoan {
     public M_TaiKhoan() {
     }
 
-    public M_TaiKhoan(String idTaiKhoan, String tenTaiKhoan) {
+    public M_TaiKhoan(String idTaiKhoan, String tenTaiKhoan, String userId) {
         this.idTaiKhoan = idTaiKhoan;
         this.tenTaiKhoan = tenTaiKhoan;
-        this.luongBanDau = (double) 0; // Giá trị mặc định
-        this.ngayTao = new Date(); // Giá trị mặc định
-        this.lanSuDungCuoi = null; // Giá trị mặc định
-        this.donViTienTe = "VND"; // Giá trị mặc định
-        this.ghiChu = ""; // Giá trị mặc định
-        this.userId = ""; // Giá trị mặc định
+        this.luongBanDau = 0.0; // Default value
+        this.ngayTao = new Date(); // Default value
+        this.lanSuDungCuoi = null; // Default value
+        this.donViTienTe = "VND"; // Default value
+        this.ghiChu = ""; // Default value
+        this.userId = userId; // Initialize userId
     }
 
     // Constructor đầy đủ

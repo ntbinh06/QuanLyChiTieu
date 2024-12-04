@@ -467,16 +467,16 @@ public class Fragment_TongQuan extends Fragment {
     public void loadThuChiThangHienTai() {
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
 
-        // Lấy tháng và năm hiện tại
+        // Get current month and year
         Calendar calendar = Calendar.getInstance();
-        int thangHienTai = calendar.get(Calendar.MONTH) + 1; // Tháng (1-12)
-        int namHienTai = calendar.get(Calendar.YEAR); // Năm
+        int thangHienTai = calendar.get(Calendar.MONTH) + 1; // Month (1-12)
+        int namHienTai = calendar.get(Calendar.YEAR); // Year
 
-        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid(); // Lấy UID của người dùng hiện tại
-        dbRef.child("HangMuc").orderByChild("userId").equalTo(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        dbRef.child("HangMuc").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot hangMucSnap) {
-                // Tạo HashMap lưu idHangMuc -> idNhom
                 HashMap<String, String> hangMucMap = new HashMap<>();
                 for (DataSnapshot hangMuc : hangMucSnap.getChildren()) {
                     String idHangMuc = hangMuc.getKey();
@@ -486,8 +486,8 @@ public class Fragment_TongQuan extends Fragment {
                     }
                 }
 
-                // Bước 2: Tải dữ liệu từ bảng GiaoDich
-                dbRef.child("GiaoDich").orderByChild("userId").equalTo(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+                // Load data from GiaoDich table
+                dbRef.child("GiaoDich").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot giaoDichSnap) {
                         long tongThuNhap = 0;
@@ -495,23 +495,23 @@ public class Fragment_TongQuan extends Fragment {
 
                         for (DataSnapshot giaoDich : giaoDichSnap.getChildren()) {
                             String giaoDichUserId = giaoDich.child("userId").getValue(String.class);
-                            if (userId.equals(giaoDichUserId)) { // Kiểm tra userId
+                            if (userId.equals(giaoDichUserId)) { // Check userId
                                 String idHangMuc = giaoDich.child("idHangMuc").getValue(String.class);
                                 Long giaTri = giaoDich.child("giaTri").getValue(Long.class);
 
-                                // Lấy thông tin ngày
+                                // Get date info
                                 Integer ngay = giaoDich.child("ngayTao/ngay").getValue(Integer.class);
                                 Integer thang = giaoDich.child("ngayTao/thang").getValue(Integer.class);
                                 Integer nam = giaoDich.child("ngayTao/nam").getValue(Integer.class);
 
                                 if (idHangMuc != null && giaTri != null && ngay != null && thang != null && nam != null) {
-                                    // Kiểm tra giao dịch có thuộc tháng và năm hiện tại không
+                                    // Check if the transaction belongs to the current month and year
                                     if (thang == thangHienTai && nam == namHienTai) {
                                         String idNhom = hangMucMap.get(idHangMuc);
 
-                                        if ("1".equals(idNhom)) { // Nhóm 1 là thu nhập
+                                        if ("1".equals(idNhom)) { // Group 1 is income
                                             tongThuNhap += giaTri;
-                                        } else if ("2".equals(idNhom)) { // Nhóm 2 là chi phí
+                                        } else if ("2".equals(idNhom)) { // Group 2 is expense
                                             tongChiPhi += giaTri;
                                         }
                                     }
@@ -519,42 +519,42 @@ public class Fragment_TongQuan extends Fragment {
                             }
                         }
 
-                        // Tính tỷ lệ phần trăm cho thu nhập và chi phí
+                        // Calculate percentages for income and expenses
                         long tongCong = tongThuNhap + tongChiPhi;
                         int percentThuNhap = 0;
                         int percentChiPhi = 0;
 
-                        if (tongCong > 0) { // Đảm bảo tổng không phải là 0
+                        if (tongCong > 0) { // Ensure total is not zero
                             percentThuNhap = (int) ((tongThuNhap * 100) / tongCong);
                             percentChiPhi = (int) ((tongChiPhi * 100) / tongCong);
                         }
 
-                        // Định dạng số tiền
+                        // Format numbers
                         NumberFormat format = NumberFormat.getInstance(Locale.forLanguageTag("vi-VN"));
                         String formattedThuNhap = format.format(tongThuNhap) + " đ";
                         String formattedChiPhi = format.format(tongChiPhi) + " đ";
 
-                        // Cập nhật ProgressBar
-                        progressBarThuNhap.setMax(100); // Đảm bảo max là 100
-                        progressBarChiPhi.setMax(100); // Đảm bảo max là 100
+                        // Update ProgressBar
+                        progressBarThuNhap.setMax(100); // Ensure max is 100
+                        progressBarChiPhi.setMax(100); // Ensure max is 100
                         progressBarThuNhap.setProgress(percentThuNhap);
                         progressBarChiPhi.setProgress(percentChiPhi);
 
-                        // Cập nhật giá trị hiển thị
+                        // Update display values
                         txtTongThuNhap.setText(formattedThuNhap);
                         txtTongChiPhi.setText(formattedChiPhi);
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-                        Log.e("Firebase", "Lỗi truy vấn GiaoDich: " + error.getMessage());
+                        Log.e("Firebase", "Error querying GiaoDich: " + error.getMessage());
                     }
                 });
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.e("Firebase", "Lỗi truy vấn HangMuc: " + error.getMessage());
+                Log.e("Firebase", "Error querying HangMuc: " + error.getMessage());
             }
         });
     }
