@@ -4,7 +4,7 @@ const { initializeApp } = require('firebase/app');
 const { getDatabase, ref, get } = require('firebase/database');
 
 const app = express();
-const PORT = process.env.PORT || 3049;
+const PORT = process.env.PORT || 3050;
 
 // Cấu hình Firebase
 const firebaseConfig = {
