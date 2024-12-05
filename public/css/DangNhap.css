@@ -26,6 +26,35 @@ body {
     align-items: center;
     border-radius: 20px;
 }
+@font-face {
+    font-family: 'quicksand-regular';
+    src: url('../fonts/quicksand-regular.ttf') format('truetype');
+  }
+  
+  @font-face {
+    font-family: 'quicksand-bold';
+    src: url('../fonts/quicksand-bold.ttf') format('truetype');
+  }
+  
+  @font-face {
+    font-family: 'quicksand-semibold';
+    src: url('../fonts/quicksand-semibold.ttf') format('truetype');
+  }
+  
+  
+        body {
+            font-family: quicksand-regular, sans-serif;
+            background-image: url('./../images/bg_3.jpg'); /* Đường dẫn tới ảnh */
+            background-size: cover; /* Đặt ảnh phủ toàn màn hình */
+            background-position: center; /* Căn giữa ảnh */
+            background-repeat: no-repeat; /* Ngăn ảnh lặp lại */
+            margin: 0;          
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
 
 .logo {
     flex: 1;

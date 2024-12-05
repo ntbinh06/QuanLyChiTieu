@@ -5,7 +5,7 @@ const { getDatabase, ref, get } = require('firebase/database');
 const { update } = require('firebase/database'); // Import hàm update
 
 const app = express();
-const PORT = process.env.PORT || 3007;
+const PORT = process.env.PORT || 3051;
 
 // Cấu hình Firebase
 const firebaseConfig = {
@@ -31,6 +31,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Thiết lập view engine
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'src', 'views'));
+
+app.use(express.json());      // Xử lý JSON từ client 
 
 // Lấy danh sách người dùng từ Firebase và gửi cho client
 app.get('/QuanLyNguoiDung', async (req, res) => {
@@ -87,6 +89,8 @@ app.post('/toggleLock', express.json(), async (req, res) => {
   }
 });
 
+
+
 // Các route khác
 app.get('/', (req, res) => {
   res.render('DangNhap', { title: 'Đăng nhập' });
@@ -122,7 +126,26 @@ app.get('/XemChiTietUser', async (req, res) => {
   }
 });
 
-app.get('/QuanLyHangMuc', async (req, res) => {
+///THÊM THU NHẬP
+app.post('/addHangMucThuNhap', async (req, res) => {
+  const { tenHangmuc } = req.body;  // Chỉ cần lấy tên hạng mục từ client
+
+  // Tạo ID ngẫu nhiên hoặc lấy key mới từ Firebase
+  const newCategoryRef = ref(database, 'HangMuc').push();
+  const newCategoryData = {
+    idHangmuc: newCategoryRef.key, // Lấy key ngẫu nhiên làm ID
+    idNhom: "1",                   // Gán cố định là chuỗi "1"
+    tenHangmuc
+  };
+
+  // Thêm vào Firebase
+  newCategoryRef.set(newCategoryData)
+    .then(() => res.json({ success: true }))
+    .catch(err => res.status(500).json({ success: false, error: err.message }));
+});
+
+
+app.get('/HangMucThuNhap', async (req, res) => {
   try {
     const categoryRef = ref(database, 'HangMuc'); // Tham chiếu tới bảng HangMuc
     const snapshot = await get(categoryRef);
@@ -131,36 +154,83 @@ app.get('/QuanLyHangMuc', async (req, res) => {
     if (snapshot.exists()) {
       const data = snapshot.val();
       for (const id in data) {
-        categoryList.push({
-          tenHangMuc: data[id].tenHangmuc || "Không có tên", // Tên hạng mục
-          anhHangMuc: '../images/money.png',
-        });
+        if (data[id].idNhom === "1") { // So sánh trực tiếp với chuỗi "1"
+          categoryList.push({
+            tenHangMuc: data[id].tenHangmuc || "Không có tên",
+            anhHangMuc: '../images/money.png',
+          });        
+        }
       }
     }
 
     // Truyền danh sách hạng mục vào file QuanLyHangMuc.ejs
-    res.render('QuanLyHangMuc', { categoryList });
+    res.render('HangMucThuNhap', { categoryList });
   } catch (error) {
     console.error("Lỗi khi đọc dữ liệu Firebase: ", error);
-    res.render('QuanLyHangMuc', { categoryList: [] }); // Truyền danh sách rỗng khi lỗi
+    res.render('HangMucThuNhap', { categoryList: [] }); // Truyền danh sách rỗng khi lỗi
   }
 });
 
+
+app.post('/addHangMucChiPhi', async (req, res) => {
+  const { tenHangmuc } = req.body;  // Chỉ cần lấy tên hạng mục từ client
+
+  // Tạo ID ngẫu nhiên hoặc lấy key mới từ Firebase
+  const newCategoryRef = ref(database, 'HangMuc').push();
+  const newCategoryData = {
+    idHangmuc: newCategoryRef.key, // Lấy key ngẫu nhiên làm ID
+    idNhom: "2",                   // Gán cố định là chuỗi "1"
+    tenHangmuc
+  };
+
+  // Thêm vào Firebase
+  newCategoryRef.set(newCategoryData)
+    .then(() => res.json({ success: true }))
+    .catch(err => res.status(500).json({ success: false, error: err.message }));
+});
+
+app.get('/HangMucChiPhi', async (req, res) => {
+  try {
+    const categoryRef = ref(database, 'HangMuc'); // Tham chiếu tới bảng HangMuc
+    const snapshot = await get(categoryRef);
+
+    let categoryList = []; // Khởi tạo danh sách hạng mục
+    if (snapshot.exists()) {
+      const data = snapshot.val();
+      for (const id in data) {
+        if (data[id].idNhom === "2") { // So sánh trực tiếp với chuỗi "1"
+          categoryList.push({
+            tenHangMuc: data[id].tenHangmuc || "Không có tên",
+            anhHangMuc: '../images/money.png',
+          });        
+        }
+      }
+    }
+
+    // Truyền danh sách hạng mục vào file QuanLyHangMuc.ejs
+    res.render('HangMucChiPhi', { categoryList });
+  } catch (error) {
+    console.error("Lỗi khi đọc dữ liệu Firebase: ", error);
+    res.render('HangMucChiPhi', { categoryList: [] }); // Truyền danh sách rỗng khi lỗi
+  }
+});
+
+
 app.get('/TrangChu', async (req, res) => {
   try {
-    const userRef = ref(database, 'NguoiDung'); // Tham chiếu đến bảng NguoiDung
-    const snapshot = await get(userRef);
+    // Tham chiếu đến bảng NguoiDung
+    const userRef = ref(database, 'NguoiDung');
+    const userSnapshot = await get(userRef);
 
     let userCount = 0;
     let allUsers = [];
+    if (userSnapshot.exists()) {
+      const userData = userSnapshot.val();
+      userCount = Object.keys(userData).length; // Đếm tổng số người dùng
 
-    if (snapshot.exists()) {
-      const data = snapshot.val();
-      userCount = Object.keys(data).length; // Đếm tổng số người dùng
-
-      // Duyệt qua tất cả người dùng và thêm vào danh sách
-      for (const id in data) {
-        const user = data[id];
+      // Duyệt qua danh sách người dùng
+      for (const id in userData) {
+        const user = userData[id];
         allUsers.push({
           avatar: user.avatar || '../images/binh.png', // Avatar mặc định
           name: user.tenUser || "Người dùng không tên",
@@ -169,14 +239,43 @@ app.get('/TrangChu', async (req, res) => {
       }
     }
 
-    // Render giao diện TrangChu với danh sách tất cả người dùng
-    res.render('TrangChu', { userCount, activeUsers: allUsers });
+    // Tham chiếu đến bảng HangMuc
+    const categoryRef = ref(database, 'HangMuc');
+    const categorySnapshot = await get(categoryRef);
+
+    let categoryList = [];
+    let totalCategories = 0;
+    if (categorySnapshot.exists()) {
+      const categoryData = categorySnapshot.val();
+      totalCategories = Object.keys(categoryData).length; // Tổng số lượng hạng mục
+
+      // Duyệt qua danh sách hạng mục
+      for (const id in categoryData) {
+        const category = categoryData[id];
+        categoryList.push({
+          tenHangMuc: category.tenHangmuc || "Không có tên",
+          anhHangMuc: '../images/money.png', // Ảnh mặc định
+        });
+      }
+    }
+
+    // Render giao diện TrangChu với danh sách người dùng và hạng mục
+    res.render('TrangChu', {
+      userCount,
+      activeUsers: allUsers,
+      categoryList,
+      totalCategories,
+    });
   } catch (error) {
     console.error("Lỗi khi đọc dữ liệu Firebase: ", error);
-    res.render('TrangChu', { userCount: 0, activeUsers: [] });
+    res.render('TrangChu', {
+      userCount: 0,
+      activeUsers: [],
+      categoryList: [],
+      totalCategories: 0,
+    });
   }
 });
-
 
 
 app.listen(PORT, () => {

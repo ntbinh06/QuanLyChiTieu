@@ -1,4 +1,23 @@
 
+@font-face {
+  font-family: 'quicksand-regular';
+  src: url('../fonts/quicksand-regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'quicksand-bold';
+  src: url('../fonts/quicksand-bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'quicksand-semibold';
+  src: url('../fonts/quicksand-semibold.ttf') format('truetype');
+}
+
+body {
+    margin: 0;
+    font-family: quicksand-regular, sans-serif;
+}
 /* Sidebar */
 .sidebar {
   background-color: #CECEFF;
@@ -37,6 +56,7 @@
   padding-bottom: 10px;
   height: 70px;
   width: 100%;
+  
 }
 
 .sidebar_title img {
@@ -50,7 +70,7 @@
 .sidebar_title h2 {
   font-size: 20px;
   margin: 0;
-  font-style: normal;
+  font-family: quicksand-bold, sans-serif;
 }
 
 .sidebar ul li {
@@ -67,12 +87,69 @@
 .sidebar ul li a {
   display: block;
   border-radius: 8px;
-  
+  font-weight: bold;
+
 }
 
 .sidebar i{
   margin-right: 10px;
 }
+
+.manage-user {
+  background-color: #3D378B;
+  border-radius: 8px;
+  color: white;
+}
+
+.manage-user a {
+  color: white;
+}
+
+.manage-user i {
+  color: #fff;
+}
+
+
+.manage-category {
+  position: relative;
+  color: #3D378B;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  font-weight: bold;
+}
+  
+
+
+  .submenu-income {
+    border-radius: 8px;
+    color: white;
+    width: 190px;
+  }
+
+  .submenu-income a{
+    font-size: 16px;
+  }
+
+  .submenu {
+    position: absolute; /* Định vị tuyệt đối */
+    left: 2; /* Bắt đầu từ cạnh trái */
+    right: 2; /* Kéo dài đến cạnh phải */
+    background-color: #b29ffc;
+    padding: 20px;
+    width: 230px;
+    border-radius: 8px;
+  }
+
+.submenu a{
+  font-size: 18px;
+  text-align: center;
+}
+
+.submenu-expense:hover, .submenu-income:hover {
+  font-family: quicksand-bold, sans-serif;
+  font-size: 20px;
+}
+
 
 /* Header */
 header {
