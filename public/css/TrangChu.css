@@ -1,191 +1,191 @@
 /* Sidebar */
 .sidebar {
-    background-color: #CECEFF;
-    color: #3D378B;
-    width: 320px;
-    height: 100vh;
-    float: left;
-    padding-top: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-sizing: border-box;
-    position: fixed;
-    overflow: hidden;
-    z-index: 2;
-  }
+  background-color: #CECEFF;
+  color: #3D378B;
+  width: 320px;
+  height: 100vh;
+  float: left;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  position: fixed;
+  overflow: hidden;
+  z-index: 2;
+}
+
+.sidebar a {
+  color: #3D378B;
+  text-decoration: none;
+  padding: 15px 10px;
+  display: block;
+  border-radius: 5px;
+  font-size: 20px;
+}
+
+.sidebar a:hover {
+  background-color: #3D378B;
+  color: white;
+}
+
+.sidebar_title {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #F5F5F5;
+  padding-bottom: 10px;
+  height: 70px;
+  width: 100%;
+}
+
+.sidebar_title img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-left: 15px;
+  margin-right: 10px;
+}
+
+.sidebar_title h2 {
+  font-size: 20px;
+  margin: 0;
+  font-style: normal;
+}
+
+.sidebar ul li {
+  margin: 10px 15px;
+  list-style-type: none;
+ 
+}
+
+.sidebar ul {
+  width: 300px;
+  margin-right: 45px;
+}
+
+.sidebar ul li a {
+  display: block;
+  border-radius: 8px;
   
-  .sidebar a {
-    color: #3D378B;
-    text-decoration: none;
-    padding: 15px 10px;
-    display: block;
-    border-radius: 5px;
-    font-size: 20px;
-  }
-  
-  .sidebar a:hover {
-    background-color: #3D378B;
-    color: white;
-  }
-  
-  .sidebar_title {
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid #F5F5F5;
-    padding-bottom: 10px;
-    height: 70px;
-    width: 100%;
-  }
-  
-  .sidebar_title img {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    margin-left: 15px;
-    margin-right: 10px;
-  }
-  
-  .sidebar_title h2 {
-    font-size: 20px;
-    margin: 0;
-    font-style: normal;
-  }
-  
-  .sidebar ul li {
-    margin: 10px 15px;
-    list-style-type: none;
-   
-  }
-  
-  .sidebar ul {
-    width: 300px;
-    margin-right: 45px;
-  }
-  
-  .sidebar ul li a {
-    display: block;
-    border-radius: 8px;
-    
-  }
-  
-  .sidebar i{
-    margin-right: 10px;
-  }
+}
+
+.sidebar i{
+  margin-right: 10px;
+}
 /* Header */
 header {
-    background-color: white;
-    height: 80px;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    padding: 10px 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    position: sticky;
-    top: 0;
-    z-index: 1;
+  background-color: white;
+  height: 80px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 10px 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1;
 }
 
 .user-icon img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
 }
 
 .name-admin {
-    font-size: 16px;
-    font-weight: bold;
-    color: #3D378B;
-    margin: 0 10px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #3D378B;
+  margin: 0 10px;
 }
 
 .header-icon i {
-    color: #3D378B;
-    font-size: 14px;
-    margin-left: 10px;
+  color: #3D378B;
+  font-size: 14px;
+  margin-left: 10px;
 }
 
 
 /* Content */
 .content {
-    margin-left: 300px;
-    padding: 20px;
-    background-color: #F6F6FF;
-    min-height: 100vh;
+  margin-left: 300px;
+  padding: 20px;
+  background-color: #F6F6FF;
+  min-height: 100vh;
 }
 
 /* Welcome Section */
 .welcome-section {
-    display: flex;
-    gap: 20px;
-    margin-bottom: 20px;
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
 }
 
 .welcome-card, .user-count-card {
-    background-color: white;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    flex: 1;
-    display: flex;
-    align-items: center;
-    gap: 15px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
 .dashboard {
-  display: flex; /* Đặt container thành flex */
-  gap: 20px; /* Khoảng cách giữa biểu đồ và danh sách */
-  align-items: flex-start; /* Căn theo hàng trên cùng */
-  margin-bottom: 20px;
+display: flex; /* Đặt container thành flex */
+gap: 20px; /* Khoảng cách giữa biểu đồ và danh sách */
+align-items: flex-start; /* Căn theo hàng trên cùng */
+margin-bottom: 20px;
 }
 
 /* Chart Section */
 .chart-section {
-  flex: 4; /* Chiếm 4 phần không gian */
-  max-width: 70%; /* Biểu đồ không rộng hơn 50% container */
-  background-color: white;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+flex: 4; /* Chiếm 4 phần không gian */
+max-width: 70%; /* Biểu đồ không rộng hơn 50% container */
+background-color: white;
+padding: 20px;
+border-radius: 12px;
+box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+display: flex;
+align-items: center;
+justify-content: center;
 }
 
 .chart-section canvas {
-  max-width: 100%; /* Giới hạn kích thước biểu đồ trong container */
-  height: 200px; /* Chiều cao cố định */
+max-width: 100%; /* Giới hạn kích thước biểu đồ trong container */
+height: 200px; /* Chiều cao cố định */
 }
 
 /* User Activity Section */
 .user-activity-section {
-  flex: 2; /* Chiếm 3 phần không gian */
-  background-color: white;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+flex: 2; /* Chiếm 3 phần không gian */
+background-color: white;
+padding: 20px;
+border-radius: 12px;
+box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .user-activity-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .user-activity-list li {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
 }
 
 .user-avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin-right: 10px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
 }
 
 .user-name {
-    font-size: 16px;
-    color: #5034C4;
+  font-size: 16px;
+  color: #5034C4;
 }

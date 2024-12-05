@@ -45,21 +45,13 @@
 
     <!-- Content -->
     <div class="content">
-      <!-- Tìm kiếm người dùng -->
-<div class="search-section">
-    <input type="text" placeholder="Tìm kiếm" class="search-input" id="search-input">
-    <button class="search-button" id="search-button">
-        <img src="../images/search_ic.png" alt="Search">
-    </button>
-</div>
-
-<script>
-    document.getElementById('search-button').addEventListener('click', function() {
-        const searchInput = document.getElementById('search-input').value;
-        // Gửi yêu cầu tìm kiếm đến server
-        window.location.href = `/tim-kiem?name=${encodeURIComponent(searchInput)}`;
-    });
-</script>
+        <!-- Tìm kiếm người dùng -->
+        <div class="search-section">
+            <input type="text" placeholder="Tìm kiếm" class="search-input" id="search-input">
+            <button class="search-button" id="search-button">
+                <img src="../images/search_ic.png" alt="Search">
+            </button>
+        </div>
 
         <!-- Danh sách người dùng -->
         <ul class="user-list" id="userList">
@@ -75,11 +67,16 @@
                             <div class="user-email"><%= user.email %></div>
                         </div>
                         <div class="user-icon">
-                            <a href="/XemChiTietUser/<%= user.id %>" class="user-icon-eye"><i class="fa-solid fa-eye"></i></a>
-                            <a href="#" class="user-icon-lock" data-locked="<%= user.locked %>" id="lock-toggle-<%= user.id %>" 
-                               data-user-id="<%= user.id %>">
-                                <i class="fa-solid <%= user.locked ? 'fa-lock' : 'fa-unlock' %>"></i>
+                            <!-- Đính kèm userId vào URL -->
+                            <a href="/XemChiTietUser?userId=<%= user.id %>" class="user-icon-eye">
+                                <i class="fa-solid fa-eye"></i>
                             </a>
+                            <!-- Icon Lock -->
+                            <i
+                            class="fas <%= user.lock ? 'fa-lock' : 'fa-lock-open' %>"
+                            onclick="toggleLock('<%= user.id %>', <%= user.lock %>)"
+                            style="cursor: pointer;">
+                            </i>
                         </div>
                     </li>
                 <% }); %>
@@ -90,7 +87,7 @@
     </div>
 
     <!-- JavaScript -->
-    <script src="../js/lockuser.js"></script>
+    <script src="../js/user.js"></script>
 </body>
 </html>
 <script>
@@ -122,4 +119,3 @@
       }
     }
   </script>
-  
