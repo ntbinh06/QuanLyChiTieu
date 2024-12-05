@@ -97,32 +97,3 @@
     <script src="../js/user.js"></script>
 </body>
 </html>
-<script>
-    async function toggleLock(userId, currentLock) {
-      const confirmation = confirm(
-        currentLock
-          ? "Bạn có chắc muốn mở khóa tài khoản này?"
-          : "Bạn có chắc muốn khóa tài khoản này?"
-      );
-  
-      if (confirmation) {
-        try {
-          const response = await fetch('/toggleLock', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ userId, lock: !currentLock }),
-          });
-  
-          if (response.ok) {
-            alert('Cập nhật trạng thái thành công!');
-            window.location.reload(); // Tải lại trang để cập nhật giao diện
-          } else {
-            alert('Cập nhật trạng thái thất bại!');
-          }
-        } catch (error) {
-          console.error('Lỗi khi cập nhật trạng thái:', error);
-          alert('Có lỗi xảy ra, vui lòng thử lại sau.');
-        }
-      }
-    }
-  </script>

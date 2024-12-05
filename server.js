@@ -34,7 +34,7 @@ app.set('views', path.join(__dirname, 'src', 'views'));
 
 app.use(express.json());      // Xử lý JSON từ client 
 
-// Lấy danh sách người dùng từ Firebase và gửi cho client
+// Lấy danh sách người dùng từ Firebase 
 app.get('/QuanLyNguoiDung', async (req, res) => {
   try {
     const userRef = ref(database, 'NguoiDung');
@@ -88,8 +88,38 @@ app.post('/toggleLock', express.json(), async (req, res) => {
     res.status(500).send('Lỗi máy chủ!');
   }
 });
+// Route để tìm kiếm người dùng
+app.get('/tim-kiem', async (req, res) => {
+  const searchName = req.query.name.toLowerCase(); // Lấy tên từ query string
+  const userRef = ref(database, 'NguoiDung');
 
+  try {
+    const snapshot = await get(userRef);
+    let userList = [];
 
+    if (snapshot.exists()) {
+      const data = snapshot.val();
+      for (const id in data) {
+        const user = {
+          id: id,
+          avatar: '../images/user_women.png',
+          name: data[id].tenUser,
+          email: data[id].email,
+        };
+        // Kiểm tra xem tên người dùng có chứa chuỗi tìm kiếm không
+        if (user.name.toLowerCase().includes(searchName)) {
+          userList.push(user);
+        }
+      }
+    }
+
+    // Gửi danh sách kết quả về client
+    res.status(200).json(userList);
+  } catch (error) {
+    console.error("Lỗi khi tìm kiếm:", error);
+    res.status(500).send('Lỗi máy chủ khi tìm kiếm người dùng!');
+  }
+});
 
 // Các route khác
 app.get('/', (req, res) => {
