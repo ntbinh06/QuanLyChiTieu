@@ -19,7 +19,7 @@ function closeModal() {
     }
 
     // Gửi yêu cầu POST đến server
-    fetch('/HangMucChiPhi', {
+    fetch('/addHangMucChiPhi', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

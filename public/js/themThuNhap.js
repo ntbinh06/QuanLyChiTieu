@@ -18,7 +18,7 @@ function openModal() {
     }
 
     // Gửi yêu cầu POST đến server
-    fetch('/HangMucThuNhap', {
+    fetch('/addHangMucThuNhap', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

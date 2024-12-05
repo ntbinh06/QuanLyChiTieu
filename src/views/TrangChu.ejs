@@ -28,7 +28,7 @@
                 <li class="home"><a href="/TrangChu" ><i class="fas fa-home"></i> Trang chủ</a></li>
                 <li class="manage-user"><a href="/QuanLyNguoiDung" ><i class="fas fa-users"></i> Quản lý người dùng</a></li>
                 <li class="manage-category">
-                    <a href="/HangMucThuNhap" class="main-menu" style="color: #3D378B;"><i class="fas fa-user-cog"></i> Quản lý hạng mục</a>
+                    <a href="/HangMucThuNhap" class="main-menu"><i class="fas fa-user-cog"></i> Quản lý hạng mục</a>
                     <!-- Submenu -->
                     <div class="submenu">
                         <a href="/HangMucThuNhap">Hạng mục thu nhập</a>
@@ -70,13 +70,36 @@
 
         <!-- Dashboard Section -->
         <div class="dashboard">
-            <!-- Chart Section -->
-            <div class="chart-section">
-                <canvas id="userChart"></canvas>
+            <!-- Hiển thị tổng số người dùng -->
+            <!-- <div>
+                <h2>Tổng số người dùng: <%= userCount %></h2>
+                <ul>
+                    <% activeUsers.forEach(user => { %>
+                        <li>
+                            <img src="<%= user.avatar %>" alt="Avatar" width="50">
+                            <span><%= user.name %></span>
+                            <span>(<%= user.email %>)</span>
+                        </li>
+                    <% }) %>
+                </ul>
+            </div> -->
+
+            <!-- Hiển thị danh sách hạng mục -->
+            <!-- Phần Tổng số lượng hạng mục -->
+            <div class="total-count-section">
+                <h2>Tổng số lượng hạng mục: <%= totalCategories %></h2>
+                <ul>
+                    <% categoryList.forEach(category => { %>
+                        <li>
+                            <img src="<%= category.anhHangMuc %>" alt="Hạng mục">
+                            <span><%= category.tenHangMuc %></span>
+                        </li>
+                    <% }) %>
+                </ul>
             </div>
             <!-- User Activity Section -->
             <div class="user-activity-section">
-                <h2>Những người dùng tích cực trong tuần qua</h2>
+                <h2>Danh sách người dùng</h2>
                 <ul class="user-activity-list">
                     <% activeUsers.forEach(user => { %>
                         <li>

@@ -152,10 +152,6 @@ header {
   font-weight: bold;
 }
   
-  .main-menu i {
-    color: #3D378B;
-  }
-
   .submenu-income {
     border-radius: 8px;
     color: white;
@@ -224,21 +220,77 @@ header {
     gap: 15px;
 }
 
-/* Chart Section */
-.chart-section {
+.dashboard {
+  display: flex; /* Đặt container thành flex */
+  gap: 20px; /* Khoảng cách giữa biểu đồ và danh sách */
+  align-items: flex-start; /* Căn theo hàng trên cùng */
+  margin-bottom: 20px;
+}
+
+/* total */
+.total-count-section,
+.user-list-section {
     background-color: white;
     padding: 20px;
-    border-radius: 12px;
+    border-radius: 12px; /* Bo góc */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
+}
+
+.total-count-section {
+    flex: 5; /* Chiếm 7 phần không gian */
+}
+
+/* .user-list-section {
+    flex: 5; 
+} */
+
+/* Phong cách văn bản trong phần tổng số lượng hạng mục */
+.total-count-section h2,
+.user-activity-section h2 {
+    font-size: 20px; /* Cỡ chữ vừa phải */
+    font-weight: bold; /* Chữ in đậm */
+    text-align: center; /* Căn giữa ngang */
+    margin-bottom: 20px; /* Khoảng cách bên dưới tiêu đề */
+    color: #000000; /* Màu chữ nổi bật */
+}
+
+.total-count-section ul {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Khoảng cách giữa các mục */
+  padding: 0;
+  margin: 0;
+}
+
+.total-count-section ul li {
+  display: flex;
+  align-items: center;
+  background-color: #F6F6FF; /* Màu nền nhẹ */
+  padding: 10px;
+  border-radius: 8px; /* Bo góc cho từng mục */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Bóng đổ nhẹ */
+  transition: transform 0.3s ease; /* Hiệu ứng hover */
+}
+
+.total-count-section ul li:hover {
+  transform: translateY(-2px); /* Nhấc nhẹ lên khi hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Tăng bóng đổ khi hover */
+}
+
+.total-count-section ul li img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%; /* Làm tròn hình ảnh */
+  margin-right: 15px;
 }
 
 /* User Activity Section */
 .user-activity-section {
-    background-color: white;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  flex: 2; /* Chiếm 3 phần không gian */
+  background-color: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .user-activity-list {
@@ -251,6 +303,7 @@ header {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
+    list-style: none;
 }
 
 .user-avatar {
@@ -262,5 +315,5 @@ header {
 
 .user-name {
     font-size: 16px;
-    color: #5034C4;
+    color: #1b0088;
 }

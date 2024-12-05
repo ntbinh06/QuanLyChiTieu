@@ -2,9 +2,10 @@ const express = require('express');
 const path = require('path');
 const { initializeApp } = require('firebase/app');
 const { getDatabase, ref, get } = require('firebase/database');
+const { update } = require('firebase/database'); // Import hàm update
 
 const app = express();
-const PORT = process.env.PORT || 3050;
+const PORT = process.env.PORT || 3051;
 
 // Cấu hình Firebase
 const firebaseConfig = {
@@ -45,9 +46,11 @@ app.get('/QuanLyNguoiDung', async (req, res) => {
 
       for (const id in data) {
         userList.push({
+          id: id, // Thêm userId
           avatar: '../images/user_women.png',
           name: data[id].tenUser,
           email: data[id].email,
+          lock: data[id].lock || false, // Thêm trạng thái lock
         });
       }
 
@@ -67,6 +70,24 @@ app.get('/QuanLyNguoiDung', async (req, res) => {
   }
 });
 
+// Route xử lý toggle trạng thái khóa
+app.post('/toggleLock', express.json(), async (req, res) => {
+  const { userId, lock } = req.body; // Lấy userId và trạng thái mới từ request body
+
+  if (!userId) {
+    return res.status(400).send('Thiếu userId!');
+  }
+
+  try {
+    const userRef = ref(database, `NguoiDung/${userId}`); // Tham chiếu đến người dùng
+    await update(userRef, { lock }); // Cập nhật trạng thái khóa trong Firebase
+
+    res.status(200).send('Cập nhật trạng thái thành công!');
+  } catch (error) {
+    console.error('Lỗi khi cập nhật trạng thái khóa:', error);
+    res.status(500).send('Lỗi máy chủ!');
+  }
+});
 
 
 
@@ -74,13 +95,39 @@ app.get('/QuanLyNguoiDung', async (req, res) => {
 app.get('/', (req, res) => {
   res.render('DangNhap', { title: 'Đăng nhập' });
 });
-app.get('/XemChiTietUser', (req, res) => {
-  res.render('XemChiTietUser.ejs');
+
+//Xemchitiet
+app.get('/XemChiTietUser', async (req, res) => {
+  const userId = req.query.userId; // Lấy userId từ query string
+
+  if (!userId) {
+    return res.send('Không tìm thấy userId!');
+  }
+
+  try {
+    const userRef = ref(database, `NguoiDung/${userId}`); // Truy cập vào userId trong Firebase
+    const snapshot = await get(userRef);
+
+    if (snapshot.exists()) {
+      const userDetails = snapshot.val();
+      res.render('XemChiTietUser', {
+        name: userDetails.tenUser || "Không có tên",
+        birthDate: userDetails.ngaySinh || "Không có ngày sinh",
+        phone: userDetails.SDT || "Không có số điện thoại",
+        email: userDetails.email || "Không có email",
+        avatar: userDetails.avatar || "../images/user_women.png", // Avatar mặc định
+      });
+    } else {
+      res.status(404).send('Người dùng không tồn tại!');
+    }
+  } catch (error) {
+    console.error('Lỗi khi lấy dữ liệu người dùng: ', error);
+    res.status(500).send('Lỗi máy chủ!');
+  }
 });
 
 ///THÊM THU NHẬP
-app.post('/HangMucThuNhap', async (req, res) => {
-  console.log("Yêu cầu POST nhận được:", req.body);  // Kiểm tra dữ liệu từ client
+app.post('/addHangMucThuNhap', async (req, res) => {
   const { tenHangmuc } = req.body;  // Chỉ cần lấy tên hạng mục từ client
 
   // Tạo ID ngẫu nhiên hoặc lấy key mới từ Firebase
@@ -125,26 +172,21 @@ app.get('/HangMucThuNhap', async (req, res) => {
 });
 
 
-app.post('/HangMucChiPhi', async (req, res) => {
-  const { tenHangmuc } = req.body;
+app.post('/addHangMucChiPhi', async (req, res) => {
+  const { tenHangmuc } = req.body;  // Chỉ cần lấy tên hạng mục từ client
 
-  if (!tenHangmuc) {
-    return res.status(400).json({ success: false, error: "Tên hạng mục không được để trống." });
-  }
-
-  const idHangmuc = `HM-${Date.now()}`; // Tạo ID tùy chỉnh, ví dụ: HM-<timestamp>
+  // Tạo ID ngẫu nhiên hoặc lấy key mới từ Firebase
+  const newCategoryRef = ref(database, 'HangMuc').push();
   const newCategoryData = {
-    idHangmuc,
-    idNhom: "2",
-    tenHangmuc,
+    idHangmuc: newCategoryRef.key, // Lấy key ngẫu nhiên làm ID
+    idNhom: "2",                   // Gán cố định là chuỗi "1"
+    tenHangmuc
   };
 
-  try {
-    await set(ref(database, `HangMuc/${idHangmuc}`), newCategoryData);
-    res.json({ success: true, data: newCategoryData });
-  } catch (err) {
-    res.status(500).json({ success: false, error: err.message });
-  }
+  // Thêm vào Firebase
+  newCategoryRef.set(newCategoryData)
+    .then(() => res.json({ success: true }))
+    .catch(err => res.status(500).json({ success: false, error: err.message }));
 });
 
 app.get('/HangMucChiPhi', async (req, res) => {
@@ -176,19 +218,19 @@ app.get('/HangMucChiPhi', async (req, res) => {
 
 app.get('/TrangChu', async (req, res) => {
   try {
-    const userRef = ref(database, 'NguoiDung'); // Tham chiếu đến bảng NguoiDung
-    const snapshot = await get(userRef);
+    // Tham chiếu đến bảng NguoiDung
+    const userRef = ref(database, 'NguoiDung');
+    const userSnapshot = await get(userRef);
 
     let userCount = 0;
     let allUsers = [];
+    if (userSnapshot.exists()) {
+      const userData = userSnapshot.val();
+      userCount = Object.keys(userData).length; // Đếm tổng số người dùng
 
-    if (snapshot.exists()) {
-      const data = snapshot.val();
-      userCount = Object.keys(data).length; // Đếm tổng số người dùng
-
-      // Duyệt qua tất cả người dùng và thêm vào danh sách
-      for (const id in data) {
-        const user = data[id];
+      // Duyệt qua danh sách người dùng
+      for (const id in userData) {
+        const user = userData[id];
         allUsers.push({
           avatar: user.avatar || '../images/binh.png', // Avatar mặc định
           name: user.tenUser || "Người dùng không tên",
@@ -197,14 +239,43 @@ app.get('/TrangChu', async (req, res) => {
       }
     }
 
-    // Render giao diện TrangChu với danh sách tất cả người dùng
-    res.render('TrangChu', { userCount, activeUsers: allUsers });
+    // Tham chiếu đến bảng HangMuc
+    const categoryRef = ref(database, 'HangMuc');
+    const categorySnapshot = await get(categoryRef);
+
+    let categoryList = [];
+    let totalCategories = 0;
+    if (categorySnapshot.exists()) {
+      const categoryData = categorySnapshot.val();
+      totalCategories = Object.keys(categoryData).length; // Tổng số lượng hạng mục
+
+      // Duyệt qua danh sách hạng mục
+      for (const id in categoryData) {
+        const category = categoryData[id];
+        categoryList.push({
+          tenHangMuc: category.tenHangmuc || "Không có tên",
+          anhHangMuc: '../images/money.png', // Ảnh mặc định
+        });
+      }
+    }
+
+    // Render giao diện TrangChu với danh sách người dùng và hạng mục
+    res.render('TrangChu', {
+      userCount,
+      activeUsers: allUsers,
+      categoryList,
+      totalCategories,
+    });
   } catch (error) {
     console.error("Lỗi khi đọc dữ liệu Firebase: ", error);
-    res.render('TrangChu', { userCount: 0, activeUsers: [] });
+    res.render('TrangChu', {
+      userCount: 0,
+      activeUsers: [],
+      categoryList: [],
+      totalCategories: 0,
+    });
   }
 });
-
 
 
 app.listen(PORT, () => {
