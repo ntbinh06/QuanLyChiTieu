@@ -10,9 +10,9 @@
         crossorigin="anonymous"
         referrerpolicy="no-referrer"
     />
-    <link rel="stylesheet" href="../css/QuanLyNguoiDung.css" />
-    <link rel="stylesheet" href="../css/XemChiTietUser.css" />
-    <title>Thông tin cá nhân</title>
+    <!-- <link rel="stylesheet" href="../css/QuanLyNguoiDung.css" /> -->
+    <link rel="stylesheet" href="../css/QuanLyHangMuc.css" />
+    <title>Quản Lý Hạng Mục</title>
 </head>
 <body>
     <aside>
@@ -28,7 +28,7 @@
             <ul>
                 <li><a href="/TrangChu" class="active"><i class="fas fa-home"></i> Trang chủ</a></li>
                 <li><a href="/QuanLyNguoiDung"><i class="fas fa-users"></i> Quản lý người dùng</a></li>
-                <li><a href="/ThongTinAdmin"><i class="fas fa-user-cog"></i> Thông tin cá nhân</a></li>
+                <li><a href="/QuanLyHangMuc"><i class="fas fa-user-cog"></i> Quản lý hạng mục</a></li>
             </ul>
         </div>
     </aside>
@@ -45,26 +45,33 @@
         </div>
     </header>
 
-    <div class="main-container">
-        <div class="form-container">
-            <label><span>👤</span> Tên admin</label>
-            <input type="text" placeholder="Tên người dùng">
-
-            <label><span>📅</span> Ngày sinh</label>
-            <input type="text" placeholder="Ngày sinh">
-
-            <label><span>📞</span> Số điện thoại</label>
-            <input type="text" placeholder="Số điện thoại">
-
-            <label><span>✉️</span> Email</label>
-            <input type="text" placeholder="Email">
-
-            <button class="luu-button" onclick="window.location.href='TrangChu'">Lưu</button>
+    <!-- Content -->
+    <div class="content">
+        <!-- Tìm kiếm Hạng mục -->
+        <div class="search-section">
+            <input type="text" placeholder="Tìm kiếm" class="search-input" id="search-input">
+            <button class="search-button" id="search-button">
+                <img src="../images/search_ic.png" alt="Search">
+            </button>
         </div>
-        <div class="avatar-container">
-            <img src="https://via.placeholder.com/80" alt="Avatar">
-            <label>Ảnh đại diện</label>
-        </div>
+
+        <ul class="category-list">
+            <% if (categoryList && categoryList.length > 0) { %>
+                <% categoryList.forEach(function(category) { %>
+                    <li class="category-item">
+                        <img src="<%= category.anhHangMuc %>" alt="<%= category.tenHangMuc %>" class="category-image">
+                        <div class="category-info">
+                            <h3><%= category.tenHangMuc %></h3>
+                        </div>
+                    </li>
+                <% }); %>
+            <% } else { %>
+                <li>Không có hạng mục nào.</li>
+            <% } %>
+        </ul>
     </div>
+
+    <!-- JavaScript -->
+    <script src="../js/user.js"></script>
 </body>
 </html>
