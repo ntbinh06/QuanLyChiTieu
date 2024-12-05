@@ -23,9 +23,16 @@
                 </div>
             </div>
             <ul>
-                <li><a href="/TrangChu" class="active"><i class="fas fa-home"></i> Trang chủ</a></li>
-                <li><a href="/QuanLyNguoiDung"><i class="fas fa-users"></i> Quản lý người dùng</a></li>
-                <li><a href="/QuanLyHangMuc"><i class="fas fa-user-cog"></i> Quản lý hạng mục</a></li>
+                <li class="active"><a href="/TrangChu" ><i class="fas fa-home"></i> Trang chủ</a></li>
+                <li class="manage-user"><a href="/QuanLyNguoiDung" ><i class="fas fa-users"></i> Quản lý người dùng</a></li>
+                <li class="manage-category">
+                    <a href="/HangMucThuNhap" class="main-menu" style="color: #3D378B;"><i class="fas fa-user-cog"></i> Quản lý hạng mục</a>
+                    <!-- Submenu -->
+                    <div class="submenu">
+                        <a href="/HangMucThuNhap">Hạng mục thu nhập</a>
+                        <a href="/HangMucChiPhi">Hạng mục chi phí</a>
+                    </div>
+                </li>
             </ul>
         </div>
     </aside>

@@ -1,4 +1,22 @@
+@font-face {
+  font-family: 'quicksand-regular';
+  src: url('../fonts/quicksand-regular.ttf') format('truetype');
+}
 
+@font-face {
+  font-family: 'quicksand-bold';
+  src: url('../fonts/quicksand-bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'quicksand-semibold';
+  src: url('../fonts/quicksand-semibold.ttf') format('truetype');
+}
+
+body {
+    margin: 0;
+    font-family: quicksand-regular, sans-serif;
+}
   header {
     background-color: white;
     height: 80px;
@@ -27,6 +45,13 @@
   .user-icon, .name-admin, .header-icon {
     margin-right: 15px;
   }
+
+  .name-admin {
+    font-size: 16px;
+    font-weight: bold;
+    color: #3D378B;
+    margin: 0 10px;
+}
   
   .sidebar {
     background-color: #CECEFF;
@@ -78,7 +103,7 @@
   .sidebar_title h2 {
     font-size: 20px;
     margin: 0;
-    font-style: normal;
+    font-family: quicksand-bold, sans-serif;
   }
   
   .sidebar ul li {
@@ -95,11 +120,26 @@
   .sidebar ul li a {
     display: block;
     border-radius: 8px;
-    
+    font-weight: bold;
+
   }
   
   .sidebar i{
     margin-right: 10px;
+  }
+
+  .manage-user {
+    background-color: #3D378B;
+    border-radius: 8px;
+    color: white;
+  }
+
+  .manage-user a {
+    color: #fff;
+  }
+
+  .manage-user i {
+    color: #fff;
   }
   
   

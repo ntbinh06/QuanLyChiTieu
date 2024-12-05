@@ -4,7 +4,7 @@ const { initializeApp } = require('firebase/app');
 const { getDatabase, ref, get } = require('firebase/database');
 
 const app = express();
-const PORT = process.env.PORT || 3034;
+const PORT = process.env.PORT || 3049;
 
 // Cấu hình Firebase
 const firebaseConfig = {
@@ -12,7 +12,7 @@ const firebaseConfig = {
   authDomain: "quanlychitieu-5c040.firebaseapp.com",
   databaseURL: "https://quanlychitieu-5c040-default-rtdb.firebaseio.com",
   projectId: "quanlychitieu-5c040",
-  storageBucket: "quanlychitieu-5c040.appspot.com",
+  storageBucket: "quanlychitieu-5c040.firebasestorage.app",
   messagingSenderId: "999318802101",
   appId: "1:999318802101:web:8e58f43525cfa277ab38fc",
   measurementId: "G-HZV0RZ95KJ"
@@ -20,11 +20,9 @@ const firebaseConfig = {
 
 // Khởi tạo Firebase
 const firebaseApp = initializeApp(firebaseConfig);
-const database = getDatabase(firebaseApp);
 
-// Middleware xử lý dữ liệu form
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+// Kết nối với Realtime Database
+const database = getDatabase(firebaseApp);
 
 // Phục vụ các file tĩnh từ thư mục public
 app.use(express.static(path.join(__dirname, 'public')));
@@ -33,52 +31,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'src', 'views'));
 
-// Route cho trang chủ (trang đăng nhập)
-app.get('/', (req, res) => {
-  res.render('DangNhap', { error: null });
-});
+app.use(express.json());      // Xử lý JSON từ client 
 
-// Route xử lý đăng nhập
-// Route xử lý đăng nhập
-app.post('/DangNhap', async (req, res) => {
-  const { email, password } = req.body;
-  try {
-    const userRef = ref(database, 'NguoiDung');
-    const snapshot = await get(userRef);
-
-    if (snapshot.exists()) {
-      const users = snapshot.val();
-      let isAuthenticated = false;
-      let userInfo = null;
-
-      // Kiểm tra thông tin người dùng
-      for (const id in users) {
-        if (users[id].email === email && users[id].matKhau === password) {
-          isAuthenticated = true;
-          userInfo = users[id];
-          break;
-        }
-      }
-
-      if (isAuthenticated) {
-        // Truy xuất userCount để truyền vào TrangChu
-        const userCount = Object.keys(users).length;
-
-        // Truyền thêm userCount vào template TrangChu.ejs
-        res.render('TrangChu', { user: userInfo, userCount });
-      } else {
-        res.render('DangNhap', { error: 'Email hoặc mật khẩu không chính xác!' });
-      }
-    } else {
-      res.render('DangNhap', { error: 'Không tìm thấy dữ liệu người dùng!' });
-    }
-  } catch (error) {
-    console.error("Lỗi khi đăng nhập: ", error);
-    res.status(500).send('Lỗi hệ thống');
-  }
-});
-
-// Route hiển thị danh sách người dùng
+// Lấy danh sách người dùng từ Firebase và gửi cho client
 app.get('/QuanLyNguoiDung', async (req, res) => {
   try {
     const userRef = ref(database, 'NguoiDung');
@@ -96,8 +51,14 @@ app.get('/QuanLyNguoiDung', async (req, res) => {
         });
       }
 
-      res.render('QuanLyNguoiDung', { userList });
+      // Kiểm tra nếu userList có dữ liệu trước khi render
+      if (userList.length > 0) {
+        res.render('QuanLyNguoiDung', { userList });
+      } else {
+        res.render('QuanLyNguoiDung', { userList: [] });
+      }
     } else {
+      // Nếu không có dữ liệu từ Firebase, truyền userList rỗng
       res.render('QuanLyNguoiDung', { userList: [] });
     }
   } catch (error) {
@@ -106,33 +67,38 @@ app.get('/QuanLyNguoiDung', async (req, res) => {
   }
 });
 
-// Route để xem chi tiết người dùng
-app.get('/XemChiTietUser/:userId', async (req, res) => {
-  try {
-    const userId = req.params.userId;
-    const userRef = ref(database, 'NguoiDung/' + userId);
-    const snapshot = await get(userRef);
 
-    if (snapshot.exists()) {
-      const userData = snapshot.val();
-      const userDetails = {
-        avatar: userData.avatar || '../images/user_women.png',
-        name: userData.tenUser,
-        birthday: userData.ngaySinh,
-        phone: userData.sdt,
-        email: userData.email,
-      };
 
-      res.render('XemChiTietUser', { userDetails });
-    } else {
-      res.status(404).send('User not found');
-    }
-  } catch (error) {
-    console.error("Error retrieving user details:", error);
-    res.status(500).send('Internal Server Error');
-  }
+
+// Các route khác
+app.get('/', (req, res) => {
+  res.render('DangNhap', { title: 'Đăng nhập' });
 });
-app.get('/QuanLyHangMuc', async (req, res) => {
+app.get('/XemChiTietUser', (req, res) => {
+  res.render('XemChiTietUser.ejs');
+});
+
+///THÊM THU NHẬP
+app.post('/HangMucThuNhap', async (req, res) => {
+  console.log("Yêu cầu POST nhận được:", req.body);  // Kiểm tra dữ liệu từ client
+  const { tenHangmuc } = req.body;  // Chỉ cần lấy tên hạng mục từ client
+
+  // Tạo ID ngẫu nhiên hoặc lấy key mới từ Firebase
+  const newCategoryRef = ref(database, 'HangMuc').push();
+  const newCategoryData = {
+    idHangmuc: newCategoryRef.key, // Lấy key ngẫu nhiên làm ID
+    idNhom: "1",                   // Gán cố định là chuỗi "1"
+    tenHangmuc
+  };
+
+  // Thêm vào Firebase
+  newCategoryRef.set(newCategoryData)
+    .then(() => res.json({ success: true }))
+    .catch(err => res.status(500).json({ success: false, error: err.message }));
+});
+
+
+app.get('/HangMucThuNhap', async (req, res) => {
   try {
     const categoryRef = ref(database, 'HangMuc'); // Tham chiếu tới bảng HangMuc
     const snapshot = await get(categoryRef);
@@ -141,20 +107,72 @@ app.get('/QuanLyHangMuc', async (req, res) => {
     if (snapshot.exists()) {
       const data = snapshot.val();
       for (const id in data) {
-        categoryList.push({
-          tenHangMuc: data[id].tenHangmuc || "Không có tên", // Tên hạng mục
-          anhHangMuc: '../images/money.png',
-        });
+        if (data[id].idNhom === "1") { // So sánh trực tiếp với chuỗi "1"
+          categoryList.push({
+            tenHangMuc: data[id].tenHangmuc || "Không có tên",
+            anhHangMuc: '../images/money.png',
+          });        
+        }
       }
     }
 
     // Truyền danh sách hạng mục vào file QuanLyHangMuc.ejs
-    res.render('QuanLyHangMuc', { categoryList });
+    res.render('HangMucThuNhap', { categoryList });
   } catch (error) {
     console.error("Lỗi khi đọc dữ liệu Firebase: ", error);
-    res.render('QuanLyHangMuc', { categoryList: [] }); // Truyền danh sách rỗng khi lỗi
+    res.render('HangMucThuNhap', { categoryList: [] }); // Truyền danh sách rỗng khi lỗi
   }
 });
+
+
+app.post('/HangMucChiPhi', async (req, res) => {
+  const { tenHangmuc } = req.body;
+
+  if (!tenHangmuc) {
+    return res.status(400).json({ success: false, error: "Tên hạng mục không được để trống." });
+  }
+
+  const idHangmuc = `HM-${Date.now()}`; // Tạo ID tùy chỉnh, ví dụ: HM-<timestamp>
+  const newCategoryData = {
+    idHangmuc,
+    idNhom: "2",
+    tenHangmuc,
+  };
+
+  try {
+    await set(ref(database, `HangMuc/${idHangmuc}`), newCategoryData);
+    res.json({ success: true, data: newCategoryData });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+app.get('/HangMucChiPhi', async (req, res) => {
+  try {
+    const categoryRef = ref(database, 'HangMuc'); // Tham chiếu tới bảng HangMuc
+    const snapshot = await get(categoryRef);
+
+    let categoryList = []; // Khởi tạo danh sách hạng mục
+    if (snapshot.exists()) {
+      const data = snapshot.val();
+      for (const id in data) {
+        if (data[id].idNhom === "2") { // So sánh trực tiếp với chuỗi "1"
+          categoryList.push({
+            tenHangMuc: data[id].tenHangmuc || "Không có tên",
+            anhHangMuc: '../images/money.png',
+          });        
+        }
+      }
+    }
+
+    // Truyền danh sách hạng mục vào file QuanLyHangMuc.ejs
+    res.render('HangMucChiPhi', { categoryList });
+  } catch (error) {
+    console.error("Lỗi khi đọc dữ liệu Firebase: ", error);
+    res.render('HangMucChiPhi', { categoryList: [] }); // Truyền danh sách rỗng khi lỗi
+  }
+});
+
 
 app.get('/TrangChu', async (req, res) => {
   try {
