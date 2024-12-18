@@ -8,7 +8,9 @@ public class M_GiaoDich {
     private String idGiaoDich;
     private double giaTri;
     private String idHangMuc;
+    private String tenHangMuc;
     private String idTaiKhoan;
+    private String tenTaiKhoan;
     private Map<String, Object> ngayTao;  // Sử dụng Map cho ngày
     private String tu;
     private String ghiChu;
@@ -52,6 +54,22 @@ public class M_GiaoDich {
 
     public void setIdHangMuc(String idHangMuc) {
         this.idHangMuc = idHangMuc;
+    }
+
+    public String getTenHangMuc() {
+        return tenHangMuc;
+    }
+
+    public void setTenHangMuc(String tenHangMuc) {
+        this.tenHangMuc = tenHangMuc;
+    }
+
+    public String getTenTaiKhoan() {
+        return tenTaiKhoan;
+    }
+
+    public void setTenTaiKhoan(String tenTaiKhoan) {
+        this.tenTaiKhoan = tenTaiKhoan;
     }
 
     public String getIdTaiKhoan() {
