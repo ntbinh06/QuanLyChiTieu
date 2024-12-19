@@ -163,6 +163,7 @@ public class Ctrl_CacGiaoDich extends AppCompatActivity {
 
 
 
+
         // Tải dữ liệu
         loadHangMuc();
         loadTaiKhoan();
@@ -264,8 +265,7 @@ public class Ctrl_CacGiaoDich extends AppCompatActivity {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     M_DanhMucHangMuc hangMuc = dataSnapshot.getValue(M_DanhMucHangMuc.class);
                     if (hangMuc != null) {
-                        hangMucMap.put(hangMuc.getIdHangmuc(), hangMuc);  // Lưu đối tượng M_DanhMucHangMuc vào map
-                        Log.d("LoadHangMuc", "ID: " + hangMuc.getIdHangmuc() + ", Ten: " + hangMuc.getTenHangmuc());
+                        hangMucMap.put(hangMuc.getIdHangmuc(), hangMuc);
                     }
                 }
                 loadGiaoDich();
@@ -332,6 +332,7 @@ public class Ctrl_CacGiaoDich extends AppCompatActivity {
 
                             if (giaoDichCal.get(Calendar.YEAR) == selectedYear &&
                                     giaoDichCal.get(Calendar.MONTH) == selectedMonth) {
+
                                 // Lấy tên hạng mục
                                 M_DanhMucHangMuc hangMuc = hangMucMap.get(giaoDich.getIdHangMuc());
                                 String tenHangMuc = (hangMuc != null) ? hangMuc.getTenHangmuc() : "Không xác định";
@@ -342,12 +343,14 @@ public class Ctrl_CacGiaoDich extends AppCompatActivity {
                                     tenTaiKhoan = "Không xác định";
                                 }
 
-                                // Gán tên vào giao dịch
-                                giaoDich.setIdHangMuc(tenHangMuc);
-                                giaoDich.setIdTaiKhoan(tenTaiKhoan);
+                                // Gán tên hạng mục vào thuộc tính tenHangMuc
+                                giaoDich.setTenHangMuc(tenHangMuc);
+                                giaoDich.setTenTaiKhoan(tenTaiKhoan);
 
+                                // Giao dịch vẫn giữ idHangMuc cho mục đích khác
                                 giaoDichList.add(giaoDich);
                             }
+
                         } catch (NumberFormatException e) {
                             Toast.makeText(Ctrl_CacGiaoDich.this, "Định dạng ngày không hợp lệ", Toast.LENGTH_SHORT).show();
                         } catch (NullPointerException e) {

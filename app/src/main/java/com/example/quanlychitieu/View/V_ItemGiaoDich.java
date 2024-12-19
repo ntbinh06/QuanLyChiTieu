@@ -76,13 +76,13 @@ public class V_ItemGiaoDich extends RecyclerView.Adapter<V_ItemGiaoDich.ViewHold
 
         // Sửa phương thức bind() để nhận thêm tham số Context
         public void bind(M_GiaoDich giaoDich, Context context) {
-            tenGD.setText(giaoDich.getIdHangMuc());
-            taiKhoan.setText(giaoDich.getIdTaiKhoan());
+            tenGD.setText(giaoDich.getTenHangMuc());
+            taiKhoan.setText(giaoDich.getTenTaiKhoan());
             tien.setText(String.valueOf(giaoDich.getGiaTri()));
             ngay.setText(giaoDich.getFormattedNgayTao());
-
         }
     }
+
     public void updateData(List<M_GiaoDich> newData) {
         this.myList.clear(); // Làm rỗng danh sách trước
         if (newData != null) {
