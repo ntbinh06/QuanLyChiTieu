@@ -134,7 +134,7 @@ public class V_ThongKeItem extends RecyclerView.Adapter<V_ThongKeItem.ViewHolder
                                     String giaoDichUserId = giaoDich.child("userId").getValue(String.class);
                                     if (userId.equals(giaoDichUserId)) { // Kiểm tra userId
                                         String idHangMuc = giaoDich.child("idHangMuc").getValue(String.class);
-                                        Long giaTri = giaoDich.child("giaTri").getValue(Long.class);
+                                        Double giaTri = giaoDich.child("giaTri").getValue(Double.class);
                                         Integer thangGD = giaoDich.child("ngayTao/thang").getValue(Integer.class);
                                         Integer namGD = giaoDich.child("ngayTao/nam").getValue(Integer.class);
 

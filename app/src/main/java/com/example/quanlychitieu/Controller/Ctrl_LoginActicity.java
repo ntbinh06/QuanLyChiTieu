@@ -24,6 +24,8 @@ public class Ctrl_LoginActicity extends AppCompatActivity {
     private Button btnDangNhap;
     private EditText inputEmail, inputPassword;
     private FirebaseAuth auth;
+    private TextView forgotpass;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +40,7 @@ public class Ctrl_LoginActicity extends AppCompatActivity {
         TextView tv_btnDangky = findViewById(R.id.tv_btnDangky);
         inputEmail = findViewById(R.id.inputEmail);
         inputPassword = findViewById(R.id.inputPassword);
-
+        forgotpass = findViewById(R.id.forgotpass);
         // Sự kiện khi nhấn vào nút Đăng nhập
         // Sự kiện khi nhấn vào nút Đăng nhập
         btnDangNhap.setOnClickListener(new View.OnClickListener() {
@@ -101,6 +103,11 @@ public class Ctrl_LoginActicity extends AppCompatActivity {
         // Chuyển đến màn hình Đăng ký
         tv_btnDangky.setOnClickListener(view -> {
             Intent intent = new Intent(Ctrl_LoginActicity.this, Ctrl_RegisterActivity.class);
+            startActivity(intent);
+        });
+
+        forgotpass.setOnClickListener(view -> {
+            Intent intent = new Intent(Ctrl_LoginActicity.this, Ctrl_QuenMK.class);
             startActivity(intent);
         });
     }

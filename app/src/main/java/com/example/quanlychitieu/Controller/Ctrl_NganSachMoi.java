@@ -36,6 +36,7 @@ import com.example.quanlychitieu.R;
 import com.example.quanlychitieu.View.V_CustomSpinner;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -149,7 +150,7 @@ public class Ctrl_NganSachMoi extends AppCompatActivity {
 
     private String selectedHangMucId = null; // Biến để lưu ID hạng mục đã chọn
 
-    private void openFeedbackDialog ( int gravity){
+    private void openFeedbackDialog(int gravity) {
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.activity_hangmucchiphi);
@@ -171,11 +172,12 @@ public class Ctrl_NganSachMoi extends AppCompatActivity {
 
         // Lấy dữ liệu từ Firebase
         DatabaseReference danhMucRef = FirebaseDatabase.getInstance().getReference("HangMuc");
-
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         // Sử dụng idNhom là kiểu string "1"
         String idNhom = "2"; // Giá trị string bạn muốn so sánh
 
         danhMucRef.orderByChild("idNhom").equalTo(idNhom).addListenerForSingleValueEvent(new ValueEventListener() {
+
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 arrContact.clear(); // Xóa danh sách cũ nếu cần
@@ -183,9 +185,14 @@ public class Ctrl_NganSachMoi extends AppCompatActivity {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     String idHangmuc = snapshot.child("idHangmuc").getValue(String.class);
                     String tenHangmuc = snapshot.child("tenHangmuc").getValue(String.class);
+                    String hangMucUserId = snapshot.child("userId").getValue(String.class); // Assuming userId is stored in each item
 
-                    // Thêm vào danh sách
-                    arrContact.add(new M_DanhMucHangMuc(idHangmuc, tenHangmuc));
+                    // Check if the userId matches
+                    if (userId != null && userId.equals(hangMucUserId)) {
+                        // Add to the list if userId matches
+                        arrContact.add(new M_DanhMucHangMuc(idHangmuc, tenHangmuc));
+                    }
+
                 }
 
                 // Khởi tạo adapter và gán cho ListView

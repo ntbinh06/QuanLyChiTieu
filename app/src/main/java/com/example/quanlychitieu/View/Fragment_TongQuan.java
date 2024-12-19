@@ -497,7 +497,7 @@ public class Fragment_TongQuan extends Fragment {
                             String giaoDichUserId = giaoDich.child("userId").getValue(String.class);
                             if (userId.equals(giaoDichUserId)) { // Check userId
                                 String idHangMuc = giaoDich.child("idHangMuc").getValue(String.class);
-                                Long giaTri = giaoDich.child("giaTri").getValue(Long.class);
+                                Double giaTri = giaoDich.child("giaTri").getValue(Double.class);
 
                                 // Get date info
                                 Integer ngay = giaoDich.child("ngayTao/ngay").getValue(Integer.class);
@@ -531,8 +531,8 @@ public class Fragment_TongQuan extends Fragment {
 
                         // Format numbers
                         NumberFormat format = NumberFormat.getInstance(Locale.forLanguageTag("vi-VN"));
-                        String formattedThuNhap = format.format(tongThuNhap) + " đ";
-                        String formattedChiPhi = format.format(tongChiPhi) + " đ";
+                        String formattedThuNhap = format.format(tongThuNhap) + "đ";
+                        String formattedChiPhi = format.format(tongChiPhi) + "đ";
 
                         // Update ProgressBar
                         progressBarThuNhap.setMax(100); // Ensure max is 100

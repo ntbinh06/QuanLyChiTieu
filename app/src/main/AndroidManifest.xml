@@ -26,6 +26,9 @@
         <activity
             android:name=".Controller.Ctrl_SuaChiPhi"
             android:exported="false" />
+        <activity
+            android:name=".Controller.Ctrl_QuenMK"
+            android:exported="false" />
 
         <activity
             android:name=".Controller.Ctrl_SuaThuNhap"

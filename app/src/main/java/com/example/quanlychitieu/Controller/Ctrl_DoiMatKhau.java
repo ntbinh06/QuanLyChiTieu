@@ -19,6 +19,8 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -91,8 +93,8 @@ public class Ctrl_DoiMatKhau extends AppCompatActivity {
                                     // Mật khẩu đã được thay đổi thành công
                                     Toast.makeText(getApplicationContext(), "Đổi mật khẩu thành công!", Toast.LENGTH_SHORT).show();
 
-                                    // Cập nhật thông tin người dùng vào Firestore (nếu cần)
-                                    updateUserDataInFirestore(user);
+                                    // Cập nhật thông tin người dùng vào Firebase (nếu cần)
+                                    updateUserDataInRealtimeDB(user);
 
                                     // Chuyển hướng đến màn hình đăng nhập sau khi thay đổi mật khẩu thành công
                                     Intent intent = new Intent(Ctrl_DoiMatKhau.this, Ctrl_LoginActicity.class);
@@ -114,27 +116,30 @@ public class Ctrl_DoiMatKhau extends AppCompatActivity {
         }
     }
 
-    private void updateUserDataInFirestore(FirebaseUser user) {
-        // Giả sử bạn đang sử dụng Firestore để lưu thông tin người dùng
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        DocumentReference userRef = db.collection("NguoiDung").document(user.getUid());
+    private void updateUserDataInRealtimeDB(FirebaseUser user) {
+        // Lấy instance của Realtime Database
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        // Tham chiếu tới node "NguoiDung/{userId}"
+        DatabaseReference userRef = database.getReference("NguoiDung").child(user.getUid());
 
-        // Cập nhật thông tin người dùng vào Firestore, ví dụ chỉ cập nhật mật khẩu (có thể thêm nhiều trường khác)
+        // Lấy giá trị mật khẩu mới từ EditText
+        String newPassword = edtNewPassword.getText().toString();
+
+        // Dữ liệu cần cập nhật
         Map<String, Object> userData = new HashMap<>();
-        userData.put("matKhau", user.getUid());  // Bạn có thể thêm bất kỳ thông tin nào bạn cần ở đây
+        userData.put("matKhau", newPassword); // Lưu mật khẩu mới từ EditText
 
-        userRef.update(userData).addOnCompleteListener(new OnCompleteListener<Void>() {
+        // Cập nhật dữ liệu
+        userRef.updateChildren(userData).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                    // Thông báo thành công
-                    Log.d("UserData", "User data updated successfully!");
+                    Log.d("UserData", "User data updated successfully in Realtime Database!");
                 } else {
-                    // Thông báo lỗi khi cập nhật
-                    Log.d("UserData", "Error updating user data: " + task.getException().getMessage());
+                    Log.e("UserData", "Error updating user data in Realtime Database: " + task.getException().getMessage());
                 }
             }
         });
     }
-
 }
+
