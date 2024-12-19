@@ -88,6 +88,7 @@ public class Fragment_TongQuan extends Fragment {
     private DatabaseReference taiKhoanRef, giaoDichRef;
     private Map<String, M_DanhMucHangMuc> hangMucMap = new HashMap<>();
     private Map<String, String> nhomHangMucMap = new HashMap<>();
+    private int currentMonthOffset = 0;
 
     public Fragment_TongQuan() {}
 
@@ -611,10 +612,15 @@ public class Fragment_TongQuan extends Fragment {
 
     private void loadGiaoDich() {
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid(); // Lấy UID của người dùng hiện tại
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH, currentMonthOffset);
+        int selectedYear = calendar.get(Calendar.YEAR);
+        int selectedMonth = calendar.get(Calendar.MONTH);
         giaoDichRef.orderByChild("userId").equalTo(userId).limitToLast(4).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 giaoDichList.clear(); // Xóa dữ liệu cũ
+
 
                 // Duyệt qua từng giao dịch
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
@@ -622,7 +628,13 @@ public class Fragment_TongQuan extends Fragment {
 
                     // Lấy tên hạng mục
                     M_DanhMucHangMuc hangMuc = hangMucMap.get(giaoDich.getIdHangMuc());
-                    String tenHangMuc = (hangMuc != null) ? hangMuc.getTenHangmuc() : "Không xác định";
+                    if (hangMuc != null) {
+                        giaoDich.setTenHangMuc(hangMuc.getTenHangmuc());
+                        giaoDich.setAnhHangMuc(hangMuc.getAnhHangmuc());
+                    } else {
+                        giaoDich.setTenHangMuc("Không xác định");
+                        giaoDich.setAnhHangMuc("analysis"); // Ảnh mặc định
+                    }
 
                     // Lấy tên tài khoản
                     String tenTaiKhoan = taiKhoanMap.get(giaoDich.getIdTaiKhoan());
@@ -630,9 +642,7 @@ public class Fragment_TongQuan extends Fragment {
                         tenTaiKhoan = "Không xác định";
                     }
 
-                    // Gán tên vào giao dịch
-                    giaoDich.setIdHangMuc(tenHangMuc);
-                    giaoDich.setIdTaiKhoan(tenTaiKhoan);
+                    giaoDich.setTenTaiKhoan(tenTaiKhoan);
 
                     // Thêm giao dịch vào danh sách
                     giaoDichList.add(giaoDich);

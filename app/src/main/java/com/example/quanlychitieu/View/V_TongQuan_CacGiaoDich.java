@@ -60,16 +60,36 @@ public class V_TongQuan_CacGiaoDich extends RecyclerView.Adapter<V_TongQuan_CacG
             taiKhoan = itemView.findViewById(R.id.textAccount);
             tien = itemView.findViewById(R.id.textAmount);
             ngay = itemView.findViewById(R.id.textDate);
-            loaiGd = itemView.findViewById(R.id.loaiGd);
+            loaiGd = itemView.findViewById(R.id.img_DM);
         }
 
         // Sửa phương thức bind() để nhận thêm tham số Context
         public void bind(M_GiaoDich giaoDich, Context context) {
-            tenGD.setText(giaoDich.getIdHangMuc());
-            taiKhoan.setText(giaoDich.getIdTaiKhoan());
+            tenGD.setText(giaoDich.getTenHangMuc());
+            taiKhoan.setText(giaoDich.getTenTaiKhoan());
             tien.setText(String.valueOf(giaoDich.getGiaTri()));
             ngay.setText(giaoDich.getFormattedNgayTao());
 
+            // Hiển thị ảnh từ drawable
+            String anhHangMuc = giaoDich.getAnhHangMuc();
+            if (anhHangMuc != null && !anhHangMuc.isEmpty()) {
+                int drawableId = context.getResources().getIdentifier(anhHangMuc, "drawable", context.getPackageName());
+                if (drawableId != 0) {
+                    loaiGd.setImageResource(drawableId); // Gán ảnh vào img_DM
+                } else {
+                    loaiGd.setImageResource(R.drawable.analysis); // Ảnh mặc định nếu không tìm thấy
+                }
+            } else {
+                loaiGd.setImageResource(R.drawable.analysis); // Ảnh mặc định nếu không có tên ảnh
+            }
+
         }
+    }
+    public void updateData(List<M_GiaoDich> newData) {
+        this.myList.clear(); // Làm rỗng danh sách trước
+        if (newData != null) {
+            this.myList.addAll(newData); // Thêm dữ liệu mới
+        }
+        notifyDataSetChanged(); // Làm mới RecyclerView
     }
 }
