@@ -19,6 +19,12 @@ public class M_DanhMucHangMuc  {
         this.tenHangmuc = tenHangmuc;
     }
 
+    public M_DanhMucHangMuc(String idHangmuc, String tenHangmuc, String anhHangmuc) {
+        this.idHangmuc = idHangmuc;
+        this.tenHangmuc = tenHangmuc;
+        this.anhHangmuc = anhHangmuc;
+    }
+
     // Constructor đầy đủ
     public M_DanhMucHangMuc(String idHangmuc, String tenHangmuc, String anhHangmuc, Double nganSachDuTru, String idNhom, String idUser) {
         this.idHangmuc = idHangmuc;

@@ -16,6 +16,7 @@ public class M_GiaoDich {
     private String ghiChu;
     private String idNhom;
     private String userId;
+    private String anhHangMuc; // Tên ảnh trong drawable
 
     // Constructor mặc định
     public M_GiaoDich() {}
@@ -38,6 +39,14 @@ public class M_GiaoDich {
 
     public void setIdGiaoDich(String idGiaoDich) {
         this.idGiaoDich = idGiaoDich;
+    }
+
+    public String getAnhHangMuc() {
+        return anhHangMuc;
+    }
+
+    public void setAnhHangMuc(String anhHangMuc) {
+        this.anhHangMuc = anhHangMuc;
     }
 
     public double getGiaTri() {

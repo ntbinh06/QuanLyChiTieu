@@ -62,6 +62,7 @@ public class Ctrl_ThemThuNhap extends AppCompatActivity {
     private EditText editTextDate;
     private ImageView imageViewCalendar;
     private TextView chonHangMucTextView;
+    private ImageButton hangmuc; // Khai báo toàn cục
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,7 +91,7 @@ public class Ctrl_ThemThuNhap extends AppCompatActivity {
         // Lấy danh mục từ Firestore
         gettaiKhoanList();
 
-        ImageButton hangmuc = findViewById(R.id.hangmuc);
+        hangmuc = findViewById(R.id.hangmuc);
         ImageButton ic_back = findViewById(R.id.ic_back);
         Button buttonhuy = findViewById(R.id.btnHuy);
         Button buttonluu = findViewById(R.id.btnLuu);
@@ -308,12 +309,13 @@ public class Ctrl_ThemThuNhap extends AppCompatActivity {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     String idHangmuc = snapshot.child("idHangmuc").getValue(String.class);
                     String tenHangmuc = snapshot.child("tenHangmuc").getValue(String.class);
+                    String anhHangMuc = snapshot.child("anhHangmuc").getValue(String.class); // Lấy trường anhHangmuc
                     String hangMucUserId = snapshot.child("userId").getValue(String.class); // Assuming userId is stored in each item
 
                     // Check if the userId matches
                     if (userId != null && userId.equals(hangMucUserId)) {
                         // Add to the list if userId matches
-                        arrContact.add(new M_DanhMucHangMuc(idHangmuc, tenHangmuc));
+                        arrContact.add(new M_DanhMucHangMuc(idHangmuc, tenHangmuc, anhHangMuc));
                     }
 
                 }
@@ -330,6 +332,19 @@ public class Ctrl_ThemThuNhap extends AppCompatActivity {
                         selectedHangMucId = selectedItem.getIdHangmuc(); // Lưu ID hạng mục đã chọn
                         String tenHangMuc = selectedItem.getTenHangmuc(); // Lấy tên hạng mục
                         chonHangMucTextView.setText(tenHangMuc); // Cập nhật TextView
+                        String anhHangMuc = selectedItem.getAnhHangmuc();
+                        // Cập nhật ImageButton với ảnh từ anhHangMuc
+                        if (anhHangMuc != null && !anhHangMuc.isEmpty()) {
+                            int drawableId = getResources().getIdentifier(anhHangMuc, "drawable", getPackageName());
+                            if (drawableId != 0) {
+                                hangmuc.setImageResource(drawableId); // Gán ảnh từ drawable vào ImageButton
+                            } else {
+                                hangmuc.setImageResource(R.drawable.analysis); // Ảnh mặc định nếu không tìm thấy
+                            }
+                        } else {
+                            hangmuc.setImageResource(R.drawable.analysis); // Ảnh mặc định nếu anhHangMuc null hoặc rỗng
+                        }
+
                         Toast.makeText(Ctrl_ThemThuNhap.this, "Đã chọn: " + tenHangMuc, Toast.LENGTH_SHORT).show();
                         dialog.dismiss(); // Đóng dialog sau khi chọn
                     }

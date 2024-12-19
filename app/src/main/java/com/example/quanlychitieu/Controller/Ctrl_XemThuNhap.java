@@ -109,6 +109,19 @@ public class Ctrl_XemThuNhap extends AppCompatActivity {
                                     M_DanhMucHangMuc hangMuc = dataSnapshot.getValue(M_DanhMucHangMuc.class);
                                     if (hangMuc != null) {
                                         txtTenGD.setText(hangMuc.getTenHangmuc() != null ? hangMuc.getTenHangmuc() : "Không có tên hạng mục");
+
+                                        // Hiển thị ảnh hạng mục
+                                        String anhHangMuc = hangMuc.getAnhHangmuc(); // Lấy giá trị ảnh từ Firebase
+                                        if (anhHangMuc != null && !anhHangMuc.isEmpty()) {
+                                            int drawableId = getResources().getIdentifier(anhHangMuc, "drawable", getPackageName());
+                                            if (drawableId != 0) {
+                                                imgHinhGD.setImageResource(drawableId); // Gán ảnh vào ImageView
+                                            } else {
+                                                imgHinhGD.setImageResource(R.drawable.analysis); // Ảnh mặc định nếu không tìm thấy
+                                            }
+                                        } else {
+                                            imgHinhGD.setImageResource(R.drawable.analysis); // Ảnh mặc định nếu `anhHangMuc` null
+                                        }
                                     } else {
                                         txtTenGD.setText("Không có tên hạng mục");
                                     }

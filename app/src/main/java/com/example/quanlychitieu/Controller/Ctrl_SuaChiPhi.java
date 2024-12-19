@@ -59,6 +59,7 @@ public class Ctrl_SuaChiPhi extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 1;
     private String transactionId, selectedTaiKhoanId, selectedHangMucId;
     private TextView chonHangMucTextView;
+    private ImageButton hangmuc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +88,7 @@ public class Ctrl_SuaChiPhi extends AppCompatActivity {
         Button buttonhuy = findViewById(R.id.buttonhuy);
         Button buttonluu = findViewById(R.id.buttonluu);
         ImageView btnCamera = findViewById(R.id.btnCamera);
-        ImageButton hangmuc = findViewById(R.id.hangmuc);
+        hangmuc = findViewById(R.id.hangmuc);
         // Gán dữ liệu cho các view
         editTextGiaTri.setText(String.valueOf(giaTri));
         editTextDate.setText(ngayTao);
@@ -246,8 +247,27 @@ public class Ctrl_SuaChiPhi extends AppCompatActivity {
         hangMucRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot hangMucSnap) {
-                M_DanhMucHangMuc danhMucHangMuc = hangMucSnap.getValue(M_DanhMucHangMuc.class);
-                chonHangMucTextView.setText(danhMucHangMuc != null ? danhMucHangMuc.getTenHangmuc() : "Không có tên");
+                if (hangMucSnap.exists()) {
+                    M_DanhMucHangMuc danhMucHangMuc = hangMucSnap.getValue(M_DanhMucHangMuc.class);
+
+                    // Hiển thị tên hạng mục
+                    chonHangMucTextView.setText(danhMucHangMuc != null ? danhMucHangMuc.getTenHangmuc() : "Không có tên");
+
+                    // Hiển thị hình ảnh hạng mục
+                    if (danhMucHangMuc != null && danhMucHangMuc.getAnhHangmuc() != null) {
+                        String anhHangMuc = danhMucHangMuc.getAnhHangmuc();
+                        int drawableId = getResources().getIdentifier(anhHangMuc, "drawable", getPackageName());
+                        if (drawableId != 0) {
+                            hangmuc.setImageResource(drawableId); // Hiển thị ảnh từ drawable
+                        } else {
+                            hangmuc.setImageResource(R.drawable.analysis); // Ảnh mặc định nếu không tìm thấy
+                        }
+                    } else {
+                        hangmuc.setImageResource(R.drawable.analysis); // Ảnh mặc định nếu `anhHangMuc` null
+                    }
+                } else {
+                    Toast.makeText(Ctrl_SuaChiPhi.this, "Không tìm thấy hạng mục.", Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
@@ -370,6 +390,7 @@ public class Ctrl_SuaChiPhi extends AppCompatActivity {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     String idHangmuc = snapshot.child("idHangmuc").getValue(String.class);
                     String tenHangmuc = snapshot.child("tenHangmuc").getValue(String.class);
+                    String anhHangMuc = snapshot.child("anhHangmuc").getValue(String.class); // Lấy trường anhHangmuc
                     String hangMucUserId = snapshot.child("userId").getValue(String.class); // Assuming userId is stored in each item
 
                     // Check if the userId matches
@@ -391,6 +412,20 @@ public class Ctrl_SuaChiPhi extends AppCompatActivity {
                         selectedHangMucId = selectedItem.getIdHangmuc(); // Lưu ID hạng mục đã chọn
                         String tenHangMuc = selectedItem.getTenHangmuc(); // Lấy tên hạng mục
                         chonHangMucTextView.setText(tenHangMuc); // Cập nhật TextView
+
+                        String anhHangMuc = selectedItem.getAnhHangmuc();
+                        // Cập nhật ImageButton với ảnh từ anhHangMuc
+                        if (anhHangMuc != null && !anhHangMuc.isEmpty()) {
+                            int drawableId = getResources().getIdentifier(anhHangMuc, "drawable", getPackageName());
+                            if (drawableId != 0) {
+                                hangmuc.setImageResource(drawableId); // Gán ảnh từ drawable vào ImageButton
+                            } else {
+                                hangmuc.setImageResource(R.drawable.analysis); // Ảnh mặc định nếu không tìm thấy
+                            }
+                        } else {
+                            hangmuc.setImageResource(R.drawable.analysis); // Ảnh mặc định nếu anhHangMuc null hoặc rỗng
+                        }
+
                         Toast.makeText(Ctrl_SuaChiPhi.this, "Đã chọn: " + tenHangMuc, Toast.LENGTH_SHORT).show();
                         dialog.dismiss(); // Đóng dialog sau khi chọn
                     }

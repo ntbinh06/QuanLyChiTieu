@@ -231,15 +231,14 @@ public class Ctrl_CacGiaoDich extends AppCompatActivity {
     private void searchGiaoDich(String keyword) {
         List<M_GiaoDich> filteredList = new ArrayList<>();
         for (M_GiaoDich giaoDich : originalList) {
-            String idHangMuc = giaoDich.getIdHangMuc(); // Lấy ID hạng mục từ giao dịch
-            Log.d("SearchDG_ID", "ID Hang Muc: " + idHangMuc);
+            // Lấy tên hạng mục từ giao dịch
+            String tenHangMuc = giaoDich.getTenHangMuc();
+            Log.d("SearchDG_ID", "ID Hang Muc: " + giaoDich.getIdHangMuc());
 
-            // So sánh keyword với idHangMuc
-            if (idHangMuc != null && idHangMuc.toLowerCase().contains(keyword.toLowerCase())) {
+            // So sánh từ khóa với tên hạng mục
+            if (tenHangMuc != null && tenHangMuc.toLowerCase().contains(keyword.toLowerCase())) {
                 filteredList.add(giaoDich);
-                Log.d("SearchDG_Match", "Tìm thấy giao dịch khớp: " + idHangMuc);
-            } else {
-                Log.d("SearchDG_NotMatch", "Không tìm thấy khớp: " + idHangMuc);
+                Log.d("SearchMatch", "Tìm thấy giao dịch khớp: " + tenHangMuc);
             }
         }
 
@@ -333,18 +332,21 @@ public class Ctrl_CacGiaoDich extends AppCompatActivity {
                             if (giaoDichCal.get(Calendar.YEAR) == selectedYear &&
                                     giaoDichCal.get(Calendar.MONTH) == selectedMonth) {
 
-                                // Lấy tên hạng mục
+                                // Lấy thông tin từ HangMuc
                                 M_DanhMucHangMuc hangMuc = hangMucMap.get(giaoDich.getIdHangMuc());
-                                String tenHangMuc = (hangMuc != null) ? hangMuc.getTenHangmuc() : "Không xác định";
+                                if (hangMuc != null) {
+                                    giaoDich.setTenHangMuc(hangMuc.getTenHangmuc());
+                                    giaoDich.setAnhHangMuc(hangMuc.getAnhHangmuc());
+                                } else {
+                                    giaoDich.setTenHangMuc("Không xác định");
+                                    giaoDich.setAnhHangMuc("analysis"); // Ảnh mặc định
+                                }
 
                                 // Lấy tên tài khoản
                                 String tenTaiKhoan = taiKhoanMap.get(giaoDich.getIdTaiKhoan());
                                 if (tenTaiKhoan == null) {
                                     tenTaiKhoan = "Không xác định";
                                 }
-
-                                // Gán tên hạng mục vào thuộc tính tenHangMuc
-                                giaoDich.setTenHangMuc(tenHangMuc);
                                 giaoDich.setTenTaiKhoan(tenTaiKhoan);
 
                                 // Giao dịch vẫn giữ idHangMuc cho mục đích khác
