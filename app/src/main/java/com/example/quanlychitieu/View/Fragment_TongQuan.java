@@ -89,6 +89,8 @@ public class Fragment_TongQuan extends Fragment {
     private Map<String, M_DanhMucHangMuc> hangMucMap = new HashMap<>();
     private Map<String, String> nhomHangMucMap = new HashMap<>();
     private int currentMonthOffset = 0;
+    private double tongTien = 0;
+    private boolean isMoneyVisible = true;  // Biến trạng thái để theo dõi việc ẩn/hiện tiền
 
     public Fragment_TongQuan() {}
 
@@ -147,35 +149,27 @@ public class Fragment_TongQuan extends Fragment {
         eyeIcon = view.findViewById(R.id.ic_eye);
         amountTextView = view.findViewById(R.id.txtTongTienSH);
 
+        // Sự kiện click cho icon con mắt
+        eyeIcon.setOnClickListener(v -> {
+            if (isMoneyVisible) {
+                // Chuyển sang trạng thái ẩn số tiền
+                amountTextView.setText("********");
+                eyeIcon.setImageResource(R.drawable.eye_of); // Thay icon sang icon ẩn
+            } else {
+                // Chuyển sang trạng thái hiển thị số tiền
+                amountTextView.setText(String.format("%,.0f", tongTien) + " đ");
+                eyeIcon.setImageResource(R.drawable.eye); // Thay icon sang icon hiện
+            }
+            isMoneyVisible = !isMoneyVisible;  // Đổi trạng thái
+        });
+
+
 // Giả sử bạn có các icon đóng/mở mắt
         final Drawable eyeClosed = ContextCompat.getDrawable(getContext(), R.drawable.eye_of);
         final Drawable eyeOpened = ContextCompat.getDrawable(getContext(), R.drawable.eye_of);
 
 // Lưu giá trị ban đầu vào tag của amountTextView để sử dụng khi cần hiển thị lại
         amountTextView.setTag(amountTextView.getText().toString());
-
-        eyeIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isAmountVisible) {
-                    // Ẩn số bằng dấu "*"
-                    String amountText = amountTextView.getText().toString();
-                    StringBuilder hiddenText = new StringBuilder();
-                    for (int i = 0; i < amountText.length(); i++) {
-                        hiddenText.append('*');
-                    }
-                    amountTextView.setText(hiddenText.toString());
-                    eyeIcon.setImageDrawable(eyeClosed); // Thay đổi icon mắt thành đóng
-                } else {
-                    // Hiển thị lại số tiền
-                    amountTextView.setText(amountTextView.getTag().toString()); // Lấy lại giá trị ban đầu từ tag
-                    eyeIcon.setImageDrawable(eyeOpened); // Thay đổi icon mắt thành mở
-                }
-                isAmountVisible = !isAmountVisible; // Đổi trạng thái của isAmountVisible
-            }
-        });
-
-
 
 
 
@@ -680,12 +674,17 @@ public class Fragment_TongQuan extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 taiKhoanList.clear(); // Xóa danh sách cũ
+                tongTien = 0;  // Reset lại giá trị tổng tiền mỗi lần lấy dữ liệu
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     M_TaiKhoan taiKhoan = dataSnapshot.getValue(M_TaiKhoan.class);
-                    if (taiKhoan != null &&userId.equals(taiKhoan.getUserId())) {
+                    if (taiKhoan != null && userId.equals(taiKhoan.getUserId())) {
                         taiKhoanList.add(taiKhoan); // Thêm tài khoản vào danh sách
+                        tongTien += taiKhoan.getLuongBanDau();
                     }
                 }
+
+                // Hiển thị tổng tiền lên TextView
+                amountTextView.setText(String.format("%,.0f", tongTien) + " đ"); // Định dạng số tiền (thêm đằng sau 'đ')
 
                 // Đảo ngược danh sách để sắp xếp giảm dần (ngày tạo gần nhất trước)
                 Collections.reverse(taiKhoanList);
@@ -701,21 +700,10 @@ public class Fragment_TongQuan extends Fragment {
         });
     }
 
-    private void tinhTongTienCuaTatCaTaiKhoan() {
-        // Biến để lưu tổng số tiền của tất cả các tài khoản
-        double tongTienTatCa = 0;
 
-        // Duyệt qua tất cả các tài khoản trong danh sách taiKhoanList
-        for (M_TaiKhoan taiKhoan : taiKhoanList) {
-            // Lấy số tiền của mỗi tài khoản và cộng vào tổng
-            double soTien = taiKhoan.getLuongBanDau(); // Giả sử phương thức getLuongBanDau() trả về số tiền của tài khoản
-            tongTienTatCa += soTien; // Cộng dồn vào tổng số tiền
-        }
 
-        // Chuyển đổi tổng số tiền thành chuỗi và hiển thị lên TextView
-        String tongTienStr = String.format("%.2f", tongTienTatCa); // Định dạng số tiền với 2 chữ số thập phân
-        amountTextView.setText(tongTienStr); // Hiển thị tổng số tiền lên TextView
-    }
+
+
 
 
 

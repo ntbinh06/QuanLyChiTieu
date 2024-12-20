@@ -66,8 +66,8 @@ public class V_NganSach extends RecyclerView.Adapter<V_NganSach.ViewHolder> {
         double nganSachDuTru = (item.getNganSachDuTru() != null) ? item.getNganSachDuTru() : 0;
         double giatriconlai = nganSachDuTru - totalGiatri;
 
-        holder.nganSachDuTruTextView.setText(String.valueOf(nganSachDuTru)); // Hiển thị ngân sách dự trù
-        holder.tienConLaiTextView.setText(String.valueOf(giatriconlai));
+        holder.nganSachDuTruTextView.setText(formatCurrency(nganSachDuTru)); // Hiển thị ngân sách dự trù
+        holder.tienConLaiTextView.setText(formatCurrency(giatriconlai));
 
         // Cập nhật ProgressBar
         holder.progressBar.setMax((int) nganSachDuTru);
@@ -98,5 +98,11 @@ public class V_NganSach extends RecyclerView.Adapter<V_NganSach.ViewHolder> {
             tienConLaiTextView = itemView.findViewById(R.id.tienConLai);
             progressBar = itemView.findViewById(R.id.pgbTienTrinh); // Khởi tạo ProgressBar
         }
+    }
+
+    private String formatCurrency(double amount) {
+        java.text.NumberFormat formatter = java.text.NumberFormat.getInstance(); // Sử dụng NumberFormat
+        formatter.setGroupingUsed(true); // Bật tính năng nhóm số (thêm dấu chấm)
+        return formatter.format(amount) + " đ"; // Thêm đơn vị "đ" sau số tiền
     }
 }

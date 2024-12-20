@@ -310,14 +310,14 @@ public class Ctrl_ThemThuNhap extends AppCompatActivity {
                     String idHangmuc = snapshot.child("idHangmuc").getValue(String.class);
                     String tenHangmuc = snapshot.child("tenHangmuc").getValue(String.class);
                     String anhHangMuc = snapshot.child("anhHangmuc").getValue(String.class); // Lấy trường anhHangmuc
-                    String hangMucUserId = snapshot.child("userId").getValue(String.class); // Assuming userId is stored in each item
+                    String hangMucUserId = snapshot.child("userId").getValue(String.class); // Lấy userId của hạng mục
 
-                    // Check if the userId matches
-                    if (userId != null && userId.equals(hangMucUserId)) {
-                        // Add to the list if userId matches
+                    // Lấy hạng mục nếu:
+                    // 1. userId khớp với người dùng đăng nhập
+                    // 2. Hoặc userId không tồn tại (hạng mục chung)
+                    if (userId != null && (userId.equals(hangMucUserId) || hangMucUserId == null || hangMucUserId.isEmpty())) {
                         arrContact.add(new M_DanhMucHangMuc(idHangmuc, tenHangmuc, anhHangMuc));
                     }
-
                 }
 
                 // Khởi tạo adapter và gán cho ListView
@@ -350,6 +350,8 @@ public class Ctrl_ThemThuNhap extends AppCompatActivity {
                     }
                 });
             }
+
+
 
             @Override
             public void onCancelled(DatabaseError databaseError) {

@@ -1,6 +1,11 @@
 package com.example.quanlychitieu.Model;
 
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.Map;
 
 public class M_DanhMucHangMuc  {
     private String idHangmuc;
@@ -9,6 +14,7 @@ public class M_DanhMucHangMuc  {
     private Double nganSachDuTru;
     private String idNhom;
     private String userId;
+    private Map<String, Integer> ngayTaoNganSach;
 
     // Constructor mặc định (Firebase cần)ac
     public M_DanhMucHangMuc() {
@@ -82,5 +88,25 @@ public class M_DanhMucHangMuc  {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public Map<String, Integer> getNgayTaoNganSach() {
+        return ngayTaoNganSach;
+    }
+
+    public void setNgayTaoNganSach(Map<String, Integer> ngayTaoNganSach) {
+        this.ngayTaoNganSach = ngayTaoNganSach;
+    }
+
+    // Phương thức này sẽ giúp bạn định dạng lại ngày tháng
+    public String getFormattedNgayTao() {
+        int year = ngayTaoNganSach.get("nam");
+        int month = ngayTaoNganSach.get("thang");
+        int day = ngayTaoNganSach.get("ngay");
+
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/yyyy", Locale.getDefault());
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month - 1, day);
+        return sdf.format(calendar.getTime());
     }
 }

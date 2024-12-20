@@ -119,6 +119,7 @@ public class M_GiaoDich {
     public void setUserId(String userId) {
         this.userId = userId;
     }
+
     // Phương thức chuyển đổi Map thành String
     public String getFormattedNgayTao() {
         if (ngayTao != null) {
@@ -134,4 +135,6 @@ public class M_GiaoDich {
         }
         return ""; // Trả về chuỗi rỗng nếu ngày là null
     }
+
+
 }

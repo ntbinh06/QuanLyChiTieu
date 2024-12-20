@@ -66,8 +66,14 @@ public class V_TongQuan_CacTaiKhoan extends RecyclerView.Adapter<V_TongQuan_CacT
 
         public void bind(M_TaiKhoan taiKhoan) {
             tvtenTaiKhoan.setText(taiKhoan.getTenTaiKhoan());
-            tvTongSoTien.setText(String.valueOf(taiKhoan.getLuongBanDau()));
+            tvTongSoTien.setText(formatCurrency(taiKhoan.getLuongBanDau()));
             tvLanSDCuoi.setText(taiKhoan.getFormattedLanSuDungCuoi());
         }
+    }
+
+    private static String formatCurrency(double amount) {
+        java.text.NumberFormat formatter = java.text.NumberFormat.getInstance(); // Sử dụng NumberFormat
+        formatter.setGroupingUsed(true); // Bật tính năng nhóm số (thêm dấu chấm)
+        return formatter.format(amount) + " đ"; // Thêm đơn vị "đ" sau số tiền
     }
 }

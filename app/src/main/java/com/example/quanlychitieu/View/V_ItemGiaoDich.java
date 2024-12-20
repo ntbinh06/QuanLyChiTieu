@@ -2,6 +2,7 @@ package com.example.quanlychitieu.View;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -63,7 +64,7 @@ public class V_ItemGiaoDich extends RecyclerView.Adapter<V_ItemGiaoDich.ViewHold
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tenGD, taiKhoan, tien, ngay;
-        ImageView loaiGd;
+        ImageView anhDM, loaiGd;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -71,14 +72,15 @@ public class V_ItemGiaoDich extends RecyclerView.Adapter<V_ItemGiaoDich.ViewHold
             taiKhoan = itemView.findViewById(R.id.textAccount);
             tien = itemView.findViewById(R.id.textAmount);
             ngay = itemView.findViewById(R.id.textDate);
-            loaiGd = itemView.findViewById(R.id.img_DM);
+            anhDM = itemView.findViewById(R.id.img_DM);
+            loaiGd = itemView.findViewById(R.id.loaiGd);
         }
 
         // Sửa phương thức bind() để nhận thêm tham số Context
         public void bind(M_GiaoDich giaoDich, Context context) {
             tenGD.setText(giaoDich.getTenHangMuc());
             taiKhoan.setText(giaoDich.getTenTaiKhoan());
-            tien.setText(String.valueOf(giaoDich.getGiaTri()));
+            tien.setText(formatCurrency(giaoDich.getGiaTri()));
             ngay.setText(giaoDich.getFormattedNgayTao());
 
             // Hiển thị ảnh từ drawable
@@ -86,14 +88,51 @@ public class V_ItemGiaoDich extends RecyclerView.Adapter<V_ItemGiaoDich.ViewHold
             if (anhHangMuc != null && !anhHangMuc.isEmpty()) {
                 int drawableId = context.getResources().getIdentifier(anhHangMuc, "drawable", context.getPackageName());
                 if (drawableId != 0) {
-                    loaiGd.setImageResource(drawableId); // Gán ảnh vào img_DM
+                    anhDM.setImageResource(drawableId); // Gán ảnh vào img_DM
                 } else {
-                    loaiGd.setImageResource(R.drawable.analysis); // Ảnh mặc định nếu không tìm thấy
+                    anhDM.setImageResource(R.drawable.analysis); // Ảnh mặc định nếu không tìm thấy
                 }
             } else {
-                loaiGd.setImageResource(R.drawable.analysis); // Ảnh mặc định nếu không có tên ảnh
+                anhDM.setImageResource(R.drawable.analysis); // Ảnh mặc định nếu không có tên ảnh
             }
+
+            DatabaseReference hangMucRef = FirebaseDatabase.getInstance().getReference("HangMuc").child(giaoDich.getIdHangMuc());
+            hangMucRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()) {
+                        String idNhom = snapshot.child("idNhom").getValue(String.class);
+                        if (idNhom != null) {
+                            int color;
+
+                            // Chọn màu sắc dựa trên idNhom
+                            switch (idNhom) {
+                                case "1":
+                                    color = ContextCompat.getColor(context, R.color.green); // Màu cho idNhom 1
+                                    break;
+                                case "2":
+                                    color = ContextCompat.getColor(context, R.color.red_dark); // Màu cho idNhom 2
+                                    break;
+                                default:
+                                    color = ContextCompat.getColor(context, R.color.lightgray_2); // Màu mặc định
+                                    break;
+                            }
+
+                            // Thay đổi màu backgroundTint
+                            loaiGd.setBackgroundTintList(ColorStateList.valueOf(color));
+
+                            tien.setTextColor(color);
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Log.e("FirebaseError", error.getMessage());
+                }
+            });
         }
+
     }
 
     public void updateData(List<M_GiaoDich> newData) {
@@ -102,5 +141,11 @@ public class V_ItemGiaoDich extends RecyclerView.Adapter<V_ItemGiaoDich.ViewHold
             this.myList.addAll(newData); // Thêm dữ liệu mới
         }
         notifyDataSetChanged(); // Làm mới RecyclerView
+    }
+
+    private static String formatCurrency(double amount) {
+        java.text.NumberFormat formatter = java.text.NumberFormat.getInstance(); // Sử dụng NumberFormat
+        formatter.setGroupingUsed(true); // Bật tính năng nhóm số (thêm dấu chấm)
+        return formatter.format(amount) + " đ"; // Thêm đơn vị "đ" sau số tiền
     }
 }

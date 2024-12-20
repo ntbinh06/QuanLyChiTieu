@@ -72,7 +72,7 @@ public class Ctrl_ChiTietNganSach extends AppCompatActivity {
             txtSoTien.setText(formatCurrency(soTien));
             txtConLai.setText(formatCurrency(soTienConLai));
             txtDaChi.setText(formatCurrency(daChi));
-                // Cập nhật ProgressBar
+            // Cập nhật ProgressBar
             pgbTienTrinh.setMax((int) soTien); // Thiết lập giá trị tối đa cho ProgressBar
             pgbTienTrinh.setProgress((int) daChi); // Thiết lập giá trị hiện tại cho ProgressBar
 
@@ -281,6 +281,9 @@ public class Ctrl_ChiTietNganSach extends AppCompatActivity {
     }
 
     private String formatCurrency(double amount) {
-        return String.format("%,.2f đ", amount); // Định dạng với 2 chữ số thập phân
+        java.text.NumberFormat formatter = java.text.NumberFormat.getInstance(); // Sử dụng NumberFormat
+        formatter.setGroupingUsed(true); // Bật tính năng nhóm số (thêm dấu chấm)
+        return formatter.format(amount) + " đ"; // Thêm đơn vị "đ" sau số tiền
     }
+
 }

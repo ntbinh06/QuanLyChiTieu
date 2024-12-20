@@ -71,7 +71,7 @@
                 android:layout_marginStart="4dp"
                 android:fontFamily="sans-serif"
                 android:gravity="center"
-                android:text="đ"
+                android:text=""
                 android:textColor="#FFFFFF"
                 android:textSize="18sp"
                 tools:layout_editor_absoluteX="335dp"

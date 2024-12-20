@@ -51,7 +51,7 @@ public class V_ItemCacTK extends ArrayAdapter<M_TaiKhoan> {
 
 
         tentk.setText(taikhoan.getTenTaiKhoan());
-        tien.setText(taikhoan.getLuongBanDau()+" đ");
+        tien.setText(formatCurrency(taikhoan.getLuongBanDau()));
 
         // Xử lý sự kiện khi nhấn vào icon con mắt
         iconXemChiTiet.setOnClickListener(v -> {
@@ -130,5 +130,13 @@ public class V_ItemCacTK extends ArrayAdapter<M_TaiKhoan> {
             Toast.makeText(context, "Lỗi khi xóa tài khoản: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         });
     }
+
+    private static String formatCurrency(double amount) {
+        java.text.NumberFormat formatter = java.text.NumberFormat.getInstance();
+        formatter.setGroupingUsed(true); // Enable grouping (thousands separator)
+        return formatter.format(amount) + " đ"; // Add " đ" at the end
+    }
+
+
 
 }

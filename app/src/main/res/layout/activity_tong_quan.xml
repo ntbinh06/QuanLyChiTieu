@@ -96,26 +96,28 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp">
 
                     <TextView
                         android:id="@+id/txtTongTienSH"
-                        android:layout_width="wrap_content"
+                        android:layout_width="160dp"
                         android:layout_height="wrap_content"
                         android:text="0 đ"
                         android:textColor="@color/green"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
+                        android:gravity="start"
                         android:layout_marginTop="5dp"
                         android:layout_marginLeft="25dp"
                         android:fontFamily="@font/poppins_regular" />
 
                     <ImageView
                         android:id="@+id/ic_eye"
-                        android:layout_width="20dp"
-                        android:layout_height="12dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:src="@drawable/eye"
-                        android:layout_marginTop="12dp"
-                        android:layout_marginLeft="135dp"/>
+                        android:layout_marginTop="8dp"
+                        android:layout_marginLeft="5dp"/>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

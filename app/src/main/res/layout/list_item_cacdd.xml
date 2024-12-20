@@ -28,7 +28,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginLeft="5dp">
+                android:layout_marginLeft="10dp">
 
                 <!-- Transaction description -->
                 <TextView
@@ -58,28 +58,15 @@
                 android:orientation="vertical"
                 android:gravity="center_vertical">
 
-                <!-- Transaction amount -->
-                <LinearLayout
-                    android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/textAmount"
+                    android:layout_width="match_parent"
+                    android:gravity="end"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:id="@+id/textAmount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="100.000"
-                        android:textSize="16sp"
-                        android:textColor="@android:color/holo_red_dark"
-                        android:layout_marginEnd="3dp"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="đ"
-                        android:textSize="18sp"
-                        android:textColor="@android:color/holo_red_dark"
-                        android:layout_marginEnd="3dp"/>
-                </LinearLayout>
-
+                    android:layout_marginEnd="3dp"
+                    android:text="100.000"
+                    android:textColor="@android:color/holo_red_dark"
+                    android:textSize="16sp" />
 
                 <!-- Transaction date -->
                 <TextView
@@ -100,7 +87,7 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/round_corner_25dp"
-                android:backgroundTint="@android:color/holo_red_dark" />
+                android:backgroundTint="@color/red_dark" />
 
 
         </LinearLayout>

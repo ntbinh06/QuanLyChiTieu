@@ -26,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Ctrl_XemTKChiTiet extends AppCompatActivity {
@@ -35,8 +36,9 @@ public class Ctrl_XemTKChiTiet extends AppCompatActivity {
     private RecyclerView lv;
     private TextView txtTenTaiKhoan, txtLuongBD, txtLSDC, txtNgayTao, txtSoDu;
     private DatabaseReference giaoDichRef;
-    private Map<String, String> hangMucMap = new HashMap<>();
+    private Map<String, M_DanhMucHangMuc> hangMucMap = new HashMap<>();
     private Map<String, String> taiKhoanMap = new HashMap<>();// Map lưu idHangMuc -> tenHangMuc
+    private List<M_GiaoDich> giaoDichList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -180,7 +182,6 @@ public class Ctrl_XemTKChiTiet extends AppCompatActivity {
     // Phương thức tải dữ liệu hạng mục
     private void loadHangMuc(String idTaiKhoan, String luongbandau) {
         DatabaseReference hangMucRef = FirebaseDatabase.getInstance().getReference("HangMuc");
-
         hangMucRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -188,10 +189,10 @@ public class Ctrl_XemTKChiTiet extends AppCompatActivity {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     M_DanhMucHangMuc hangMuc = dataSnapshot.getValue(M_DanhMucHangMuc.class);
                     if (hangMuc != null) {
-                        hangMucMap.put(hangMuc.getIdHangmuc(), hangMuc.getTenHangmuc());
+                        hangMucMap.put(hangMuc.getIdHangmuc(), hangMuc);
                     }
                 }
-                // Gọi loadGiaoDich sau khi tải xong hạng mục
+                // Gọi loadGiaoDich với các tham số đã truyền
                 loadGiaoDich(idTaiKhoan, luongbandau);
             }
 
@@ -201,6 +202,7 @@ public class Ctrl_XemTKChiTiet extends AppCompatActivity {
             }
         });
     }
+
 
     private void loadTaiKhoan(String idTaiKhoan, String luongbandau) {
         DatabaseReference TaiKhoanRef = FirebaseDatabase.getInstance().getReference("TaiKhoan");
@@ -237,13 +239,25 @@ public class Ctrl_XemTKChiTiet extends AppCompatActivity {
                 for (DataSnapshot data : snapshot.getChildren()) {
                     M_GiaoDich giaoDich = data.getValue(M_GiaoDich.class);
                     if (giaoDich != null) {
-                        // Lấy tên hạng mục từ Map
-                        String tenHangMuc = hangMucMap.get(giaoDich.getIdHangMuc());
-                        String tenTaiKhoan = taiKhoanMap.get(giaoDich.getIdTaiKhoan());
-                        if (tenHangMuc != null && tenTaiKhoan != null) {
-                            giaoDich.setIdHangMuc(tenHangMuc); // Thay idHangMuc bằng tên hạng mục
-                            giaoDich.setIdTaiKhoan(tenTaiKhoan);
+                        // Lấy thông tin từ HangMuc
+                        M_DanhMucHangMuc hangMuc = hangMucMap.get(giaoDich.getIdHangMuc());
+                        if (hangMuc != null) {
+                            giaoDich.setTenHangMuc(hangMuc.getTenHangmuc());
+                            giaoDich.setAnhHangMuc(hangMuc.getAnhHangmuc());
+                        } else {
+                            giaoDich.setTenHangMuc("Không xác định");
+                            giaoDich.setAnhHangMuc("analysis"); // Ảnh mặc định
                         }
+
+                        // Lấy tên tài khoản
+                        String tenTaiKhoan = taiKhoanMap.get(giaoDich.getIdTaiKhoan());
+                        if (tenTaiKhoan == null) {
+                            tenTaiKhoan = "Không xác định";
+                        }
+                        giaoDich.setTenTaiKhoan(tenTaiKhoan);
+
+                        // Giao dịch vẫn giữ idHangMuc cho mục đích khác
+                        giaoDichList.add(giaoDich);
                         mylist.add(giaoDich);
                         tong += giaoDich.getGiaTri();
                     }

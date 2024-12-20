@@ -24,6 +24,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.NumberFormat;
+
 public class Ctrl_XemChiPhi extends AppCompatActivity {
     private String transactionId;
     private M_GiaoDich giaoDich;
@@ -72,7 +74,7 @@ public class Ctrl_XemChiPhi extends AppCompatActivity {
                 if (dataSnapshot.exists()) {
                     M_GiaoDich giaoDich = dataSnapshot.getValue(M_GiaoDich.class);
                     if (giaoDich != null) {
-                        txtGiaGD.setText(String.valueOf(giaoDich.getGiaTri()));
+                        txtGiaGD.setText(formatCurrency(giaoDich.getGiaTri()));
                         txtGhiChu.setText(giaoDich.getGhiChu() != null ? giaoDich.getGhiChu() : "Không có ghi chú");
                         txtTu.setText(giaoDich.getTu() != null ? giaoDich.getTu() : "Không có thông tin");
                         txtNgayGD.setText(giaoDich.getFormattedNgayTao());
@@ -238,5 +240,12 @@ public class Ctrl_XemChiPhi extends AppCompatActivity {
 
     private void navigateToLoginScreen() {
         startActivity(new Intent(Ctrl_XemChiPhi.this, Ctrl_CacGiaoDich.class));
+    }
+
+    // Hàm định dạng tiền tệ
+    private static String formatCurrency(double amount) {
+        NumberFormat formatter = NumberFormat.getInstance();
+        formatter.setGroupingUsed(true); // Bật tính năng nhóm số
+        return formatter.format(amount) + " đ"; // Thêm "đ" vào cuối chuỗi
     }
 }

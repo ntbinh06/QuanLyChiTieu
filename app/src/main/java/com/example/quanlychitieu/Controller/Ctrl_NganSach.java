@@ -136,14 +136,20 @@ public class Ctrl_NganSach extends AppCompatActivity {
         }
 
         // Hiển thị tổng vào TextView
-        tong.setText(String.format("%.2f M", totalNganSachDuTru));
+        tong.setText(formatCurrency(totalNganSachDuTru));
     }
 
     private void loadData() {
         // Lấy UID của người dùng hiện tại
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        // Lấy dữ liệu từ Firebase, lọc theo userId
+        // Lấy tháng và năm hiện tại hoặc được chọn
+        Calendar currentCalendar = Calendar.getInstance();
+        currentCalendar.add(Calendar.MONTH, currentMonthOffset);
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/yyyy", new Locale("vi", "VN"));
+        String selectedMonthYear = sdf.format(currentCalendar.getTime());
+
+        // Lấy dữ liệu từ Firebase, lọc theo userId và tháng/năm
         databaseDanhMuc.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -152,27 +158,29 @@ public class Ctrl_NganSach extends AppCompatActivity {
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     M_DanhMucHangMuc danhMuc = snapshot.getValue(M_DanhMucHangMuc.class);
-                    if (danhMuc != null && danhMuc.getNganSachDuTru() != null&& userId.equals(danhMuc.getUserId())) {
-                        danhMucList.add(danhMuc);
-                        soTien += danhMuc.getNganSachDuTru();
+                    if (danhMuc != null && danhMuc.getNganSachDuTru() != null && userId.equals(danhMuc.getUserId())) {
+                        String ngayTao = danhMuc.getFormattedNgayTao(); // Lấy ngày tạo ngân sách dưới dạng MM/yyyy
+                        if (ngayTao != null && ngayTao.endsWith(selectedMonthYear)) {
+                            danhMucList.add(danhMuc);
+                            soTien += danhMuc.getNganSachDuTru();
+                        }
                     }
                 }
 
                 loadGiaoDich(); // Gọi loadGiaoDich sau khi đã tải danh mục
-                updateTong(); // Cập nhật tổng ngay sau khi tải danh mục
+                updateTong(); // Cập nhật tổng ngân sách
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                // Xử lý lỗi nếu cần
                 Log.e("FirebaseError", "Lỗi khi tải dữ liệu danh mục: " + databaseError.getMessage());
             }
         });
     }
 
+
     private void loadGiaoDich() {
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        Log.d("User ID", "Current User ID: " + userId);
 
         databaseGiaoDich.addValueEventListener(new ValueEventListener() {
             @Override
@@ -184,56 +192,60 @@ public class Ctrl_NganSach extends AppCompatActivity {
                 currentCalendar.add(Calendar.MONTH, currentMonthOffset);
                 SimpleDateFormat sdf = new SimpleDateFormat("MM/yyyy", new Locale("vi", "VN"));
                 String monthYear = sdf.format(currentCalendar.getTime());
-                Log.d("Month Year", "Current Month/Year: " + monthYear);
 
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     M_GiaoDich giaoDich = snapshot.getValue(M_GiaoDich.class);
-                    if (giaoDich != null&& userId.equals(giaoDich.getUserId())) {
-                        String ngayTao = giaoDich.getFormattedNgayTao();
+                    if (giaoDich != null && userId.equals(giaoDich.getUserId())) {
+                        String ngayTao = giaoDich.getFormattedNgayTao(); // Định dạng ngày thành MM/yyyy
                         if (ngayTao != null && ngayTao.endsWith(monthYear)) {
                             totalSpent += giaoDich.getGiaTri();
+                            giaoDichList.add(giaoDich);
                         }
-                        giaoDichList.add(giaoDich);
                     }
                 }
 
-                Log.d("Total Spent", "Total Spent: " + totalSpent);
                 soTienConLai = soTien - totalSpent;
 
-                double totalDachi = 0.0;
-                for (M_DanhMucHangMuc danhMuc : danhMucList) {
-                    if (danhMuc.getNganSachDuTru() != null && userId.equals(danhMuc.getUserId())) {
-                        String idHangMuc = danhMuc.getIdHangmuc();
-                        for (M_GiaoDich giaoDich : giaoDichList) {
-                            if (giaoDich.getIdHangMuc() != null && giaoDich.getIdHangMuc().equals(idHangMuc)&& userId.equals(giaoDich.getUserId())) {
-                                totalDachi += giaoDich.getGiaTri();
-                            }
-                        }
-                    }
-                }
-
-                totaldachi.setText(String.format("%.2f M", totalSpent));
-                double remainingAmount = soTien - totalDachi;
-                totalrest.setText(String.format("%.2f M", remainingAmount));
-
-                arcProgressBar.setMax((int) soTien);
-                arcProgressBar.setProgress((int) totalDachi);
-
-                int currentDay = currentCalendar.get(Calendar.DAY_OF_MONTH);
-                int totalDaysInMonth = currentCalendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-                int daysLeft = totalDaysInMonth - currentDay;
-                dayrest.setText(String.format("%d ngày", daysLeft));
-
-                V_NganSach customAdapter = new V_NganSach(Ctrl_NganSach.this, danhMucList, giaoDichList);
-                rvNganSach.setAdapter(customAdapter);
+                updateUI(totalSpent); // Cập nhật UI
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.e("Database Error", databaseError.getMessage());
+                Log.e("DatabaseError", databaseError.getMessage());
             }
         });
     }
+
+    private void updateUI(double totalSpent) {
+        totaldachi.setText(formatCurrency(totalSpent));
+        double remainingAmount = soTien - totalSpent;
+        totalrest.setText(formatCurrency(remainingAmount));
+
+        arcProgressBar.setMax((int) soTien);
+        arcProgressBar.setProgress((int) totalSpent);
+
+        Calendar currentCalendar = Calendar.getInstance();
+        currentCalendar.add(Calendar.MONTH, currentMonthOffset);
+
+        int daysLeft;
+        if (danhMucList.isEmpty() && currentMonthOffset != 0) {
+            // Nếu danh sách ngân sách trống và không phải tháng này, đặt ngày còn lại là 30
+            daysLeft = 30;
+        } else {
+            // Tính số ngày còn lại cho tháng hiện tại
+            int currentDay = currentCalendar.get(Calendar.DAY_OF_MONTH);
+            int totalDaysInMonth = currentCalendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+            daysLeft = totalDaysInMonth - currentDay;
+        }
+        dayrest.setText(String.format("%d ngày", daysLeft));
+
+        // Cập nhật danh sách ngân sách
+        V_NganSach customAdapter = new V_NganSach(this, danhMucList, giaoDichList);
+        rvNganSach.setAdapter(customAdapter);
+    }
+
+
+
 
     private void updateMonthText() {
         Calendar calendar = Calendar.getInstance();
@@ -278,5 +290,11 @@ public class Ctrl_NganSach extends AppCompatActivity {
         }
 
         datePickerDialog.show();
+    }
+
+    private String formatCurrency(double amount) {
+        java.text.NumberFormat formatter = java.text.NumberFormat.getInstance(); // Sử dụng NumberFormat
+        formatter.setGroupingUsed(true); // Bật tính năng nhóm số (thêm dấu chấm)
+        return formatter.format(amount) + " đ"; // Thêm đơn vị "đ" sau số tiền
     }
 }
