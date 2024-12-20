@@ -27,7 +27,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Ctrl_ChiTietNganSach extends AppCompatActivity {
@@ -36,6 +38,7 @@ public class Ctrl_ChiTietNganSach extends AppCompatActivity {
     private TextView txtTenHangMuc, txtSoTien, txtConLai, txtDaChi,tvDay;
     private ProgressBar pgbTienTrinh;
     private ImageView imgHangMuc;
+    private ArrayList<M_DanhMucHangMuc> danhMucList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +69,7 @@ public class Ctrl_ChiTietNganSach extends AppCompatActivity {
             double soTien = intent.getDoubleExtra("soTien", 0.0);
             double soTienConLai = intent.getDoubleExtra("soTienConLai", 0.0);
             double daChi = soTien - soTienConLai;
-
+            String anhHangMuc = intent.getStringExtra("anhHangMuc");
 
             txtTenHangMuc.setText(tenHangMuc);
             txtSoTien.setText(formatCurrency(soTien));
@@ -86,6 +89,7 @@ public class Ctrl_ChiTietNganSach extends AppCompatActivity {
             // Lưu transactionId
             transactionId = idHangmuc; // Lưu ID dưới dạng String
             // Truy vấn Firebase để lấy ngayTaoNganSach
+
             DatabaseReference hangMucRef = FirebaseDatabase.getInstance().getReference("HangMuc").child(transactionId);
             hangMucRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -96,6 +100,8 @@ public class Ctrl_ChiTietNganSach extends AppCompatActivity {
                             int ngay = ((Long) ngayTaoNganSach.get("ngay")).intValue();
                             int thang = ((Long) ngayTaoNganSach.get("thang")).intValue();
                             int nam = ((Long) ngayTaoNganSach.get("nam")).intValue();
+
+
 
                             // Hiển thị ngày tạo ngân sách
                             String formattedDate = String.format("%02d/%02d/%d", ngay, thang, nam);
@@ -285,5 +291,7 @@ public class Ctrl_ChiTietNganSach extends AppCompatActivity {
         formatter.setGroupingUsed(true); // Bật tính năng nhóm số (thêm dấu chấm)
         return formatter.format(amount) + " đ"; // Thêm đơn vị "đ" sau số tiền
     }
+
+
 
 }

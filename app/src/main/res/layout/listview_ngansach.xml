@@ -18,9 +18,10 @@
 
         <ImageView
             android:id="@+id/imgHangMuc"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:src="@drawable/shopping_cart"/>
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:src="@drawable/shopping_cart"
+            android:layout_marginLeft="10dp"/>
 
 
         <TextView
@@ -61,7 +62,7 @@
                     android:id="@+id/conlai"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="10dp"
                     android:fontFamily="@font/inter_18pt_regular"
                     android:text="Còn lại"
                     android:textColor="@color/black_50"
@@ -70,7 +71,7 @@
                     android:id="@+id/tienConLai"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="10dp"
                     android:fontFamily="@font/inter_18pt_regular"
                     android:text="1.700.000 đ"
                     android:textColor="@color/black_50"

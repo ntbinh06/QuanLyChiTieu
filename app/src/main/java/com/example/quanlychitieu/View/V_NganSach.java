@@ -5,6 +5,7 @@ import android.content.res.ColorStateList;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -16,6 +17,7 @@ import com.example.quanlychitieu.Model.M_GiaoDich;
 import com.example.quanlychitieu.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class V_NganSach extends RecyclerView.Adapter<V_NganSach.ViewHolder> {
     private Context context;
@@ -78,6 +80,19 @@ public class V_NganSach extends RecyclerView.Adapter<V_NganSach.ViewHolder> {
         } else {
             holder.progressBar.setProgressDrawable(context.getResources().getDrawable(R.drawable.progress_bar)); // Drawable màu mặc định
         }
+
+        // Hiển thị ảnh từ drawable
+        String anhHangMuc = item.getAnhHangmuc();
+        if (anhHangMuc != null && !anhHangMuc.isEmpty()) {
+            int drawableId = context.getResources().getIdentifier(anhHangMuc, "drawable", context.getPackageName());
+            if (drawableId != 0) {
+                holder.imgHangMuc.setImageResource(drawableId); // Gán ảnh vào img_DM
+            } else {
+                holder.imgHangMuc.setImageResource(R.drawable.analysis); // Ảnh mặc định nếu không tìm thấy
+            }
+        } else {
+            holder.imgHangMuc.setImageResource(R.drawable.analysis); // Ảnh mặc định nếu không có tên ảnh
+        }
     }
 
     @Override
@@ -90,6 +105,7 @@ public class V_NganSach extends RecyclerView.Adapter<V_NganSach.ViewHolder> {
         TextView nganSachDuTruTextView;
         TextView tienConLaiTextView;
         ProgressBar progressBar; // Thêm ProgressBar
+        ImageView imgHangMuc;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -97,6 +113,7 @@ public class V_NganSach extends RecyclerView.Adapter<V_NganSach.ViewHolder> {
             nganSachDuTruTextView = itemView.findViewById(R.id.soTien);
             tienConLaiTextView = itemView.findViewById(R.id.tienConLai);
             progressBar = itemView.findViewById(R.id.pgbTienTrinh); // Khởi tạo ProgressBar
+            imgHangMuc = itemView.findViewById(R.id.imgHangMuc);
         }
     }
 
@@ -105,4 +122,13 @@ public class V_NganSach extends RecyclerView.Adapter<V_NganSach.ViewHolder> {
         formatter.setGroupingUsed(true); // Bật tính năng nhóm số (thêm dấu chấm)
         return formatter.format(amount) + " đ"; // Thêm đơn vị "đ" sau số tiền
     }
+
+    public void updateData(List<M_DanhMucHangMuc> newData) {
+        this.danhMucList.clear(); // Làm rỗng danh sách danh mục
+        if (newData != null) {
+            this.danhMucList.addAll(newData); // Thêm dữ liệu mới vào danh mục
+        }
+        notifyDataSetChanged(); // Làm mới RecyclerView
+    }
+
 }
