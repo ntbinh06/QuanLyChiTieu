@@ -10,8 +10,8 @@
 
     <ImageView
         android:id="@+id/image_hangMuc"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginStart="20dp"
         android:background="?attr/selectableItemBackground"
         android:src="@drawable/income" />
@@ -24,5 +24,5 @@
         android:textColor="@color/black"
         android:text="Đồ ăn/ Đồ uống"
         android:textSize="20dp"
-        android:layout_marginTop="17dp"/>
+        android:layout_gravity="center_vertical" />
 </LinearLayout>
