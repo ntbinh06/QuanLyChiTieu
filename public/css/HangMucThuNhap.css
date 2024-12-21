@@ -250,8 +250,9 @@ header {
   display: none; /* Ẩn hộp thoại mặc định */
   position: fixed; /* Đặt vị trí cố định */
   z-index: 1; /* Đưa hộp thoại lên trên */
-  left: 0;
-  top: 0;
+  top: 50%; /* Đặt modal cách vị trí giữa màn hình theo chiều dọc */
+  left: 50%; /* Đặt modal cách vị trí giữa màn hình theo chiều ngang */
+  transform: translate(-50%, -50%); /* Dịch chuyển modal về chính giữa */
   width: 100%; /* Chiếm toàn bộ chiều rộng */
   height: 100%; /* Chiếm toàn bộ chiều cao */
   overflow: auto; /* Thêm cuộn nếu cần */
@@ -354,6 +355,28 @@ header {
 }
 
 
+.icon-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr); /* Hiển thị 4 cột */
+  margin-top: 10px;
+  gap: 10px;
+  margin-left: 20px;
+}
+
+
+.icon {
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  transition: 0.3s;
+  margin-top: 10px;
+}
+
+.icon:hover {
+  border: 2px solid #007BFF;
+}
 
 
 

@@ -10,6 +10,10 @@
         crossorigin="anonymous"
         referrerpolicy="no-referrer"
     />
+    <!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js"></script>
+
     <link rel="stylesheet" href="../css/HangMucChiPhi.css" />
     <title>Quản Lý Hạng Mục</title>
 </head>
@@ -33,7 +37,7 @@
                 
                 </li>
                 <li class="manage-category">
-                    <a href="/HangMucThuNhap" class="main-menu" style="color: #fff;"><i class="fas fa-user-cog"></i> Quản lý hạng mục</a>
+                    <a href="/HangMucThuNhap" class="main-menu" style="color: #fff;"><i class="fa-solid fa-bars"></i> Quản lý hạng mục</a>
                     <!-- Submenu -->
                     <div class="submenu">
                         <a href="/HangMucThuNhap">Hạng mục thu nhập</a>
@@ -77,10 +81,44 @@
         <!-- Modal -->
         <div class="modal" id="inputModal">
             <div class="modal-content">
-                <h3>Thêm hạng mục chi phí</h3>
+                <h3>Thêm hạng mục thu nhập</h3>
                 <!-- Form nhập dữ liệu -->
                 <input type="text" id="categoryInput" placeholder="Nhập tên hạng mục" />
                 <br><br>
+        
+                <!-- Hiển thị ảnh đã chọn -->
+                <div>
+                    <h3>Ảnh đã chọn:</h3>
+                    <img id="selectedImagePreview" src="" alt="Ảnh đã chọn" style="width: 100px; height: 100px; display: none;"/>
+                </div>
+        
+                <br>
+                <!-- Thêm danh sách icon -->
+                <div class="icon-grid">
+                    <img src="../images/salary.png" class="icon" onclick="selectIcon('salary')" alt="icon1">
+                    <img src="../images/profit_margin.png" class="icon" onclick="selectIcon('profit_margin')" alt="icon2">
+                    <img src="../images/funds.png" class="icon" onclick="selectIcon('funds')" alt="icon3">
+                    <img src="../images/cooperation.png" class="icon" onclick="selectIcon('cooperation')" alt="icon3">
+                    <img src="../images/cinema.png" class="icon" onclick="selectIcon('cinema')" alt="icon3">
+                    <img src="../images/cleaning.png" class="icon" onclick="selectIcon('cleaning')" alt="icon3">
+                    <img src="../images/degree.png" class="icon" onclick="selectIcon('degree')" alt="icon3">
+                    <img src="../images/donate.png" class="icon" onclick="selectIcon('donate')" alt="icon3">
+                    <img src="../images/education.png" class="icon" onclick="selectIcon('education')" alt="icon3">
+                    <img src="../images/examination.png" class="icon" onclick="selectIcon('examination')" alt="icon3">
+                    <img src="../images/health_insurance.png" class="icon" onclick="selectIcon('health_insurance')" alt="icon3">
+                    <img src="../images/key.png" class="icon" onclick="selectIcon('key')" alt="icon3">
+                    <img src="../images/living_room.png" class="icon" onclick="selectIcon('living_room')" alt="icon3">
+                    <img src="../images/old_person.png" class="icon" onclick="selectIcon('old_person')" alt="icon3">
+                    <img src="../images/small_appliance.png" class="icon" onclick="selectIcon('small_appliance')" alt="icon3">
+                    <img src="../images/bill.png" class="icon" onclick="selectIcon('bill')" alt="icon3">
+                    <img src="../images/personal_belongings.png" class="icon" onclick="selectIcon('personal_belongings')" alt="icon3">
+                    <img src="../images/debt.png" class="icon" onclick="selectIcon('debt')" alt="icon3">
+                    <img src="../images/maintenance.png" class="icon" onclick="selectIcon('maintenance')" alt="icon3">
+                    <img src="../images/products.png" class="icon" onclick="selectIcon('products')" alt="icon3">
+                    <!-- Thêm các icon khác tương tự -->
+                </div>
+        
+                <br>
                 <button class="submit-button" onclick="submitCategory()">Thêm</button>
                 <button class="close-button" onclick="closeModal()">Hủy</button>
             </div>
@@ -92,7 +130,7 @@
                 <% categoryList.forEach(function(category) { %>
                     <li class="category-item">
                         <div class="category-info">
-                            <img src="<%= category.anhHangMuc %>" alt="<%= category.tenHangMuc %>" class="category-image">
+                            <img src="../images/<%= category.anhHangMuc %>.png" alt="<%= category.tenHangMuc %>" class="category-image">
                             <p><%= category.tenHangMuc %></p>
                         </div>
                         <div class="category-icon">

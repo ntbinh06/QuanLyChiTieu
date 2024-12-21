@@ -357,7 +357,28 @@ header {
   color: darkgray;
 }
 
+.icon-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr); /* Hiển thị 4 cột */
+  margin-top: 10px;
+  gap: 10px;
+  margin-left: 20px;
+}
 
+
+.icon {
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  transition: 0.3s;
+  margin-top: 10px;
+}
+
+.icon:hover {
+  border: 2px solid #007BFF;
+}
 
 
 

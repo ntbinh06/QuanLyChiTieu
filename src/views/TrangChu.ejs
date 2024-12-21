@@ -87,11 +87,11 @@
             <!-- Hiển thị danh sách hạng mục -->
             <!-- Phần Tổng số lượng hạng mục -->
             <div class="total-count-section">
-                <h2>Tổng số lượng hạng mục: <%= totalCategories %></h2>
+                <h2>Tổng số lượng hạng mục: <%= categoryWithoutUserIdCount %></h2>
                 <ul>
                     <% categoryList.forEach(category => { %>
                         <li>
-                            <img src="<%= category.anhHangMuc %>" alt="Hạng mục">
+                            <img src="../images/<%= category.anhHangMuc %>.png" alt="Hạng mục"width="50" height="50">
                             <span><%= category.tenHangMuc %></span>
                         </li>
                     <% }) %>
